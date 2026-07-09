@@ -217,3 +217,9 @@ img{-webkit-user-drag:none;}
   text-transform:uppercase; color:var(--gold); opacity:.85; margin-top:12px; text-align:center; line-height:1.5;}
 .mc-cardline{display:block; font-family:var(--display); font-weight:700; font-size:18px; letter-spacing:.02em; margin-bottom:6px; color:var(--ivory);}
 .mc-entrycards{font-size:14px; letter-spacing:.04em; opacity:.7; margin-bottom:10px;}
+
+
+/* ===== card lore layout ===== */
+.mc-cardenergy{font-style:italic; font-size:19px; opacity:.8; margin:-6px 0 22px;}
+.mc-2col{display:grid; grid-template-columns:1fr; gap:0 26px;}
+@media (min-width:560px){ .mc-2col{grid-template-columns:1fr 1fr;} }

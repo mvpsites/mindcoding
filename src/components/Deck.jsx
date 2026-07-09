@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { CARDS } from "../data/cards.js";
+import { LORE } from "../data/lore.js";
 import CardFace from "./CardFace.jsx";
 import CardBack from "./CardBack.jsx";
 import Field from "./Field.jsx";
@@ -52,18 +53,30 @@ export default function Deck() {
                 {open.suit.toUpperCase()} · {open.numeral}
               </div>
               <h3 className="mc-h3">{open.name}</h3>
+              <p className="mc-cardenergy">{open.energy}</p>
+              {LORE[open.id] && (
+                <Field label="THE CARD" on>{LORE[open.id].symbolism}</Field>
+              )}
               <Field label="UPRIGHT" on>{open.upright}</Field>
               <Field label="REVERSED" on>{open.reversed}</Field>
-              <Field label="LOVE" on>{open.love}</Field>
-              <Field label="CAREER" on>{open.career}</Field>
-              <Field label="MONEY" on>{open.money}</Field>
-              <Field label="SPIRITUAL" on>{open.spiritual}</Field>
+              {LORE[open.id] && (
+                <Field label="THE PATTERN" on>{LORE[open.id].pattern}</Field>
+              )}
+              <div className="mc-2col">
+                <Field label="LOVE" on>{open.love}</Field>
+                <Field label="CAREER" on>{open.career}</Field>
+                <Field label="MONEY" on>{open.money}</Field>
+                <Field label="SPIRITUAL" on>{open.spiritual}</Field>
+              </div>
               <Field label="LACK PATTERN" tone="mc-lack" on>
                 &ldquo;{open.lack}&rdquo;
               </Field>
               <Field label="ABUNDANCE RECODE" tone="mc-abun" on>
                 &ldquo;{open.recode}&rdquo;
               </Field>
+              {LORE[open.id] && (
+                <Field label="LIVING THE RECODE" tone="mc-abun" on>{LORE[open.id].recodePath}</Field>
+              )}
               <Field label="AFFIRMATION" on>{open.affirmation}</Field>
               <Field label="JOURNAL PROMPT" on>{open.journal}</Field>
               <Field label="ALIGNED ACTION" tone="mc-abun" on>
