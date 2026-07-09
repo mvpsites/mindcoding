@@ -5,8 +5,8 @@ export default function CardBack() {
     <svg viewBox="0 0 220 376" className="mc-facesvg" aria-hidden="true">
       <defs>
         <radialGradient id="backbg" cx="50%" cy="42%" r="85%">
-          <stop offset="0%" stopColor="#0F1734" />
-          <stop offset="100%" stopColor="#060A14" />
+          <stop offset="0%" stopColor="#152355" />
+          <stop offset="100%" stopColor="#080D22" />
         </radialGradient>
       </defs>
       <rect x="0" y="0" width="220" height="376" rx="12" fill="url(#backbg)" />

@@ -7,8 +7,8 @@ export default function CardFace({ card, small }) {
     <svg viewBox="0 0 220 376" className="mc-facesvg" role="img" aria-label={card.name}>
       <defs>
         <radialGradient id={gid} cx="50%" cy="38%" r="80%">
-          <stop offset="0%" stopColor="#101731" />
-          <stop offset="100%" stopColor="#070B16" />
+          <stop offset="0%" stopColor="#121D42" />
+          <stop offset="100%" stopColor="#090F28" />
         </radialGradient>
       </defs>
       <rect x="0" y="0" width="220" height="376" rx="12" fill={`url(#${gid})`} />
