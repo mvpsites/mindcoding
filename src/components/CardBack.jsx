@@ -9,8 +9,9 @@ export default function CardBack() {
           <stop offset="100%" stopColor="#080D22" />
         </radialGradient>
       </defs>
-      <rect x="0" y="0" width="220" height="376" rx="12" fill="url(#backbg)" />
-      <rect x="7" y="7" width="206" height="362" rx="9" fill="none" stroke="var(--gold)" strokeWidth="1.4" />
+      <rect x="0" y="0" width="220" height="376" rx="12" fill="var(--ivory)" />
+      <rect x="4.5" y="4.5" width="211" height="367" rx="9" fill="url(#backbg)" />
+      <rect x="10" y="10" width="200" height="356" rx="8" fill="none" stroke="var(--gold)" strokeWidth="1.4" />
       <rect x="13" y="13" width="194" height="350" rx="7" fill="none" stroke="var(--gold)" strokeWidth="0.6" opacity="0.5" strokeDasharray="3 4" />
       {[
         [40, 48],

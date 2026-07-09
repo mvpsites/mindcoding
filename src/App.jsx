@@ -39,7 +39,11 @@ export default function App() {
       <Ambient />
       <nav className="mc-nav">
         <button className="mc-word" onClick={() => setView("home")}>
-          MINDCOD.ING
+          <span className="mc-glyph">✳</span>
+          <span>
+            <span className="mc-wordtitle">MINDCOD.ING</span>
+            <span className="mc-wordsub" style={{ display: "block" }}>EST. MMXXVI · RECODING ARCANA</span>
+          </span>
         </button>
         <div className="mc-links">
           {NAV.map(([k, label]) => (

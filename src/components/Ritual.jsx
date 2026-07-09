@@ -115,7 +115,8 @@ export default function Ritual({ onSave }) {
 
       {stage === "idle" && (
         <button className="mc-cta" onClick={shuffle}>
-          Shuffle the deck
+          <b>Shuffle</b>
+          <small>Still the mind</small>
         </button>
       )}
       {stage === "fan" && chosen == null && <div className="mc-hint">Trust the first card that calls you.</div>}
@@ -193,10 +194,12 @@ export default function Ritual({ onSave }) {
 
           <div className={`mc-actions mc-field ${revealed ? "mc-on" : ""}`} style={{ transitionDelay: "740ms" }}>
             <button className="mc-cta" onClick={save} disabled={savedThis}>
-              {savedThis ? "Saved to your archive" : "Save this reading"}
+              <b>{savedThis ? "Saved" : "Save"}</b>
+              <small>{savedThis ? "In your archive" : "To your archive"}</small>
             </button>
             <button className="mc-ghost" onClick={again}>
-              Return to the deck
+              <b>Return</b>
+              <small>To the deck</small>
             </button>
           </div>
         </div>

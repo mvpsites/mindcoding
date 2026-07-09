@@ -71,7 +71,8 @@ export default function Deck() {
                 {open.action}
               </Field>
               <button className="mc-ghost" onClick={() => setOpen(null)}>
-                Close
+                <b>Close</b>
+                <small>Back to the deck</small>
               </button>
             </div>
           </div>

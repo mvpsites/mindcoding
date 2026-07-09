@@ -11,8 +11,9 @@ export default function CardFace({ card, small }) {
           <stop offset="100%" stopColor="#090F28" />
         </radialGradient>
       </defs>
-      <rect x="0" y="0" width="220" height="376" rx="12" fill={`url(#${gid})`} />
-      <rect x="7" y="7" width="206" height="362" rx="9" fill="none" stroke="var(--gold)" strokeWidth="1.6" />
+      <rect x="0" y="0" width="220" height="376" rx="12" fill="var(--ivory)" />
+      <rect x="4.5" y="4.5" width="211" height="367" rx="9" fill={`url(#${gid})`} />
+      <rect x="10" y="10" width="200" height="356" rx="8" fill="none" stroke="var(--gold)" strokeWidth="1.6" />
       <rect x="14" y="14" width="192" height="348" rx="6" fill="none" stroke="var(--gold)" strokeWidth="0.7" opacity="0.55" />
       <rect x="18" y="18" width="184" height="340" rx="5" fill="none" stroke="var(--gold)" strokeWidth="0.6" opacity="0.3" strokeDasharray="2 4" />
       {[

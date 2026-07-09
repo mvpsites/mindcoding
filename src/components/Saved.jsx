@@ -6,7 +6,8 @@ export default function Saved({ saved, onRemove, go }) {
         <h2 className="mc-h2">Nothing saved yet</h2>
         <p className="mc-sub">Your archive holds every reading you choose to keep. Pull today's card to begin.</p>
         <button className="mc-cta" onClick={() => go("ritual")}>
-          Begin today's ritual
+          <b>Begin</b>
+          <small>Pull today's card</small>
         </button>
       </section>
     );

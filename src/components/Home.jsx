@@ -17,18 +17,20 @@ export default function Home({ go }) {
         <h1 className="mc-h1">
           Recode your mind.
           <br />
-          Rewrite your reality.
+          Rewrite your <span className="mc-foil">reality.</span>
         </h1>
         <p className="mc-sub">
           Tarot reveals the pattern. MindCod.ing helps you recode it — from lack, fear, and doubt into abundance,
-          clarity, and aligned action.
+          clarity, and aligned action. <em>Pull the card. Read the pattern. Recode the belief.</em>
         </p>
         <div className="mc-herobtns">
           <button className="mc-cta" onClick={() => go("ritual")}>
-            Begin today's ritual
+            <b>Begin</b>
+            <small>Pull today's card</small>
           </button>
           <button className="mc-ghost" onClick={() => go("deck")}>
-            Explore the deck
+            <b>The Deck</b>
+            <small>All 78 arcana</small>
           </button>
         </div>
         <div className="mc-herofan" aria-hidden="true">
