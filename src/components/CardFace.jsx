@@ -3,6 +3,46 @@ import Emblem from "./Emblem.jsx";
 
 export default function CardFace({ card, small }) {
   const gid = `bg-${card.id}${small ? "-s" : ""}`;
+  if (card.art) {
+    const cid = `clip-${card.id}${small ? "-s" : ""}`;
+    const longName = card.name.length > 15;
+    return (
+      <svg viewBox="0 0 220 330" className="mc-facesvg" role="img" aria-label={card.name}>
+        <defs>
+          <clipPath id={cid}>
+            <rect x="8" y="8" width="204" height="255" rx="6" />
+          </clipPath>
+        </defs>
+        <rect x="0" y="0" width="220" height="330" rx="12" fill="var(--ivory)" />
+        <rect x="4.5" y="4.5" width="211" height="321" rx="9" fill="#0A0E23" />
+        <image
+          href={import.meta.env.BASE_URL + card.art}
+          x="8" y="8" width="204" height="255"
+          preserveAspectRatio="xMidYMid slice"
+          clipPath={`url(#${cid})`}
+        />
+        <g stroke="var(--gold)" strokeWidth="0.8" opacity="0.9">
+          <line x1="46" y1="279" x2="102" y2="279" />
+          <line x1="118" y1="279" x2="174" y2="279" />
+          <polygon points={starPts(110, 279, 4, 1.6, 4)} fill="var(--gold)" stroke="none" />
+        </g>
+        <text x="110" y={longName ? "299" : "300"} textAnchor="middle" fill="var(--ivory)"
+          fontFamily="Cinzel, serif" fontSize={longName ? "10.5" : "12.5"} letterSpacing={longName ? "1.8" : "3"}>
+          {card.name.toUpperCase()}
+        </text>
+        {card.suit === "Major Arcana" ? (
+          <text x="110" y="315" textAnchor="middle" fill="var(--gold)" fontFamily="Cinzel, serif" fontSize="8.5" letterSpacing="5">
+            {card.numeral}
+          </text>
+        ) : (
+          <g transform="translate(110, 312)" opacity="0.85">
+            <polygon points={starPts(0, 0, 3.2, 1.3, 4)} fill="none" stroke="var(--gold)" strokeWidth="0.7" />
+            <circle cx="0" cy="0" r="0.8" fill="var(--gold)" />
+          </g>
+        )}
+      </svg>
+    );
+  }
   return (
     <svg viewBox="0 0 220 330" className="mc-facesvg" role="img" aria-label={card.name}>
       <defs>
@@ -35,20 +75,9 @@ export default function CardFace({ card, small }) {
         <line x1="122" y1="276" x2="168" y2="276" />
         <polygon points={starPts(110, 276, 4, 1.6, 4)} fill="var(--gold)" stroke="none" />
       </g>
-      {card.art ? (
-        <image
-          href={import.meta.env.BASE_URL + card.art}
-          x="20"
-          y="66"
-          width="180"
-          height="206"
-          preserveAspectRatio="xMidYMid slice"
-        />
-      ) : (
-        <g transform="translate(10, 70)">
-          <Emblem id={card.id} />
-        </g>
-      )}
+      <g transform="translate(10, 70)">
+        <Emblem id={card.id} />
+      </g>
       <text x="110" y="296" textAnchor="middle" fill="var(--ivory)" fontFamily="Cinzel, serif" fontSize="12.5" letterSpacing="3">
         {card.name.toUpperCase()}
       </text>

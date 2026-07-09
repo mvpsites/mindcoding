@@ -51,6 +51,29 @@ export const CARDS = [
     action: "Use one skill you already possess, in service of one goal, before the day ends.",
   },
   {
+    id: "hierophant",
+    name: "The Hierophant",
+    numeral: "V",
+    suit: "Major Arcana",
+    art: "art/hierophant.webp",
+    energy: "Wisdom is offered — discernment is yours.",
+    upright:
+      "Tradition, spiritual guidance, learning from a teacher or a proven system, shared values, belonging.",
+    reversed:
+      "Questioning tradition, restriction by convention, breaking from dogma, finding your own path.",
+    love: "Shared values and commitment. Common ground — or pressure to conform to someone else's script.",
+    career: "Institutions, mentors, established paths. Learn the rules deeply before you rewrite them.",
+    money: "Proven systems over shortcuts. Conventional wisdom is conventional because it worked.",
+    spiritual: "The bridge between heaven and earth. Wisdom carried through lineage.",
+    reveals:
+      "This card reveals where you are seeking permission from an authority you may have outgrown — or refusing guidance that could genuinely help. The question is not follow or rebel, but which teachings are truly yours.",
+    lack: "I need someone qualified to approve my path before I can walk it.",
+    recode: "I can honor wisdom and still author my own life. Teachers guide — they do not own my becoming.",
+    affirmation: "I am both student and authority of my life.",
+    journal: "Whose approval am I still waiting for — and what would I do if it never came?",
+    action: "Take one step today on a decision you've been outsourcing to someone else's authority.",
+  },
+  {
     id: "star",
     name: "The Star",
     numeral: "XVII",
