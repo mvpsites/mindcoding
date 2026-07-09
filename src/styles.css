@@ -97,12 +97,14 @@ button{font:inherit;}
 
 .mc-flipwrap{margin:40px auto 10px;}
 .mc-flip{width:clamp(200px,54vw,250px); margin:0 auto; perspective:1400px; cursor:pointer; outline-offset:6px;}
-.mc-flipinner{position:relative; width:100%; aspect-ratio:220/376; transform-style:preserve-3d;
+.mc-flipinner{position:relative; width:100%; aspect-ratio:2/3; transform-style:preserve-3d;
   transition:transform .95s cubic-bezier(.25,.7,.2,1); filter:drop-shadow(0 22px 44px rgba(0,0,0,.6));}
 .mc-flipped .mc-flipinner{transform:rotateY(180deg); filter:drop-shadow(0 22px 44px rgba(0,0,0,.6)) drop-shadow(0 0 34px rgba(210,169,78,.22));}
 .mc-face{position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden;}
 .mc-backface{transform:rotateY(180deg);}
 .mc-facesvg{display:block; width:100%; height:auto;}
+.mc-backimg{display:block; width:100%; aspect-ratio:2/3; object-fit:cover; border-radius:5.5%;
+  user-select:none; -webkit-user-drag:none;}
 .mc-rev{transform:rotate(180deg);}
 .mc-revtag{margin-top:18px; font-size:11px; letter-spacing:.34em; color:var(--gold); opacity:.85;}
 
