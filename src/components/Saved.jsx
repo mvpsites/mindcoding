@@ -26,6 +26,13 @@ export default function Saved({ saved, onRemove, go }) {
               {r.name}
               {r.reversed ? " — Reversed" : ""}
             </div>
+            {r.cards && (
+              <div className="mc-entrycards">
+                {r.cards.map((c, i) => (
+                  <span key={i}>{c.name}{c.reversed ? " (rev)" : ""}{i < r.cards.length - 1 ? " · " : ""}</span>
+                ))}
+              </div>
+            )}
             <div className="mc-entryaff">&ldquo;{r.affirmation}&rdquo;</div>
             <div className="mc-entryaction">
               <span className="mc-label">ALIGNED ACTION</span> {r.action}

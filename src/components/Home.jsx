@@ -28,9 +28,9 @@ export default function Home({ go }) {
             <b>Begin</b>
             <small>Pull today's card</small>
           </button>
-          <button className="mc-ghost" onClick={() => go("deck")}>
-            <b>The Deck</b>
-            <small>All 78 arcana</small>
+          <button className="mc-ghost" onClick={() => go("readings")}>
+            <b>Readings</b>
+            <small>Three-card spreads</small>
           </button>
         </div>
         <div className="mc-herofan" aria-hidden="true">

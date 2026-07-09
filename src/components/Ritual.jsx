@@ -1,5 +1,6 @@
 import { useState, useRef, useMemo, useEffect } from "react";
 import { CARDS } from "../data/cards.js";
+import { loadDaily, persistDaily, todayKey } from "../lib/storage.js";
 import CardBack from "./CardBack.jsx";
 import CardFace from "./CardFace.jsx";
 import Field from "./Field.jsx";
@@ -16,16 +17,18 @@ function fisherYates(arr) {
 }
 
 export default function Ritual({ onSave }) {
+  const daily = useMemo(loadDaily, []); // today's locked pull, if any
+  const dCard = daily ? CARDS.find((c) => c.id === daily.cardId) || null : null;
   const [mode, setMode] = useState("stack"); // stack | fan
   const [order, setOrder] = useState(() => Array.from({ length: N }, (_, i) => i));
   const [chosen, setChosen] = useState(null); // card id that was drawn
-  const [drawn, setDrawn] = useState(false); // flip stage active
-  const [card, setCard] = useState(null);
-  const [reversed, setReversed] = useState(false);
-  const [flipped, setFlipped] = useState(false);
-  const [revealed, setRevealed] = useState(false);
-  const [note, setNote] = useState("");
-  const [savedThis, setSavedThis] = useState(false);
+  const [drawn, setDrawn] = useState(!!dCard); // flip stage active
+  const [card, setCard] = useState(dCard);
+  const [reversed, setReversed] = useState(daily ? daily.reversed : false);
+  const [flipped, setFlipped] = useState(!!dCard);
+  const [revealed, setRevealed] = useState(!!dCard);
+  const [note, setNote] = useState(daily?.note || "");
+  const [savedThis, setSavedThis] = useState(!!daily?.saved);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const stageRef = useRef(null);
   const revealRef = useRef(null);
@@ -89,8 +92,11 @@ export default function Ritual({ onSave }) {
   const draw = (id) => {
     if (mode !== "fan" || chosen != null) return;
     setChosen(id);
-    setCard(CARDS[Math.floor(Math.random() * CARDS.length)]);
-    setReversed(Math.random() < 0.3);
+    const pick = CARDS[Math.floor(Math.random() * CARDS.length)];
+    const rev = Math.random() < 0.3;
+    setCard(pick);
+    setReversed(rev);
+    persistDaily({ date: todayKey(), cardId: pick.id, reversed: rev, note: "", saved: false });
     setTimeout(() => setDrawn(true), 720);
   };
 
@@ -103,21 +109,10 @@ export default function Ritual({ onSave }) {
     }, 750);
   };
 
-  const again = () => {
-    setMode("stack");
-    setOrder(Array.from({ length: N }, (_, i) => i));
-    setChosen(null);
-    setDrawn(false);
-    setCard(null);
-    setFlipped(false);
-    setRevealed(false);
-    setNote("");
-    setSavedThis(false);
-  };
-
   const save = () => {
     onSave({
       id: Date.now(),
+      kind: "daily",
       date: new Date().toISOString(),
       cardId: card.id,
       name: card.name,
@@ -126,6 +121,7 @@ export default function Ritual({ onSave }) {
       action: card.action,
       note: note.trim(),
     });
+    persistDaily({ date: todayKey(), cardId: card.id, reversed, note: note.trim(), saved: true });
     setSavedThis(true);
   };
 
@@ -275,10 +271,7 @@ export default function Ritual({ onSave }) {
               <b>{savedThis ? "Saved" : "Save"}</b>
               <small>{savedThis ? "In your archive" : "To your archive"}</small>
             </button>
-            <button className="mc-ghost" onClick={again}>
-              <b>Return</b>
-              <small>To the deck</small>
-            </button>
+            <div className="mc-hint" style={{ alignSelf: "center" }}>A new card awaits tomorrow.</div>
           </div>
         </div>
       )}
