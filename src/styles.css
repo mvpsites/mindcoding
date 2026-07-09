@@ -81,22 +81,18 @@ button{font:inherit;}
 
 /* RITUAL */
 .mc-ritual{text-align:center; padding-top:clamp(12px,3vw,30px);}
-.mc-deckarea{position:relative; height:clamp(300px,46vw,380px); margin:34px auto 8px; max-width:640px;}
+.mc-deckarea{position:relative; height:clamp(300px,46vw,380px); margin:34px auto 8px; max-width:680px; perspective:1200px;}
 .mc-deckglow{position:absolute; left:50%; bottom:8%; width:340px; height:340px; transform:translateX(-50%);
   background:radial-gradient(circle, rgba(210,169,78,.14), transparent 62%); pointer-events:none; animation:mcBreathe 4s ease-in-out infinite;}
 @keyframes mcBreathe{0%,100%{opacity:.6; transform:translateX(-50%) scale(1)} 50%{opacity:1; transform:translateX(-50%) scale(1.07)}}
-.mc-slot{position:absolute; left:50%; bottom:0; width:clamp(118px,17vw,150px); margin-left:clamp(-75px,-8.5vw,-59px);
-  transform-origin:50% 132%; transition:transform .75s cubic-bezier(.2,.75,.25,1), opacity .5s ease;}
-.mc-fancard{display:block; width:100%; background:none; border:none; padding:0; cursor:pointer;
-  filter:drop-shadow(0 12px 26px rgba(0,0,0,.55)); transition:transform .3s ease, filter .3s ease;}
-.mc-fancard:enabled:hover{transform:translateY(-16px); filter:drop-shadow(0 18px 34px rgba(0,0,0,.6)) drop-shadow(0 0 18px rgba(210,169,78,.25));}
-.mc-fancard:disabled{cursor:default;}
-.mc-shuf{animation:mcShuffle 1.5s cubic-bezier(.45,.05,.35,1) both;}
-@keyframes mcShuffle{
-  0%{transform:translate(0,0) rotate(0)} 18%{transform:translate(-52px,-14px) rotate(-9deg)}
-  38%{transform:translate(46px,-6px) rotate(7deg)} 58%{transform:translate(-30px,-18px) rotate(-5deg)}
-  78%{transform:translate(22px,-4px) rotate(3deg)} 100%{transform:translate(0,0) rotate(0)}
-}
+.mc-stage3d{position:absolute; inset:0; transform-style:preserve-3d; transition:transform .5s ease;}
+.mc-card3d{position:absolute; left:50%; bottom:6px; width:clamp(112px,16vw,146px);
+  background:none; border:none; padding:0; cursor:pointer; transform-origin:50% 118%;
+  transition:transform .72s cubic-bezier(.25,.75,.25,1), opacity .5s ease;
+  filter:drop-shadow(0 12px 26px rgba(0,0,0,.55));}
+.mc-card3d:enabled:hover{filter:drop-shadow(0 18px 34px rgba(0,0,0,.6)) drop-shadow(0 0 18px rgba(210,169,78,.28)); translate:0 -14px;}
+.mc-card3d:disabled{cursor:default;}
+.mc-deckcontrols{display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:8px;}
 .mc-hint{font-family:var(--serif); font-weight:500; font-size:14px; letter-spacing:.3em; text-transform:uppercase; opacity:.5; margin-top:20px;}
 
 .mc-flipwrap{margin:40px auto 10px;}
