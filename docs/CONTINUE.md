@@ -20,7 +20,7 @@
 - `src/data/lore.js`: long-form per card — `symbolism` (The Card), `pattern` (The Pattern), `recodePath` (Living the Recode), ~240 words/card, second person, warm-direct voice, no fluff.
 
 ## Remaining work (in order)
-1. **56 Minor Arcana**: generate suit-by-suit (Pentacles → Cups → Swords → Wands), canonical RWS scenes, ~2 credits each. Write cards.js content + lore.js for each. Five of Pentacles content already exists (needs art).
+1. **42 remaining Minor Arcana**: generate suit-by-suit (Cups → Swords → Wands), canonical RWS scenes, ~2 credits each. Write cards.js content + lore.js for each. ✅ PENTACLES DONE (2026-07-09): all 14 cards (Ace–King) have art (art/<id>pent.webp via Art Courier), 13-field cards.js content, and lore.js entries. Card ids: acepent, twopent … tenpent, pagepent, knightpent, queenpent, kingpent. Court cards use numeral: "" (minors with art don't render the numeral plate). NOTE: the Art Courier pushes with GITHUB_TOKEN, which does NOT trigger the deploy workflow — after the courier commits art, push any real commit (or dispatch deploy.yml) to get the art live.
 2. **Mechanics/UX session**: user was unhappy with current mechanics implementation (bottom-nav/native layer shipped but flagged for rework — "we need to figure out the mechanics" together). Do NOT assume current UX is approved.
 3. Belief Recode tool (selection-based, static — designed, not built), Philosophy page, more spreads, per-card SEO URLs (big GEO opportunity).
 
