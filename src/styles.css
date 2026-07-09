@@ -53,15 +53,15 @@ button{font:inherit;}
 .mc-sub{max-width:600px; font-size:20px; line-height:1.7; opacity:.85; margin:0 0 30px;}
 .mc-sub em{font-style:italic; opacity:.95;}
 
-.mc-cta{font-family:var(--sans); letter-spacing:.22em; text-transform:uppercase; font-size:13px;
-  color:var(--midnight2); background:linear-gradient(120deg,#b8963a, var(--gold) 45%, #f0d98a 55%, var(--gold) 70%);
-  background-size:220% 100%; border:none; padding:15px 34px; cursor:pointer; border-radius:2px;
-  transition:background-position .8s ease, transform .25s ease, box-shadow .25s ease;}
-.mc-cta:hover{background-position:100% 0; transform:translateY(-1px); box-shadow:0 6px 30px rgba(210,169,78,.28);}
-.mc-cta:disabled{opacity:.6; cursor:default; transform:none;}
-.mc-ghost{font-family:var(--sans); letter-spacing:.22em; text-transform:uppercase; font-size:13px; color:var(--gold);
-  background:transparent; border:1px solid var(--gold-dim); padding:14px 30px; cursor:pointer; border-radius:2px; transition:.3s;}
-.mc-ghost:hover{border-color:var(--gold); background:rgba(210,169,78,.07);}
+.mc-cta,.mc-ghost{background:transparent; border:1px solid var(--gold-dim); border-radius:2px; cursor:pointer;
+  padding:15px 34px 13px; transition:border-color .3s ease, background .3s ease, transform .25s ease;
+  display:inline-flex; flex-direction:column; align-items:center; gap:6px;}
+.mc-cta b,.mc-ghost b{font-family:var(--serif); font-weight:600; font-size:15px; letter-spacing:.3em; text-transform:uppercase; color:var(--gold-bright); line-height:1;}
+.mc-cta small,.mc-ghost small{font-family:var(--serif); font-weight:500; font-size:10.5px; letter-spacing:.32em; text-transform:uppercase; color:var(--ivory); opacity:.5; line-height:1;}
+.mc-ghost b{color:var(--gold); opacity:.92;}
+.mc-cta{border-color:var(--gold);}
+.mc-cta:hover,.mc-ghost:hover{border-color:var(--gold-bright); background:rgba(195,163,88,.07); transform:translateY(-1px);}
+.mc-cta:disabled{opacity:.55; cursor:default; transform:none;}
 
 /* HOME */
 .mc-hero{text-align:center; padding-top:clamp(20px,5vw,54px);}
