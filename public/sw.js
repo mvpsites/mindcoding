@@ -1,5 +1,5 @@
 /* MindCod.ing service worker: network-first shell, cache-first assets */
-const CACHE = "mindcoding-v1";
+const CACHE = "mindcoding-v2";
 self.addEventListener("install", () => self.skipWaiting());
 self.addEventListener("activate", (e) => {
   e.waitUntil(
@@ -15,8 +15,10 @@ self.addEventListener("fetch", (e) => {
     e.respondWith(
       fetch(e.request)
         .then((r) => {
-          const copy = r.clone();
-          caches.open(CACHE).then((c) => c.put("__shell__", copy));
+          if (r.ok) {
+            const copy = r.clone();
+            caches.open(CACHE).then((c) => c.put("__shell__", copy));
+          }
           return r;
         })
         .catch(() => caches.match("__shell__"))
@@ -29,8 +31,10 @@ self.addEventListener("fetch", (e) => {
         (hit) =>
           hit ||
           fetch(e.request).then((r) => {
-            const copy = r.clone();
-            caches.open(CACHE).then((c) => c.put(e.request, copy));
+            if (r.ok) {
+              const copy = r.clone();
+              caches.open(CACHE).then((c) => c.put(e.request, copy));
+            }
             return r;
           })
       )
