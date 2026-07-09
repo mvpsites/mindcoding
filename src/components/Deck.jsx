@@ -16,8 +16,7 @@ export default function Deck() {
       <div className="mc-eyebrow">THE DECK</div>
       <h2 className="mc-h2">Seventy-eight arcana, engraved anew</h2>
       <p className="mc-sub">
-        The authentic tarot system — original artwork. Five cards have entered the atelier; the rest are being
-        engraved.
+        The authentic tarot system — original artwork. The Major Arcana is complete; the four suits are being engraved.
       </p>
       <div className="mc-chips">
         {SUITS.map((s) => (
