@@ -21,19 +21,19 @@ function HeroMedia() {
     window.addEventListener("pointerdown", wake, { once: true, passive: true });
     return () => { window.removeEventListener("touchstart", wake); window.removeEventListener("pointerdown", wake); };
   }, [useVideo]);
-  if (!useVideo) return <img className="mc-heroimg" src={ART("scene-hero.webp")} alt="" />;
+  if (!useVideo) return <img className="mc-heroimg" src={ART("signal-hero.webp")} alt="" />;
   return (
     <video
       ref={vid}
       className="mc-heroimg mc-herovideo"
-      poster={ART("scene-hero.webp")}
+      poster={ART("signal-hero.webp")}
       autoPlay muted loop playsInline
       preload="auto"
       onError={() => setUseVideo(false)}
       aria-hidden="true"
     >
-      <source src={ART("vid-hero.webm")} type="video/webm" />
-      <source src={ART("vid-hero.mp4")} type="video/mp4" />
+      <source src={ART("vid-signal.webm")} type="video/webm" />
+      <source src={ART("vid-signal.mp4")} type="video/mp4" />
     </video>
   );
 }
@@ -76,7 +76,7 @@ export default function Discover({ go, openItem, openCollection }) {
           <HeroMedia />
         </div>
         <div className="mc-heroscrim" aria-hidden="true" />
-        <div className="mc-eyebrow mc-heroeyebrow">MIND CODING · EVERY HERO'S JOURNEY BEGINS HERE</div>
+        <div className="mc-eyebrow mc-heroeyebrow">MIND CODING // SYSTEM ACTIVE</div>
         <h1 className="mc-h1">
           <MaskLines
             lines={[
@@ -86,11 +86,11 @@ export default function Discover({ go, openItem, openCollection }) {
           />
         </h1>
         <p className="mc-herosub mc-herolate" style={{ "--d": "640ms" }}>
-          Music, visualization, and symbolic guidance for the life you are becoming.
+          Your identity runs on inputs. Music, visualization, and structured repetition — written directly to the system underneath.
         </p>
         <div className="mc-herocta mc-herolate" style={{ "--d": "820ms" }}>
-          <button ref={magA} className="mc-ctav" onClick={() => go("decode")}><b>Enter Decode</b><small>See the patterns</small></button>
-          <button ref={magB} className="mc-cta" onClick={() => go("recode")}><b>Enter Recode</b><small>Choose what goes in</small></button>
+          <button ref={magA} className="mc-ctav" onClick={() => go("decode")}><b>Run Decode</b><small>SEE THE SCRIPTS</small></button>
+          <button ref={magB} className="mc-cta" onClick={() => go("recode")}><b>Open Recode</b><small>WRITE NEW INPUTS</small></button>
         </div>
         <div className="mc-scrollcue mc-herolate" style={{ "--d": "1400ms" }} aria-hidden="true"><span /></div>
       </div>
@@ -102,11 +102,11 @@ export default function Discover({ go, openItem, openCollection }) {
 
       {/* ── ACT I — THE CALL ── */}
       <Act
-        numeral="I"
+        numeral="PHASE 01"
         kicker="THE CALL"
         title="You've already heard it."
         copy="The restlessness. The sense that the life running on autopilot isn't the one you'd choose. Most people walk past the light. The journey begins the moment you turn toward it — and see the programming for what it is."
-        img="scene-call.webp"
+        img="signal-call.webp"
         cta="See the programming"
         sub="Enter Decode"
         onCta={() => go("decode")}
@@ -114,11 +114,11 @@ export default function Discover({ go, openItem, openCollection }) {
 
       {/* ── ACT II — THE TRIALS ── */}
       <Act
-        numeral="II"
+        numeral="PHASE 02"
         kicker="THE TRIALS"
         title="Choose your arena."
         copy="Every hero faces trials — theirs are dragons, yours are patterns. Health. Confidence. Love. Abundance. Spiritual mastery. Pick the door where your real work is waiting."
-        img="scene-confidence.webp"
+        img="signal-trials.webp"
         flip
       >
         <Reveal delay={380} className="mc-chips">
@@ -135,11 +135,11 @@ export default function Discover({ go, openItem, openCollection }) {
 
       {/* ── ACT III — THE ORACLE ── */}
       <Act
-        numeral="III"
+        numeral="PHASE 03"
         kicker="THE ORACLE"
         title="Consult the cards."
         copy="Seventy-eight original works, painted for this deck alone. Draw one card for a clear signal, three for the pattern, or five to walk the full journey — from where you stand to who you are becoming."
-        img="scene-oracle.webp"
+        img="signal-oracle.webp"
         cta="Draw your cards"
         sub="One · Three · Five"
         onCta={() => go("reflect")}
@@ -147,11 +147,11 @@ export default function Discover({ go, openItem, openCollection }) {
 
       {/* ── ACT IV — THE BECOMING ── */}
       <Act
-        numeral="IV"
+        numeral="PHASE 04"
         kicker="THE BECOMING"
         title="Repetition is the transformation."
         copy="Heroes aren't changed by one moment — they're changed by what they return to daily. Programs sequence music and narration day by day, so the new belief doesn't just visit. It moves in."
-        img="scene-becoming.webp"
+        img="signal-becoming.webp"
         flip
         cta="Begin a program"
         sub="30 Days of Becoming"
@@ -166,11 +166,11 @@ export default function Discover({ go, openItem, openCollection }) {
 
       {/* ── ACT V — THE RETURN ── */}
       <Act
-        numeral="V"
+        numeral="PHASE 05"
         kicker="THE RETURN"
         title="Carry it back into your life."
         copy="The journey ends where it began — the ordinary world — except you're not the same. Every song, narration, and visualization releases free on YouTube, so the work travels with you."
-        img="scene-return.webp"
+        img="signal-return.webp"
       >
         <Reveal delay={380} className="mc-rail mc-actrail">
           {LIBRARY.filter((x) => x.type !== "decode").slice(0, 6).map((x) => (
