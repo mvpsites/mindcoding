@@ -594,3 +594,9 @@ img{-webkit-user-drag:none;}
 @media (prefers-reduced-motion: no-preference) and (hover:hover) and (pointer:fine){
   .mc-herovideo{animation:mcCineIn 2.4s ease .15s forwards;} /* real motion inside; no Ken Burns on video */
 }
+
+/* hero video: the scene, alive. Poster image sits beneath; video fades over it. */
+.mc-herovideo{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 38%;
+  opacity:0; transition:opacity 1.6s ease;}
+.mc-herovideo.mc-videolive{opacity:.94;}
+@media (prefers-reduced-motion: reduce){ .mc-herovideo{display:none;} }
