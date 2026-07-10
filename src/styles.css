@@ -428,6 +428,10 @@ img{-webkit-user-drag:none;}
   transform:translate(-50%,-50%) rotate(0deg) scale(1.9) !important;
   box-shadow:0 18px 40px rgba(0,0,0,.65), 0 0 34px rgba(228,206,140,.35);}
 .mc-starfade{opacity:0; pointer-events:none;}
+/* shuffle: while gathered, the glow rises behind the stack and flares */
+.mc-cosmos .mc-deckglow{transition:bottom .8s cubic-bezier(.3,.7,.25,1), opacity .6s ease;}
+.mc-cosmos-gather .mc-deckglow{bottom:24%; opacity:1;
+  background:radial-gradient(circle, rgba(228,206,140,.24), transparent 62%);}
 @media (prefers-reduced-motion: reduce){ .mc-star{animation:none;} }
 
 /* violet CTA (Decode) */
