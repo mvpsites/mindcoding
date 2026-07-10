@@ -15,16 +15,19 @@ const rnd = (min, max) => min + Math.random() * (max - min);
 
 function makeField() {
   // every floating card IS a real card, face down
+  const sign = () => (Math.random() < 0.5 ? -1 : 1);
   return shuffle(CARDS.map((c) => c.id)).map((cardId, i) => ({
     cardId,
-    left: rnd(2, 90),
-    top: rnd(2, 86),
-    dur: rnd(14, 30),
-    delay: -rnd(0, 30),
-    dx: rnd(-26, 26),
-    dy: rnd(-20, 20),
-    r0: rnd(-14, 14),
-    r1: rnd(-14, 14),
+    left: rnd(4, 88),
+    top: rnd(3, 84),
+    dur: rnd(7, 14),
+    delay: -rnd(0, 14),
+    dx: sign() * rnd(30, 64),
+    dy: sign() * rnd(24, 52),
+    r0: rnd(-18, 18),
+    r1: rnd(-18, 18),
+    bdur: rnd(3.4, 6.8),
+    bdelay: -rnd(0, 7),
     z: 1 + (i % 7),
   }));
 }
@@ -90,6 +93,8 @@ export default function Cosmos({ pickedIds = [], onPick, done = false, hint }) {
                 "--dy": `${s.dy}px`,
                 "--r0": `${s.r0}deg`,
                 "--r1": `${s.r1}deg`,
+                "--bdur": `${s.bdur}s`,
+                "--bdelay": `${s.bdelay}s`,
                 transform: shuffling
                   ? `translate(-50%,-50%) rotate(${gathered ? stackRot : s.r0}deg)${gathered ? " scale(.94)" : ""}`
                   : undefined,
@@ -102,7 +107,9 @@ export default function Cosmos({ pickedIds = [], onPick, done = false, hint }) {
               disabled={done || picked || shuffling}
               aria-label="Draw this card"
             >
-              <CardBack />
+              <span className="mc-starinner">
+                <CardBack />
+              </span>
             </button>
           );
         })}
