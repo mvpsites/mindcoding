@@ -1,3 +1,38 @@
+# ⭐ START HERE — SESSION HANDOFF (end of 2026-07-10, marathon session)
+
+**Live:** https://mvpsites.github.io/mindcoding/ · repo mvpsites/mindcoding · all workflows green at handoff.
+**⏰ Jad has Claude until July 12 — next session is effectively the last full one.**
+
+## CURRENT DIRECTION (supersedes all prior visual identity, incl. PRODUCT-DIRECTION.md §Visual identity)
+**SIGNAL + MINDOS.** Jad rejected the midnight/gold engraved-occult identity entirely. Three stylescapes were built (live reference: /directions/a.html DAWN, /b.html FORGE, /c.html SIGNAL) — **Jad chose C (SIGNAL)**, then directed the concept to full **"your mind is an OS / the whole code-recode."**
+- Tokens: void #05070D · cyan #4FD8FF · violet #8A7DFF (Decode) · ivory-blue #E8F1F8 · --panel/--edge glass. Fonts: Outfit (all type) + IBM Plex Mono (system tags, "// " eyebrows). Neural grid ambient (NO blend modes — perf rule). Implemented as :root remap + "SIGNAL SKIN" + "MINDOS layer" blocks at the end of styles.css.
+- **MINDOS concept:** boot-sequence hero (BootSequence in Discover.jsx — 4 typed lines ending "write access: AVAILABLE"; tap-skip; once per session via sessionStorage). Pipeline thesis: INPUTS→PATTERNS→BELIEFS→IDENTITY→LIFE pills + violet "RECODE writes here" inject. Journey acts = PHASE 01//SCAN · 02 SELECT · 03 QUERY · 04 COMPILE · 05 DEPLOY (hero's-journey copy underneath). Decode="Read the source." Recode="Write access granted."+MODULES. My Space="LOCAL / Runs on-device."
+- Hero copy stays LOCKED: "Your mind is always being programmed. Choose what goes into it."
+- Imagery rule (Jad): all images/videos correlate to the direction + hero's journey. Current: signal-hero/-call/-trials/-oracle/-becoming/-return (16:9) + vid-signal hero video (10s kling push-in). Tarot deck art (78, gold/midnight) intentionally kept as the contained artifact.
+
+## PRODUCT DECISIONS THIS SESSION (Jad-explicit, supersede UX-SPEC where they conflict)
+- Tarot = ONLY One Card / Three Cards / Five Cards—The Journey (positions: Where you stand/The call/The trial/What to release/Who you are becoming). Daily reading REMOVED. Lack + Money spreads REMOVED. LACK fields removed from Spread readout + Deck detail.
+- JOURNALING REMOVED site-wide (no prompts, no notes, no journal stream; My Space = Favorites + Saved readings + export).
+
+## ENGINEERING STATE
+- Cosmos v3 = rAF physics field (sine-blend wander, depth, MAGNETIC pointer/touch attraction + cyan lift, physics shuffle gather/re-deal/scatter, pick-swoop). No CSS keyframes on cards; will-change:transform on .mc-star is LOAD-BEARING.
+- iPhone/iPad perf pass done (phone 15→60fps home): no full-screen blend modes ever; heavy effects gated (hover:hover)+(pointer:fine); star glow = baked gradient not box-shadow; cached-rect pointer handlers. Measure with ISOLATED playwright browsers (chromium at /opt/pw-browsers; serve dist via python http.server with directory=).
+- SW v8: navigations fetch with cache:"no-cache" (iOS HTTP-cache staleness fix). Bump CACHE const whenever art changes under an existing filename.
+- Art Courier: vid-*/video-*/.mp4-URL entries → ffmpeg mp4(+webm for vid-*); scene-*/signal-* images → 1600px; skips existing files (delete webp/mp4 to force). Courier commits DON'T trigger deploy — dispatch deploy.yml after.
+- Latent Spread.jsx crash (undefined `order`) fixed. Home.jsx + Ritual.jsx exist but are unused.
+
+## NEXT PRIORITIES (in order)
+1. **Regenerate the 5 module DOOR panels (4:5) in SIGNAL style** — still gold-era. Hue per collection like the signal-trials corridor: Health teal · Confidence amber · Love rose · Abundance white-gold · Spiritual violet, on the cyan-void base.
+2. Regen featured covers (scene-becoming/scene-manifesto are gold-era) + consider a SIGNAL decode-banner.
+3. **Founding batch scripts** (from original plan, still pending): 4 songs (exemplar "I Release What No Longer Chooses Me" approved), 4 narrations, 1 visualization script, 1 Decode manifesto — idea: manifesto video OPENS with the MINDOS boot lines, narrated.
+4. Tarot post-reading → related-content bridge (tag map). 5. Real URL routing + prerender + per-card SEO later.
+
+## ⚠️ OPERATING RULES
+- **REVOKE the PAT used 2026-07-10** (exposed in chat) and mint fresh per session: repo-scoped mvpsites/mindcoding, Contents+Workflows RW.
+- **ONE session per repo at a time.** A parallel session collided mid-day (broke courier + hid the hero video). If foreign commits appear: STOP, pull, reconcile.
+- Jad tests at mvpsites.github.io/mindcoding/ (no custom domain wired yet; mindcod.ing is future). If he reports "nothing changed": verify Pages deployment sha vs HEAD via API first, then Private-tab test.
+
+---
 
 
 ## SESSION UPDATE — 2026-07-10 (cinematic pass + cosmos shuffle)
