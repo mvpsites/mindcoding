@@ -48,3 +48,12 @@ Safari/WebKit: never put CSS `filter` on 3D-transformed elements (breaks hit-tes
 - **Visualizations are caption-forward audiograms, NOT full cinematic video (DECIDED).** Words do the recoding; visuals must not compete. Pipeline converges with narrations: script → voice → Reap audiogram with burned captions → YouTube. Pick ONE signature Reap caption style for the whole brand and never deviate.
 - **Ambient background library**: 4-6 slow atmospheric loops (Higgsfield), one per emotional register, reused across all audiograms. No per-video visual production.
 - Visualization vs narration remains a GENRE split (guided imagery vs direct address), not a format split. Tabs unchanged.
+
+## Decode pillar (added 2026-07-10, session 2)
+- **New content genre: DECODE** — pattern-recognition / influence-awareness videos (Chase Hughes register): how persuasion, media framing, manipulation, and dark patterns program people; how to recognize it. Completes the tagline: Decode = "your mind is always being programmed" (see it), Recode = "choose what goes into it" (everything else on the platform).
+- **Brand pairing: Decode / Recode** is the master architecture language.
+- **Funnel role:** Decode = top of YouTube funnel (searchable, shareable, algorithm-friendly); every Decode video ends with a bridge to Recode content. Recode content = retention.
+- **Register containment:** Decode is daytime-only — NEVER in the Subconscious night layer, never adjacent to sleep content. Gets a sharper visual treatment; sanctuary content stays soft.
+- **Ethical line (hard rule):** recognition, not technique. Teach "how this works on you and how to notice it," never offensive manipulation how-tos.
+- **Placement:** no new tab. Discover row + Library filter (+ desktop nav item if it earns one).
+- **Founding batch:** one Decode video doubling as brand manifesto/channel trailer, e.g. "You're Being Programmed Every Day — Here's How to See It."
