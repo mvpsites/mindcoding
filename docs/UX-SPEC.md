@@ -71,3 +71,8 @@ Safari/WebKit: never put CSS `filter` on 3D-transformed elements (breaks hit-tes
 3. Programs/journeys = DAY-GATED WITH GRACE (catch up allowed, no binge-ahead).
 4. Decode = confirmed pillar; founding batch includes one manifesto Decode video.
 Founding batch (11): 4 songs (= first program), 4 narrations, 1 flagship visualization, 1 journey, 1 Decode manifesto.
+
+## FINAL SIMPLIFICATION (2026-07-10, Jad — supersedes conflicting items above)
+- **NIGHT LAYER CUT.** No after-21:00 behavior, no time-aware register switching. Sleep/loop versions remain simply as content variants on detail pages. (Ignore all "Subconscious night layer" logic above.)
+- **Decode = the educational section** (learn how minds get programmed).
+- **Recode = the doing section**, organized into FIVE collections: **Health · Confidence · Love · Abundance · Spiritual Mastery.** This replaces the direction doc's 7-collection taxonomy.
