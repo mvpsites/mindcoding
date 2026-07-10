@@ -80,7 +80,7 @@ export default function Ritual({ onSave }) {
     }
     const spread = "min(5.2vw, 33px)";
     return {
-      transform: `translateX(-50%) translateX(calc(${off} * ${spread})) translateY(${(off * off * 2.3).toFixed(1)}px) translateZ(${(-Math.abs(off) * 7).toFixed(1)}px) rotate(${(off * 4.1).toFixed(2)}deg)`,
+      transform: `translateX(-50%) translateX(calc(${off} * ${spread})) translateY(${(off * off * 2.3).toFixed(1)}px) translateZ(${(60 - Math.abs(off) * 7).toFixed(1)}px) rotate(${(off * 4.1).toFixed(2)}deg)`,
       zIndex: 40 - Math.abs(off) * 2,
     };
   };
