@@ -10,6 +10,16 @@
   - ALL entrance motion gated behind prefers-reduced-motion: no-preference — content never hidden without JS/with reduced motion. 2D transforms + opacity only (Safari rules hold).
 - Visually verified via Playwright (/opt/pw-browsers chromium works in sandbox; serve `vite preview`, base "./" → use localhost:4173/ root).
 
+
+## SESSION UPDATE 2 — 2026-07-10 (THE IMAGE LAYER — cinematic imagery shipped)
+- Jad's verdict on the text-only motion pass: "looks cheap, no images, nothing for the subconscious." Correct — fixed with a full image layer.
+- **9 cinematic scenes generated (nano_banana_pro, 1k)**: scene-hero (16:9 doorway of light), scene-decode (16:9 dissolving profile), scene-becoming + scene-manifesto (16:9 featured covers), scene-{health,confidence,love,abundance,spirit} (4:5 door panels). Shared style block: midnight/indigo + burnished gold + ivory, volumetric light, film grain, "NO text/letters/numbers/watermark/borders/frames". All in tools/art-manifest.json → self-hosted via Art Courier.
+- **Courier upgraded (tools/fetch_art.py):** scene-* ids → 1600px q84 (cards stay 720/q88); skips existing files (delete webp to force refetch); only upsizes never upscales (1k model output = 1376px wide, kept as-is).
+- **Front-end:** hero = full-bleed backdrop (.mc-herocine breakout, Ken Burns 44s, parallax 0.22 via useParallax in motion.jsx, dual-gradient scrim, 2.4s cinema fade-in); Recode doors = 4:5 image panels w/ hover zoom + bottom veil; Decode tab = 21:9 banner; vis-becoming + dec-manifesto have real covers (Cover component now prepends BASE_URL).
+- REMEMBER the deploy gotcha: courier commits with GITHUB_TOKEN → does NOT trigger deploy; dispatch deploy.yml after courier finishes (done this session via API).
+- If hero crispness is ever criticized: upscale_image the hero job (97753d96-20a4-4bd9-a053-8f63c29d9a8d) to 4K, re-courier at higher width.
+- Sandbox image `view` went down mid-session again — verified via DOM naturalWidth checks + numpy pixel-variance instead (playwright chromium at /opt/pw-browsers works).
+
 ## SESSION HANDOFF — 2026-07-10 (shell v2 shipped)
 Read docs/PRODUCT-DIRECTION.md and docs/UX-SPEC.md FIRST. Then this state:
 
