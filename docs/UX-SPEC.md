@@ -40,3 +40,11 @@ Day-gated with grace: today's step unlocks daily; missed days can be caught up; 
 
 ## Known-good technical fixes (2026-07-10)
 Safari/WebKit: never put CSS `filter` on 3D-transformed elements (breaks hit-testing) and never use negative translateZ on interactive cards — both caused total interaction failure in Safari; fixed by moving to box-shadow + all-positive Z. Preserve this rule in any new mechanics.
+
+## Music programs + format decisions (added 2026-07-10, session 2)
+- **Music is organized into PROGRAMS: 7 / 14 / 30-day ordered song sequences (DECIDED).** Listen tab leads with a Programs shelf; individual songs remain browsable below.
+- **One sequence engine powers both programs and Journeys**: sequence = ordered {day, contentId} with progress tracking; a program is an all-song sequence, a Journey is mixed-format. Same Continue-strip surfacing on Discover.
+- **OPEN FORK — program day model:** sequential (new song each day, catalog-hungry) vs phased repetition (same song daily for a phase, then advance — on-thesis with "what you repeatedly listen to", and 4 songs = a complete 30-day program). Claude strongly recommends phased repetition. Awaiting Jad's call.
+- **Visualizations are caption-forward audiograms, NOT full cinematic video (DECIDED).** Words do the recoding; visuals must not compete. Pipeline converges with narrations: script → voice → Reap audiogram with burned captions → YouTube. Pick ONE signature Reap caption style for the whole brand and never deviate.
+- **Ambient background library**: 4-6 slow atmospheric loops (Higgsfield), one per emotional register, reused across all audiograms. No per-video visual production.
+- Visualization vs narration remains a GENRE split (guided imagery vs direct address), not a format split. Tabs unchanged.
