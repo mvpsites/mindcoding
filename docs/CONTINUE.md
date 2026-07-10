@@ -1,176 +1,62 @@
-# ⭐ START HERE — SESSION HANDOFF (end of 2026-07-10, marathon session)
+# CONTINUE — Mind Coding session handoff
 
-**Live:** https://mvpsites.github.io/mindcoding/ · repo mvpsites/mindcoding · all workflows green at handoff.
-**⏰ Jad has Claude until July 12 — next session is effectively the last full one.**
+## ═══ START HERE (updated 2026-07-10, post-pivot session) ═══
 
-## CURRENT DIRECTION (supersedes all prior visual identity, incl. PRODUCT-DIRECTION.md §Visual identity)
-**SIGNAL + MINDOS.** Jad rejected the midnight/gold engraved-occult identity entirely. Three stylescapes were built (live reference: /directions/a.html DAWN, /b.html FORGE, /c.html SIGNAL) — **Jad chose C (SIGNAL)**, then directed the concept to full **"your mind is an OS / the whole code-recode."**
-- Tokens: void #05070D · cyan #4FD8FF · violet #8A7DFF (Decode) · ivory-blue #E8F1F8 · --panel/--edge glass. Fonts: Outfit (all type) + IBM Plex Mono (system tags, "// " eyebrows). Neural grid ambient (NO blend modes — perf rule). Implemented as :root remap + "SIGNAL SKIN" + "MINDOS layer" blocks at the end of styles.css.
-- **MINDOS concept:** boot-sequence hero (BootSequence in Discover.jsx — 4 typed lines ending "write access: AVAILABLE"; tap-skip; once per session via sessionStorage). Pipeline thesis: INPUTS→PATTERNS→BELIEFS→IDENTITY→LIFE pills + violet "RECODE writes here" inject. Journey acts = PHASE 01//SCAN · 02 SELECT · 03 QUERY · 04 COMPILE · 05 DEPLOY (hero's-journey copy underneath). Decode="Read the source." Recode="Write access granted."+MODULES. My Space="LOCAL / Runs on-device."
-- Hero copy stays LOCKED: "Your mind is always being programmed. Choose what goes into it."
-- Imagery rule (Jad): all images/videos correlate to the direction + hero's journey. Current: signal-hero/-call/-trials/-oracle/-becoming/-return (16:9) + vid-signal hero video (10s kling push-in). Tarot deck art (78, gold/midnight) intentionally kept as the contained artifact.
+**THE DIRECTION CHANGED TODAY. Read docs/PIVOT-SPEC.md before anything else.**
 
-## PRODUCT DECISIONS THIS SESSION (Jad-explicit, supersede UX-SPEC where they conflict)
-- Tarot = ONLY One Card / Three Cards / Five Cards—The Journey (positions: Where you stand/The call/The trial/What to release/Who you are becoming). Daily reading REMOVED. Lack + Money spreads REMOVED. LACK fields removed from Spread readout + Deck detail.
-- JOURNALING REMOVED site-wide (no prompts, no notes, no journal stream; My Space = Favorites + Saved readings + export).
+Jad stopped the SIGNAL asset build and pivoted the product from cinematic media
+site to **frictionless daily tool**: Check in → Mirror → Protocol, with the deck
+as the second door. The idea (Mind Coding, decode/recode, MindOS language) stays;
+the boot sequence, five-act scroll story, and Cosmos picker are gone. The landing
+page is Jad's own locked copy (docs/LANDING-COPY.md). The deck is now THE WHEEL —
+wash/spin/hold-to-draw — spec'd to the pixel in PIVOT-SPEC.md after five live
+prototype rounds with Jad.
 
-## ENGINEERING STATE
-- Cosmos v3 = rAF physics field (sine-blend wander, depth, MAGNETIC pointer/touch attraction + cyan lift, physics shuffle gather/re-deal/scatter, pick-swoop). No CSS keyframes on cards; will-change:transform on .mc-star is LOAD-BEARING.
-- iPhone/iPad perf pass done (phone 15→60fps home): no full-screen blend modes ever; heavy effects gated (hover:hover)+(pointer:fine); star glow = baked gradient not box-shadow; cached-rect pointer handlers. Measure with ISOLATED playwright browsers (chromium at /opt/pw-browsers; serve dist via python http.server with directory=).
-- SW v8: navigations fetch with cache:"no-cache" (iOS HTTP-cache staleness fix). Bump CACHE const whenever art changes under an existing filename.
-- Art Courier: vid-*/video-*/.mp4-URL entries → ffmpeg mp4(+webm for vid-*); scene-*/signal-* images → 1600px; skips existing files (delete webp/mp4 to force). Courier commits DON'T trigger deploy — dispatch deploy.yml after.
-- Latent Spread.jsx crash (undefined `order`) fixed. Home.jsx + Ritual.jsx exist but are unused.
+**Shipped this session (commit on main, deployed via deploy.yml):**
+- New landing (Discover.jsx) — Jad's copy verbatim, one CTA: Start Your Check-In.
+  New hero line RE-LOCKED: "Your mind is being programmed every day. / Choose
+  what gets installed."
+- CheckIn.jsx — 7 feelings → mirror copy → protocol (song/reframe/visualization/
+  narration from LIBRARY by collection) + deck link. History in localStorage;
+  returning visitors land on Check-In, not the landing.
+- Wheel.jsx — replaces Cosmos everywhere (Spread.jsx readings + dead Ritual.jsx).
+  All 78 cards, drag/flick mobile, hover-steer desktop (dead zone 26%, quad curve,
+  max 0.13 rad/frame — Jad-tuned), hold-to-draw 900ms ring, pointer-capture
+  hardening. Cosmos.jsx deleted.
+- Nav: "Check In" replaces "Discover" in top tabs and bottom nav (logo still goes
+  to the landing). SW cache bumped to v9. Meta description updated to new line.
 
-## NEXT PRIORITIES (in order)
-1. **Regenerate the 5 module DOOR panels (4:5) in SIGNAL style** — still gold-era. Hue per collection like the signal-trials corridor: Health teal · Confidence amber · Love rose · Abundance white-gold · Spiritual violet, on the cyan-void base.
-2. Regen featured covers (scene-becoming/scene-manifesto are gold-era) + consider a SIGNAL decode-banner.
-3. **Founding batch scripts** (from original plan, still pending): 4 songs (exemplar "I Release What No Longer Chooses Me" approved), 4 narrations, 1 visualization script, 1 Decode manifesto — idea: manifesto video OPENS with the MINDOS boot lines, narrated.
-4. Tarot post-reading → related-content bridge (tag map). 5. Real URL routing + prerender + per-card SEO later.
+**Priorities for next session (Jad's phone testing verdict comes first):**
+1. Fix anything Jad flags from testing the deployed loop.
+2. Wash-shuffle intro on the Wheel (spec in PIVOT-SPEC.md).
+3. "Input · Pattern · Recode" 3-card spread config + shareable result frame.
+4. Founding batch content scripts (4 songs, 4 narrations, 1 visualization,
+   1 Decode manifesto opening with the MINDOS boot lines, narrated).
+5. Check-in trendline from localStorage history.
 
-## ⚠️ OPERATING RULES
-- **REVOKE the PAT used 2026-07-10** (exposed in chat) and mint fresh per session: repo-scoped mvpsites/mindcoding, Contents+Workflows RW.
-- **ONE session per repo at a time.** A parallel session collided mid-day (broke courier + hid the hero video). If foreign commits appear: STOP, pull, reconcile.
-- Jad tests at mvpsites.github.io/mindcoding/ (no custom domain wired yet; mindcod.ing is future). If he reports "nothing changed": verify Pages deployment sha vs HEAD via API first, then Private-tab test.
+**Superseded / parked:** the 5 SIGNAL door-panel regens (images were generated on
+Higgsfield 2026-07-10 pre-pivot, style-ref job a979bbbc-2316-4a2e-b061-a08636a144e3;
+they sit unused in the library). Doors are demoted, not deleted. The old five-act
+copy is preserved in git history if any line is wanted later.
 
----
+## Operating rules (unchanged)
+- One session on this repo at a time — if you see commits you didn't make, STOP
+  and reconcile with Jad before proceeding.
+- Verify visually/numerically before pushing (build must pass; smoke-test dist
+  over HTTP; count checks on data).
+- Dispatch deploy.yml after any push (and after any courier run).
+- Art is self-hosted in public/art via the Art Courier (tools/fetch_art.py +
+  art-manifest.json). NEVER hot-link CloudFront — it expires and the sandbox
+  can't reach it. Courier skips existing files; delete the webp to force refetch;
+  bump the SW CACHE version whenever art changes under an existing filename.
+- nano_banana_pro (nano_banana_2), 4:5 for card-format art; count-hardened
+  prompts + visual pip verification for any pip cards.
 
-
-## SESSION UPDATE — 2026-07-10 (cinematic pass + cosmos shuffle)
-- **Cosmos shuffle shipped:** Shuffle button gathers all 78 to a center stack (glow rises + flares), re-deals while stacked, scatters with staggered ripple. Timing consts GATHER_MS/SCATTER_MS in Cosmos.jsx; keep in sync with the .8s left/top CSS transition.
-- **Cinematic motion system shipped (src/lib/motion.jsx + CSS block "CINEMATIC MOTION SYSTEM" in styles.css):**
-  - `Reveal` — shared-IntersectionObserver scroll entrance (opacity+translateY), per-child stagger via delay prop → --rvd. Used across Discover/Decode/Recode.
-  - `MaskLines` — hero headline lines rise out of overflow clips on mount (page-load choreography with eyebrow tracking-in, sub/CTAs staggered via .mc-herolate --d).
-  - `ScrollIgnite` — SIGNATURE: scroll-linked word-by-word ignition of the brand premise on Discover ("What you repeatedly listen to… shape how you live." — last 4 words gold via :nth-last-child).
-  - Foil headline has an infinite 9s gold specular sweep; nebula parallax layers in Ambient.jsx (rAF, nebula -0.1x / stars -0.045x); nav deepens on scroll (mc-nav-scrolled, state in App.jsx); view transitions .62s; card cover light-sweep on hover; hero is full-viewport (100svh minus chrome).
-  - ALL entrance motion gated behind prefers-reduced-motion: no-preference — content never hidden without JS/with reduced motion. 2D transforms + opacity only (Safari rules hold).
-- Visually verified via Playwright (/opt/pw-browsers chromium works in sandbox; serve `vite preview`, base "./" → use localhost:4173/ root).
-
-
-
-
-## SESSION UPDATE 5 — 2026-07-10 (VIDEO + full cover art — the mvpsites treatment)
-- **Living hero shipped**: 10s cinematic video generated from the hero still (kling3_0_turbo image-to-video, job 3624ff7f; when a prompt matches a Higgsfield preset, retry with declined_preset_id to generate literally). Self-hosted via courier: vid-hero.mp4 (658KB h264) + vid-hero.webm (427KB vp9). HeroMedia component in Discover.jsx: poster=scene-hero.webp, autoplay/muted/loop/playsinline, onError→still fallback, skips video for reduced-motion/Save-Data, TOUCH-WAKE (one-time pointerdown/touchstart play() for iOS Low Power Mode — mvpsites pattern).
-- **Courier now handles video**: manifest ids starting "vid-" → ffmpeg → 1280w mp4 (crf27) + webm (vp9 crf37); workflow installs ffmpeg. Courier triggers ONLY on manifest path changes — dispatch fetch-art.yml manually otherwise.
-- **All 12 library items have real cover art** (10 new: cov-song-*, cov-narr-*, cov-dec-* in manifest → public/art). No more empty gradient/"glyph" cards.
-- **SANDBOX LEARNING: Playwright chromium has NO H.264** (canPlayType avc1 = ""); mp4 "failure" in sandbox = codec, not code. webm added partly so playback is verifiable in-sandbox. Real Safari/Chrome/Edge play the mp4 fine.
-- Verified: video playing, looping, currentTime advancing in sandbox via webm.
-
-
-
-
-
-## SESSION UPDATE 8 — 2026-07-10 (MINDOS — the concept layer on SIGNAL, Jad's direction)
-Jad on SIGNAL: "not bad, but… your mind is an OS and then the whole code recode." SIGNAL skin KEPT; concept pushed to full mind-as-operating-system:
-- **Boot sequence hero**: BootSequence types 4 mono lines (MINDOS // boot → scanning inputs → source: unknown · consent: not found → write access: AVAILABLE) then the locked headline compiles in. Tap-to-skip; reduced-motion skips; sessionStorage "mc-booted" makes it once-per-session.
-- **Pipeline thesis** replaces plain premise: ScrollIgnite sentence + INPUTS → PATTERNS → BELIEFS → IDENTITY → LIFE stage pills (staggered reveals) + violet "RECODE writes here — at the inputs" inject line. This IS the code→recode story.
-- **Journey = OS verbs** (hero's journey intact underneath): PHASE 01 // SCAN · 02 SELECT · 03 QUERY · 04 COMPILE ("one exposure is a comment; daily repetition is a commit") · 05 DEPLOY. CTAs: Run Decode / READ THE SOURCE, Open Recode / WRITE ACCESS, Install a program.
-- Headers: Decode "Read the source." · Recode "Write access granted." + MODULES · My Space → "LOCAL / Runs on-device" (truthful: it IS localStorage).
-- Locked hero copy untouched. Verified: boot lines type, headline appears post-boot, reload-in-session skips boot, pipeline + inject render, all five OS phases live.
-
-## SESSION UPDATE 7 — 2026-07-10 (NEW DIRECTION: "SIGNAL" — Jad-approved, supersedes the midnight/gold identity)
-Jad rejected the engraved midnight/gold occult direction outright ("scrap everything"). Three opposed stylescapes were built and deployed at /directions/{a,b,c}.html (DAWN light-sanctuary / FORGE bold-performance / SIGNAL neural-tech). **Jad picked C — SIGNAL.** The stylescape pages are the design reference; keep them.
-- **SIGNAL system:** void #05070D, cyan #4FD8FF, violet #8A7DFF (Decode), ivory-blue #E8F1F8 text; fonts Outfit (all type) + IBM Plex Mono (system tags/eyebrows, "// " prefix); glass panels (--panel/--edge), pill chips, 12-18px radii; neural grid replaces film grain (mask-faded, NO blend modes — perf rule holds); mono PHASE 01-05 tags replace roman numerals on the journey acts; copy voice = system language ("Run Decode", "Open Recode", "Your identity runs on inputs…"). Implemented as token remap in :root + "SIGNAL SKIN" override layer at the end of styles.css.
-- **Imagery regenerated to match (Jad's standing rule — imagery correlates to direction + hero's journey):** signal-hero / -call / -trials / -oracle / -becoming / -return (16:9, cyan-violet sci-fi style block) + vid-signal hero video (kling, 10s push-in from signal-hero). Old scene-*/vid-hero assets remain in repo but are unreferenced except the 5 collection DOOR panels (still gold-era) — REGENERATE the five door images in SIGNAL style next session (each door hued per collection: teal/amber/rose/white-gold/violet like the signal-trials corridor).
-- Tarot deck art (gold/midnight, all 78) intentionally KEPT as-is — the contained "ancient artifact inside the machine" section, consistent with tarot-containment doctrine.
-- Verified: cyan-present/gold-zero pixel check, Outfit+Plex Mono computed, phases + scenes rendering.
-
-## SESSION UPDATE 6 — 2026-07-10 (HERO'S JOURNEY REBUILD — Jad's direction, supersedes parts of UX-SPEC)
-Jad: site experience rebuilt around the HERO'S JOURNEY; imagery + videos must map to journey stages.
-- **Discover = five full-bleed acts** below the (unchanged, locked-copy) doorway-video hero + premise ScrollIgnite: I THE CALL (scene-call → Decode) · II THE TRIALS (scene-confidence + collection/feeling chips) · III THE ORACLE (scene-oracle → Reflect) · IV THE BECOMING (scene-becoming + programs) · V THE RETURN (scene-return + library rail + YT). Act component in Discover.jsx; .mc-act CSS (alternating veils, roman numerals — the numbering IS the journey sequence).
-- **Tarot (Jad's explicit cuts, SUPERSEDE UX-SPEC):** Daily reading REMOVED (Ritual.jsx now unused like Home.jsx; Reflect subnav = Readings·Deck). "Lack to Abundance" + "Money" spreads REMOVED. Readings are exactly: One Card, Three Cards, Five Cards — The Journey (positions: Where you stand/The call/The trial/What to release/Who you are becoming; recodeFrom=4). Spread reveal: LACK PATTERN field removed (→ "THE RECODE"); Deck detail: LACK PATTERN + JOURNAL PROMPT fields removed. cards.js data untouched (lack/journal fields dormant).
-- **JOURNALING REMOVED ENTIRELY (supersedes UX-SPEC):** no prompt cards in ContentModal, no note textarea in Spread, no Journal stream in My Space (Favorites + Saved readings only; export intact). storage.js journal fns dormant.
-- Fixed latent Spread.jsx crash: posOf useMemo referenced undefined `order` — would have thrown the moment anyone opened a reading.
-- New journey scenes: scene-call / scene-oracle / scene-return (16:9, same style block). First Return job (f45a116e) never completed — regenerated as 36b45e9f.
-
-## ⚠️ SESSION UPDATE 5 — 2026-07-10 (PARALLEL-SESSION COLLISION — read before working)
-TWO Claude sessions worked this repo simultaneously today. The other session shipped a working hero-video pipeline (vid- prefix, mp4+webm, HeroMedia w/ touch-wake + save-data + reduced-motion fallbacks — KEEP THEIRS, it is canonical). This session's duplicate landed on top and broke two things: (1) a duplicate "video-hero" manifest entry fell through the vid- prefix check into the image branch → PIL crashed the courier; (2) an orphaned .mc-herovideo CSS rule set the video to opacity:0 waiting for a class nobody adds → THE VIDEO PLAYED INVISIBLY ON THE LIVE SITE (user saw "no video"). Both fixed: orphan CSS deleted, duplicate manifest entry removed, courier hardened (any id starting vid-/video- OR any .mp4/.webm/.mov URL routes to the video branch).
-RULE GOING FORWARD: one session per repo at a time. If commits appear that this session didn't make, STOP, git pull, and reconcile before pushing anything.
-Verified post-fix: hero video exists/playing/opacity .92 full-bleed on desktop + iPhone viewports.
-
-## SESSION UPDATE 4 — 2026-07-10 (iPhone/iPad performance pass — measured, not guessed)
-Method: playwright chromium mobile emulation + CDP 4x CPU throttle, ISOLATED browser per device (measuring two live contexts in one process contaminates results — learned the hard way). Baseline: phone home 15fps / deck 24fps.
-Fixes, in order of impact:
-1. **Grain layer mix-blend-mode:overlay REMOVED** (plain low-opacity overlay now). Full-screen blend forced whole-viewport re-composite whenever anything beneath animated — this + stars was the killer. Never reintroduce blend modes on fixed full-viewport layers.
-2. **Ambient stars: box-shadow glow → baked radial-gradient background** (+will-change:opacity). Animated opacity on 60 shadowed spans under the blend layer was the other half of the kill.
-3. **`will-change:transform` on .mc-star is LOAD-BEARING** — removing it demoted 78 per-frame-transformed cards to full repaints (deck 24→10fps). It's back; keep it.
-4. **Per-card blurred box-shadow removed during drift** (subtle outline on the back image instead); shadow only on .mc-starnear/.mc-starpicked.
-5. **Heavy effects gated to `(hover:hover) and (pointer:fine)`**: foil sweep (also fixed: .mc-masklift shorthand was silently overriding it — now combined `.mc-masklift.mc-foil{mcLineUp, mcFoilSweep 1.8s-delay}`), hero+banner Ken Burns, nebula drift, hero/ambient JS parallax. Touch devices get the cinema fade + static depth.
-6. **Cosmos pointer handlers: cached rect** (refreshed on scroll/resize via rAF) — no getBoundingClientRect per touchmove; touchstart added so a resting finger attracts cards (verified 23px pull on tap).
-Final (4x throttle, isolated): PHONE 60fps home / 44 deck; TABLET 25/22 throttled, 56/46 unthrottled software-raster → real GPUs pin at refresh.
-Cosmos is now v3: rAF physics field (sine-blend wander, depth scale/opacity/z, magnetic pointer attraction + gold-lift nearest, physics gather/re-deal/scatter, physics pick-swoop to center, entry deal-out). No CSS keyframes on cards. React never touches frames.
-
-## SESSION UPDATE 2 — 2026-07-10 (THE IMAGE LAYER — cinematic imagery shipped)
-- Jad's verdict on the text-only motion pass: "looks cheap, no images, nothing for the subconscious." Correct — fixed with a full image layer.
-- **9 cinematic scenes generated (nano_banana_pro, 1k)**: scene-hero (16:9 doorway of light), scene-decode (16:9 dissolving profile), scene-becoming + scene-manifesto (16:9 featured covers), scene-{health,confidence,love,abundance,spirit} (4:5 door panels). Shared style block: midnight/indigo + burnished gold + ivory, volumetric light, film grain, "NO text/letters/numbers/watermark/borders/frames". All in tools/art-manifest.json → self-hosted via Art Courier.
-- **Courier upgraded (tools/fetch_art.py):** scene-* ids → 1600px q84 (cards stay 720/q88); skips existing files (delete webp to force refetch); only upsizes never upscales (1k model output = 1376px wide, kept as-is).
-- **Front-end:** hero = full-bleed backdrop (.mc-herocine breakout, Ken Burns 44s, parallax 0.22 via useParallax in motion.jsx, dual-gradient scrim, 2.4s cinema fade-in); Recode doors = 4:5 image panels w/ hover zoom + bottom veil; Decode tab = 21:9 banner; vis-becoming + dec-manifesto have real covers (Cover component now prepends BASE_URL).
-- REMEMBER the deploy gotcha: courier commits with GITHUB_TOKEN → does NOT trigger deploy; dispatch deploy.yml after courier finishes (done this session via API).
-- If hero crispness is ever criticized: upscale_image the hero job (97753d96-20a4-4bd9-a053-8f63c29d9a8d) to 4K, re-courier at higher width.
-- Sandbox image `view` went down mid-session again — verified via DOM naturalWidth checks + numpy pixel-variance instead (playwright chromium at /opt/pw-browsers works).
-
-## SESSION HANDOFF — 2026-07-10 (shell v2 shipped)
-Read docs/PRODUCT-DIRECTION.md and docs/UX-SPEC.md FIRST. Then this state:
-
-**SHIPPED TODAY (all live on GitHub Pages, deploys green):**
-- Wands suit complete → full 78-card deck done, pip-verified.
-- Safari fix: NEVER put CSS filter on 3D-transformed elements or use negative translateZ on interactive elements (was breaking ALL tarot interactions in WebKit).
-- Mind Coding shell v2: 3-tab IA (Discover / Decode / Recode), My Space icon (◐) top-right. New files: src/data/{library,programs,collections}.js, src/components/{Discover,DecodeTab,RecodeTab,Reflect,MySpace,ContentCard,Cosmos}.jsx. App.jsx + BottomNav.jsx rewritten. Home.jsx now unused (still present).
-- Content publishing = edit src/data/library.js: set ytId + status:"live". That's the whole CMS. Never hot-link covers; self-host via Art Courier pattern.
-- Program engine: phased repetition, day-gated with grace (tested: binge-ahead blocked). Programs: becoming-30, letting-go-7.
-- Cosmos draw mechanic: all 78 real cards drift in .mc-cosmos; tap = that card; Ritual (daily) and Spread (3-card) both use it. 2D transforms only — keep it that way (Safari).
-- Hero CTAs: Decode (violet, left) then Recode (gold, right).
-
-**JAD'S PENDING TEST LIST (his bug notes drive next session):** daily draw chain on Safari/iPhone, 3-card reading, program day-gating, journal prompt → My Space, backup download, cosmos drift speed/card size tuning.
-
-**NEXT PRIORITIES (deadline: Jad has Claude until July 12):**
-1. Fix whatever Jad's testing surfaces (mechanics polish > new features).
-2. Founding batch scripts: 4 songs (Suno prompts+lyrics — exemplar "I Release What No Longer Chooses Me" already written in chat, register approved implicitly), 4 narrations, 1 visualization script, 1 Decode manifesto script. Pipeline: Suno → Reap audiogram w/ ONE signature caption style → YouTube; Higgsfield TTS for narration voice (voice not yet chosen).
-3. Tarot post-reading → related library items bridge (tag map).
-4. Later: real URL routing + prerender (slugs already in manifest), per-card SEO pages.
-
-**OPEN DECISIONS:** YouTube channel handle (placeholder link @mindcoding in Discover.jsx — verify/replace), narrator voice (clone vs synthetic), publish cadence, email capture via GHL, Spiritual Mastery has no founding song (gap is known).
-
-**SECURITY:** the PAT used 2026-07-10 is exposed in that chat — Jad must revoke it and mint a fresh repo-scoped token (Contents+Workflows RW) for the next session.
-
-# MindCod.ing — Session Handoff Brief
-
-**Live:** https://mvpsites.github.io/mindcoding/ · **Repo:** mvpsites/mindcoding (private)
-**Stack:** Vite + React, GitHub Pages via Actions (deploys on push to main). PWA installed via manifest + sw.js.
-
-## Approved design (locked — do not re-litigate)
-- **Face style anchor:** The Hierophant — bold antique gold engraved linework on midnight (#0A0E23), bone-ivory flesh/highlights, oxblood only in shadow recesses, ceremonial composition. Higgsfield job `968a03c0-51ad-4096-a68f-f7197dcc4fa7`; committed file `public/art/hierophant.webp`.
-- **Card back:** user's dual-profile brain-keyhole design, `public/art/card-back.webp`.
-- **Option A titles:** artwork is full-bleed and WORDLESS; the app typesets name + numeral (CardFace.jsx title plate). Generation prompts must forbid text/letters/numbers/borders/frames.
-- **Master generation recipe:** model `nano_banana_pro`, aspect 4:5, reference the Hierophant job (or hierophant.webp re-uploaded), prompt = style block + canonical RWS scene + "NO text, NO letters, NO numbers, NO borders, NO frames, NO watermark."
-
-## Art pipeline (works, use it)
-1. Generate on Higgsfield → collect job URLs via show_generations.
-2. Add entries to `tools/art-manifest.json` (`"cardid": "url"`).
-3. Push — the **Art Courier** workflow downloads on GitHub runners, converts to 720px webp in `public/art/`, commits; that commit auto-deploys. Sandbox can NOT fetch CloudFront directly; the courier is the workaround.
-4. All art must be self-hosted in repo (standing rule).
-
-## Data conventions
-- `src/data/cards.js`: 13 fields per card (energy, upright, reversed, love, career, money, spiritual, reveals, lack, recode, affirmation, journal, action) + `art` path. Names/numerals are canon-verified RWS (Strength=VIII, Justice=XI, "Judgement", six no-"The" titles, Pentacles suit, Page/Knight/Queen/King).
-- `src/data/lore.js`: long-form per card — `symbolism` (The Card), `pattern` (The Pattern), `recodePath` (Living the Recode), ~240 words/card, second person, warm-direct voice, no fluff.
-
-## Remaining work (in order)
-1. ✅ MINOR ARCANA COMPLETE — ALL FOUR SUITS DONE. WANDS DONE & COUNT-VERIFIED (2026-07-10): all 14 live (ids acewand…tenwand, pagewand, knightwand, queenwand, kingwand). Pips two–ten verified via zoomed crops — 9/9 correct, zero surgical fixes needed. User-directed regens during review: Seven (first draw had 6 — fixed with "row of 6 (3+3) + 1 held = 7" restructure), Eight (composition redo: strict parallel 45° ladder formation), Nine (composition redo as dignified sentinel + palisade; second regen fixed fence 9→8 with "2+2+2+2=8, not nine, not seven" forcing), Ten (first draw had 12 — fixed with fan-of-cards layout so all 10 tips countable in one arc), King (user wants NO salamanders/lizards — regenerated with hard "no animals of any kind" clause; keep this rule if King is ever redone). SW cache bumped to v6 with the content commit.
-   ✅ SWORDS DONE & COUNT-VERIFIED (2026-07-10): all 14 cards live. Ids: aceswd, twoswd…tenswd, pageswd, knightswd, queenswd, kingswd. Nine was regenerated (first attempt drew 2 columns = 14 blades; layout-forcing prompt "ONE SINGLE VERTICAL COLUMN … ladder" fixed it). Six was regenerated (5 blades) then surgically corrected (regen gave 7): rightmost blade removed via cv2.seamlessClone(NORMAL_CLONE) of adjacent water + TELEA inpaint on the two residual edge strips — user-verified, then REPLACED with a user-provided clean render (sixswd is committed directly in public/art and its manifest entry is REMOVED so the courier can't overwrite it — never re-add sixswd to the manifest). The "off-style Queen/King of Cups" flag was a false alarm (stale cache, see below).
-✅ CUPS DONE (2026-07-10): all 14 cards (art via courier, 13-field content, lore). Ids: acecup…kingcup, same conventions as Pentacles. Pip counts two–ten VERIFIED ✓ (2026-07-10, incl. zoomed Nine/Ten).
-✅ PENTACLES DONE (2026-07-09): all 14 cards (Ace–King) have art (art/<id>pent.webp via Art Courier), 13-field cards.js content, and lore.js entries. Card ids: acepent, twopent … tenpent, pagepent, knightpent, queenpent, kingpent. Court cards use numeral: "" (minors with art don't render the numeral plate). NOTE: the Art Courier pushes with GITHUB_TOKEN, which does NOT trigger the deploy workflow — after the courier commits art, push any real commit (or dispatch deploy.yml) to get the art live.
-2. ⚠️ PRODUCT REFRAME (2026-07-09, supersedes everything): MindCod.ing is now **Mind Coding** — a free cinematic self-reflection MEDIA platform (Music, Visualizations, Narrations, Tarot, Journeys). Tarot is ONE contained section, not the brand. READ docs/PRODUCT-DIRECTION.md IN FULL before any homepage/nav/UX work. Homepage, nav, and messaging must be de-tarot-ed. Development order per the doc: homepage reframe → nav → library structure → pillar categories → reusable YouTube content cards/detail pages → tarot-results-to-content recommendations → remove tarot-dominant messaging → scalable content manifest for hundreds of future items. Content is YouTube-hosted; the site is the curated layer. Do NOT rebuild tarot (it's done); contain it.
-3. Earlier "recode loop" mechanics proposal (Today/Recode/active-beliefs) is NOT the plan anymore — elements may survive inside the tarot section (post-reading recommendations + journal prompts) per the direction doc.
-4. Belief Recode tool, Philosophy page, more spreads, per-card + per-content SEO URLs (big GEO opportunity — now includes song/visualization/narration pages).
-
-## Security
-- Previous fine-grained PAT was exposed in chat history — user must REVOKE and mint a fresh one (repo-scoped: mvpsites/mindcoding, Contents+Workflows RW) for each session.
-
-## PWA cache gotcha (learned 2026-07-10)
-- The service worker (public/sw.js) is CACHE-FIRST for same-origin assets. Replacing an art file under the same filename does NOT reach users — they keep the cached version indefinitely (this is why "regenerated" Queen/King of Pentacles appeared unchanged). WHENEVER art changes under an existing filename, bump the CACHE version constant in public/sw.js (currently "mindcoding-v4") in the same commit. Users need up to two refreshes (install new SW, then serve fresh).
-
-## Pip-count playbook (learned 2026-07-09, Pentacles)
-- Image models miscount pips ~30% of the time even with count-hardened prompts (exact totals + grouped arithmetic like "3 + 3 = 6, no more, no fewer" + fixed positions). Bake the arithmetic in anyway — it helps.
-- VERIFY COUNTS YOURSELF: after the Art Courier commits, `git pull` and `view` each pip webp (2–10). Do not rely on the user to catch miscounts.
-- FIX SURGICALLY, don't regenerate: extra coins/cups → cv2.inpaint (TELEA for flat sky, NS for foliage), r ≈ pip radius + 25 for glow. Missing → clone an existing pip (crop r+6, feathered circular alpha mask) and paste in a clean spot continuing the arrangement. Verify in-frame, save webp q82, commit public/art directly — a direct art push triggers deploy by itself (no courier, no trigger commit needed).
-- If sandbox image rendering is down (view returns empty placeholders), counts can often be verified NUMERICALLY: self-similarity template matching (crop one pip as template, cv2.matchTemplate TM_CCOEFF_NORMED > 0.6, cluster x-centers) counted sword blades reliably; morphological opening with long thin kernels finds horizontal/vertical blade structures; vertical-vs-horizontal Sobel energy ratio distinguishes blades from engraved water lines. Big miscounts with wrong LAYOUT (e.g. two columns instead of one) should be regenerated with layout-forcing prompts, not repaired.
-- Hough circles (cv2.HoughCircles, minR 35 maxR 70) locates coin-discs well but is noisy — classify candidates via cropped contact sheet. Cups/swords/wands are not circles; locate by eye instead.
+## Background docs
+- docs/PIVOT-SPEC.md — product truth (2026-07-10). Wins all conflicts.
+- docs/LANDING-COPY.md — locked landing copy.
+- docs/PRODUCT-DIRECTION.md, docs/UX-SPEC.md — historical context from the
+  SIGNAL/MindOS era; still useful for brand voice and collection definitions,
+  superseded on structure/UX by PIVOT-SPEC.md.
+- docs/artwork-prompts.md — SIGNAL art prompt patterns (still the style for any
+  new imagery).

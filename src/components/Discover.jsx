@@ -1,36 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { FEELINGS, COLLECTIONS } from "../data/collections.js";
-import { LIBRARY, itemById } from "../data/library.js";
-import ContentCard from "./ContentCard.jsx";
-import { Reveal, MaskLines, ScrollIgnite, useParallax, useMagnetic } from "../lib/motion.jsx";
+import { Reveal, useParallax, useMagnetic } from "../lib/motion.jsx";
 
 const ART = (f) => import.meta.env.BASE_URL + "art/" + f;
 
-const BOOT_LINES = [
-  "MINDOS // boot",
-  "scanning inputs… thousands of messages received today",
-  "source: unknown · consent: not found",
-  "write access: AVAILABLE",
-];
-
-function BootSequence({ onDone }) {
-  const [shown, setShown] = useState(0);
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { onDone(); return; }
-    const t = [];
-    BOOT_LINES.forEach((_, i) => t.push(setTimeout(() => setShown(i + 1), 380 + i * 560)));
-    t.push(setTimeout(onDone, 380 + BOOT_LINES.length * 560 + 420));
-    return () => t.forEach(clearTimeout);
-  }, [onDone]);
-  return (
-    <div className="mc-boot" onClick={onDone} role="button" aria-label="Skip intro" tabIndex={0}>
-      {BOOT_LINES.slice(0, shown).map((l, i) => (
-        <div key={i} className="mc-bootline">&gt; {l}</div>
-      ))}
-      <span className="mc-cursor" aria-hidden="true" />
-    </div>
-  );
-}
+/* LANDING — pivoted 2026-07-10. Jad's locked copy (docs/LANDING-COPY.md).
+   One scroll, ~45 seconds, every section points at one action: Start Your Check-In.
+   Boot sequence and five-act journey removed by decision — explanation over cinema.
+   Returning visitors (any check-in logged) land on the check-in view directly (App.jsx). */
 
 function HeroMedia() {
   const vid = useRef(null);
@@ -64,170 +40,162 @@ function HeroMedia() {
   );
 }
 
-/* One act of the journey: full-bleed scene, numbered, copy, one door forward. */
-function Act({ numeral, kicker, title, copy, img, flip = false, cta, sub, onCta, children }) {
-  return (
-    <section className={`mc-act ${flip ? "mc-actflip" : ""}`}>
-      <div className="mc-actmedia" aria-hidden="true">
-        <img src={ART(img)} alt="" loading="lazy" />
-        <span className="mc-actveil" />
-      </div>
-      <div className="mc-actbody">
-        <Reveal className="mc-actnum">{numeral}</Reveal>
-        <Reveal as="div" delay={80} className="mc-eyebrow">{kicker}</Reveal>
-        <Reveal as="h2" delay={160} className="mc-acttitle">{title}</Reveal>
-        <Reveal as="p" delay={240} className="mc-actcopy">{copy}</Reveal>
-        {cta && (
-          <Reveal delay={320}>
-            <button className="mc-cta" onClick={onCta}><b>{cta}</b>{sub && <small>{sub}</small>}</button>
-          </Reveal>
-        )}
-        {children}
-      </div>
-    </section>
-  );
-}
+const STEPS = [
+  ["01", "Name the feeling",
+    "Choose what is present right now: anxious, stuck, heartbroken, unmotivated, overwhelmed, disconnected, or lost. No quizzes. No journaling. No need to explain yourself."],
+  ["02", "Reveal the pattern",
+    "See the thought loop beneath the feeling and the belief quietly reinforcing it. Not a diagnosis. Not a horoscope. A mirror."],
+  ["03", "Run your protocol",
+    "Receive one focused experience built for the pattern you selected: a song to repeat, a reframe to remember, a visualization to step into, a narration for morning or night. No browsing. No decision fatigue. Just press play."],
+];
 
-export default function Discover({ go, openItem, openCollection }) {
+const PATHS = [
+  ["health", "Health & Peace", "Calm the noise. Restore balance. Feel safe in your own mind."],
+  ["confidence", "Confidence & Power", "Break hesitation. Reclaim your voice. Move with conviction."],
+  ["love", "Love & Connection", "Release old wounds. Strengthen self-worth. Create healthier bonds."],
+  ["abundance", "Abundance", "Challenge scarcity. Expand possibility. Build a mind that can receive."],
+  ["spirit", "Spiritual Mastery", "Move beyond reaction. Deepen awareness. Live with intention."],
+];
+
+const TOOLS = [
+  ["Music", "Original songs designed around powerful ideas you can return to until the words become familiar."],
+  ["Narrations", "Guided audio for your mornings, evenings, quiet moments, and inner resets."],
+  ["Visualizations", "Immersive experiences that help your mind see and feel the reality you are working toward."],
+  ["The Deck", "A reimagined 78-card system for revealing the pattern, tension, or possibility you may not yet have words for."],
+];
+
+export default function Discover({ go, openCollection }) {
   const heroPx = useParallax(0.22);
   const magA = useMagnetic(9);
-  const magB = useMagnetic(9);
-  const featured = itemById("vis-becoming");
-  const [booted, setBooted] = useState(() =>
-    typeof window !== "undefined" && sessionStorage.getItem("mc-booted") === "1"
-  );
-  const finishBoot = () => { setBooted(true); try { sessionStorage.setItem("mc-booted", "1"); } catch {} };
 
   return (
     <section className="mc-discover">
-      {/* ── THE OPENING: the door. The locked words. ── */}
+      {/* 1 · HERO */}
       <div className="mc-hero mc-heroanim mc-herocine">
         <div className="mc-heroimgwrap" aria-hidden="true" ref={heroPx}>
           <HeroMedia />
         </div>
         <div className="mc-heroscrim" aria-hidden="true" />
-        {!booted ? (
-          <BootSequence onDone={finishBoot} />
-        ) : (
-          <>
-            <div className="mc-eyebrow mc-heroeyebrow">MINDOS // SYSTEM ACTIVE · WRITE ACCESS GRANTED</div>
-            <h1 className="mc-h1">
-              <MaskLines
-                lines={[
-                  { text: "Your mind is always being programmed.", className: "mc-decodeink" },
-                  { text: "Choose what goes into it.", className: "mc-foil" },
-                ]}
-              />
-            </h1>
-            <p className="mc-herosub mc-herolate" style={{ "--d": "640ms" }}>
-              Your mind is an operating system. Everyone writes to it — feeds, ads, other people's fear. This is where you take the keyboard back.
-            </p>
-            <div className="mc-herocta mc-herolate" style={{ "--d": "820ms" }}>
-              <button ref={magA} className="mc-ctav" onClick={() => go("decode")}><b>Run Decode</b><small>READ THE SOURCE</small></button>
-              <button ref={magB} className="mc-cta" onClick={() => go("recode")}><b>Open Recode</b><small>WRITE ACCESS</small></button>
-            </div>
-            <div className="mc-scrollcue mc-herolate" style={{ "--d": "1400ms" }} aria-hidden="true"><span /></div>
-          </>
-        )}
+        <div className="mc-eyebrow mc-heroeyebrow">MIND CODING</div>
+        <h1 className="mc-h1">
+          <span className="mc-decodeink">Your mind is being programmed every day.</span>
+          <br />
+          <span className="mc-foil">Choose what gets installed.</span>
+        </h1>
+        <p className="mc-herosub mc-herolate" style={{ "--d": "300ms" }}>
+          Everything you watch, hear, and repeat becomes part of the pattern running your life.
+          Mind Coding helps you recognize that pattern, interrupt it, and replace it with something stronger.
+        </p>
+        <p className="mc-herosub mc-heroline2 mc-herolate" style={{ "--d": "440ms" }}>
+          One daily check-in. One song. One reframe. One visualization.
+          <br />
+          <span className="mc-herofree">Free. Private. No signup. No endless feed.</span>
+        </p>
+        <div className="mc-herocta mc-herolate" style={{ "--d": "580ms" }}>
+          <button ref={magA} className="mc-cta" onClick={() => go("checkin")}>
+            <b>Start Your Check-In</b><small>TAKES ABOUT 60 SECONDS</small>
+          </button>
+        </div>
+        <div className="mc-scrollcue mc-herolate" style={{ "--d": "1100ms" }} aria-hidden="true"><span /></div>
       </div>
 
+      {/* 2 · HOW IT WORKS */}
+      <div className="mc-landsec">
+        <Reveal className="mc-eyebrow">HOW IT WORKS</Reveal>
+        <Reveal as="h2" delay={90} className="mc-h2">Check in. Decode the pattern. Change the input.</Reveal>
+        <div className="mc-landsteps">
+          {STEPS.map(([n, t, d], i) => (
+            <Reveal key={n} delay={160 + i * 130} className="mc-landstep">
+              <div className="mc-landstepnum">{n}</div>
+              <div className="mc-landsteptitle">{t}</div>
+              <p className="mc-landstepdesc">{d}</p>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+
+      {/* 3 · WHY IT WORKS */}
       <div className="mc-premise">
-        <Reveal className="mc-eyebrow">HOW THE SYSTEM RUNS</Reveal>
-        <ScrollIgnite text="What you repeatedly listen to, imagine, feel, and believe begins to shape how you live." />
+        <Reveal className="mc-eyebrow">WHY IT WORKS</Reveal>
+        <Reveal as="h2" delay={90} className="mc-h2">Your life follows the patterns your mind repeats.</Reveal>
+        <Reveal as="p" delay={180} className="mc-landwhy">
+          Most beliefs do not arrive as conscious decisions. They are formed through repetition: the words you heard,
+          the experiences you replayed, the content you consumed, and the thoughts you practiced until they began to feel true.
+        </Reveal>
         <div className="mc-pipe" aria-label="Inputs become patterns, beliefs, identity, and finally your life">
           {["INPUTS", "PATTERNS", "BELIEFS", "IDENTITY", "LIFE"].map((st, i) => (
-            <Reveal as="span" key={st} delay={i * 180} className="mc-pipestage">
+            <Reveal as="span" key={st} delay={i * 160} className="mc-pipestage">
               {st}
               {i < 4 && <i className="mc-pipearrow" aria-hidden="true">→</i>}
             </Reveal>
           ))}
         </div>
-        <Reveal delay={950} className="mc-pipeinject">
-          <span className="mc-pipearrowup" aria-hidden="true">⤴</span> RECODE writes here — at the inputs — and everything downstream recompiles.
+        <Reveal as="p" delay={850} className="mc-landwhy">
+          What enters your mind repeatedly begins shaping what you notice, what you expect, and how you act.
+          Mind Coding uses that same process deliberately. One intentional input may shift your perspective for a moment.
+          Repeated daily, it can help build a new default.
+        </Reveal>
+        <Reveal as="p" delay={950} className="mc-landwhy mc-landwhykey">
+          You cannot always control what reaches you.
+          <br />You can choose what you reinforce.
         </Reveal>
       </div>
 
-      {/* ── ACT I — THE CALL ── */}
-      <Act
-        numeral="PHASE 01 // SCAN"
-        kicker="THE CALL"
-        title="See the code you're running."
-        copy="Feeds, ads, family scripts, other people's fear — code was written to your mind for years without asking. Most people never look at the source. The journey begins the moment you scan it and see the programming for what it is."
-        img="signal-call.webp"
-        cta="Run Decode"
-        sub="READ THE SOURCE"
-        onCta={() => go("decode")}
-      />
-
-      {/* ── ACT II — THE TRIALS ── */}
-      <Act
-        numeral="PHASE 02 // SELECT"
-        kicker="THE TRIALS"
-        title="Select the module to rewrite."
-        copy="Every hero faces trials — yours are running processes. Health. Confidence. Love. Abundance. Spiritual mastery. Open the module where the old code is costing you the most."
-        img="signal-trials.webp"
-        flip
-      >
-        <Reveal delay={380} className="mc-chips">
-          {COLLECTIONS.map((c) => (
-            <button key={c.id} className="mc-chip mc-chipgold" onClick={() => openCollection(c.id)}>{c.name}</button>
+      {/* 4 · WHAT'S INSIDE */}
+      <div className="mc-landsec">
+        <Reveal className="mc-eyebrow">WHAT&rsquo;S INSIDE</Reveal>
+        <Reveal as="h2" delay={90} className="mc-h2">Five paths. Four tools. One place to begin.</Reveal>
+        <Reveal as="p" delay={170} className="mc-lead">Explore the area of life that needs your attention now:</Reveal>
+        <div className="mc-pathgrid">
+          {PATHS.map(([id, name, line], i) => (
+            <Reveal key={id} delay={220 + i * 80}>
+              <button className="mc-pathcard" onClick={() => openCollection(id)}>
+                <span className="mc-pathname">{name}</span>
+                <span className="mc-pathline">{line}</span>
+              </button>
+            </Reveal>
           ))}
-        </Reveal>
-        <Reveal delay={480} className="mc-chips mc-chips2">
-          {FEELINGS.slice(0, 4).map((f) => (
-            <button key={f.id} className="mc-chip" onClick={() => openCollection(f.to)}>{f.label}</button>
+        </div>
+        <Reveal delay={340} as="p" className="mc-lead mc-toolslead">Every path uses four forms of mental input:</Reveal>
+        <div className="mc-toolgrid">
+          {TOOLS.map(([t, d], i) => (
+            <Reveal key={t} delay={380 + i * 80} className="mc-toolcard">
+              <span className="mc-toolname">{t}</span>
+              <span className="mc-toolline">{d}</span>
+            </Reveal>
           ))}
+        </div>
+        <Reveal delay={620} className="mc-decklink">
+          <button className="mc-linklike" onClick={() => go("reflect")}>Let the deck reveal your pattern →</button>
         </Reveal>
-      </Act>
+      </div>
 
-      {/* ── ACT III — THE ORACLE ── */}
-      <Act
-        numeral="PHASE 03 // QUERY"
-        kicker="THE ORACLE"
-        title="Query the deck."
-        copy="Seventy-eight original works — a symbolic debugger for your own head. Draw one card for a clear signal, three for the pattern, or five to trace the full stack: from where you stand to who you are becoming."
-        img="signal-oracle.webp"
-        cta="Draw your cards"
-        sub="One · Three · Five"
-        onCta={() => go("reflect")}
-      />
-
-      {/* ── ACT IV — THE BECOMING ── */}
-      <Act
-        numeral="PHASE 04 // COMPILE"
-        kicker="THE BECOMING"
-        title="Repetition compiles belief."
-        copy="One exposure is a comment. Daily repetition is a commit. Programs sequence music and narration day by day until the new belief stops being something you play — and starts being something you run."
-        img="signal-becoming.webp"
-        flip
-        cta="Install a program"
-        sub="30 Days of Becoming"
-        onCta={() => go("recode")}
-      >
-        {featured && (
-          <Reveal delay={420} className="mc-actcardrow">
-            <ContentCard item={featured} onOpen={openItem} />
-          </Reveal>
-        )}
-      </Act>
-
-      {/* ── ACT V — THE RETURN ── */}
-      <Act
-        numeral="PHASE 05 // DEPLOY"
-        kicker="THE RETURN"
-        title="Ship it to real life."
-        copy="The journey ends where it began — the ordinary world — except you're running different code. Every song, narration, and visualization releases free on YouTube, so the build ships with you everywhere."
-        img="signal-return.webp"
-      >
-        <Reveal delay={380} className="mc-rail mc-actrail">
-          {LIBRARY.filter((x) => x.type !== "decode").slice(0, 6).map((x) => (
-            <div key={x.id} className="mc-railslot"><ContentCard item={x} onOpen={openItem} /></div>
-          ))}
+      {/* 5 · PRIVACY */}
+      <div className="mc-landsec mc-landpriv">
+        <Reveal className="mc-eyebrow">PRIVACY</Reveal>
+        <Reveal as="h2" delay={90} className="mc-h2">Your inner world stays yours.</Reveal>
+        <Reveal as="p" delay={180} className="mc-landwhy">
+          Mind Coding is free to use. No account is required. Your check-ins and history remain stored in your browser,
+          on your device. They are not attached to a profile, sent to a social feed, or used to keep you scrolling.
         </Reveal>
-        <Reveal delay={460}>
-          <a className="mc-cta mc-small" href="https://www.youtube.com/@mindcoding" target="_blank" rel="noreferrer"><b>Visit the channel</b><small>Every release is free</small></a>
+        <Reveal as="p" delay={260} className="mc-landwhy mc-landwhykey">
+          This is not another platform competing for your attention.
+          <br />It is a ritual you open, use, and leave.
         </Reveal>
-      </Act>
+      </div>
+
+      {/* 6 · CLOSING */}
+      <div className="mc-landsec mc-landclose">
+        <Reveal as="h2" className="mc-h2">
+          The programming never stops.
+          <br />The question is whether it happens by accident or by choice.
+        </Reveal>
+        <Reveal delay={160} className="mc-herocta">
+          <button className="mc-cta" onClick={() => go("checkin")}>
+            <b>Start Your Check-In</b><small>YOUR FIRST CHECK-IN IS 60 SECONDS AWAY</small>
+          </button>
+        </Reveal>
+      </div>
     </section>
   );
 }

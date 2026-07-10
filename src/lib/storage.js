@@ -55,3 +55,17 @@ export function exportMySpace() {
   a.click();
   URL.revokeObjectURL(a.href);
 }
+
+/* Check-in history — the daily loop's on-device trendline. */
+const CHECKINS = "mindcoding.checkins.v1";
+export function loadCheckins() {
+  try { return JSON.parse(localStorage.getItem(CHECKINS)) || []; } catch { return []; }
+}
+export function addCheckin(feelingId) {
+  const list = [{ date: new Date().toISOString(), feeling: feelingId }, ...loadCheckins()].slice(0, 400);
+  try { localStorage.setItem(CHECKINS, JSON.stringify(list)); } catch {}
+  return list;
+}
+export function hasCheckedInBefore() {
+  return loadCheckins().length > 0;
+}

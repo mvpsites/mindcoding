@@ -1,5 +1,5 @@
 const TABS = [
-  ["decode", "Decode", "▲"],
+  ["checkin", "Check In", "◉"],
   ["discover", "Discover", "✳"],
   ["recode", "Recode", "◈"],
 ];

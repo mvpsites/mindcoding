@@ -2,7 +2,7 @@ import { useState, useRef, useMemo } from "react";
 import { CARDS } from "../data/cards.js";
 import { loadDaily, persistDaily, todayKey } from "../lib/storage.js";
 import CardBack from "./CardBack.jsx";
-import Cosmos from "./Cosmos.jsx";
+import Wheel from "./Wheel.jsx";
 import CardFace from "./CardFace.jsx";
 import Field from "./Field.jsx";
 
@@ -66,7 +66,7 @@ export default function Ritual({ onSave }) {
       </h2>
 
       {!drawn && (
-        <Cosmos
+        <Wheel
           pickedIds={chosen ? [chosen] : []}
           onPick={draw}
           done={chosen != null}

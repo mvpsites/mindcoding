@@ -6,17 +6,18 @@ import RecodeTab from "./components/RecodeTab.jsx";
 import Reflect from "./components/Reflect.jsx";
 import MySpace from "./components/MySpace.jsx";
 import BottomNav from "./components/BottomNav.jsx";
+import CheckIn from "./components/CheckIn.jsx";
 import { ContentModal } from "./components/ContentCard.jsx";
-import { loadSaved, persistSaved } from "./lib/storage.js";
+import { loadSaved, persistSaved, hasCheckedInBefore } from "./lib/storage.js";
 
 const TABS = [
-  ["discover", "Discover"],
+  ["checkin", "Check In"],
   ["decode", "Decode"],
   ["recode", "Recode"],
 ];
 
 export default function App() {
-  const [view, setView] = useState("discover");
+  const [view, setView] = useState(() => (typeof window !== "undefined" && hasCheckedInBefore() ? "checkin" : "discover"));
   const [scrolled, setScrolled] = useState(false);
   const [focusCollection, setFocusCollection] = useState(null);
   const [openItem, setOpenItem] = useState(null);
@@ -64,7 +65,8 @@ export default function App() {
 
       <main className="mc-main">
         <div className="mc-view" key={view + (focusCollection || "")}>
-          {view === "discover" && <Discover go={go} openItem={setOpenItem} openCollection={openCollection} />}
+          {view === "discover" && <Discover go={go} openCollection={openCollection} />}
+          {view === "checkin" && <CheckIn openItem={setOpenItem} go={go} openCollection={openCollection} />}
           {view === "decode" && <DecodeTab openItem={setOpenItem} />}
           {view === "recode" && (
             <RecodeTab openItem={setOpenItem} go={go} focusCollection={focusCollection} onToast={say} />

@@ -1,7 +1,7 @@
 import { useState, useMemo, useRef } from "react";
 import { CARDS } from "../data/cards.js";
 import CardBack from "./CardBack.jsx";
-import Cosmos from "./Cosmos.jsx";
+import Wheel from "./Wheel.jsx";
 import CardFace from "./CardFace.jsx";
 import Field from "./Field.jsx";
 
@@ -75,7 +75,7 @@ export default function Spread({ config, onSave, onExit }) {
 
       {mode !== "spread" && (
         <>
-          <Cosmos
+          <Wheel
             pickedIds={drawnCards.map((d) => d.card.id)}
             onPick={draw}
             done={drawnCards.length >= K}
