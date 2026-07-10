@@ -2,7 +2,6 @@ import { useState } from "react";
 import { CARDS } from "../data/cards.js";
 import { LORE } from "../data/lore.js";
 import CardFace from "./CardFace.jsx";
-import CardBack from "./CardBack.jsx";
 import Field from "./Field.jsx";
 
 const SUITS = ["All", "Major Arcana", "Wands", "Cups", "Swords", "Pentacles"];
@@ -17,7 +16,7 @@ export default function Deck() {
       <div className="mc-eyebrow">THE DECK</div>
       <h2 className="mc-h2">Seventy-eight arcana, engraved anew</h2>
       <p className="mc-sub">
-        The authentic tarot system — original artwork. The Major Arcana is complete; the four suits are being engraved.
+        The authentic tarot system — all seventy-eight cards, original artwork, engraved anew.
       </p>
       <div className="mc-chips">
         {SUITS.map((s) => (
@@ -32,13 +31,6 @@ export default function Deck() {
             <CardFace card={c} small />
           </button>
         ))}
-        {filter === "All" &&
-          [0, 1, 2].map((i) => (
-            <div key={i} className="mc-ghostcard">
-              <CardBack />
-              <span>IN THE ATELIER</span>
-            </div>
-          ))}
       </div>
       {shown.length === 0 && <div className="mc-hint">This suit is still being engraved.</div>}
 
