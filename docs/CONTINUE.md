@@ -12,6 +12,14 @@
 
 
 
+
+## SESSION UPDATE 5 — 2026-07-10 (VIDEO + full cover art — the mvpsites treatment)
+- **Living hero shipped**: 10s cinematic video generated from the hero still (kling3_0_turbo image-to-video, job 3624ff7f; when a prompt matches a Higgsfield preset, retry with declined_preset_id to generate literally). Self-hosted via courier: vid-hero.mp4 (658KB h264) + vid-hero.webm (427KB vp9). HeroMedia component in Discover.jsx: poster=scene-hero.webp, autoplay/muted/loop/playsinline, onError→still fallback, skips video for reduced-motion/Save-Data, TOUCH-WAKE (one-time pointerdown/touchstart play() for iOS Low Power Mode — mvpsites pattern).
+- **Courier now handles video**: manifest ids starting "vid-" → ffmpeg → 1280w mp4 (crf27) + webm (vp9 crf37); workflow installs ffmpeg. Courier triggers ONLY on manifest path changes — dispatch fetch-art.yml manually otherwise.
+- **All 12 library items have real cover art** (10 new: cov-song-*, cov-narr-*, cov-dec-* in manifest → public/art). No more empty gradient/"glyph" cards.
+- **SANDBOX LEARNING: Playwright chromium has NO H.264** (canPlayType avc1 = ""); mp4 "failure" in sandbox = codec, not code. webm added partly so playback is verifiable in-sandbox. Real Safari/Chrome/Edge play the mp4 fine.
+- Verified: video playing, looping, currentTime advancing in sandbox via webm.
+
 ## SESSION UPDATE 4 — 2026-07-10 (iPhone/iPad performance pass — measured, not guessed)
 Method: playwright chromium mobile emulation + CDP 4x CPU throttle, ISOLATED browser per device (measuring two live contexts in one process contaminates results — learned the hard way). Baseline: phone home 15fps / deck 24fps.
 Fixes, in order of impact:
