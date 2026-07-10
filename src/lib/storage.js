@@ -20,3 +20,38 @@ export function loadDaily() {
 export function persistDaily(entry) {
   try { localStorage.setItem(DAILY, JSON.stringify(entry)); } catch {}
 }
+
+const FAVS = "mindcoding.favs.v1";
+const JOURNAL = "mindcoding.journal.v1";
+
+export function loadFavs() {
+  try { return JSON.parse(localStorage.getItem(FAVS)) || []; } catch { return []; }
+}
+export function toggleFav(id) {
+  const f = loadFavs();
+  const next = f.includes(id) ? f.filter((x) => x !== id) : [...f, id];
+  try { localStorage.setItem(FAVS, JSON.stringify(next)); } catch {}
+  return next;
+}
+export function loadJournal() {
+  try { return JSON.parse(localStorage.getItem(JOURNAL)) || []; } catch { return []; }
+}
+export function addJournal(entry) {
+  const j = [{ id: Date.now(), date: new Date().toISOString(), ...entry }, ...loadJournal()];
+  try { localStorage.setItem(JOURNAL, JSON.stringify(j)); } catch {}
+  return j;
+}
+export function exportMySpace() {
+  const data = {
+    exported: new Date().toISOString(),
+    saved: loadSaved(), favorites: loadFavs(), journal: loadJournal(),
+    programs: JSON.parse(localStorage.getItem("mindcoding.programs.v1") || "{}"),
+    daily: JSON.parse(localStorage.getItem("mindcoding.daily.v1") || "null"),
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "mind-coding-backup.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+}

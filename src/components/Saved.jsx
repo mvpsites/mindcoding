@@ -5,7 +5,7 @@ export default function Saved({ saved, onRemove, go }) {
         <div className="mc-eyebrow">YOUR ARCHIVE</div>
         <h2 className="mc-h2">Nothing saved yet</h2>
         <p className="mc-sub">Your archive holds every reading you choose to keep. Pull today's card to begin.</p>
-        <button className="mc-cta" onClick={() => go("ritual")}>
+        <button className="mc-cta" onClick={() => go("reflect")}>
           <b>Begin</b>
           <small>Pull today's card</small>
         </button>
