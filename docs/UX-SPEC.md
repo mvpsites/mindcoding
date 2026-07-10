@@ -57,3 +57,17 @@ Safari/WebKit: never put CSS `filter` on 3D-transformed elements (breaks hit-tes
 - **Ethical line (hard rule):** recognition, not technique. Teach "how this works on you and how to notice it," never offensive manipulation how-tos.
 - **Placement:** no new tab. Discover row + Library filter (+ desktop nav item if it earns one).
 - **Founding batch:** one Decode video doubling as brand manifesto/channel trailer, e.g. "You're Being Programmed Every Day — Here's How to See It."
+
+## SIMPLIFIED IA v2 (2026-07-10, supersedes the 5-tab nav above)
+**Three tabs: Discover · Decode · Recode.** My Space stays a top-right icon. Desktop: Home · Decode · Recode.
+- **Discover** = router: hero, feelings-first chips (intentions second row), Continue strip, one featured item per side.
+- **Decode** = awareness feed (pattern-recognition videos, series grouping later). Sharper skin, daytime-only register.
+- **Recode** = the sanctuary, organized by NEED not format: Continue → Programs → 7 collections → Tools (tarot as "Reflect", journal) → night = Subconscious register after ~21:00. Format is a filter chip, never a nav level.
+- Killed: Listen/Visualize/Reflect/Library as tabs. Unchanged underneath: manifest, sequence engine, detail template, My Space, night layer, tarot containment, Safari rules.
+
+## DEFAULTS LOCKED (2026-07-10 — Jad may veto)
+1. Program day model = PHASED REPETITION (same song daily per phase; 4 songs = complete 30-day program).
+2. Discover chips = FEELINGS-FIRST, intentions second row.
+3. Programs/journeys = DAY-GATED WITH GRACE (catch up allowed, no binge-ahead).
+4. Decode = confirmed pillar; founding batch includes one manifesto Decode video.
+Founding batch (11): 4 songs (= first program), 4 narrations, 1 flagship visualization, 1 journey, 1 Decode manifesto.
