@@ -22,6 +22,14 @@
 
 
 
+
+## SESSION UPDATE 7 — 2026-07-10 (NEW DIRECTION: "SIGNAL" — Jad-approved, supersedes the midnight/gold identity)
+Jad rejected the engraved midnight/gold occult direction outright ("scrap everything"). Three opposed stylescapes were built and deployed at /directions/{a,b,c}.html (DAWN light-sanctuary / FORGE bold-performance / SIGNAL neural-tech). **Jad picked C — SIGNAL.** The stylescape pages are the design reference; keep them.
+- **SIGNAL system:** void #05070D, cyan #4FD8FF, violet #8A7DFF (Decode), ivory-blue #E8F1F8 text; fonts Outfit (all type) + IBM Plex Mono (system tags/eyebrows, "// " prefix); glass panels (--panel/--edge), pill chips, 12-18px radii; neural grid replaces film grain (mask-faded, NO blend modes — perf rule holds); mono PHASE 01-05 tags replace roman numerals on the journey acts; copy voice = system language ("Run Decode", "Open Recode", "Your identity runs on inputs…"). Implemented as token remap in :root + "SIGNAL SKIN" override layer at the end of styles.css.
+- **Imagery regenerated to match (Jad's standing rule — imagery correlates to direction + hero's journey):** signal-hero / -call / -trials / -oracle / -becoming / -return (16:9, cyan-violet sci-fi style block) + vid-signal hero video (kling, 10s push-in from signal-hero). Old scene-*/vid-hero assets remain in repo but are unreferenced except the 5 collection DOOR panels (still gold-era) — REGENERATE the five door images in SIGNAL style next session (each door hued per collection: teal/amber/rose/white-gold/violet like the signal-trials corridor).
+- Tarot deck art (gold/midnight, all 78) intentionally KEPT as-is — the contained "ancient artifact inside the machine" section, consistent with tarot-containment doctrine.
+- Verified: cyan-present/gold-zero pixel check, Outfit+Plex Mono computed, phases + scenes rendering.
+
 ## SESSION UPDATE 6 — 2026-07-10 (HERO'S JOURNEY REBUILD — Jad's direction, supersedes parts of UX-SPEC)
 Jad: site experience rebuilt around the HERO'S JOURNEY; imagery + videos must map to journey stages.
 - **Discover = five full-bleed acts** below the (unchanged, locked-copy) doorway-video hero + premise ScrollIgnite: I THE CALL (scene-call → Decode) · II THE TRIALS (scene-confidence + collection/feeling chips) · III THE ORACLE (scene-oracle → Reflect) · IV THE BECOMING (scene-becoming + programs) · V THE RETURN (scene-return + library rail + YT). Act component in Discover.jsx; .mc-act CSS (alternating veils, roman numerals — the numbering IS the journey sequence).
