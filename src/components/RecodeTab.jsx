@@ -3,6 +3,7 @@ import { COLLECTIONS, collectionById } from "../data/collections.js";
 import { byCollection, itemById } from "../data/library.js";
 import { PROGRAMS, getProgress, startProgram, completeDay, contentForDay } from "../data/programs.js";
 import ContentCard from "./ContentCard.jsx";
+import { Reveal } from "../lib/motion.jsx";
 
 function ProgramCard({ program, openItem, onToast }) {
   const [progress, setProgress] = useState(() => getProgress(program.id));
@@ -85,29 +86,33 @@ export default function RecodeTab({ openItem, go, focusCollection, onToast }) {
 
   return (
     <section className="mc-recodetab">
-      <div className="mc-eyebrow">RECODE</div>
-      <h2 className="mc-h2">Choose what goes in.</h2>
-      <p className="mc-lead">Programs, music, narrations, and reflection — organized by what you're building, not by format.</p>
+      <Reveal className="mc-eyebrow">RECODE</Reveal>
+      <Reveal as="h2" delay={90} className="mc-h2">Choose what goes in.</Reveal>
+      <Reveal as="p" delay={180} className="mc-lead">Programs, music, narrations, and reflection — organized by what you're building, not by format.</Reveal>
 
       <div className="mc-block">
-        <div className="mc-eyebrow">PROGRAMS</div>
-        {PROGRAMS.map((p) => <ProgramCard key={p.id} program={p} openItem={openItem} onToast={onToast} />)}
+        <Reveal className="mc-eyebrow">PROGRAMS</Reveal>
+        {PROGRAMS.map((p, i) => (
+          <Reveal key={p.id} delay={i * 110}>
+            <ProgramCard program={p} openItem={openItem} onToast={onToast} />
+          </Reveal>
+        ))}
       </div>
 
       <div className="mc-block">
-        <div className="mc-eyebrow">THE FIVE DOORS</div>
+        <Reveal className="mc-eyebrow">THE FIVE DOORS</Reveal>
         <div className="mc-doors">
-          {COLLECTIONS.map((c) => (
-            <button key={c.id} className={`mc-door mc-door-${c.id}`} onClick={() => setOpen(c.id)}>
+          {COLLECTIONS.map((c, i) => (
+            <Reveal as="button" key={c.id} delay={i * 90} className={`mc-door mc-door-${c.id}`} onClick={() => setOpen(c.id)}>
               <span className="mc-doorname">{c.name}</span>
               <span className="mc-doorline">{c.line}</span>
-            </button>
+            </Reveal>
           ))}
         </div>
       </div>
 
       <div className="mc-block">
-        <div className="mc-eyebrow">TOOLS</div>
+        <Reveal className="mc-eyebrow">TOOLS</Reveal>
         <div className="mc-toolrow">
           <button className="mc-toolcard" onClick={() => go("reflect")}>
             <span className="mc-tooltitle">Reflect — the deck</span>

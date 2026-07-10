@@ -1,4 +1,15 @@
 
+
+## SESSION UPDATE — 2026-07-10 (cinematic pass + cosmos shuffle)
+- **Cosmos shuffle shipped:** Shuffle button gathers all 78 to a center stack (glow rises + flares), re-deals while stacked, scatters with staggered ripple. Timing consts GATHER_MS/SCATTER_MS in Cosmos.jsx; keep in sync with the .8s left/top CSS transition.
+- **Cinematic motion system shipped (src/lib/motion.jsx + CSS block "CINEMATIC MOTION SYSTEM" in styles.css):**
+  - `Reveal` — shared-IntersectionObserver scroll entrance (opacity+translateY), per-child stagger via delay prop → --rvd. Used across Discover/Decode/Recode.
+  - `MaskLines` — hero headline lines rise out of overflow clips on mount (page-load choreography with eyebrow tracking-in, sub/CTAs staggered via .mc-herolate --d).
+  - `ScrollIgnite` — SIGNATURE: scroll-linked word-by-word ignition of the brand premise on Discover ("What you repeatedly listen to… shape how you live." — last 4 words gold via :nth-last-child).
+  - Foil headline has an infinite 9s gold specular sweep; nebula parallax layers in Ambient.jsx (rAF, nebula -0.1x / stars -0.045x); nav deepens on scroll (mc-nav-scrolled, state in App.jsx); view transitions .62s; card cover light-sweep on hover; hero is full-viewport (100svh minus chrome).
+  - ALL entrance motion gated behind prefers-reduced-motion: no-preference — content never hidden without JS/with reduced motion. 2D transforms + opacity only (Safari rules hold).
+- Visually verified via Playwright (/opt/pw-browsers chromium works in sandbox; serve `vite preview`, base "./" → use localhost:4173/ root).
+
 ## SESSION HANDOFF — 2026-07-10 (shell v2 shipped)
 Read docs/PRODUCT-DIRECTION.md and docs/UX-SPEC.md FIRST. Then this state:
 

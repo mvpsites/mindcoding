@@ -5,6 +5,7 @@ import { activePrograms, contentForDay } from "../data/programs.js";
 import { loadDaily } from "../lib/storage.js";
 import { CARDS } from "../data/cards.js";
 import ContentCard from "./ContentCard.jsx";
+import { Reveal, MaskLines, ScrollIgnite } from "../lib/motion.jsx";
 
 export default function Discover({ go, openItem, openCollection }) {
   const daily = useMemo(loadDaily, []);
@@ -15,83 +16,100 @@ export default function Discover({ go, openItem, openCollection }) {
 
   return (
     <section className="mc-discover">
-      <div className="mc-hero">
-        <div className="mc-eyebrow">MIND CODING</div>
+      <div className="mc-hero mc-heroanim">
+        <div className="mc-eyebrow mc-heroeyebrow">MIND CODING</div>
         <h1 className="mc-h1">
-          <span className="mc-decodeink">Your mind is always being programmed.</span>
-          <br />
-          <span className="mc-foil">Choose what goes into it.</span>
+          <MaskLines
+            lines={[
+              { text: "Your mind is always being programmed.", className: "mc-decodeink" },
+              { text: "Choose what goes into it.", className: "mc-foil" },
+            ]}
+          />
         </h1>
-        <p className="mc-herosub">
+        <p className="mc-herosub mc-herolate" style={{ "--d": "640ms" }}>
           Decode the patterns shaping you. Recode them with music, narration, visualization, and reflection. Free, always.
         </p>
-        <div className="mc-herocta">
+        <div className="mc-herocta mc-herolate" style={{ "--d": "820ms" }}>
           <button className="mc-ctav" onClick={() => go("decode")}><b>Enter Decode</b><small>See the patterns</small></button>
           <button className="mc-cta" onClick={() => go("recode")}><b>Enter Recode</b><small>Choose what goes in</small></button>
+        </div>
+        <div className="mc-scrollcue mc-herolate" style={{ "--d": "1400ms" }} aria-hidden="true">
+          <span />
         </div>
       </div>
 
       <div className="mc-block">
-        <div className="mc-eyebrow">HOW DO YOU FEEL TODAY?</div>
+        <Reveal className="mc-eyebrow">HOW DO YOU FEEL TODAY?</Reveal>
         <div className="mc-chips">
-          {FEELINGS.map((f) => (
-            <button key={f.id} className="mc-chip" onClick={() => openCollection(f.to)}>{f.label}</button>
+          {FEELINGS.map((f, i) => (
+            <Reveal as="button" key={f.id} delay={i * 45} className="mc-chip" onClick={() => openCollection(f.to)}>
+              {f.label}
+            </Reveal>
           ))}
         </div>
         <div className="mc-chips mc-chips2">
-          {COLLECTIONS.map((c) => (
-            <button key={c.id} className="mc-chip mc-chipgold" onClick={() => openCollection(c.id)}>{c.name}</button>
+          {COLLECTIONS.map((c, i) => (
+            <Reveal as="button" key={c.id} delay={220 + i * 55} className="mc-chip mc-chipgold" onClick={() => openCollection(c.id)}>
+              {c.name}
+            </Reveal>
           ))}
         </div>
       </div>
 
       {(active.length > 0 || dCard) && (
         <div className="mc-block">
-          <div className="mc-eyebrow">CONTINUE</div>
+          <Reveal className="mc-eyebrow">CONTINUE</Reveal>
           <div className="mc-continue">
-            {active.map(({ program, progress }) => {
+            {active.map(({ program, progress }, i) => {
               const item = itemById(contentForDay(program, progress.current));
               return (
-                <button key={program.id} className="mc-contcard" onClick={() => go("recode")}>
+                <Reveal as="button" key={program.id} delay={i * 90} className="mc-contcard" onClick={() => go("recode")}>
                   <span className="mc-contkicker">Day {progress.current} of {program.days}</span>
                   <span className="mc-conttitle">{program.title}</span>
                   {item && <span className="mc-contsub">Today: {item.title}</span>}
-                </button>
+                </Reveal>
               );
             })}
             {dCard && (
-              <button className="mc-contcard" onClick={() => go("reflect")}>
+              <Reveal as="button" delay={active.length * 90} className="mc-contcard" onClick={() => go("reflect")}>
                 <span className="mc-contkicker">Today's card</span>
                 <span className="mc-conttitle">{dCard.name}{daily.reversed ? " — Reversed" : ""}</span>
                 <span className="mc-contsub">Return to your reflection</span>
-              </button>
+              </Reveal>
             )}
           </div>
         </div>
       )}
 
+      <div className="mc-premise">
+        <Reveal className="mc-eyebrow">THE PREMISE</Reveal>
+        <ScrollIgnite text="What you repeatedly listen to, imagine, feel, and believe begins to shape how you live." />
+      </div>
+
       <div className="mc-block">
-        <div className="mc-eyebrow">FEATURED</div>
+        <Reveal className="mc-eyebrow">FEATURED</Reveal>
         <div className="mc-featured">
-          <ContentCard item={featuredRecode} onOpen={openItem} wide />
-          <ContentCard item={featuredDecode} onOpen={openItem} wide />
+          <Reveal><ContentCard item={featuredRecode} onOpen={openItem} wide /></Reveal>
+          <Reveal delay={140}><ContentCard item={featuredDecode} onOpen={openItem} wide /></Reveal>
         </div>
       </div>
 
       <div className="mc-block">
-        <div className="mc-eyebrow">NEW IN THE LIBRARY</div>
+        <Reveal className="mc-eyebrow">NEW IN THE LIBRARY</Reveal>
         <div className="mc-rail">
-          {LIBRARY.filter((x) => x.type !== "decode").slice(0, 6).map((x) => (
-            <ContentCard key={x.id} item={x} onOpen={openItem} />
+          {LIBRARY.filter((x) => x.type !== "decode").slice(0, 6).map((x, i) => (
+            <Reveal key={x.id} delay={i * 80} className="mc-railslot">
+              <ContentCard item={x} onOpen={openItem} />
+            </Reveal>
           ))}
         </div>
       </div>
 
-      <div className="mc-ytband">
+      <Reveal className="mc-ytband">
         <div className="mc-eyebrow">EVERY RELEASE IS FREE ON YOUTUBE</div>
         <p>New music, narrations, and Decode drops land on the channel first.</p>
         <a className="mc-cta mc-small" href="https://www.youtube.com/@mindcoding" target="_blank" rel="noreferrer"><b>Visit the channel</b></a>
-      </div>
+      </Reveal>
     </section>
   );
 }

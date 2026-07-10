@@ -17,6 +17,7 @@ const TABS = [
 
 export default function App() {
   const [view, setView] = useState("discover");
+  const [scrolled, setScrolled] = useState(false);
   const [focusCollection, setFocusCollection] = useState(null);
   const [openItem, setOpenItem] = useState(null);
   const [saved, setSaved] = useState(loadSaved);
@@ -24,6 +25,12 @@ export default function App() {
 
   useEffect(() => { persistSaved(saved); }, [saved]);
   useEffect(() => { window.scrollTo({ top: 0 }); }, [view]);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const say = (msg) => { setToast(msg); setTimeout(() => setToast(null), 2600); };
   const onSave = (r) => { setSaved((s) => [...s, r]); say("Reading saved to My Space"); };
@@ -35,7 +42,7 @@ export default function App() {
   return (
     <div className="mc-root">
       <Ambient />
-      <header className="mc-nav">
+      <header className={`mc-nav ${scrolled ? "mc-nav-scrolled" : ""}`}>
         <button className="mc-word" onClick={() => go("discover")}>
           <span className="mc-glyph" aria-hidden="true">✳</span> MIND CODING
         </button>
