@@ -722,3 +722,26 @@ img{-webkit-user-drag:none;}
 
 .mc-scrollcue span{background:linear-gradient(180deg, transparent, var(--gold-bright));}
 .mc-subtab,.mc-back{font-family:var(--engrave); letter-spacing:.14em;}
+
+/* ═══ MINDOS layer: boot sequence + the code→recode pipeline ═══ */
+.mc-boot{font-family:var(--engrave); font-size:clamp(13px,1.6vw,16px); text-align:left;
+  max-width:560px; margin:0 auto; min-height:200px; color:var(--gold-bright); cursor:pointer;
+  display:flex; flex-direction:column; gap:12px; justify-content:center;}
+.mc-bootline{letter-spacing:.06em; opacity:0; animation:mcBootIn .35s ease forwards;}
+.mc-bootline:nth-child(2), .mc-bootline:nth-child(3){color:var(--ivory); opacity:0;}
+.mc-bootline:nth-child(3){color:#FF8D7E;}
+@keyframes mcBootIn{to{opacity:.95;}}
+.mc-cursor{display:inline-block; width:9px; height:18px; background:var(--gold-bright); animation:mcBlink 1s steps(1) infinite;}
+@keyframes mcBlink{50%{opacity:0;}}
+@media (prefers-reduced-motion: reduce){ .mc-bootline{animation:none; opacity:.95;} .mc-cursor{animation:none;} }
+
+.mc-pipe{display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:10px; margin:38px auto 0; max-width:720px;}
+.mc-pipestage{font-family:var(--engrave); font-size:clamp(11px,1.4vw,13px); letter-spacing:.22em;
+  color:var(--ivory); padding:10px 16px; border:1px solid var(--edge); border-radius:999px;
+  background:var(--panel); display:inline-flex; align-items:center; gap:10px;}
+.mc-pipestage:nth-child(4), .mc-pipestage:nth-child(5){border-color:rgba(79,216,255,.5); color:var(--gold-bright);
+  box-shadow:0 0 22px rgba(79,216,255,.1);}
+.mc-pipearrow{font-style:normal; color:var(--gold-bright); opacity:.7; margin-left:2px;}
+.mc-pipeinject{margin:20px auto 0; max-width:520px; font-family:var(--engrave); font-size:12.5px;
+  letter-spacing:.08em; line-height:1.8; color:var(--violet);}
+.mc-pipearrowup{color:var(--violet); font-size:16px; margin-right:6px;}

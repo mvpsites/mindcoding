@@ -23,6 +23,15 @@
 
 
 
+
+## SESSION UPDATE 8 — 2026-07-10 (MINDOS — the concept layer on SIGNAL, Jad's direction)
+Jad on SIGNAL: "not bad, but… your mind is an OS and then the whole code recode." SIGNAL skin KEPT; concept pushed to full mind-as-operating-system:
+- **Boot sequence hero**: BootSequence types 4 mono lines (MINDOS // boot → scanning inputs → source: unknown · consent: not found → write access: AVAILABLE) then the locked headline compiles in. Tap-to-skip; reduced-motion skips; sessionStorage "mc-booted" makes it once-per-session.
+- **Pipeline thesis** replaces plain premise: ScrollIgnite sentence + INPUTS → PATTERNS → BELIEFS → IDENTITY → LIFE stage pills (staggered reveals) + violet "RECODE writes here — at the inputs" inject line. This IS the code→recode story.
+- **Journey = OS verbs** (hero's journey intact underneath): PHASE 01 // SCAN · 02 SELECT · 03 QUERY · 04 COMPILE ("one exposure is a comment; daily repetition is a commit") · 05 DEPLOY. CTAs: Run Decode / READ THE SOURCE, Open Recode / WRITE ACCESS, Install a program.
+- Headers: Decode "Read the source." · Recode "Write access granted." + MODULES · My Space → "LOCAL / Runs on-device" (truthful: it IS localStorage).
+- Locked hero copy untouched. Verified: boot lines type, headline appears post-boot, reload-in-session skips boot, pipeline + inject render, all five OS phases live.
+
 ## SESSION UPDATE 7 — 2026-07-10 (NEW DIRECTION: "SIGNAL" — Jad-approved, supersedes the midnight/gold identity)
 Jad rejected the engraved midnight/gold occult direction outright ("scrap everything"). Three opposed stylescapes were built and deployed at /directions/{a,b,c}.html (DAWN light-sanctuary / FORGE bold-performance / SIGNAL neural-tech). **Jad picked C — SIGNAL.** The stylescape pages are the design reference; keep them.
 - **SIGNAL system:** void #05070D, cyan #4FD8FF, violet #8A7DFF (Decode), ivory-blue #E8F1F8 text; fonts Outfit (all type) + IBM Plex Mono (system tags/eyebrows, "// " prefix); glass panels (--panel/--edge), pill chips, 12-18px radii; neural grid replaces film grain (mask-faded, NO blend modes — perf rule holds); mono PHASE 01-05 tags replace roman numerals on the journey acts; copy voice = system language ("Run Decode", "Open Recode", "Your identity runs on inputs…"). Implemented as token remap in :root + "SIGNAL SKIN" override layer at the end of styles.css.

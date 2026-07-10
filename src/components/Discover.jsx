@@ -6,6 +6,32 @@ import { Reveal, MaskLines, ScrollIgnite, useParallax, useMagnetic } from "../li
 
 const ART = (f) => import.meta.env.BASE_URL + "art/" + f;
 
+const BOOT_LINES = [
+  "MINDOS // boot",
+  "scanning inputs… thousands of messages received today",
+  "source: unknown · consent: not found",
+  "write access: AVAILABLE",
+];
+
+function BootSequence({ onDone }) {
+  const [shown, setShown] = useState(0);
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { onDone(); return; }
+    const t = [];
+    BOOT_LINES.forEach((_, i) => t.push(setTimeout(() => setShown(i + 1), 380 + i * 560)));
+    t.push(setTimeout(onDone, 380 + BOOT_LINES.length * 560 + 420));
+    return () => t.forEach(clearTimeout);
+  }, [onDone]);
+  return (
+    <div className="mc-boot" onClick={onDone} role="button" aria-label="Skip intro" tabIndex={0}>
+      {BOOT_LINES.slice(0, shown).map((l, i) => (
+        <div key={i} className="mc-bootline">&gt; {l}</div>
+      ))}
+      <span className="mc-cursor" aria-hidden="true" />
+    </div>
+  );
+}
+
 function HeroMedia() {
   const vid = useRef(null);
   const [useVideo, setUseVideo] = useState(() => {
@@ -67,6 +93,10 @@ export default function Discover({ go, openItem, openCollection }) {
   const magA = useMagnetic(9);
   const magB = useMagnetic(9);
   const featured = itemById("vis-becoming");
+  const [booted, setBooted] = useState(() =>
+    typeof window !== "undefined" && sessionStorage.getItem("mc-booted") === "1"
+  );
+  const finishBoot = () => { setBooted(true); try { sessionStorage.setItem("mc-booted", "1"); } catch {} };
 
   return (
     <section className="mc-discover">
@@ -76,48 +106,65 @@ export default function Discover({ go, openItem, openCollection }) {
           <HeroMedia />
         </div>
         <div className="mc-heroscrim" aria-hidden="true" />
-        <div className="mc-eyebrow mc-heroeyebrow">MIND CODING // SYSTEM ACTIVE</div>
-        <h1 className="mc-h1">
-          <MaskLines
-            lines={[
-              { text: "Your mind is always being programmed.", className: "mc-decodeink" },
-              { text: "Choose what goes into it.", className: "mc-foil" },
-            ]}
-          />
-        </h1>
-        <p className="mc-herosub mc-herolate" style={{ "--d": "640ms" }}>
-          Your identity runs on inputs. Music, visualization, and structured repetition — written directly to the system underneath.
-        </p>
-        <div className="mc-herocta mc-herolate" style={{ "--d": "820ms" }}>
-          <button ref={magA} className="mc-ctav" onClick={() => go("decode")}><b>Run Decode</b><small>SEE THE SCRIPTS</small></button>
-          <button ref={magB} className="mc-cta" onClick={() => go("recode")}><b>Open Recode</b><small>WRITE NEW INPUTS</small></button>
-        </div>
-        <div className="mc-scrollcue mc-herolate" style={{ "--d": "1400ms" }} aria-hidden="true"><span /></div>
+        {!booted ? (
+          <BootSequence onDone={finishBoot} />
+        ) : (
+          <>
+            <div className="mc-eyebrow mc-heroeyebrow">MINDOS // SYSTEM ACTIVE · WRITE ACCESS GRANTED</div>
+            <h1 className="mc-h1">
+              <MaskLines
+                lines={[
+                  { text: "Your mind is always being programmed.", className: "mc-decodeink" },
+                  { text: "Choose what goes into it.", className: "mc-foil" },
+                ]}
+              />
+            </h1>
+            <p className="mc-herosub mc-herolate" style={{ "--d": "640ms" }}>
+              Your mind is an operating system. Everyone writes to it — feeds, ads, other people's fear. This is where you take the keyboard back.
+            </p>
+            <div className="mc-herocta mc-herolate" style={{ "--d": "820ms" }}>
+              <button ref={magA} className="mc-ctav" onClick={() => go("decode")}><b>Run Decode</b><small>READ THE SOURCE</small></button>
+              <button ref={magB} className="mc-cta" onClick={() => go("recode")}><b>Open Recode</b><small>WRITE ACCESS</small></button>
+            </div>
+            <div className="mc-scrollcue mc-herolate" style={{ "--d": "1400ms" }} aria-hidden="true"><span /></div>
+          </>
+        )}
       </div>
 
       <div className="mc-premise">
-        <Reveal className="mc-eyebrow">THE PREMISE</Reveal>
+        <Reveal className="mc-eyebrow">HOW THE SYSTEM RUNS</Reveal>
         <ScrollIgnite text="What you repeatedly listen to, imagine, feel, and believe begins to shape how you live." />
+        <div className="mc-pipe" aria-label="Inputs become patterns, beliefs, identity, and finally your life">
+          {["INPUTS", "PATTERNS", "BELIEFS", "IDENTITY", "LIFE"].map((st, i) => (
+            <Reveal as="span" key={st} delay={i * 180} className="mc-pipestage">
+              {st}
+              {i < 4 && <i className="mc-pipearrow" aria-hidden="true">→</i>}
+            </Reveal>
+          ))}
+        </div>
+        <Reveal delay={950} className="mc-pipeinject">
+          <span className="mc-pipearrowup" aria-hidden="true">⤴</span> RECODE writes here — at the inputs — and everything downstream recompiles.
+        </Reveal>
       </div>
 
       {/* ── ACT I — THE CALL ── */}
       <Act
-        numeral="PHASE 01"
+        numeral="PHASE 01 // SCAN"
         kicker="THE CALL"
-        title="You've already heard it."
-        copy="The restlessness. The sense that the life running on autopilot isn't the one you'd choose. Most people walk past the light. The journey begins the moment you turn toward it — and see the programming for what it is."
+        title="See the code you're running."
+        copy="Feeds, ads, family scripts, other people's fear — code was written to your mind for years without asking. Most people never look at the source. The journey begins the moment you scan it and see the programming for what it is."
         img="signal-call.webp"
-        cta="See the programming"
-        sub="Enter Decode"
+        cta="Run Decode"
+        sub="READ THE SOURCE"
         onCta={() => go("decode")}
       />
 
       {/* ── ACT II — THE TRIALS ── */}
       <Act
-        numeral="PHASE 02"
+        numeral="PHASE 02 // SELECT"
         kicker="THE TRIALS"
-        title="Choose your arena."
-        copy="Every hero faces trials — theirs are dragons, yours are patterns. Health. Confidence. Love. Abundance. Spiritual mastery. Pick the door where your real work is waiting."
+        title="Select the module to rewrite."
+        copy="Every hero faces trials — yours are running processes. Health. Confidence. Love. Abundance. Spiritual mastery. Open the module where the old code is costing you the most."
         img="signal-trials.webp"
         flip
       >
@@ -135,10 +182,10 @@ export default function Discover({ go, openItem, openCollection }) {
 
       {/* ── ACT III — THE ORACLE ── */}
       <Act
-        numeral="PHASE 03"
+        numeral="PHASE 03 // QUERY"
         kicker="THE ORACLE"
-        title="Consult the cards."
-        copy="Seventy-eight original works, painted for this deck alone. Draw one card for a clear signal, three for the pattern, or five to walk the full journey — from where you stand to who you are becoming."
+        title="Query the deck."
+        copy="Seventy-eight original works — a symbolic debugger for your own head. Draw one card for a clear signal, three for the pattern, or five to trace the full stack: from where you stand to who you are becoming."
         img="signal-oracle.webp"
         cta="Draw your cards"
         sub="One · Three · Five"
@@ -147,13 +194,13 @@ export default function Discover({ go, openItem, openCollection }) {
 
       {/* ── ACT IV — THE BECOMING ── */}
       <Act
-        numeral="PHASE 04"
+        numeral="PHASE 04 // COMPILE"
         kicker="THE BECOMING"
-        title="Repetition is the transformation."
-        copy="Heroes aren't changed by one moment — they're changed by what they return to daily. Programs sequence music and narration day by day, so the new belief doesn't just visit. It moves in."
+        title="Repetition compiles belief."
+        copy="One exposure is a comment. Daily repetition is a commit. Programs sequence music and narration day by day until the new belief stops being something you play — and starts being something you run."
         img="signal-becoming.webp"
         flip
-        cta="Begin a program"
+        cta="Install a program"
         sub="30 Days of Becoming"
         onCta={() => go("recode")}
       >
@@ -166,10 +213,10 @@ export default function Discover({ go, openItem, openCollection }) {
 
       {/* ── ACT V — THE RETURN ── */}
       <Act
-        numeral="PHASE 05"
+        numeral="PHASE 05 // DEPLOY"
         kicker="THE RETURN"
-        title="Carry it back into your life."
-        copy="The journey ends where it began — the ordinary world — except you're not the same. Every song, narration, and visualization releases free on YouTube, so the work travels with you."
+        title="Ship it to real life."
+        copy="The journey ends where it began — the ordinary world — except you're running different code. Every song, narration, and visualization releases free on YouTube, so the build ships with you everywhere."
         img="signal-return.webp"
       >
         <Reveal delay={380} className="mc-rail mc-actrail">

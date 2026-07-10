@@ -11,7 +11,7 @@ export default function DecodeTab({ openItem }) {
         <span className="mc-decodeveil" aria-hidden="true" />
       </Reveal>
       <Reveal className="mc-eyebrow mc-eyebrow-v">DECODE</Reveal>
-      <Reveal as="h2" delay={90} className="mc-h2">See the programming.</Reveal>
+      <Reveal as="h2" delay={90} className="mc-h2">Read the source.</Reveal>
       <Reveal as="p" delay={180} className="mc-lead">
         Persuasion patterns, media framing, compliance techniques — the scripts running on you every day.
         Learn to recognize them. Recognition is the off switch.

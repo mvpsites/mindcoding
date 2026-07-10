@@ -89,7 +89,7 @@ export default function RecodeTab({ openItem, go, focusCollection, onToast }) {
   return (
     <section className="mc-recodetab">
       <Reveal className="mc-eyebrow">RECODE</Reveal>
-      <Reveal as="h2" delay={90} className="mc-h2">Choose what goes in.</Reveal>
+      <Reveal as="h2" delay={90} className="mc-h2">Write access granted.</Reveal>
       <Reveal as="p" delay={180} className="mc-lead">Programs, music, narrations, and reflection — organized by what you're building, not by format.</Reveal>
 
       <div className="mc-block">
@@ -102,7 +102,7 @@ export default function RecodeTab({ openItem, go, focusCollection, onToast }) {
       </div>
 
       <div className="mc-block">
-        <Reveal className="mc-eyebrow">THE FIVE DOORS</Reveal>
+        <Reveal className="mc-eyebrow">MODULES</Reveal>
         <div className="mc-doors">
           {COLLECTIONS.map((c, i) => (
             <Reveal as="button" key={c.id} delay={i * 90} className={`mc-door mc-door-${c.id}`} onClick={() => setOpen(c.id)}>

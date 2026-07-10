@@ -9,10 +9,10 @@ export default function MySpace({ saved, onRemove, go, openItem }) {
 
   return (
     <section className="mc-myspace">
-      <div className="mc-eyebrow">MY SPACE</div>
-      <h2 className="mc-h2">Yours alone.</h2>
+      <div className="mc-eyebrow">LOCAL</div>
+      <h2 className="mc-h2">Runs on-device.</h2>
       <p className="mc-lead">
-        Everything here lives only on this device — it never leaves it. Back it up any time.
+        Your favorites and readings are stored locally — nothing syncs, nothing leaves this device. Back it up any time.
       </p>
       <button className="mc-ghost mc-small" onClick={exportMySpace}><b>Download backup</b></button>
 
