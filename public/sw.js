@@ -1,5 +1,5 @@
 /* MindCod.ing service worker: network-first shell, cache-first assets */
-const CACHE = "mindcoding-v7";
+const CACHE = "mindcoding-v8";
 self.addEventListener("install", () => self.skipWaiting());
 self.addEventListener("activate", (e) => {
   e.waitUntil(
@@ -13,7 +13,7 @@ self.addEventListener("fetch", (e) => {
   if (e.request.method !== "GET") return;
   if (e.request.mode === "navigate") {
     e.respondWith(
-      fetch(e.request)
+      fetch(e.request, { cache: "no-cache" }) // bypass Safari's HTTP cache — always revalidate the shell
         .then((r) => {
           if (r.ok) {
             const copy = r.clone();
