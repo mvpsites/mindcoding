@@ -70,6 +70,7 @@ export function useParallax(rate = 0.25) {
   useEffect(() => {
     const el = ref.current;
     if (!el || reduced()) return;
+    if (window.matchMedia("(hover: none)").matches) return; // touch: skip per-frame layer moves
     let raf = 0;
     const tick = () => {
       raf = 0;

@@ -17,6 +17,7 @@ export default function Ambient() {
   // depth: nebula and stars drift at different rates as the page scrolls
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(hover: none)").matches) return; // touch: static depth layers
     let raf = 0;
     const tick = () => {
       raf = 0;

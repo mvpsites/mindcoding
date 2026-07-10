@@ -70,14 +70,17 @@ export default function Cosmos({ pickedIds = [], onPick, done = false, hint }) {
     const onResize = () => { rect = field.getBoundingClientRect(); };
     window.addEventListener("resize", onResize, { passive: true });
 
+    let rectDirty = false;
+    const refreshRect = () => { if (!rectDirty) { rectDirty = true; requestAnimationFrame(() => { rect = field.getBoundingClientRect(); rectDirty = false; }); } };
+    window.addEventListener("scroll", refreshRect, { passive: true });
     const onMove = (e) => {
       const t = e.touches ? e.touches[0] : e;
-      rect = field.getBoundingClientRect();
       pointer.current = { x: t.clientX - rect.left, y: t.clientY - rect.top, on: true };
     };
     const onLeave = () => { pointer.current.on = false; };
     field.addEventListener("mousemove", onMove, { passive: true });
     field.addEventListener("mouseleave", onLeave, { passive: true });
+    field.addEventListener("touchstart", onMove, { passive: true });
     field.addEventListener("touchmove", onMove, { passive: true });
     field.addEventListener("touchend", onLeave, { passive: true });
 
@@ -182,6 +185,7 @@ export default function Cosmos({ pickedIds = [], onPick, done = false, hint }) {
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", onResize);
+      window.removeEventListener("scroll", refreshRect);
       timers.current.forEach(clearTimeout);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

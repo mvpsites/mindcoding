@@ -11,6 +11,19 @@
 - Visually verified via Playwright (/opt/pw-browsers chromium works in sandbox; serve `vite preview`, base "./" → use localhost:4173/ root).
 
 
+
+## SESSION UPDATE 4 — 2026-07-10 (iPhone/iPad performance pass — measured, not guessed)
+Method: playwright chromium mobile emulation + CDP 4x CPU throttle, ISOLATED browser per device (measuring two live contexts in one process contaminates results — learned the hard way). Baseline: phone home 15fps / deck 24fps.
+Fixes, in order of impact:
+1. **Grain layer mix-blend-mode:overlay REMOVED** (plain low-opacity overlay now). Full-screen blend forced whole-viewport re-composite whenever anything beneath animated — this + stars was the killer. Never reintroduce blend modes on fixed full-viewport layers.
+2. **Ambient stars: box-shadow glow → baked radial-gradient background** (+will-change:opacity). Animated opacity on 60 shadowed spans under the blend layer was the other half of the kill.
+3. **`will-change:transform` on .mc-star is LOAD-BEARING** — removing it demoted 78 per-frame-transformed cards to full repaints (deck 24→10fps). It's back; keep it.
+4. **Per-card blurred box-shadow removed during drift** (subtle outline on the back image instead); shadow only on .mc-starnear/.mc-starpicked.
+5. **Heavy effects gated to `(hover:hover) and (pointer:fine)`**: foil sweep (also fixed: .mc-masklift shorthand was silently overriding it — now combined `.mc-masklift.mc-foil{mcLineUp, mcFoilSweep 1.8s-delay}`), hero+banner Ken Burns, nebula drift, hero/ambient JS parallax. Touch devices get the cinema fade + static depth.
+6. **Cosmos pointer handlers: cached rect** (refreshed on scroll/resize via rAF) — no getBoundingClientRect per touchmove; touchstart added so a resting finger attracts cards (verified 23px pull on tap).
+Final (4x throttle, isolated): PHONE 60fps home / 44 deck; TABLET 25/22 throttled, 56/46 unthrottled software-raster → real GPUs pin at refresh.
+Cosmos is now v3: rAF physics field (sine-blend wander, depth scale/opacity/z, magnetic pointer attraction + gold-lift nearest, physics gather/re-deal/scatter, physics pick-swoop to center, entry deal-out). No CSS keyframes on cards. React never touches frames.
+
 ## SESSION UPDATE 2 — 2026-07-10 (THE IMAGE LAYER — cinematic imagery shipped)
 - Jad's verdict on the text-only motion pass: "looks cheap, no images, nothing for the subconscious." Correct — fixed with a full image layer.
 - **9 cinematic scenes generated (nano_banana_pro, 1k)**: scene-hero (16:9 doorway of light), scene-decode (16:9 dissolving profile), scene-becoming + scene-manifesto (16:9 featured covers), scene-{health,confidence,love,abundance,spirit} (4:5 door panels). Shared style block: midnight/indigo + burnished gold + ivory, volumetric light, film grain, "NO text/letters/numbers/watermark/borders/frames". All in tools/art-manifest.json → self-hosted via Art Courier.
