@@ -1,3 +1,28 @@
+
+## SESSION HANDOFF — 2026-07-10 (shell v2 shipped)
+Read docs/PRODUCT-DIRECTION.md and docs/UX-SPEC.md FIRST. Then this state:
+
+**SHIPPED TODAY (all live on GitHub Pages, deploys green):**
+- Wands suit complete → full 78-card deck done, pip-verified.
+- Safari fix: NEVER put CSS filter on 3D-transformed elements or use negative translateZ on interactive elements (was breaking ALL tarot interactions in WebKit).
+- Mind Coding shell v2: 3-tab IA (Discover / Decode / Recode), My Space icon (◐) top-right. New files: src/data/{library,programs,collections}.js, src/components/{Discover,DecodeTab,RecodeTab,Reflect,MySpace,ContentCard,Cosmos}.jsx. App.jsx + BottomNav.jsx rewritten. Home.jsx now unused (still present).
+- Content publishing = edit src/data/library.js: set ytId + status:"live". That's the whole CMS. Never hot-link covers; self-host via Art Courier pattern.
+- Program engine: phased repetition, day-gated with grace (tested: binge-ahead blocked). Programs: becoming-30, letting-go-7.
+- Cosmos draw mechanic: all 78 real cards drift in .mc-cosmos; tap = that card; Ritual (daily) and Spread (3-card) both use it. 2D transforms only — keep it that way (Safari).
+- Hero CTAs: Decode (violet, left) then Recode (gold, right).
+
+**JAD'S PENDING TEST LIST (his bug notes drive next session):** daily draw chain on Safari/iPhone, 3-card reading, program day-gating, journal prompt → My Space, backup download, cosmos drift speed/card size tuning.
+
+**NEXT PRIORITIES (deadline: Jad has Claude until July 12):**
+1. Fix whatever Jad's testing surfaces (mechanics polish > new features).
+2. Founding batch scripts: 4 songs (Suno prompts+lyrics — exemplar "I Release What No Longer Chooses Me" already written in chat, register approved implicitly), 4 narrations, 1 visualization script, 1 Decode manifesto script. Pipeline: Suno → Reap audiogram w/ ONE signature caption style → YouTube; Higgsfield TTS for narration voice (voice not yet chosen).
+3. Tarot post-reading → related library items bridge (tag map).
+4. Later: real URL routing + prerender (slugs already in manifest), per-card SEO pages.
+
+**OPEN DECISIONS:** YouTube channel handle (placeholder link @mindcoding in Discover.jsx — verify/replace), narrator voice (clone vs synthetic), publish cadence, email capture via GHL, Spiritual Mastery has no founding song (gap is known).
+
+**SECURITY:** the PAT used 2026-07-10 is exposed in that chat — Jad must revoke it and mint a fresh repo-scoped token (Contents+Workflows RW) for the next session.
+
 # MindCod.ing — Session Handoff Brief
 
 **Live:** https://mvpsites.github.io/mindcoding/ · **Repo:** mvpsites/mindcoding (private)
