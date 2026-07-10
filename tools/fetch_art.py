@@ -1,12 +1,33 @@
 """Art courier: runs on GitHub Actions (full internet), downloads card art
-from the manifest, converts to optimized webp in public/art/."""
-import json, io, os
+from the manifest, converts to optimized webp in public/art/.
+Video entries (id starts with "vid-"): downloaded and compressed via ffmpeg
+to 1280w h264 mp4, muted, faststart, ~seamless-loop friendly."""
+import json, io, os, subprocess, tempfile
 import requests
 from PIL import Image
 
 manifest = json.load(open("tools/art-manifest.json"))
 os.makedirs("public/art", exist_ok=True)
 for card_id, url in manifest.items():
+    if card_id.startswith("vid-"):
+        out = f"public/art/{card_id}.mp4"
+        if os.path.exists(out):
+            print(f"skip {card_id} (exists)")
+            continue
+        print(f"fetching video {card_id} ...")
+        r = requests.get(url, timeout=180)
+        r.raise_for_status()
+        with tempfile.NamedTemporaryFile(suffix=".mp4", delete=False) as tf:
+            tf.write(r.content); src = tf.name
+        subprocess.run([
+            "ffmpeg", "-y", "-i", src, "-an",
+            "-vf", "scale=1280:-2",
+            "-c:v", "libx264", "-crf", "27", "-preset", "slow",
+            "-pix_fmt", "yuv420p", "-movflags", "+faststart", out
+        ], check=True)
+        os.unlink(src)
+        print(f"  saved {out} ({os.path.getsize(out)//1024} KB)")
+        continue
     out = f"public/art/{card_id}.webp"
     if os.path.exists(out):
         print(f"skip {card_id} (exists — delete the webp to force refetch)")

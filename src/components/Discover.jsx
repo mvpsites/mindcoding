@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { FEELINGS, COLLECTIONS } from "../data/collections.js";
 import { LIBRARY, itemById } from "../data/library.js";
 import { activePrograms, contentForDay } from "../data/programs.js";
@@ -8,6 +8,39 @@ import ContentCard from "./ContentCard.jsx";
 import { Reveal, MaskLines, ScrollIgnite, useParallax, useMagnetic } from "../lib/motion.jsx";
 
 const ART = (f) => import.meta.env.BASE_URL + "art/" + f;
+
+/* Living hero: video when the device allows it, our still otherwise.
+   Touch-wake handles iOS Low Power Mode blocking autoplay (mvpsites pattern). */
+function HeroMedia() {
+  const vid = useRef(null);
+  const [useVideo, setUseVideo] = useState(() => {
+    if (typeof window === "undefined") return false;
+    const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const sd = navigator.connection?.saveData;
+    return !rm && !sd;
+  });
+  useEffect(() => {
+    if (!useVideo) return;
+    const wake = () => { vid.current?.play().catch(() => {}); };
+    window.addEventListener("touchstart", wake, { once: true, passive: true });
+    window.addEventListener("pointerdown", wake, { once: true, passive: true });
+    return () => { window.removeEventListener("touchstart", wake); window.removeEventListener("pointerdown", wake); };
+  }, [useVideo]);
+  if (!useVideo) return <img className="mc-heroimg" src={ART("scene-hero.webp")} alt="" />;
+  return (
+    <video
+      ref={vid}
+      className="mc-heroimg mc-herovideo"
+      poster={ART("scene-hero.webp")}
+      autoPlay muted loop playsInline
+      preload="auto"
+      onError={() => setUseVideo(false)}
+      aria-hidden="true"
+    >
+      <source src={ART("vid-hero.mp4")} type="video/mp4" />
+    </video>
+  );
+}
 
 export default function Discover({ go, openItem, openCollection }) {
   const heroPx = useParallax(0.22);
@@ -23,7 +56,7 @@ export default function Discover({ go, openItem, openCollection }) {
     <section className="mc-discover">
       <div className="mc-hero mc-heroanim mc-herocine">
         <div className="mc-heroimgwrap" aria-hidden="true" ref={heroPx}>
-          <img className="mc-heroimg" src={ART("scene-hero.webp")} alt="" />
+          <HeroMedia />
         </div>
         <div className="mc-heroscrim" aria-hidden="true" />
         <div className="mc-eyebrow mc-heroeyebrow">MIND CODING</div>

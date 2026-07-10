@@ -588,3 +588,9 @@ img{-webkit-user-drag:none;}
 .mc-decodeveil{position:absolute; inset:0;
   background:linear-gradient(180deg, rgba(10,14,35,.1) 40%, rgba(10,14,35,.65) 100%);}
 
+
+/* living hero video (2026-07-10) */
+.mc-herovideo{object-fit:cover; object-position:center 38%;}
+@media (prefers-reduced-motion: no-preference) and (hover:hover) and (pointer:fine){
+  .mc-herovideo{animation:mcCineIn 2.4s ease .15s forwards;} /* real motion inside; no Ken Burns on video */
+}

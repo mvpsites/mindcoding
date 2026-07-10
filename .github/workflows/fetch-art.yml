@@ -17,6 +17,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install requests pillow
+      - run: sudo apt-get update -q && sudo apt-get install -y -q ffmpeg
       - run: python tools/fetch_art.py
       - name: Commit art
         run: |
