@@ -20,9 +20,16 @@
 - `src/data/lore.js`: long-form per card — `symbolism` (The Card), `pattern` (The Pattern), `recodePath` (Living the Recode), ~240 words/card, second person, warm-direct voice, no fluff.
 
 ## Remaining work (in order)
-1. **42 remaining Minor Arcana**: generate suit-by-suit (Cups → Swords → Wands), canonical RWS scenes, ~2 credits each. Write cards.js content + lore.js for each. ✅ PENTACLES DONE (2026-07-09): all 14 cards (Ace–King) have art (art/<id>pent.webp via Art Courier), 13-field cards.js content, and lore.js entries. Card ids: acepent, twopent … tenpent, pagepent, knightpent, queenpent, kingpent. Court cards use numeral: "" (minors with art don't render the numeral plate). NOTE: the Art Courier pushes with GITHUB_TOKEN, which does NOT trigger the deploy workflow — after the courier commits art, push any real commit (or dispatch deploy.yml) to get the art live.
+1. **28 remaining Minor Arcana**: generate suit-by-suit (Swords → Wands), canonical RWS scenes, ~2 credits each. Write cards.js content + lore.js for each. ✅ CUPS DONE (2026-07-10): all 14 cards (art via courier, 13-field content, lore). Ids: acecup…kingcup, same conventions as Pentacles. Pip COUNT VERIFICATION was still pending at session end — verify chalice counts on two–ten before/at next session (see playbook below).
+✅ PENTACLES DONE (2026-07-09): all 14 cards (Ace–King) have art (art/<id>pent.webp via Art Courier), 13-field cards.js content, and lore.js entries. Card ids: acepent, twopent … tenpent, pagepent, knightpent, queenpent, kingpent. Court cards use numeral: "" (minors with art don't render the numeral plate). NOTE: the Art Courier pushes with GITHUB_TOKEN, which does NOT trigger the deploy workflow — after the courier commits art, push any real commit (or dispatch deploy.yml) to get the art live.
 2. **Mechanics/UX session**: user was unhappy with current mechanics implementation (bottom-nav/native layer shipped but flagged for rework — "we need to figure out the mechanics" together). Do NOT assume current UX is approved.
 3. Belief Recode tool (selection-based, static — designed, not built), Philosophy page, more spreads, per-card SEO URLs (big GEO opportunity).
 
 ## Security
 - Previous fine-grained PAT was exposed in chat history — user must REVOKE and mint a fresh one (repo-scoped: mvpsites/mindcoding, Contents+Workflows RW) for each session.
+
+## Pip-count playbook (learned 2026-07-09, Pentacles)
+- Image models miscount pips ~30% of the time even with count-hardened prompts (exact totals + grouped arithmetic like "3 + 3 = 6, no more, no fewer" + fixed positions). Bake the arithmetic in anyway — it helps.
+- VERIFY COUNTS YOURSELF: after the Art Courier commits, `git pull` and `view` each pip webp (2–10). Do not rely on the user to catch miscounts.
+- FIX SURGICALLY, don't regenerate: extra coins/cups → cv2.inpaint (TELEA for flat sky, NS for foliage), r ≈ pip radius + 25 for glow. Missing → clone an existing pip (crop r+6, feathered circular alpha mask) and paste in a clean spot continuing the arrangement. Verify in-frame, save webp q82, commit public/art directly — a direct art push triggers deploy by itself (no courier, no trigger commit needed).
+- Hough circles (cv2.HoughCircles, minR 35 maxR 70) locates coin-discs well but is noisy — classify candidates via cropped contact sheet. Cups/swords/wands are not circles; locate by eye instead.
