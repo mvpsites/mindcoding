@@ -9,7 +9,7 @@ from PIL import Image
 manifest = json.load(open("tools/art-manifest.json"))
 os.makedirs("public/art", exist_ok=True)
 for card_id, url in manifest.items():
-    if card_id.startswith("vid-"):
+    if card_id.startswith("vid-") or card_id.startswith("video-") or url.split("?")[0].endswith((".mp4", ".webm", ".mov")):
         out_mp4 = f"public/art/{card_id}.mp4"
         out_webm = f"public/art/{card_id}.webm"
         if os.path.exists(out_mp4) and os.path.exists(out_webm):

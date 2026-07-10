@@ -20,6 +20,12 @@
 - **SANDBOX LEARNING: Playwright chromium has NO H.264** (canPlayType avc1 = ""); mp4 "failure" in sandbox = codec, not code. webm added partly so playback is verifiable in-sandbox. Real Safari/Chrome/Edge play the mp4 fine.
 - Verified: video playing, looping, currentTime advancing in sandbox via webm.
 
+
+## ⚠️ SESSION UPDATE 5 — 2026-07-10 (PARALLEL-SESSION COLLISION — read before working)
+TWO Claude sessions worked this repo simultaneously today. The other session shipped a working hero-video pipeline (vid- prefix, mp4+webm, HeroMedia w/ touch-wake + save-data + reduced-motion fallbacks — KEEP THEIRS, it is canonical). This session's duplicate landed on top and broke two things: (1) a duplicate "video-hero" manifest entry fell through the vid- prefix check into the image branch → PIL crashed the courier; (2) an orphaned .mc-herovideo CSS rule set the video to opacity:0 waiting for a class nobody adds → THE VIDEO PLAYED INVISIBLY ON THE LIVE SITE (user saw "no video"). Both fixed: orphan CSS deleted, duplicate manifest entry removed, courier hardened (any id starting vid-/video- OR any .mp4/.webm/.mov URL routes to the video branch).
+RULE GOING FORWARD: one session per repo at a time. If commits appear that this session didn't make, STOP, git pull, and reconcile before pushing anything.
+Verified post-fix: hero video exists/playing/opacity .92 full-bleed on desktop + iPhone viewports.
+
 ## SESSION UPDATE 4 — 2026-07-10 (iPhone/iPad performance pass — measured, not guessed)
 Method: playwright chromium mobile emulation + CDP 4x CPU throttle, ISOLATED browser per device (measuring two live contexts in one process contaminates results — learned the hard way). Baseline: phone home 15fps / deck 24fps.
 Fixes, in order of impact:
