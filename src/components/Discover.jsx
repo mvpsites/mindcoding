@@ -26,8 +26,8 @@ export default function Discover({ go, openItem, openCollection }) {
           Decode the patterns shaping you. Recode them with music, narration, visualization, and reflection. Free, always.
         </p>
         <div className="mc-herocta">
-          <button className="mc-cta" onClick={() => go("recode")}><b>Enter Recode</b><small>The doing side</small></button>
-          <button className="mc-ghost" onClick={() => go("decode")}><b>Enter Decode</b><small>See the patterns</small></button>
+          <button className="mc-ctav" onClick={() => go("decode")}><b>Enter Decode</b><small>See the patterns</small></button>
+          <button className="mc-cta" onClick={() => go("recode")}><b>Enter Recode</b><small>Choose what goes in</small></button>
         </div>
       </div>
 

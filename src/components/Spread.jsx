@@ -1,10 +1,10 @@
 import { useState, useMemo, useRef } from "react";
 import { CARDS } from "../data/cards.js";
 import CardBack from "./CardBack.jsx";
+import Cosmos from "./Cosmos.jsx";
 import CardFace from "./CardFace.jsx";
 import Field from "./Field.jsx";
 
-const N = 16;
 function fisherYates(a0) {
   const a = [...a0];
   for (let i = a.length - 1; i > 0; i--) {
@@ -16,8 +16,7 @@ function fisherYates(a0) {
 
 export default function Spread({ config, onSave, onExit }) {
   const K = config.positions.length;
-  const [mode, setMode] = useState("stack"); // stack | fan | spread
-  const [order, setOrder] = useState(() => Array.from({ length: N }, (_, i) => i));
+  const [mode, setMode] = useState("draw"); // draw | spread
   const [consumed, setConsumed] = useState([]); // fan card ids already drawn
   const [drawnCards, setDrawnCards] = useState([]); // [{card, reversed}]
   const [flippedArr, setFlippedArr] = useState([]);
@@ -34,32 +33,12 @@ export default function Spread({ config, onSave, onExit }) {
   const allFlipped = drawnCards.length === K && flippedArr.filter(Boolean).length === K;
   const revealed = mode === "spread" && allFlipped;
 
-  const cardStyle = (id) => {
-    const p = posOf[id];
-    const off = p - (N - 1) / 2;
-    if (consumed.includes(id))
-      return { transform: `translateX(-50%) translateY(-120px) translateZ(80px) rotate(0deg)`, opacity: 0, zIndex: 90 };
-    if (mode === "stack")
-      return {
-        transform: `translateX(-50%) translateY(${-p * 0.5}px) translateZ(${p * 0.9}px) rotate(${((p % 3) - 1) * 1.1}deg)`,
-        zIndex: p,
-      };
-    const spread = "min(5.2vw, 33px)";
-    return {
-      transform: `translateX(-50%) translateX(calc(${off} * ${spread})) translateY(${(off * off * 2.3).toFixed(1)}px) translateZ(${(60 - Math.abs(off) * 7).toFixed(1)}px) rotate(${(off * 4.1).toFixed(2)}deg)`,
-      zIndex: 40 - Math.abs(off) * 2,
-    };
-  };
-
-  const draw = (id) => {
-    if (mode !== "fan" || consumed.includes(id) || drawnCards.length >= K) return;
-    // draw without replacement from card data
-    const used = drawnCards.map((d) => d.card.id);
-    const pool = CARDS.filter((c) => !used.includes(c.id));
-    const pick = pool[Math.floor(Math.random() * pool.length)];
-    setConsumed((c) => [...c, id]);
+  const draw = (cardId) => {
+    if (mode !== "draw" || drawnCards.length >= K) return;
+    if (drawnCards.some((d) => d.card.id === cardId)) return;
+    const pick = CARDS.find((c) => c.id === cardId);
     setDrawnCards((d) => [...d, { card: pick, reversed: Math.random() < 0.3 }]);
-    if (drawnCards.length + 1 === K) setTimeout(() => setMode("spread"), 750);
+    if (drawnCards.length + 1 === K) setTimeout(() => setMode("spread"), 900);
   };
 
   const flipAt = (i) => {
@@ -98,50 +77,25 @@ export default function Spread({ config, onSave, onExit }) {
     <section className="mc-ritual">
       <div className="mc-eyebrow">{config.title.toUpperCase()}</div>
       <h2 className="mc-h2">
-        {mode === "stack" && config.intro}
-        {mode === "fan" && drawnCards.length < K && `Draw ${["the first", "the second", "the third"][drawnCards.length]} card — ${config.positions[drawnCards.length]}.`}
-        {mode === "fan" && drawnCards.length === K && "The cards are chosen."}
+        {mode === "draw" && drawnCards.length < K && `Draw ${["the first", "the second", "the third"][drawnCards.length]} card — ${config.positions[drawnCards.length]}.`}
+        {mode === "draw" && drawnCards.length === K && "The cards are chosen."}
         {mode === "spread" && !allFlipped && "Turn each card."}
         {mode === "spread" && allFlipped && "The pattern is on the table."}
       </h2>
 
       {mode !== "spread" && (
         <>
-          <div className="mc-deckarea">
-            <div className="mc-deckglow" />
-            <div className="mc-stage3d">
-              {Array.from({ length: N }, (_, id) => (
-                <button
-                  key={id}
-                  className="mc-card3d"
-                  style={cardStyle(id)}
-                  onClick={() => draw(id)}
-                  disabled={mode !== "fan" || consumed.includes(id) || drawnCards.length >= K}
-                  aria-label="Draw this card"
-                >
-                  <CardBack />
-                </button>
-              ))}
-            </div>
-          </div>
+          <Cosmos
+            pickedIds={drawnCards.map((d) => d.card.id)}
+            onPick={draw}
+            done={drawnCards.length >= K}
+            hint={drawnCards.length < K ? config.intro : null}
+          />
           <div className="mc-deckcontrols">
-            {mode === "stack" ? (
-              <>
-                <button className="mc-cta" onClick={() => setMode("fan")}>
-                  <b>Fan</b>
-                  <small>Spread the spread</small>
-                </button>
-                <button className="mc-ghost" onClick={onExit}>
-                  <b>Back</b>
-                  <small>All readings</small>
-                </button>
-              </>
-            ) : (
-              <button className="mc-ghost" onClick={() => setOrder(fisherYates)} disabled={drawnCards.length > 0}>
-                <b>Shuffle</b>
-                <small>Fisher–Yates cut</small>
-              </button>
-            )}
+            <button className="mc-ghost mc-small" onClick={onExit}>
+              <b>Back</b>
+              <small>All readings</small>
+            </button>
           </div>
         </>
       )}
