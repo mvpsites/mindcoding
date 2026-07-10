@@ -806,6 +806,7 @@ img{-webkit-user-drag:none;}
   .mc-wheelhow-touch{display:none;}
   .mc-wheelhow-mouse{display:inline;}
 }
+.mc-washhow{color:var(--gold-bright); opacity:.75;}
 .mc-wheelctr{text-align:center; font-family:var(--engrave); font-size:12px; letter-spacing:.14em;
   color:var(--gold-bright); opacity:.6; margin:6px 0 0; min-height:16px;}
 .mc-wheelstage{position:relative; height:clamp(320px,52vw,400px); overflow:hidden;

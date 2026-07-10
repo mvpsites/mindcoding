@@ -1,6 +1,8 @@
 /* Spread definitions. meaningField: which card field carries the position meaning
-   ('auto' = upright/reversed general). recodeFrom: which drawn card (by position
-   index) supplies the recode block, affirmation, and action. */
+   ('auto' = upright/reversed general; 'slots' = per-position card fields listed in
+   slotFields). recodeFrom: which drawn card (by position index) supplies the recode
+   block, affirmation, and action. noReversals: reversals don't apply (slot fields
+   aren't orientation-dependent). shareable: offers the shareable result frame. */
 export const SPREADS = [
   {
     id: "one",
@@ -10,6 +12,18 @@ export const SPREADS = [
     positions: ["The heart of it"],
     meaningField: "auto",
     recodeFrom: 0,
+  },
+  {
+    id: "mindos",
+    title: "Input · Pattern · Recode",
+    sub: "The installed belief · The loop it runs · The rewrite",
+    intro: "The MindOS reading. Three cards: what was installed, the loop it keeps running, and the line that rewrites it.",
+    positions: ["The Input", "The Pattern", "The Recode"],
+    meaningField: "slots",
+    slotFields: ["lack", "reveals", "recode"],
+    noReversals: true,
+    shareable: true,
+    recodeFrom: 2,
   },
   {
     id: "clarity",

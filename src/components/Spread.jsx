@@ -4,6 +4,7 @@ import CardBack from "./CardBack.jsx";
 import Wheel from "./Wheel.jsx";
 import CardFace from "./CardFace.jsx";
 import Field from "./Field.jsx";
+import { shareReading } from "../lib/shareframe.js";
 
 function fisherYates(a0) {
   const a = [...a0];
@@ -29,7 +30,7 @@ export default function Spread({ config, onSave, onExit }) {
     if (mode !== "draw" || drawnCards.length >= K) return;
     if (drawnCards.some((d) => d.card.id === cardId)) return;
     const pick = CARDS.find((c) => c.id === cardId);
-    setDrawnCards((d) => [...d, { card: pick, reversed: Math.random() < 0.3 }]);
+    setDrawnCards((d) => [...d, { card: pick, reversed: config.noReversals ? false : Math.random() < 0.3 }]);
     if (drawnCards.length + 1 === K) setTimeout(() => setMode("spread"), 900);
   };
 
@@ -58,10 +59,39 @@ export default function Spread({ config, onSave, onExit }) {
     setSavedThis(true);
   };
 
-  const meaningOf = (d) =>
-    config.meaningField === "money" ? d.card.money : d.reversed ? d.card.reversed : d.card.upright;
+  const meaningOf = (d, i) => {
+    if (config.meaningField === "slots") {
+      const f = config.slotFields[i];
+      return f === "lack" ? `\u201C${d.card.lack}\u201D` : d.card[f];
+    }
+    return config.meaningField === "money" ? d.card.money : d.reversed ? d.card.reversed : d.card.upright;
+  };
 
   const recodeCard = drawnCards[config.recodeFrom]?.card;
+
+  const [shareState, setShareState] = useState("idle"); // idle | busy | done | fail
+  const share = async () => {
+    if (shareState === "busy") return;
+    setShareState("busy");
+    try {
+      await shareReading({
+        spreadTitle: config.title,
+        slots: drawnCards.map((d, i) => ({
+          position: config.positions[i],
+          cardName: d.card.name,
+          reversed: d.reversed,
+        })),
+        recode: recodeCard.recode,
+        affirmation: recodeCard.affirmation,
+        action: recodeCard.action,
+      });
+      setShareState("done");
+      setTimeout(() => setShareState("idle"), 2500);
+    } catch {
+      setShareState("fail");
+      setTimeout(() => setShareState("idle"), 2500);
+    }
+  };
 
   return (
     <section className="mc-ritual">
@@ -123,7 +153,7 @@ export default function Spread({ config, onSave, onExit }) {
                 {d.card.name}
                 {d.reversed ? " — Reversed" : ""}
               </strong>
-              {meaningOf(d)}
+              {meaningOf(d, i)}
             </Field>
           ))}
           <Field label="THE RECODE" tone="mc-abun" delay={450} on>
@@ -143,6 +173,12 @@ export default function Spread({ config, onSave, onExit }) {
               <b>{savedThis ? "Saved" : "Save"}</b>
               <small>{savedThis ? "In your archive" : "To your archive"}</small>
             </button>
+            {config.shareable && (
+              <button className="mc-ghost" onClick={share} disabled={shareState === "busy"}>
+                <b>{shareState === "busy" ? "Framing…" : shareState === "done" ? "Ready" : shareState === "fail" ? "Try again" : "Share"}</b>
+                <small>{shareState === "done" ? "Frame delivered" : "The result frame"}</small>
+              </button>
+            )}
             <button className="mc-ghost" onClick={onExit}>
               <b>Readings</b>
               <small>Choose another</small>

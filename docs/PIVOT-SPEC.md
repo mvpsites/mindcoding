@@ -39,7 +39,8 @@ heartbroken→love · unmotivated→confidence · disconnected/lost→spirit.
 
 Arrived at through five live prototype iterations with Jad on 2026-07-10.
 The full ritual: **wash to shuffle → wheel to browse → hold to draw.**
-(Wash-shuffle intro is spec'd but NOT yet implemented — see Next.)
+(Wash-shuffle intro SHIPPED second post-pivot session: swirl entropy seeds a
+mulberry32 Fisher–Yates; release fans the pile onto the wheel in 750ms.)
 
 Locked interaction rules and tunings:
 - All 78 cards on the wheel, face-down (card-back.webp), Fisher–Yates shuffled.
@@ -71,12 +72,13 @@ Locked interaction rules and tunings:
 - **3-card MindOS spread** maps slots to existing card data:
   Input (the installed belief → `card.lack`) · Pattern (the loop → `card.reveals`
   / `lore.pattern`) · Recode (the rewrite → `card.recode` + `action`).
-  The current "Three Cards" spread (past/present/next) still exists; converting it
-  or adding "Input · Pattern · Recode" as a spread config is a 10-line change in
-  data/readings.js — proposed, not yet done, needs Jad's call.
-- Fate mode ("let the deck choose"), cut-the-deck jump, shareable result frame,
-  recurring-card memory ("The Tower again — third time this month") — all
-  discussed and liked; backlog, not built.
+  The current "Three Cards" spread (past/present/next) still exists alongside it.
+  SHIPPED second post-pivot session as spread id "mindos" ('slots' meaning mode,
+  noReversals, shareable result frame) — Jad greenlit it in his session brief.
+- Shareable result frame SHIPPED (canvas 1080×1920, Web Share API + download
+  fallback, gated by `shareable` on the spread config). Fate mode ("let the deck
+  choose"), cut-the-deck jump, recurring-card memory ("The Tower again — third
+  time this month") — discussed and liked; backlog, not built.
 
 ## Landing page
 
