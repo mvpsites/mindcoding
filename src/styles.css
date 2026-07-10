@@ -422,24 +422,12 @@ img{-webkit-user-drag:none;}
 /* ——— The Cosmos: all 78 adrift ——— */
 .mc-cosmos{position:relative; height:clamp(380px, 62vh, 560px); margin:26px auto 4px; max-width:820px;
   border-radius:20px; overflow:hidden;}
-.mc-star{position:absolute; width:clamp(34px, 7.4vw, 56px); background:none; border:none; padding:0; cursor:pointer;
-  transform:translate(-50%,-50%); border-radius:8px; box-shadow:0 6px 16px rgba(0,0,0,.5);
-  animation:mcSwim var(--dur) ease-in-out var(--delay) infinite;
-  transition:left .8s cubic-bezier(.3,.7,.25,1), top .8s cubic-bezier(.3,.7,.25,1),
-             transform .8s cubic-bezier(.3,.7,.25,1), opacity .55s ease;}
+.mc-star{position:absolute; left:0; top:0; width:clamp(34px, 7.4vw, 56px); background:none; border:none; padding:0;
+  cursor:pointer; border-radius:8px; box-shadow:0 6px 16px rgba(0,0,0,.5); will-change:transform;
+  transition:opacity .55s ease, box-shadow .4s ease;}
 .mc-star .mc-backimg{width:100%; height:auto; border-radius:8px; display:block;}
-/* continuous four-waypoint glide — never parks */
-@keyframes mcSwim{
-  0%  {transform:translate(-50%,-50%) rotate(var(--r0));}
-  25% {transform:translate(calc(-50% + var(--dx)), calc(-50% + var(--dy)*0.45)) rotate(var(--r1));}
-  50% {transform:translate(calc(-50% + var(--dx)*0.35), calc(-50% + var(--dy))) rotate(var(--r0));}
-  75% {transform:translate(calc(-50% - var(--dx)*0.55), calc(-50% + var(--dy)*0.5)) rotate(var(--r1));}
-  100%{transform:translate(-50%,-50%) rotate(var(--r0));}
-}
-.mc-star:hover{box-shadow:0 10px 24px rgba(0,0,0,.6), 0 0 18px rgba(210,169,78,.3);}
-.mc-starpicked{left:50% !important; top:44% !important; animation:none;
-  transform:translate(-50%,-50%) rotate(0deg) scale(1.9) !important;
-  box-shadow:0 18px 40px rgba(0,0,0,.65), 0 0 34px rgba(228,206,140,.35);}
+.mc-starnear{box-shadow:0 14px 32px rgba(0,0,0,.65), 0 0 26px rgba(228,206,140,.45), 0 0 60px rgba(228,206,140,.14);}
+.mc-starpicked{box-shadow:0 18px 40px rgba(0,0,0,.65), 0 0 34px rgba(228,206,140,.35); z-index:60;}
 .mc-starfade{opacity:0; pointer-events:none;}
 /* shuffle: while gathered, the glow rises behind the stack and flares */
 .mc-cosmos .mc-deckglow{transition:bottom .8s cubic-bezier(.3,.7,.25,1), opacity .6s ease;}
@@ -590,15 +578,3 @@ img{-webkit-user-drag:none;}
 .mc-decodeveil{position:absolute; inset:0;
   background:linear-gradient(180deg, rgba(10,14,35,.1) 40%, rgba(10,14,35,.65) 100%);}
 
-/* cosmos life: second motion layer so cards never park (2026-07-10) */
-.mc-starinner{display:block;}
-@media (prefers-reduced-motion: no-preference){
-  .mc-starinner{animation:mcBob var(--bdur,5s) ease-in-out var(--bdelay,0s) infinite alternate;}
-  @keyframes mcBob{
-    from{transform:translateY(-9px) rotate(-3deg);}
-    to{transform:translateY(10px) rotate(3.2deg);}
-  }
-  .mc-starpicked .mc-starinner, .mc-starfade .mc-starinner{animation:none;}
-  .mc-star:disabled .mc-starinner{animation-play-state:paused;}
-  .mc-starpicked .mc-starinner{animation:none;}
-}

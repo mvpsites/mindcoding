@@ -130,3 +130,23 @@ export function ScrollIgnite({ text, className = "" }) {
     </p>
   );
 }
+
+/* Magnetic hover: element leans toward the cursor, springs back on leave. */
+export function useMagnetic(strength = 10) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || reduced()) return;
+    const move = (e) => {
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
+      const y = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
+      el.style.transform = `translate(${x * strength}px, ${y * strength * 0.7}px)`;
+    };
+    const leave = () => { el.style.transform = ""; };
+    el.addEventListener("mousemove", move, { passive: true });
+    el.addEventListener("mouseleave", leave, { passive: true });
+    return () => { el.removeEventListener("mousemove", move); el.removeEventListener("mouseleave", leave); };
+  }, [strength]);
+  return ref;
+}

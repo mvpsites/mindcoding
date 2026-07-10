@@ -5,12 +5,14 @@ import { activePrograms, contentForDay } from "../data/programs.js";
 import { loadDaily } from "../lib/storage.js";
 import { CARDS } from "../data/cards.js";
 import ContentCard from "./ContentCard.jsx";
-import { Reveal, MaskLines, ScrollIgnite, useParallax } from "../lib/motion.jsx";
+import { Reveal, MaskLines, ScrollIgnite, useParallax, useMagnetic } from "../lib/motion.jsx";
 
 const ART = (f) => import.meta.env.BASE_URL + "art/" + f;
 
 export default function Discover({ go, openItem, openCollection }) {
   const heroPx = useParallax(0.22);
+  const magA = useMagnetic(9);
+  const magB = useMagnetic(9);
   const daily = useMemo(loadDaily, []);
   const dCard = daily ? CARDS.find((c) => c.id === daily.cardId) : null;
   const active = useMemo(activePrograms, []);
@@ -37,8 +39,8 @@ export default function Discover({ go, openItem, openCollection }) {
           Decode the patterns shaping you. Recode them with music, narration, visualization, and reflection. Free, always.
         </p>
         <div className="mc-herocta mc-herolate" style={{ "--d": "820ms" }}>
-          <button className="mc-ctav" onClick={() => go("decode")}><b>Enter Decode</b><small>See the patterns</small></button>
-          <button className="mc-cta" onClick={() => go("recode")}><b>Enter Recode</b><small>Choose what goes in</small></button>
+          <button ref={magA} className="mc-ctav" onClick={() => go("decode")}><b>Enter Decode</b><small>See the patterns</small></button>
+          <button ref={magB} className="mc-cta" onClick={() => go("recode")}><b>Enter Recode</b><small>Choose what goes in</small></button>
         </div>
         <div className="mc-scrollcue mc-herolate" style={{ "--d": "1400ms" }} aria-hidden="true">
           <span />
