@@ -17,7 +17,6 @@ function fisherYates(a0) {
 export default function Spread({ config, onSave, onExit }) {
   const K = config.positions.length;
   const [mode, setMode] = useState("draw"); // draw | spread
-  const [consumed, setConsumed] = useState([]); // fan card ids already drawn
   const [drawnCards, setDrawnCards] = useState([]); // [{card, reversed}]
   const [flippedArr, setFlippedArr] = useState([]);
   const [note, setNote] = useState("");
