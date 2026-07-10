@@ -595,3 +595,41 @@ img{-webkit-user-drag:none;}
   .mc-herovideo{animation:mcCineIn 2.4s ease .15s forwards;} /* real motion inside; no Ken Burns on video */
 }
 
+
+/* ═══════════ THE HERO'S JOURNEY — acts (2026-07-10) ═══════════ */
+.mc-act{position:relative; width:100vw; margin:clamp(56px,10vh,110px) 0 0 calc(50% - 50vw);
+  min-height:clamp(420px,72vh,640px); display:flex; align-items:center; overflow:hidden;}
+.mc-actmedia{position:absolute; inset:0;}
+.mc-actmedia img{width:100%; height:100%; object-fit:cover;}
+.mc-actveil{position:absolute; inset:0;
+  background:
+    linear-gradient(90deg, rgba(7,10,26,.88) 0%, rgba(7,10,26,.55) 42%, rgba(7,10,26,.12) 75%),
+    linear-gradient(180deg, var(--midnight) 0%, transparent 14%, transparent 84%, var(--midnight) 100%);}
+.mc-actflip .mc-actveil{background:
+    linear-gradient(270deg, rgba(7,10,26,.88) 0%, rgba(7,10,26,.55) 42%, rgba(7,10,26,.12) 75%),
+    linear-gradient(180deg, var(--midnight) 0%, transparent 14%, transparent 84%, var(--midnight) 100%);}
+.mc-actbody{position:relative; z-index:1; max-width:560px; padding:64px clamp(20px,6vw,64px);
+  margin-right:auto;}
+.mc-actflip .mc-actbody{margin-left:auto; margin-right:0;}
+.mc-actnum{font-family:var(--engrave); font-size:clamp(44px,6vw,68px); color:var(--gold-bright);
+  opacity:.9; line-height:1; margin-bottom:10px; letter-spacing:.06em;
+  text-shadow:0 2px 30px rgba(228,206,140,.25);}
+.mc-acttitle{font-family:var(--display); font-weight:800; font-size:clamp(30px,4.4vw,46px);
+  line-height:1.12; margin:4px 0 16px; text-shadow:0 3px 30px rgba(4,6,18,.8);}
+.mc-actcopy{font-size:clamp(17px,1.5vw,19px); line-height:1.75; opacity:.88; margin:0 0 26px;
+  text-shadow:0 2px 18px rgba(4,6,18,.85);}
+.mc-act .mc-chips{justify-content:flex-start; margin-top:6px;}
+.mc-actcardrow{margin-top:26px;}
+.mc-actrail{max-width:100%; margin-top:20px; margin-bottom:22px;}
+@media (max-width:759px){
+  .mc-act{min-height:auto; align-items:flex-end;}
+  .mc-actmedia{position:relative; inset:auto; height:52vw; min-height:230px;}
+  .mc-actmedia img{position:absolute; inset:0;}
+  .mc-act{flex-direction:column;}
+  .mc-actveil{background:linear-gradient(180deg, transparent 30%, var(--midnight) 96%);}
+  .mc-actbody{padding:0 20px 8px; margin:-64px 0 0; max-width:100%;}
+}
+
+/* five-card spread fits every screen */
+.mc-spreadrow{flex-wrap:wrap; max-width:820px;}
+.mc-spreadslot{flex:1 1 120px; max-width:150px; min-width:104px;}

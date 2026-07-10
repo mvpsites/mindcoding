@@ -1,11 +1,10 @@
-import { useMemo, useState } from "react";
-import { loadFavs, loadJournal, exportMySpace } from "../lib/storage.js";
+import { useMemo } from "react";
+import { loadFavs, exportMySpace } from "../lib/storage.js";
 import { itemById } from "../data/library.js";
 import ContentCard from "./ContentCard.jsx";
 import Saved from "./Saved.jsx";
 
 export default function MySpace({ saved, onRemove, go, openItem }) {
-  const [journal] = useState(loadJournal);
   const favs = useMemo(() => loadFavs().map(itemById).filter(Boolean), []);
 
   return (
@@ -25,23 +24,6 @@ export default function MySpace({ saved, onRemove, go, openItem }) {
           </div>
         </div>
       )}
-
-      <div className="mc-block">
-        <div className="mc-eyebrow">JOURNAL</div>
-        {journal.length === 0 ? (
-          <p className="mc-empty">Prompts you answer — under songs, readings, anywhere — collect here as one stream.</p>
-        ) : (
-          <div className="mc-jstream">
-            {journal.map((j) => (
-              <div key={j.id} className="mc-jentry">
-                <div className="mc-jmeta">{new Date(j.date).toLocaleDateString()} · {j.title}</div>
-                {j.prompt && <div className="mc-jprompt">{j.prompt}</div>}
-                <p className="mc-jtext">{j.text}</p>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
 
       <div className="mc-block">
         <div className="mc-eyebrow">SAVED READINGS</div>

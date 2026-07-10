@@ -60,9 +60,6 @@ export default function Deck() {
                 <Field label="MONEY" on>{open.money}</Field>
                 <Field label="SPIRITUAL" on>{open.spiritual}</Field>
               </div>
-              <Field label="LACK PATTERN" tone="mc-lack" on>
-                &ldquo;{open.lack}&rdquo;
-              </Field>
               <Field label="ABUNDANCE RECODE" tone="mc-abun" on>
                 &ldquo;{open.recode}&rdquo;
               </Field>
@@ -70,7 +67,6 @@ export default function Deck() {
                 <Field label="LIVING THE RECODE" tone="mc-abun" on>{LORE[open.id].recodePath}</Field>
               )}
               <Field label="AFFIRMATION" on>{open.affirmation}</Field>
-              <Field label="JOURNAL PROMPT" on>{open.journal}</Field>
               <Field label="ALIGNED ACTION" tone="mc-abun" on>
                 {open.action}
               </Field>

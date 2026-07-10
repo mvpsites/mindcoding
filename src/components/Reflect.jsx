@@ -1,16 +1,14 @@
 import { useState } from "react";
-import Ritual from "./Ritual.jsx";
 import Readings from "./Readings.jsx";
 import Deck from "./Deck.jsx";
 
 const SUB = [
-  ["daily", "Daily"],
   ["readings", "Readings"],
   ["deck", "Deck"],
 ];
 
 export default function Reflect({ onSave }) {
-  const [sub, setSub] = useState("daily");
+  const [sub, setSub] = useState("readings");
   return (
     <section className="mc-reflect">
       <div className="mc-eyebrow">RECODE · REFLECT</div>
@@ -28,7 +26,6 @@ export default function Reflect({ onSave }) {
         ))}
       </div>
       <div key={sub} className="mc-view">
-        {sub === "daily" && <Ritual onSave={onSave} />}
         {sub === "readings" && <Readings onSave={onSave} />}
         {sub === "deck" && <Deck />}
       </div>

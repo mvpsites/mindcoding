@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { TYPE_LABEL } from "../data/library.js";
 import { collectionById } from "../data/collections.js";
-import { loadFavs, toggleFav, addJournal } from "../lib/storage.js";
+import { loadFavs, toggleFav } from "../lib/storage.js";
 
 const GLYPH = { song: "♪", narration: "❝", visualization: "◉", decode: "▲" };
 
@@ -31,18 +31,10 @@ export default function ContentCard({ item, onOpen, wide }) {
 
 export function ContentModal({ item, onClose, onToast }) {
   const [favs, setFavs] = useState(loadFavs);
-  const [note, setNote] = useState("");
-  const [journaled, setJournaled] = useState(false);
   if (!item) return null;
   const col = collectionById(item.collection);
   const fav = favs.includes(item.id);
 
-  const saveNote = () => {
-    if (!note.trim()) return;
-    addJournal({ contentId: item.id, title: item.title, prompt: item.prompt, text: note.trim() });
-    setJournaled(true);
-    onToast?.("Saved to your journal");
-  };
 
   return (
     <div className="mc-modal" role="dialog" aria-modal="true" onClick={onClose}>
@@ -72,28 +64,6 @@ export function ContentModal({ item, onClose, onToast }) {
           </button>
         </div>
 
-        {item.prompt && (
-          <div className="mc-promptcard">
-            <div className="mc-eyebrow">JOURNAL PROMPT</div>
-            <p className="mc-promptq">{item.prompt}</p>
-            {journaled ? (
-              <div className="mc-promptdone">In your journal — find it in My Space.</div>
-            ) : (
-              <>
-                <textarea
-                  className="mc-journal"
-                  rows={3}
-                  placeholder="Write what rises…"
-                  value={note}
-                  onChange={(e) => setNote(e.target.value)}
-                />
-                <button className="mc-cta mc-small" onClick={saveNote} disabled={!note.trim()}>
-                  <b>Save to journal</b>
-                </button>
-              </>
-            )}
-          </div>
-        )}
       </div>
     </div>
   );

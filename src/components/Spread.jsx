@@ -19,15 +19,8 @@ export default function Spread({ config, onSave, onExit }) {
   const [mode, setMode] = useState("draw"); // draw | spread
   const [drawnCards, setDrawnCards] = useState([]); // [{card, reversed}]
   const [flippedArr, setFlippedArr] = useState([]);
-  const [note, setNote] = useState("");
   const [savedThis, setSavedThis] = useState(false);
   const revealRef = useRef(null);
-
-  const posOf = useMemo(() => {
-    const m = {};
-    order.forEach((id, p) => (m[id] = p));
-    return m;
-  }, [order]);
 
   const allFlipped = drawnCards.length === K && flippedArr.filter(Boolean).length === K;
   const revealed = mode === "spread" && allFlipped;
@@ -61,7 +54,6 @@ export default function Spread({ config, onSave, onExit }) {
       cards: drawnCards.map((d) => ({ name: d.card.name, reversed: d.reversed })),
       affirmation: rc.affirmation,
       action: rc.action,
-      note: note.trim(),
     });
     setSavedThis(true);
   };
@@ -69,14 +61,13 @@ export default function Spread({ config, onSave, onExit }) {
   const meaningOf = (d) =>
     config.meaningField === "money" ? d.card.money : d.reversed ? d.card.reversed : d.card.upright;
 
-  const lackCard = drawnCards[config.lackFrom]?.card;
   const recodeCard = drawnCards[config.recodeFrom]?.card;
 
   return (
     <section className="mc-ritual">
       <div className="mc-eyebrow">{config.title.toUpperCase()}</div>
       <h2 className="mc-h2">
-        {mode === "draw" && drawnCards.length < K && `Draw ${["the first", "the second", "the third"][drawnCards.length]} card — ${config.positions[drawnCards.length]}.`}
+        {mode === "draw" && drawnCards.length < K && `Draw ${["the first", "the second", "the third", "the fourth", "the fifth"][drawnCards.length]} card — ${config.positions[drawnCards.length]}.`}
         {mode === "draw" && drawnCards.length === K && "The cards are chosen."}
         {mode === "spread" && !allFlipped && "Turn each card."}
         {mode === "spread" && allFlipped && "The pattern is on the table."}
@@ -135,10 +126,7 @@ export default function Spread({ config, onSave, onExit }) {
               {meaningOf(d)}
             </Field>
           ))}
-          <Field label="LACK PATTERN" tone="mc-lack" delay={360} on>
-            &ldquo;{lackCard.lack}&rdquo;
-          </Field>
-          <Field label="ABUNDANCE RECODE" tone="mc-abun" delay={450} on>
+          <Field label="THE RECODE" tone="mc-abun" delay={450} on>
             &ldquo;{recodeCard.recode}&rdquo;
           </Field>
           <div className="mc-affirm mc-field mc-on" style={{ transitionDelay: "540ms" }}>
@@ -147,17 +135,7 @@ export default function Spread({ config, onSave, onExit }) {
             <div className="mc-afftext">{recodeCard.affirmation}</div>
             <div className="mc-affline" />
           </div>
-          <Field label="JOURNAL PROMPT" delay={630} on>
-            {recodeCard.journal}
-            <textarea
-              className="mc-journal"
-              placeholder="Write what rises…"
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              rows={3}
-            />
-          </Field>
-          <Field label="ALIGNED ACTION" tone="mc-abun" delay={700} on>
+          <Field label="ALIGNED ACTION" tone="mc-abun" delay={630} on>
             {recodeCard.action}
           </Field>
           <div className="mc-actions mc-field mc-on" style={{ transitionDelay: "770ms" }}>

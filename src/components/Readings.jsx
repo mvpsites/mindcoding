@@ -8,8 +8,8 @@ export default function Readings({ onSave }) {
   return (
     <section className="mc-readingspage">
       <div className="mc-eyebrow">READINGS</div>
-      <h2 className="mc-h2">Choose your ritual</h2>
-      <p className="mc-sub">Three-card spreads. Each ends the same way every reading here does: a belief to recode, an affirmation, a prompt, and one aligned action.</p>
+      <h2 className="mc-h2">Choose your reading</h2>
+      <p className="mc-sub">One card, three cards, or the five-card journey. Every reading ends the same way: the pattern named, the recode, an affirmation, and one aligned action.</p>
       <div className="mc-spreadlist">
         {SPREADS.map((s) => (
           <button key={s.id} className="mc-spreadcard" onClick={() => setActive(s)}>

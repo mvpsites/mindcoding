@@ -21,6 +21,15 @@
 - Verified: video playing, looping, currentTime advancing in sandbox via webm.
 
 
+
+## SESSION UPDATE 6 — 2026-07-10 (HERO'S JOURNEY REBUILD — Jad's direction, supersedes parts of UX-SPEC)
+Jad: site experience rebuilt around the HERO'S JOURNEY; imagery + videos must map to journey stages.
+- **Discover = five full-bleed acts** below the (unchanged, locked-copy) doorway-video hero + premise ScrollIgnite: I THE CALL (scene-call → Decode) · II THE TRIALS (scene-confidence + collection/feeling chips) · III THE ORACLE (scene-oracle → Reflect) · IV THE BECOMING (scene-becoming + programs) · V THE RETURN (scene-return + library rail + YT). Act component in Discover.jsx; .mc-act CSS (alternating veils, roman numerals — the numbering IS the journey sequence).
+- **Tarot (Jad's explicit cuts, SUPERSEDE UX-SPEC):** Daily reading REMOVED (Ritual.jsx now unused like Home.jsx; Reflect subnav = Readings·Deck). "Lack to Abundance" + "Money" spreads REMOVED. Readings are exactly: One Card, Three Cards, Five Cards — The Journey (positions: Where you stand/The call/The trial/What to release/Who you are becoming; recodeFrom=4). Spread reveal: LACK PATTERN field removed (→ "THE RECODE"); Deck detail: LACK PATTERN + JOURNAL PROMPT fields removed. cards.js data untouched (lack/journal fields dormant).
+- **JOURNALING REMOVED ENTIRELY (supersedes UX-SPEC):** no prompt cards in ContentModal, no note textarea in Spread, no Journal stream in My Space (Favorites + Saved readings only; export intact). storage.js journal fns dormant.
+- Fixed latent Spread.jsx crash: posOf useMemo referenced undefined `order` — would have thrown the moment anyone opened a reading.
+- New journey scenes: scene-call / scene-oracle / scene-return (16:9, same style block). First Return job (f45a116e) never completed — regenerated as 36b45e9f.
+
 ## ⚠️ SESSION UPDATE 5 — 2026-07-10 (PARALLEL-SESSION COLLISION — read before working)
 TWO Claude sessions worked this repo simultaneously today. The other session shipped a working hero-video pipeline (vid- prefix, mp4+webm, HeroMedia w/ touch-wake + save-data + reduced-motion fallbacks — KEEP THEIRS, it is canonical). This session's duplicate landed on top and broke two things: (1) a duplicate "video-hero" manifest entry fell through the vid- prefix check into the image branch → PIL crashed the courier; (2) an orphaned .mc-herovideo CSS rule set the video to opacity:0 waiting for a class nobody adds → THE VIDEO PLAYED INVISIBLY ON THE LIVE SITE (user saw "no video"). Both fixed: orphan CSS deleted, duplicate manifest entry removed, courier hardened (any id starting vid-/video- OR any .mp4/.webm/.mov URL routes to the video branch).
 RULE GOING FORWARD: one session per repo at a time. If commits appear that this session didn't make, STOP, git pull, and reconcile before pushing anything.

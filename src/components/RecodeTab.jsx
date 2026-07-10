@@ -120,11 +120,11 @@ export default function RecodeTab({ openItem, go, focusCollection, onToast }) {
         <div className="mc-toolrow">
           <button className="mc-toolcard" onClick={() => go("reflect")}>
             <span className="mc-tooltitle">Reflect — the deck</span>
-            <span className="mc-toolsub">Daily card, readings, and all 78 originals</span>
+            <span className="mc-toolsub">One, three, and five-card readings — all 78 originals</span>
           </button>
           <button className="mc-toolcard" onClick={() => go("myspace")}>
             <span className="mc-tooltitle">My Space</span>
-            <span className="mc-toolsub">Journal, favorites, saved readings — on this device only</span>
+            <span className="mc-toolsub">Favorites and saved readings — on this device only</span>
           </button>
         </div>
       </div>
