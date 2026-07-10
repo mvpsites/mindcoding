@@ -61,7 +61,7 @@ export const LIBRARY = [
   // ——— Visualization (flagship) ———
   { id: "vis-becoming", slug: "meet-the-person-you-are-becoming", type: "visualization",
     title: "Meet the Person You Are Becoming", collection: "spirit",
-    duration: "12:00", ytId: null, cover: null, status: "soon",
+    duration: "12:00", ytId: null, cover: "art/scene-becoming.webp", status: "soon",
     blurb: "A guided, eyes-closed encounter with your future self. Words carry it; the screen stays quiet.",
     prompt: "Describe the room where you met them. What was on the walls?",
     variants: {} },
@@ -69,7 +69,7 @@ export const LIBRARY = [
   // ——— Decode ———
   { id: "dec-manifesto", slug: "youre-being-programmed-every-day", type: "decode",
     title: "You're Being Programmed Every Day — Here's How to See It", collection: null,
-    duration: "9:00", ytId: null, cover: null, status: "soon",
+    duration: "9:00", ytId: null, cover: "art/scene-manifesto.webp", status: "soon",
     blurb: "The manifesto. The inputs shaping your beliefs were chosen by someone — usually not you.",
     prompt: "Name one belief you hold that you never actually chose.",
     variants: {} },

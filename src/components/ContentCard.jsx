@@ -9,7 +9,11 @@ export function Cover({ item, big }) {
   const cls = `mc-cover mc-cov-${item.collection || "decode"} ${big ? "mc-cover-big" : ""}`;
   return (
     <div className={cls} aria-hidden="true">
-      {item.cover ? <img src={item.cover} alt="" loading="lazy" /> : <span className="mc-covglyph">{GLYPH[item.type]}</span>}
+      {item.cover ? (
+        <img src={item.cover.startsWith("http") ? item.cover : import.meta.env.BASE_URL + item.cover} alt="" loading="lazy" />
+      ) : (
+        <span className="mc-covglyph">{GLYPH[item.type]}</span>
+      )}
       {item.status !== "live" && <span className="mc-soon">In production</span>}
     </div>
   );

@@ -6,6 +6,10 @@ export default function DecodeTab({ openItem }) {
   const items = byType("decode");
   return (
     <section className="mc-decodetab">
+      <Reveal className="mc-decodebanner">
+        <img src={import.meta.env.BASE_URL + "art/scene-decode.webp"} alt="" />
+        <span className="mc-decodeveil" aria-hidden="true" />
+      </Reveal>
       <Reveal className="mc-eyebrow mc-eyebrow-v">DECODE</Reveal>
       <Reveal as="h2" delay={90} className="mc-h2">See the programming.</Reveal>
       <Reveal as="p" delay={180} className="mc-lead">

@@ -64,6 +64,25 @@ export function MaskLines({ lines, base = 150, step = 170, className = "" }) {
   ));
 }
 
+/* Simple scroll parallax: element translates at `rate` of scroll (2D only). */
+export function useParallax(rate = 0.25) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || reduced()) return;
+    let raf = 0;
+    const tick = () => {
+      raf = 0;
+      el.style.transform = `translateY(${window.scrollY * rate}px)`;
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(tick); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    tick();
+    return () => { window.removeEventListener("scroll", onScroll); if (raf) cancelAnimationFrame(raf); };
+  }, [rate]);
+  return ref;
+}
+
 /* Scroll-linked word ignition — the signature moment. */
 export function ScrollIgnite({ text, className = "" }) {
   const ref = useRef(null);

@@ -5,9 +5,12 @@ import { activePrograms, contentForDay } from "../data/programs.js";
 import { loadDaily } from "../lib/storage.js";
 import { CARDS } from "../data/cards.js";
 import ContentCard from "./ContentCard.jsx";
-import { Reveal, MaskLines, ScrollIgnite } from "../lib/motion.jsx";
+import { Reveal, MaskLines, ScrollIgnite, useParallax } from "../lib/motion.jsx";
+
+const ART = (f) => import.meta.env.BASE_URL + "art/" + f;
 
 export default function Discover({ go, openItem, openCollection }) {
+  const heroPx = useParallax(0.22);
   const daily = useMemo(loadDaily, []);
   const dCard = daily ? CARDS.find((c) => c.id === daily.cardId) : null;
   const active = useMemo(activePrograms, []);
@@ -16,7 +19,11 @@ export default function Discover({ go, openItem, openCollection }) {
 
   return (
     <section className="mc-discover">
-      <div className="mc-hero mc-heroanim">
+      <div className="mc-hero mc-heroanim mc-herocine">
+        <div className="mc-heroimgwrap" aria-hidden="true" ref={heroPx}>
+          <img className="mc-heroimg" src={ART("scene-hero.webp")} alt="" />
+        </div>
+        <div className="mc-heroscrim" aria-hidden="true" />
         <div className="mc-eyebrow mc-heroeyebrow">MIND CODING</div>
         <h1 className="mc-h1">
           <MaskLines

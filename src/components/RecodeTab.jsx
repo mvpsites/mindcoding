@@ -5,6 +5,8 @@ import { PROGRAMS, getProgress, startProgram, completeDay, contentForDay } from 
 import ContentCard from "./ContentCard.jsx";
 import { Reveal } from "../lib/motion.jsx";
 
+const ART = (f) => import.meta.env.BASE_URL + "art/" + f;
+
 function ProgramCard({ program, openItem, onToast }) {
   const [progress, setProgress] = useState(() => getProgress(program.id));
   const todayItem = progress ? itemById(contentForDay(program, progress.current)) : null;
@@ -104,6 +106,8 @@ export default function RecodeTab({ openItem, go, focusCollection, onToast }) {
         <div className="mc-doors">
           {COLLECTIONS.map((c, i) => (
             <Reveal as="button" key={c.id} delay={i * 90} className={`mc-door mc-door-${c.id}`} onClick={() => setOpen(c.id)}>
+              <img className="mc-doorimg" src={ART(`scene-${c.id}.webp`)} alt="" loading="lazy" />
+              <span className="mc-doorveil" aria-hidden="true" />
               <span className="mc-doorname">{c.name}</span>
               <span className="mc-doorline">{c.line}</span>
             </Reveal>
