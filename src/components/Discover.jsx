@@ -37,6 +37,7 @@ function HeroMedia() {
       onError={() => setUseVideo(false)}
       aria-hidden="true"
     >
+      <source src={ART("vid-hero.webm")} type="video/webm" />
       <source src={ART("vid-hero.mp4")} type="video/mp4" />
     </video>
   );
