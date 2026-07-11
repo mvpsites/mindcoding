@@ -146,8 +146,8 @@ export default function TheField({ go, openCollection }) {
       </section>
 
       <section ref={sec(1)} className="fd-mv">
-        <div className="fd-plaque">
-          <p className="fd-mono">MOVEMENT I · THE INSTALLED DESIRES</p>
+        <div className="fd-plaque fd-card">
+          <div className="fd-cardhead"><p className="fd-mono">MOVEMENT I · THE INSTALLED DESIRES</p><span className="fd-acc">ACC. MC·001</span></div>
           <div className="fd-beats">
             <p className="fd-beat">You were shown what success looks like.</p>
             <p className="fd-beat">You were taught what safety requires.</p>
@@ -160,8 +160,8 @@ export default function TheField({ go, openCollection }) {
       </section>
 
       <section ref={sec(2)} className="fd-mv">
-        <div className="fd-plaque">
-          <p className="fd-mono">MOVEMENT II · THE PROGRAM BENEATH</p>
+        <div className="fd-plaque fd-card">
+          <div className="fd-cardhead"><p className="fd-mono">MOVEMENT II · THE PROGRAM BENEATH</p><span className="fd-acc">ACC. MC·002</span></div>
           <h2 className="fd-h">The thought is visible.<br />The program is not.</h2>
           <p className="fd-body">A thought repeated becomes a belief. A belief repeated becomes a direction. A direction repeated becomes a life.</p>
           <p className="fd-mono fd-inscribe">4,096 grains · one governing pattern</p>
@@ -169,8 +169,8 @@ export default function TheField({ go, openCollection }) {
       </section>
 
       <section ref={sec(3)} className="fd-mv fd-tall">
-        <div className="fd-plaque">
-          <p className="fd-mono">MOVEMENT III · THE RETURN</p>
+        <div className="fd-plaque fd-card">
+          <div className="fd-cardhead"><p className="fd-mono">MOVEMENT III · THE RETURN</p><span className="fd-acc">ACC. MC·003</span></div>
           <h2 className="fd-h">Try to break it.</h2>
           <p className="fd-mono fd-telemetry">
             <span ref={dispRef}>DISPLACEMENT 00%</span>
@@ -187,8 +187,8 @@ export default function TheField({ go, openCollection }) {
       </section>
 
       <section ref={sec(4)} className="fd-mv fd-tall">
-        <div className="fd-plaque">
-          <p className="fd-mono">MOVEMENT IV · ENTRAINMENT</p>
+        <div className="fd-plaque fd-card">
+          <div className="fd-cardhead"><p className="fd-mono">MOVEMENT IV · ENTRAINMENT</p><span className="fd-acc">ACC. MC·004</span></div>
           <h2 className="fd-h">Do not push.<br />Introduce another order.</h2>
           <p ref={cohRef} className="fd-mono fd-telemetry">press and remain</p>
           <div className={`fd-reveal ${locked ? "fd-on" : ""}`}>
@@ -198,8 +198,8 @@ export default function TheField({ go, openCollection }) {
       </section>
 
       <section ref={sec(5)} className="fd-mv fd-tall">
-        <div className="fd-plaque">
-          <p className="fd-mono">MOVEMENT V · THE CHOSEN SIGNAL</p>
+        <div className="fd-plaque fd-card">
+          <div className="fd-cardhead"><p className="fd-mono">MOVEMENT V · THE CHOSEN SIGNAL</p><span className="fd-acc">ACC. MC·005</span></div>
           <h2 className="fd-h">A coherent mind can be pointed anywhere.</h2>
           <p className="fd-body">Code it for abundance, and the field arranges around abundance. Code it for love, and it arranges around love. Code it for awakening, and it arranges around that. The same desires. This time, yours.</p>
           <h2 className="fd-h fd-close">First, see the thought that has been shaping&nbsp;you.<br />Then choose the one that shapes what's&nbsp;next.</h2>

@@ -68,6 +68,36 @@ def flame():
     d.polygon(inner_l+inner_r[:-1], fill=0)
     return im
 
+
+def dollar():
+    from PIL import ImageFont
+    im, d = canvas()
+    try:
+        f = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf", 640)
+    except OSError:
+        f = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 640)
+    bb = d.textbbox((0,0), "$", font=f)
+    d.text((450-(bb[0]+bb[2])/2, 450-(bb[1]+bb[3])/2), "$", font=f, fill=255)
+    return im
+
+def meditator():
+    im, d = canvas()
+    # seated figure, front-on: head, torso, folded legs, arms resting on knees
+    d.ellipse([382,128,518,264], fill=255)                      # head
+    d.polygon([(450,268),(318,560),(582,560)], fill=255)        # torso cone
+    d.ellipse([352,300,548,560], fill=255)                      # torso mass
+    d.ellipse([196,506,704,678], fill=255)                      # folded legs lens
+    d.ellipse([236,560,664,760], fill=0)                        # carve under-legs
+    d.ellipse([196,506,704,650], fill=255)                      # re-fill lap top
+    # arms: shoulder to knee
+    d.line([(368,352),(252,566)], fill=255, width=52)
+    d.line([(532,352),(648,566)], fill=255, width=52)
+    d.ellipse([222,540,286,604], fill=255)                      # left hand
+    d.ellipse([614,540,678,604], fill=255)                      # right hand
+    # aura halo ring (open circle behind crown) — reads instantly spiritual
+    d.ellipse([310,20,590,300], outline=255, width=16)
+    return im
+
 def cardback():
     im, d = canvas()
     # plate proportions ~4:5 within square
@@ -104,8 +134,8 @@ def sample(im, n):
     half=max(max(xs)-min(xs),max(ys)-min(ys))/2
     return [[round((x-cx)/half,3),round((y-cy)/half,3)] for x,y in pts]
 
-SHAPES = {"crown":(crown,1500),"coin":(coin,1500),"heart":(heart,1500),
-          "flame":(flame,1500),"card":(cardback,2400)}
+SHAPES = {"crown":(crown,1500),"dollar":(dollar,1500),"heart":(heart,1500),
+          "meditator":(meditator,1600),"card":(cardback,2400)}
 out={}
 montage = Image.new("RGB",(S*5//2, S//2),(7,11,26))
 md = ImageDraw.Draw(montage)

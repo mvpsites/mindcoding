@@ -14,6 +14,20 @@ export function createField(canvas, opts = {}) {
     matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   let W = 0, H = 0, DPR = 1, CX = 0, CY = 0, FR = 0; // field radius
+  // pre-rendered glow sprites (radial falloff) — the EIDOLON luminosity trick
+  const mkSprite = (core, mid, size = 48) => {
+    const c = document.createElement("canvas");
+    c.width = c.height = size;
+    const g = c.getContext("2d");
+    const rg = g.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
+    rg.addColorStop(0, core); rg.addColorStop(0.32, mid); rg.addColorStop(1, "rgba(201,169,106,0)");
+    g.fillStyle = rg; g.fillRect(0, 0, size, size);
+    return c;
+  };
+  const SPRITE = typeof document !== "undefined" ? mkSprite("rgba(240,228,200,.95)", "rgba(206,176,116,.5)") : null;
+  const SPRITE_HOT = typeof document !== "undefined" ? mkSprite("rgba(255,246,224,1)", "rgba(232,203,143,.7)") : null;
+  // ambient dust: always drifting, independent of the attractors
+  let AMB = null, AMBN = 0;
   let N = 0;
   let px, py, hx, hy, seed, flare, dx, dy; // pos, home, meta, dust
   let running = false, raf = 0, lastT = 0, slowFrames = 0, degraded = false;
@@ -54,9 +68,12 @@ export function createField(canvas, opts = {}) {
   }
 
   function buildTargets() {
-    CX = W / 2;
-    CY = Math.min(H * 0.44, H - 260);
+    const desktop = W >= 900;
+    CX = desktop ? W * 0.36 : W / 2;
+    CY = desktop ? H * 0.5 : H * 0.34;
     FR = Math.min(W, H) * (W < 700 ? 0.34 : 0.30);
+    // helix/bloom headroom: crown must clear the header
+    FR = Math.min(FR, (CY - 70) / 0.98, (H - CY - 40) / 0.98);
 
     // fractured mandala: 6-fold rings + spokes, sextant 4 bent
     const M = [], MF = [];
@@ -159,8 +176,8 @@ export function createField(canvas, opts = {}) {
     }
   }
 
-  const SYMS = ["crown", "coin", "heart", "flame"];
-  const CYCLE = ["heart", "coin", "crown"]; // S3 reform cycle after mandala
+  const SYMS = ["crown", "dollar", "heart", "meditator"];
+  const CYCLE = ["heart", "dollar", "crown"]; // S3 reform cycle after mandala
 
   function updateHomes(t) {
     const { mv, p } = S;
@@ -172,7 +189,7 @@ export function createField(canvas, opts = {}) {
         const f = seg - i0;
         if (f < 0.72 || i0 === 3) setHomesFrom(stencilPts[SYMS[i0]], 26);
         else lerpHomes(stencilPts[SYMS[i0]], stencilPts[SYMS[Math.min(3, i0 + 1)]], (f - 0.72) / 0.28);
-        if (seg >= 3.7) lerpHomes(stencilPts.flame, mandalaFrac, Math.min(1, (seg - 3.7) / 1.3));
+        if (seg >= 3.7) lerpHomes(stencilPts.meditator, mandalaFrac, Math.min(1, (seg - 3.7) / 1.3));
       } else setHomesFrom(mandalaFrac, 0, 0);
       return;
     }
@@ -292,22 +309,37 @@ export function createField(canvas, opts = {}) {
   }
 
   function draw() {
+    ctx.globalCompositeOperation = "source-over";
     ctx.clearRect(0, 0, W, H);
-    const base = "201,169,106";
+    // ambient dust — the field breathes even when nothing is touched
+    if (AMB) {
+      for (let i = 0; i < AMBN; i++) {
+        let ax = AMB[i*5] + AMB[i*5+2], ay = AMB[i*5+1] + AMB[i*5+3];
+        if (ax < -8) ax = W + 8; if (ax > W + 8) ax = -8;
+        if (ay < -8) ay = H + 8; if (ay > H + 8) ay = -8;
+        AMB[i*5] = ax; AMB[i*5+1] = ay;
+        const sz = AMB[i*5+4];
+        ctx.globalAlpha = (0.05 + sz * 0.14) * (S.hinge ? 0.5 : 1);
+        const d = sz > 0.92 ? 16 + sz * 20 : 2.4 + sz * 3.6; // a few large soft bokeh motes
+        ctx.drawImage(SPRITE, ax - d/2, ay - d/2, d, d);
+      }
+    }
+    // grain field — additive glow
+    ctx.globalCompositeOperation = "lighter";
+    const dimAll = S.hinge ? 0.45 : 1;
     for (let i = 0; i < N; i++) {
       const f = flare[i];
-      const a = 0.28 + seed[i] * 0.5 + f * 0.4;
-      const r = 0.6 + seed[i] * 0.6 + f * 0.8;
-      ctx.fillStyle = f > 0.05
-        ? `rgba(232,203,143,${Math.min(1, a)})`
-        : `rgba(${base},${Math.min(0.85, a) * (S.hinge ? 0.45 : 1)})`;
-      ctx.fillRect(px[i] - r, py[i] - r, r * 2, r * 2);
+      const d = (3.2 + seed[i] * 3.4 + f * 3.5);
+      ctx.globalAlpha = Math.min(1, (0.3 + seed[i] * 0.5 + f * 0.5)) * dimAll;
+      ctx.drawImage(f > 0.05 ? SPRITE_HOT : SPRITE, px[i] - d/2, py[i] - d/2, d, d);
     }
+    ctx.globalAlpha = 1;
     if (S.lockFlare > 0.01) {
       ctx.fillStyle = `rgba(232,203,143,${S.lockFlare * 0.12})`;
       ctx.fillRect(0, 0, W, H);
       S.lockFlare *= 0.92;
     }
+    ctx.globalCompositeOperation = "source-over";
   }
 
   function degrade() {
@@ -323,6 +355,13 @@ export function createField(canvas, opts = {}) {
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
     const n = degraded ? 1800 : (W < 700 ? 2600 : 4096);
     if (n !== N) alloc(n);
+    AMBN = degraded ? 160 : (W < 700 ? 240 : 420);
+    AMB = new Float32Array(AMBN * 5); // x,y,vx,vy,size
+    for (let i = 0; i < AMBN; i++) {
+      AMB[i*5] = Math.random() * W; AMB[i*5+1] = Math.random() * H;
+      AMB[i*5+2] = (Math.random() - .5) * .18; AMB[i*5+3] = (Math.random() - .5) * .14 - .04;
+      AMB[i*5+4] = Math.random();
+    }
     buildTargets();
   }
 

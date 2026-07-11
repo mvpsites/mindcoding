@@ -904,3 +904,24 @@ img{-webkit-user-drag:none;}
   .fd-dot,.fd-line{animation:none;}
   .fd-reveal{transition:none; opacity:1; transform:none;}
 }
+
+/* THE FIELD v2 — exhibit cards (EIDOLON plaque grammar) */
+.fd-card{border:1px solid var(--gold-dim); background:rgba(7,11,26,.78);
+  text-align:left; padding:30px 34px 26px; border-radius:2px;}
+.fd-card .fd-body{margin-left:0;}
+.fd-cardhead{display:flex; align-items:baseline; justify-content:space-between;
+  gap:14px; border-bottom:1px solid var(--edge); padding-bottom:14px; margin-bottom:20px;}
+.fd-cardhead .fd-mono{margin:0;}
+.fd-acc{font-family:var(--engrave); font-size:10px; letter-spacing:.16em;
+  color:var(--gold); opacity:.4;}
+@media (min-width:900px){
+  .fd-mv{justify-content:center; align-items:flex-end;}
+  .fd-plaque.fd-card{max-width:440px; width:38vw; margin:0 6vw 0 0; padding-top:30px; padding-bottom:26px;}
+  .fd-plaque.fd-card .fd-h{font-size:clamp(28px,3vw,40px);}
+  .fd-hero{align-items:center;}
+  .fd-beats .fd-beat{margin:0 0 34vh;}
+}
+@media (max-width:899px){
+  .fd-plaque.fd-card{margin:0 14px 14px; padding:24px 22px 20px;
+    background:var(--plaque); backdrop-filter:blur(2px);}
+}
