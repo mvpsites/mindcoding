@@ -1,62 +1,79 @@
 # CONTINUE.md — Mind Coding session handoff
-## Written 2026-07-11 end of day · previous launch brief archived at docs/archive-CONTINUE-2026-07-11-launch-brief.md
+## Written 2026-07-11 late session · supersedes the zine-pivot handoff from earlier today (same day, two sessions)
 
 ---
 
-## START HERE — WHAT HAPPENED TODAY (read all of this before touching anything)
+## START HERE — CURRENT STATE (read all of this before touching anything)
 
-Today was a full product pivot. In one day the project went:
-FIELD v4 (live root, untouched) → FIELD v5 (branch, abandoned) → EIDOLON
-parity pages (abandoned) → **THE ZINE** (approved) → **the connected zine
-journey at /preview-zine-final/ — THIS IS THE PRODUCT DIRECTION NOW.**
+Two sessions happened on 2026-07-11. Session 1: the zine pivot (see git
+history; the archived brief is at docs/archive-CONTINUE-2026-07-11-launch-brief.md).
+Session 2 (this one) shipped TWO deployments to main, both live:
 
-Jad explicitly scrapped the particle-experience direction ("scrap the whole
-thing", "don't keep anything") and approved the RAW MATTER zine system
-(reference: https://fable-25.netlify.app/rawmatter/ + its /guide/) re-inked
-in Mind Coding colors. Everything since has been built inside that system.
+1. **`ddbd3ef` — mind-symbol-v2 merged.** The V2 copy contract applied to
+   `/preview-zine-v2/` (+ /draw/ + /channels/), plus `/preview-symbol-lab/`
+   and the shared symbol engine `/shared/programmed-self.js`.
+2. **`4fcfde1` — mind-emblem-v3 merged (current main HEAD).** Jad supplied a
+   finished prototype handoff (Mind-Coding-Interactive-Emblem-Handoff.zip);
+   the single-profile/fingerprint symbol was REPLACED by the real Mind
+   Coding emblem: two mirrored profiles, circuit-brain paths, central
+   keyhole, star, circular seal. **The generated particle map is the source
+   of truth — never redraw the logo with approximate curves.**
 
-**The approved experience (all live, all static, no build step):**
-- `/preview-zine-final/` — landing. Simplified 4-section copy flow (Jad-approved
-  ~110 words), two-ink system, fingerprint-whorl Canvas2D proof interaction.
-- `/preview-zine-final/draw/` — the tarot draw: authentic 78-card deck + lore,
-  the ported magnetic Wheel (wash-shuffle → fan → spin → tap-to-draw),
-  4-part reflective interpretation, saved readings (localStorage).
-- `/preview-zine-final/channels/` — the three collections from the real catalog
-  (LIVE items link to recordings; unreleased marked IN PRESS).
+**Live now:**
+- `/preview-symbol-lab/` — emblem bench (+ `?debug=1` instrumentation)
+- `/preview-zine-v2/` — complete V2 journey with the emblem in 02 THE PATTERN
+- `/` (root React app) and `/preview-zine-final/` — UNTOUCHED, byte-identical
 
-**Old root app is still live and untouched at `/` (mvpsites.github.io/mindcoding/).**
-The Avalon launch date (07-12) was NOT met — the pivot consumed it. Jad has
-not re-dated it.
+**NOT yet done:** Jad's on-device verification of the emblem (FPS with 1767
+desktop particles is the top question), all copy rulings, all parked
+decisions. See the work queue.
 
----
+## THE PROGRAMMED SELF — now the MIND CODING EMBLEM (spec as shipped, 4fcfde1)
 
-## THE DESIGN SYSTEM (locked by approval — do not redesign)
-
-Two inks on midnight. From the RAW MATTER guide, discipline intact:
-- `--paper:#070B1A` (midnight) · `--ink:#EFE7D6` (bone) · `--ink-dim:#B8B0A3` · `--ink-faint:#6d6a5e`
-- `--gold:#D79A4A` — **what you choose** (brand, CTAs, the turn lines, centered card)
-- `--red:#FF2B06` — **what chose you** (the pattern, telemetry, hover-invert rows, alarms). Sparingly.
-- `--bd:8px` — ONE border token, everywhere. 2px for inner rules only.
-- Type: **Archivo Black** display · **Space Mono** metadata · system stack body.
-- Zero frameworks, zero build step, zero images except card plates (self-hosted).
-- CSS-only textures: gold radial halftone, 1px repeating-gradient grain.
-- Crosshair cursor + rAF-throttled X/Y readout (desktop only).
-- Tickers: two duplicated spans translated −50%, 34s, red ✦ separators.
-- NO glassmorphism, NO gimmick easter eggs (Jad removed the stamp taunts),
-  tone: "cinematic, precise, intelligent and respectful."
-- Copy discipline: Jad rejected wordy v1 hard. Sections carry ONE idea each.
-  His approved lines only; no invented connective prose.
-
-## THE WHORL (landing proof interaction — spec'd by Jad, thresholds exact)
-
-Canvas 2D only. 900 particles desktop / 500 phone, DPR ≤ 2, IO-paused offscreen.
-Fingerprint: 7 nested distorted ellipses (`baseRadius = 0.22 + ring*0.075`,
-x/y formulas per Jad's correction doc), staggered ridge openings on odd rings
-feed a core spiral (~6% of grains), `unit = min(W/1.55, H/1.16)`.
-Homes are permanent; spring K=.045, damp .88 (.80 reduced-motion).
-Telemetry: `disp = min(100, round((sum/pts.length)/(R*0.12)*100))`,
-reveal at `peak >= 8 && disp < peak*0.55`. PATTERN CHANGE is 0% forever, honestly.
-Touch: pan-y; horizontal intent = ≥20px && ≥1.4× vertical.
+- Geometry: `/shared/emblem-points.js` (`window.MIND_EMBLEM_POINTS`),
+  generated from `mindcoding-emblem-transparent.png` by the handoff's
+  `tools/build-points.py` (Pillow; regenerable). **Desktop map 1767 pts
+  above 700px; mobile map 982 pts at ≤700px — never a shrunken desktop
+  field.** Regions: circuit 866/480 · seal 540/304 · key 212/108 ·
+  star 149/90. Load the map BEFORE programmed-self.js (both pages do).
+- Mapping: `fit = min(W,H)*0.82`, center `(W/2, H/2 + min(24, H*.025))`,
+  `home = center + q*fit`. Homes permanent after build; rebuild on the
+  700px boundary swaps maps (forcePhone debug does too).
+- Region physics (prototype verbatim): force circuit 1.0 / seal .28 /
+  key .20 / star .16; springs .050/.083/.098/.105; damping .835/.82/.80/.80.
+  Pull = force·(1−d/R)^1.65·press·1.45, press 1 down / .16 hover,
+  tangential ·.24 while down. R = phone ? max(82, fit·.18) : max(118, fit·.20).
+  Velocity cap 9 phone / 12 desktop. Reduced motion: static emblem, no forces.
+- Release: **center-out reformation wave** — spring=0 while
+  elapsed < 70 + coreDist·150ms (coreDist = |home−center|/(fit/2)),
+  then spring×1.12, window 900ms.
+- Reformation lock: ONE gold keyhole pulse (ring derived from the key
+  region's own bounds) + `vibrate(8)` once, phones only, when
+  disp<3 && peak≥4 after release. **Threshold retuned 8→4 this session:**
+  seal/star/key barely move by design so the averaged meter runs lower than
+  the old single-profile field; a deliberate swipe measures 4–7%
+  (verified firing, both viewports). If it feels wrong on device it is a
+  one-number edit in programmed-self.js.
+- Telemetry: disp = min(100, round(avgErr/(fit·0.12)·100)). PROGRAM CHANGE
+  is 0% by construction, honestly.
+- Preserved shell: pan-y + 20px/1.4× horizontal intent, 26px vertical
+  cancel, multi-touch bail, pointercancel/scroll/blur cleanup, IO +
+  visibilitychange rAF pause, mount API (reset/getStats/setDebug/rebuild/
+  destroy, onFrame/onReform), gold trail, debug overlays.
+- Rendering: transparent canvas (page bg shows through); core (key+star) =
+  bone w/ subtle pulse; others gold, seed>.88 = bright gold `#F4C85C`
+  **(new tint introduced by Jad's approved prototype — flagged, not yet
+  explicitly ruled against the two-ink palette)**; grain 2.05/2.15 + bumps.
+- sw.js cache is `mindcoding-v15` — **bump it whenever any file changes
+  under an existing filename** (programmed-self.js counts; it happened
+  this session).
+- Harnesses: `tools/render_check_symbol.cjs` (asserts counts 1767/982,
+  bounds, vertical span ≈88–89% of fit; emits point cloud for PIL
+  rasterization) and `tools/measure_symbol.cjs` (synthetic swipe →
+  peak 4% desktop / 7% phone, <3% in 233/267ms, 0px final home error).
+  Both eval the REAL files with stubbed DOM. `.cjs` because package.json
+  is type:module; never assign `navigator` in Node 22 (getter-only).
+  FPS is NEVER measured headlessly — Jad's device is the FPS check.
 
 ## THE WHEEL (draw page — ported verbatim from src/components/Wheel.jsx, THEN retuned)
 
@@ -97,6 +114,19 @@ the app's storage.js format.
 
 ## NEXT SESSION — THE WORK (in rough priority order)
 
+0. **JAD'S ON-DEVICE EMBLEM VERIFICATION (blocks emblem sign-off):**
+   Lab at ?debug=1 on desktop + phone: FPS (1767 desktop particles ≈2× the
+   old count — the top question), drag feel (circuits yield, profiles+seal
+   resist, star+keyhole planted), center-out reformation visible, ONE pulse
+   + ONE haptic, both faces readable at 390px, scroll not trapped.
+   Tuning levers if needed: region force table, PULL 1.45, reform threshold
+   (peak≥4) — in the module ONLY, both routes stay byte-identical imports.
+   NOTE: his first load may serve the OLD symbol from the v14 service
+   worker — close tab / hard refresh once.
+0b. **COPY RULINGS JAD OWES:** he never line-approved the V2 page copy
+   (built verbatim from his pasted contract). Also: does the lab/zine copy
+   ("fingerprint", "TOUCH THE MIND") need updating for the emblem? Copy
+   changes are simple string edits; his approved lines only.
 1. **DECISIONS JAD OWES (ask first, they gate everything):**
    a. Production architecture: rebuild the React app's shell in the zine
       system (keep app, reskin), or promote the static zine pages to be the
@@ -109,11 +139,10 @@ the app's storage.js format.
    d. `/preview-codex/` ruling — three commits pushed from HIS account
       (jadf23, 10:36–10:37 on 07-11) with a complete particle experience.
       He never answered whether it's his parallel work. KEEP PARKED until ruled.
-   e. Card art regeneration? He said "scrap them too" but the deck art is
-      already gold-on-midnight (matches the zine). Current assumption: KEEP.
-      Confirm.
+   e. Card art: **SETTLED = KEPT** (ruled 07-11 session 2). Only the cover
+      changed. Do not regenerate the deck plates.
 2. **Production reskin (the big one):** apply the zine system to the React
-   app — TheField/landing replaced by the zine cover (with the whorl),
+   app — TheField/landing replaced by the zine cover (with the EMBLEM — same shared module),
    Reflect/Wheel restyled (the Wheel component itself needs Jad's new
    retunes ported BACK into src/components/Wheel.jsx: MAXSTEER .20,
    DECAY .965, tap-to-draw replacing the 900ms hold), Recode/collections
@@ -122,7 +151,7 @@ the app's storage.js format.
    — spec'd in the correction doc).
 3. **Storage unification:** static preview's `mc-zine-readings` vs app's
    storage.js daily/saved format — production must use the app's store.
-4. **Launch prep redo for the new design:** OG image (the whorl or the
+4. **Launch prep redo for the new design:** OG image (the emblem or the
    card-back plate, 1200×630), meta description in zine voice, favicon
    (crosshair mark already inline in preview pages — promote it).
 5. **Cleanup (ONLY after Jad's rulings):** `/preview/` (18MB art dup),
@@ -133,8 +162,11 @@ the app's storage.js format.
    Pages + mindcod.ing domain wait until the experience is approved.
 7. **Write `tools/extract_zine_data.mjs`** so the deck/channels JSON
    regeneration is a committed script, not a conversation artifact.
-8. **REVOKE THE PAT** pasted in chat (again) once the session ends —
-   github_pat_11CHL5AFY0i… It has been in two conversations now.
+8. **THE PAT MUST BE DEAD.** The same fine-grained token was pasted and
+   used across TWO sessions (five pushes total) despite three reminders.
+   FIRST ACTION next session: verify it is revoked (any API call with it
+   should 401). If it still works, stop and make Jad revoke it before any
+   other work. Never accept a token for more than one push window.
 
 ---
 
@@ -170,17 +202,22 @@ the app's storage.js format.
 - Netlify egress domains still NOT allowed in the sandbox; Netlify MCP
   deploy-site still requires CLI egress. Irrelevant while GH Pages holds.
 
-## ROUTE INVENTORY (as of 296e512)
+## ROUTE INVENTORY (as of 4fcfde1)
 
 | Route | What | Status |
 |---|---|---|
 | `/` | Old FIELD v4 React app | LIVE, untouched, still the public root |
-| `/preview-zine-final/` (+ /draw/, /channels/) | **THE DIRECTION** | Active work |
+| `/preview-zine-v2/` (+ /draw/, /channels/) | **THE DIRECTION — V2 copy + emblem** | Active work |
+| `/preview-symbol-lab/` | Emblem inspection bench (?debug=1) | Active work |
+| `/preview-zine-final/` (+ /draw/, /channels/) | V1 zine journey (superseded by -v2) | FROZEN — do not touch |
 | `/preview-zine/` | Zine gate 1 (superseded) | Park until ruling |
 | `/preview/` | FIELD v5 build (18MB) | Park until ruling |
 | `/preview-parity/`, `/preview-parity-2/` | EIDOLON parity stages | Park until ruling |
 | `/preview-codex/` | Mystery push from jadf23 | DO NOT TOUCH — needs ruling |
 | branch `field-v5`, PR #1 | v5 source | Keep intact per his order |
 
-Last commits: `296e512` (wheel retune) ← `d4a660b` (wheel UX) ← `7056bd1`
-(wheel port) ← `32e098c` (pick restore) ← `af74fa8` (connected journey).
+Last commits: `4fcfde1` (emblem integration, main HEAD) ← `ddbd3ef`
+(mind-symbol-v2: V2 copy + symbol engine) ← `d64381b` (zine-pivot handoff)
+← `296e512` (wheel retune) ← `d4a660b` (wheel UX).
+Branches on origin: `mind-symbol-v2` (=ddbd3ef), `mind-emblem-v3` (=4fcfde1),
+both merged into main — safe to delete after Jad's device sign-off.
