@@ -1,3 +1,7 @@
+> **SUPERSEDED 2026-07-10 by docs/EXPERIENCE-SPEC.md (THE FIELD).** The wheel
+> interaction spec below remains valid; the daily check-in loop and landing
+> direction do not.
+
 # PIVOT SPEC — 2026-07-10 · "Tool, not media site"
 
 Jad stopped the SIGNAL asset build mid-session and redirected: the *idea* stays

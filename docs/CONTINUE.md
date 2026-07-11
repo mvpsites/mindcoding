@@ -1,51 +1,43 @@
 # CONTINUE — Mind Coding session handoff
 
-## ═══ START HERE (updated 2026-07-10, second post-pivot session) ═══
+## ═══ START HERE (updated 2026-07-10 EVENING — THE DIRECTION CHANGED AGAIN) ═══
 
-**Direction unchanged since the pivot — docs/PIVOT-SPEC.md is still product truth.**
-Frictionless daily tool: Check in → Mirror → Protocol, deck as second door via
-THE WHEEL. Landing copy locked (docs/LANDING-COPY.md).
+**Read docs/EXPERIENCE-SPEC.md before anything else. It is the product truth and
+supersedes PIVOT-SPEC.md.** Jad reviewed the deployed pivot and was underwhelmed
+(generic, static, clashed with the deck). Over one long session the concept
+converged through diagnosis → references → three brainstorm rounds (incl. two
+ChatGPT contributions Jad brought in) → approved:
 
-**Shipped this session (commit on main, deployed via deploy.yml):**
-- **Wash-shuffle intro on THE WHEEL** (Wheel.jsx) — the full ritual is now live:
-  wash → wheel → hold-to-draw. Opens each fresh reading as a swirling pile
-  (14 visible cards, rest opacity-0 for flat perf); swirling accumulates gesture
-  entropy (xorshift mix of pointer deltas) that seeds a mulberry32 Fisher–Yates —
-  the user's hands literally shuffle the deck. Release fans the pile onto the
-  wheel (750ms, hidden cards snap to pile-center first so nothing flies in from
-  origin). Tap-without-swirl still fans (nobody gets stuck). ALL locked wheel
-  tunings untouched — wash is a pre-phase branch in tick()/handlers only.
-  Verified numerically: seeded shuffle deterministic, permutation-valid, card-0
-  lands on all 78 positions across 2000 seeds, entropy gesture-sensitive.
-- **"Input · Pattern · Recode" spread** (id: mindos, 2nd in the readings list) —
-  new `slots` meaning mode: per-position card fields (Input→`lack` rendered in
-  quotes, Pattern→`reveals`, Recode→`recode`), `noReversals` (slot fields aren't
-  orientation-dependent), recodeFrom: 2. All 78 cards verified to carry all three
-  slot fields. Mechanism is generic — any spread can adopt slotFields.
-- **Shareable result frame** (src/lib/shareframe.js + Share button in Spread.jsx,
-  gated by `shareable: true` on the spread config — currently mindos only).
-  1080×1920 canvas PNG in SIGNAL tokens (awaits document.fonts): wordmark,
-  positions+card names, THE RECODE, affirmation, hero line + mindcod.ing footer.
-  Web Share API with download fallback; layout fits up to 5 slots.
-- **Founding batch scripts** — content/scripts/ 01–10 + README: 4 Suno-ready
-  songs (style prompts + full lyrics), 4 narration VO scripts with pause markers,
-  the 12-min visualization, and the Decode manifesto opening cold on the MINDOS
-  boot lines (recovered from git fbfe7ff — the boot lives on as the manifesto
-  opening). README has delivered-duration estimates; correct library.js durations
-  when ytIds are filled, don't pad scripts.
-- SW cache bumped to v10.
+**THE FIELD** — a scroll-driven landing chamber: ~4,096 gold grains on midnight,
+one continuous particle field morphing through six states (installed desires:
+car/dollar/heart → fractured mandala → the measurable proof that force can't
+change the pattern → the hinge question → press-and-remain ascent: heal/rise/
+bloom into a phyllotaxis lotus → condensation into the actual card back →
+ENTER THE DECK / MIND RECODING PROGRAMS). Copy is FINAL and verbatim in the
+spec §4. Canvas 2D only, no Three.js. Telemetry readouts are honest math.
 
-**NOT done this session:** Jad's phone-testing notes on the deployed pivot loop
-(the priority-1 slot) were an empty placeholder in his message — still owed.
-When they arrive they outrank everything below.
+**Hard deadline: launches 2026-07-12** to the Project Avalon forum (Jad's
+thread — thousands of spiritual-community visits expected). 07-11 is the single
+build day; the spec §7 is the ordered build plan with a pre-agreed cut-line.
 
-**Priorities for next session:**
-1. Jad's phone-testing verdict — now includes the wash-shuffle and share frame.
-2. Produce the founding batch (Suno → VO → audiogram → YouTube → fill ytId,
-   set status:"live", fix duration) — scripts are ready in content/scripts/.
-3. Check-in trendline from localStorage history (`mindcoding.checkins.v1`).
-4. Backlog from PIVOT-SPEC: fate mode, cut-the-deck, recurring-card memory;
-   card-back SIGNAL regen (Jad to decide).
+**Decided this session (do not relitigate):**
+- Daily check-in loop is DEAD (routes redirect to /). "Frictionless daily tool"
+  frame is dead. Decode/recode dichotomy dropped — one practice: Mind Coding.
+- Songs are now "Mind Recoding Programs," presented as five channels
+  (ABUNDANCE·LOVE·PEACE·CONFIDENCE·SPIRIT) mapping to existing LIBRARY
+  collections + founding-batch scripts (content/scripts/ 01–10, all still valid).
+- No sound/tones on the site — thought is the force, not audio (Jad, explicit).
+- Palette: deck-derived midnight/gilt/bone/oxblood (spec §2 tokens; SIGNAL cyan
+  dies). Type trio: Cormorant display / Outfit body / Plex Mono machine voice.
+- Locked hero stays: "Your mind is being programmed every day. / Choose what
+  gets installed." Subline: "Not by accident. By design."
+- References: fable-25.netlify.app /cartomancy (palette, preserve-3d, FLIP) and
+  /eidolon + /eidolon/guide (single-buffer particle grammar, museum restraint).
+
+**Still true from earlier sessions:** the WHEEL and its locked tunings, wash-
+shuffle, mindos spread, share frame (needs gilt re-token during build), Art
+Courier asset pipeline, self-hosting rule, one-session-at-a-time repo rule,
+verify-before-push, dispatch deploy.yml after any push.
 
 **Superseded / parked:** unchanged — 5 SIGNAL door panels sit unused in the
 library (style-ref a979bbbc); doors demoted, not deleted.
