@@ -179,7 +179,7 @@ export default function TheField({ go, openCollection }) {
         <div className="fd-plaque fd-card" data-acc="MC·002">
           <p className="fd-num">Exhibit II</p>
           <h2 className="fd-cardtitle">What Safety Requires</h2>
-          <div className="fd-meta"><span>Attractor two of four</span><span>Revises upward on approach</span><span>Never reports \u201cenough\u201d</span></div>
+          <div className="fd-meta"><span>Attractor two of four</span><span>Revises upward on approach</span><span>Never reports “enough”</span></div>
           <div className="fd-rule" aria-hidden="true" />
           <h2 className="fd-h">You were taught what safety requires.</h2>
           <p className="fd-body">The number that would finally be enough. Notice that it moves every time you get close — that is a feature of the program, not a flaw in you.</p>
