@@ -158,8 +158,11 @@ export default function TheField({ go, openCollection }) {
       </section>
 
       <section ref={sec(1)} className="fd-mv">
-        <div className="fd-plaque fd-card">
-          <div className="fd-cardhead"><p className="fd-mono">MOVEMENT I · THE INSTALLED DESIRES</p><span className="fd-acc">ACC. MC·001</span></div>
+        <div className="fd-plaque fd-card" data-acc="MC·001">
+          <p className="fd-num">Movement I</p>
+          <h2 className="fd-cardtitle">The Installed Desires</h2>
+          <div className="fd-meta"><span>Four attractors · origin unknown</span><span>Installed before consent</span><span>Crown · dollar · heart · halo</span></div>
+          <div className="fd-rule" aria-hidden="true" />
           <div className="fd-beats">
             <p className="fd-beat">You were shown what success looks like.</p>
             <p className="fd-beat">You were taught what safety requires.</p>
@@ -172,8 +175,11 @@ export default function TheField({ go, openCollection }) {
       </section>
 
       <section ref={sec(2)} className="fd-mv">
-        <div className="fd-plaque fd-card">
-          <div className="fd-cardhead"><p className="fd-mono">MOVEMENT II · THE PROGRAM BENEATH</p><span className="fd-acc">ACC. MC·002</span></div>
+        <div className="fd-plaque fd-card" data-acc="MC·002">
+          <p className="fd-num">Movement II</p>
+          <h2 className="fd-cardtitle">The Program Beneath</h2>
+          <div className="fd-meta"><span>Six-fold figure, one sextant bent</span><span>Formed by repetition alone</span><span>Holds its shape unaided</span></div>
+          <div className="fd-rule" aria-hidden="true" />
           <h2 className="fd-h">The thought is visible.<br />The program is not.</h2>
           <p className="fd-body">A thought repeated becomes a belief. A belief repeated becomes a direction. A direction repeated becomes a life.</p>
           <p className="fd-tag">4,096 grains · one governing pattern</p>
@@ -181,8 +187,11 @@ export default function TheField({ go, openCollection }) {
       </section>
 
       <section ref={sec(3)} className="fd-mv fd-tall">
-        <div className="fd-plaque fd-card">
-          <div className="fd-cardhead"><p className="fd-mono">MOVEMENT III · THE RETURN</p><span className="fd-acc">ACC. MC·003</span></div>
+        <div className="fd-plaque fd-card" data-acc="MC·003">
+          <p className="fd-num">Movement III</p>
+          <h2 className="fd-cardtitle">The Return</h2>
+          <div className="fd-meta"><span>Subject: willpower vs. pattern</span><span>Method: direct disturbance</span><span>Result recorded below</span></div>
+          <div className="fd-rule" aria-hidden="true" />
           <h2 className="fd-h">Try to break it.</h2>
           <p className="fd-mono fd-telemetry">
             <span ref={dispRef}>DISPLACEMENT 00%</span>
@@ -199,8 +208,11 @@ export default function TheField({ go, openCollection }) {
       </section>
 
       <section ref={sec(4)} className="fd-mv fd-tall">
-        <div className="fd-plaque fd-card">
-          <div className="fd-cardhead"><p className="fd-mono">MOVEMENT IV · ENTRAINMENT</p><span className="fd-acc">ACC. MC·004</span></div>
+        <div className="fd-plaque fd-card" data-acc="MC·004">
+          <p className="fd-num">Movement IV</p>
+          <h2 className="fd-cardtitle">Entrainment</h2>
+          <div className="fd-meta"><span>Method: sustained attention</span><span>Thresholds 12 · 47 · 81</span><span>Yields: phyllotaxis bloom</span></div>
+          <div className="fd-rule" aria-hidden="true" />
           <h2 className="fd-h">Do not push.<br />Introduce another order.</h2>
           <p ref={cohRef} className="fd-mono fd-telemetry">press and remain</p>
           <div className={`fd-reveal ${locked ? "fd-on" : ""}`}>
