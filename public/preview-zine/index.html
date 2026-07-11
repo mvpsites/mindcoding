@@ -37,7 +37,7 @@ body::before{content:"";position:fixed;inset:0;z-index:50;pointer-events:none;
   background:repeating-linear-gradient(0deg,rgba(239,231,214,0.014) 0 1px,transparent 1px 3px)}
 ::selection{background:var(--gold);color:var(--paper)}
 a{color:inherit;text-decoration:none}
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 
 .skip{position:absolute;left:-999px;top:0;background:var(--gold);color:var(--paper);
   padding:.6rem 1rem;font-family:var(--mono);z-index:99}
@@ -120,11 +120,12 @@ h2.big .r{color:var(--red)}
   border:var(--bd) solid var(--gold);padding:.85rem 1.5rem;
   transition:background .14s,color .14s;align-self:flex-start}
 .btn:hover,.btn:focus-visible{background:var(--paper);color:var(--gold)}
-.mirror__plate{padding:1.6rem;display:grid;place-items:center;background:
+.mirror__plate{padding:2rem 1.6rem;display:grid;place-items:center;min-height:0;background:
   radial-gradient(circle,rgba(215,154,74,.14) 1.3px,transparent 1.6px);
   background-size:13px 13px}
-.plate{border:var(--bd) solid var(--ink);transform:rotate(2deg);max-width:260px;
+.plate{border:var(--bd) solid var(--ink);transform:rotate(2deg);width:260px;max-width:82%;
   box-shadow:0 24px 60px -24px rgba(0,0,0,.9)}
+.plate img{width:100%;height:auto}
 .plate figcaption{font-family:var(--mono);font-size:.56rem;letter-spacing:.18em;
   color:var(--ink-faint);padding:.5rem .6rem;border-top:2px solid var(--gold);
   text-transform:uppercase}
