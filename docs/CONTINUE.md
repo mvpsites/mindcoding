@@ -162,11 +162,12 @@ the app's storage.js format.
    Pages + mindcod.ing domain wait until the experience is approved.
 7. **Write `tools/extract_zine_data.mjs`** so the deck/channels JSON
    regeneration is a committed script, not a conversation artifact.
-8. **THE PAT MUST BE DEAD.** The same fine-grained token was pasted and
-   used across TWO sessions (five pushes total) despite three reminders.
-   FIRST ACTION next session: verify it is revoked (any API call with it
-   should 401). If it still works, stop and make Jad revoke it before any
-   other work. Never accept a token for more than one push window.
+8. **PAT policy (Jad's standing ruling, 07-11 session 2):** the fine-grained
+   token stays LIVE until Jad decides to revoke it — his explicit call, do
+   not nag about it. The token is supplied in the session-handoff prompt
+   Jad pastes, NEVER committed to this repo (GitHub secret scanning would
+   auto-revoke it on push, and it would live in history forever). Scope
+   remains: contents+workflows, this repo only.
 
 ---
 
