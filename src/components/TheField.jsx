@@ -58,23 +58,29 @@ export default function TheField({ go, openCollection }) {
     let hingeEl = null;
     const onScroll = () => {
       const mid = window.innerHeight * 0.5;
-      let active = 0, prog = 0, hinge = false;
+      let active = 0, centered = 0, hinge = false;
       sectionRefs.current.forEach((el, i) => {
         if (!el) return;
         const r = el.getBoundingClientRect();
-        if (r.top <= mid && r.bottom > mid) {
-          active = i;
-          prog = Math.min(1, Math.max(0, (mid - r.top) / r.height));
-        }
+        const c = r.top + r.height / 2;
+        const cv = 1 - Math.min(1, Math.abs(c - mid) / (r.height * 0.55));
+        if (cv > centered) { centered = cv; active = i; }
       });
       if (hingeEl) {
         const hr = hingeEl.getBoundingClientRect();
         hinge = hr.top <= mid && hr.bottom > mid;
       }
-      engine.setMovement(active, prog);
+      const eased = centered * centered * (3 - 2 * centered); // smoothstep
+      if (engine.setExhibit) engine.setExhibit(active, eased);
+      else {
+        // 2D fallback: map exhibits onto the legacy movement engine
+        const MAP = [0, 1, 1, 1, 1, 2, 3, 4, 5];
+        const P = [0, 0.08, 0.28, 0.48, 0.68, 0.5, 0.3, 0.5, 0.95];
+        engine.setMovement(MAP[Math.min(8, active)], P[Math.min(8, active)]);
+      }
       engine.setHinge(hinge);
       if (counterRef.current) counterRef.current.textContent =
-        `0${Math.min(5, active)} / 05`;
+        `0${Math.min(8, active)} / 08`;
     };
     hingeEl = document.getElementById("mc-hinge");
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -142,7 +148,7 @@ export default function TheField({ go, openCollection }) {
       <header className="fd-head">
         <span className="fd-mark"><span className="fd-dot" aria-hidden="true" /> MINDCOD.ING</span>
         <span className="fd-headmid">THE FIELD OF ATTENTION · ACTIVE SIGNAL</span>
-        <span ref={counterRef} className="fd-count">00 / 05</span>
+        <span ref={counterRef} className="fd-count">00 / 08</span>
       </header>
 
       <section ref={sec(0)} className="fd-mv fd-hero">
@@ -159,36 +165,67 @@ export default function TheField({ go, openCollection }) {
 
       <section ref={sec(1)} className="fd-mv">
         <div className="fd-plaque fd-card" data-acc="MC·001">
-          <p className="fd-num">Movement I</p>
-          <h2 className="fd-cardtitle">The Installed Desires</h2>
-          <div className="fd-meta"><span>Four attractors · origin unknown</span><span>Installed before consent</span><span>Crown · dollar · heart · halo</span></div>
+          <p className="fd-num">Exhibit I</p>
+          <h2 className="fd-cardtitle">What Success Looks Like</h2>
+          <div className="fd-meta"><span>Attractor one of four</span><span>Installed in childhood</span><span>Origin: everyone around you</span></div>
           <div className="fd-rule" aria-hidden="true" />
-          <div className="fd-beats">
-            <p className="fd-beat">You were shown what success looks like.</p>
-            <p className="fd-beat">You were taught what safety requires.</p>
-            <p className="fd-beat">You learned what it means to be chosen.</p>
-            <p className="fd-beat">You inherited even your idea of the sacred.</p>
-          </div>
-          <h2 className="fd-h">Eventually, the program<br />began speaking in your voice.</h2>
-          <p className="fd-tag">inherited pattern · attractor established</p>
+          <h2 className="fd-h">You were shown what success looks like.</h2>
+          <p className="fd-body">The image arrived long before you could evaluate it — repeated until it stopped looking like an image and started looking like the goal.</p>
+          <p className="fd-tag">Shape held without consent</p>
         </div>
       </section>
 
       <section ref={sec(2)} className="fd-mv">
         <div className="fd-plaque fd-card" data-acc="MC·002">
-          <p className="fd-num">Movement II</p>
-          <h2 className="fd-cardtitle">The Program Beneath</h2>
-          <div className="fd-meta"><span>Six-fold figure, one sextant bent</span><span>Formed by repetition alone</span><span>Holds its shape unaided</span></div>
+          <p className="fd-num">Exhibit II</p>
+          <h2 className="fd-cardtitle">What Safety Requires</h2>
+          <div className="fd-meta"><span>Attractor two of four</span><span>Revises upward on approach</span><span>Never reports \u201cenough\u201d</span></div>
           <div className="fd-rule" aria-hidden="true" />
-          <h2 className="fd-h">The thought is visible.<br />The program is not.</h2>
-          <p className="fd-body">A thought repeated becomes a belief. A belief repeated becomes a direction. A direction repeated becomes a life.</p>
-          <p className="fd-tag">4,096 grains · one governing pattern</p>
+          <h2 className="fd-h">You were taught what safety requires.</h2>
+          <p className="fd-body">The number that would finally be enough. Notice that it moves every time you get close — that is a feature of the program, not a flaw in you.</p>
+          <p className="fd-tag">Attractor active</p>
         </div>
       </section>
 
-      <section ref={sec(3)} className="fd-mv fd-tall">
+      <section ref={sec(3)} className="fd-mv">
         <div className="fd-plaque fd-card" data-acc="MC·003">
-          <p className="fd-num">Movement III</p>
+          <p className="fd-num">Exhibit III</p>
+          <h2 className="fd-cardtitle">What It Means to Be Chosen</h2>
+          <div className="fd-meta"><span>Attractor three of four</span><span>Inherited terms of worth</span><span>Still running</span></div>
+          <div className="fd-rule" aria-hidden="true" />
+          <h2 className="fd-h">You learned what it means to be chosen.</h2>
+          <p className="fd-body">Whose attention counts. What must be traded for it. Which version of you is presentable enough to deserve it. None of it was your idea.</p>
+          <p className="fd-tag">Inherited · unexamined</p>
+        </div>
+      </section>
+
+      <section ref={sec(4)} className="fd-mv">
+        <div className="fd-plaque fd-card" data-acc="MC·004">
+          <p className="fd-num">Exhibit IV</p>
+          <h2 className="fd-cardtitle">Even the Sacred</h2>
+          <div className="fd-meta"><span>Attractor four of four</span><span>The subtlest installation</span><span>Looks like the way out</span></div>
+          <div className="fd-rule" aria-hidden="true" />
+          <h2 className="fd-h">You inherited even your idea of the sacred.</h2>
+          <p className="fd-body">The posture of peace, the shape of the search itself — handed down like everything else. The deepest program is the one wearing the robes.</p>
+          <p className="fd-tag">Handle with attention</p>
+        </div>
+      </section>
+
+      <section ref={sec(5)} className="fd-mv">
+        <div className="fd-plaque fd-card" data-acc="MC·005">
+          <p className="fd-num">Exhibit V</p>
+          <h2 className="fd-cardtitle">The Program Beneath</h2>
+          <div className="fd-meta"><span>Six-fold figure, one sextant bent</span><span>Formed by repetition alone</span><span>Holds its shape unaided</span></div>
+          <div className="fd-rule" aria-hidden="true" />
+          <h2 className="fd-h">Eventually, the program began speaking in your voice.</h2>
+          <p className="fd-body">A thought repeated becomes a belief. A belief repeated becomes a direction. A direction repeated becomes a life. Look closely at the figure: it is almost perfect. One sixth of it was never yours.</p>
+          <p className="fd-tag">20,000 grains · one governing pattern</p>
+        </div>
+      </section>
+
+      <section ref={sec(6)} className="fd-mv fd-tall">
+        <div className="fd-plaque fd-card" data-acc="MC·006">
+          <p className="fd-num">Exhibit VI</p>
           <h2 className="fd-cardtitle">The Return</h2>
           <div className="fd-meta"><span>Subject: willpower vs. pattern</span><span>Method: direct disturbance</span><span>Result recorded below</span></div>
           <div className="fd-rule" aria-hidden="true" />
@@ -200,6 +237,7 @@ export default function TheField({ go, openCollection }) {
           <div className={`fd-reveal ${proofSeen ? "fd-on" : ""}`}>
             <h2 className="fd-h">You moved the grains.<br />Not what calls them back.</h2>
             <p className="fd-body">You can reject the thought. The program keeps producing another one. That is why force fails. That is why January fails.</p>
+            <p className="fd-tag">Displacement is not change</p>
           </div>
         </div>
         <div id="mc-hinge" className="fd-hinge">
@@ -207,9 +245,9 @@ export default function TheField({ go, openCollection }) {
         </div>
       </section>
 
-      <section ref={sec(4)} className="fd-mv fd-tall">
-        <div className="fd-plaque fd-card" data-acc="MC·004">
-          <p className="fd-num">Movement IV</p>
+      <section ref={sec(7)} className="fd-mv fd-tall">
+        <div className="fd-plaque fd-card" data-acc="MC·007">
+          <p className="fd-num">Exhibit VII</p>
           <h2 className="fd-cardtitle">Entrainment</h2>
           <div className="fd-meta"><span>Method: sustained attention</span><span>Thresholds 12 · 47 · 81</span><span>Yields: phyllotaxis bloom</span></div>
           <div className="fd-rule" aria-hidden="true" />
@@ -217,15 +255,16 @@ export default function TheField({ go, openCollection }) {
           <p ref={cohRef} className="fd-mono fd-telemetry">press and remain</p>
           <div className={`fd-reveal ${locked ? "fd-on" : ""}`}>
             <h2 className="fd-h">Hold the signal until<br />the field remembers differently.</h2>
+            <p className="fd-tag">Coherence sustained · six breaths per minute</p>
           </div>
         </div>
       </section>
 
-      <section ref={sec(5)} className="fd-mv fd-tall">
-        <div className="fd-plaque fd-card" data-acc="MC·005">
-          <p className="fd-num">Movement V</p>
+      <section ref={sec(8)} className="fd-mv fd-tall">
+        <div className="fd-plaque fd-card" data-acc="MC·008">
+          <p className="fd-num">Exhibit VIII</p>
           <h2 className="fd-cardtitle">The Chosen Signal</h2>
-          <div className="fd-meta"><span>Same desires · new author</span><span>Five channels, one practice</span><span>Condenses to instrument</span></div>
+          <div className="fd-meta"><span>Same mechanism · new author</span><span>Five channels, one practice</span><span>Condenses to instrument</span></div>
           <div className="fd-rule" aria-hidden="true" />
           <h2 className="fd-h">A coherent mind can be pointed anywhere.</h2>
           <p className="fd-body">Code it for abundance, and the field arranges around abundance. Code it for love, and it arranges around love. Code it for awakening, and it arranges around that. The same desires. This time, yours.</p>

@@ -235,53 +235,76 @@ export function createFieldGL(canvas, opts = {}) {
   };
   layoutOffset();
 
-  // ——— story state machine ———
+  // ——— exhibit state machine (EIDOLON model: one shape per section) ———
   const S = {
-    mv: 0, p: 0, hinge: false,
+    ex: 0, centered: 0, hinge: false,
     coherence: 0, holding: false, locked: false,
     displacement: 0, cycleIdx: 0,
     onTelemetry: opts.onTelemetry || (() => {}),
     onState: opts.onState || (() => {}),
   };
   let targetAssembly = 0, asm = 0, foc = 0, swirl = 0, mvel = 0, rotY = 0, tearAcc = 0;
-  let curA = "crown", curB = "crown", morphT = 0, morphFrom = 0, morphTo = 0, morphDur = 1;
+  let curA = "crown", curB = "crown", morphT = 0, morphTo = -1, morphDur = 1;
   const CYCLE = ["mandalaFrac", "heart", "dollar", "crown"];
-  const SYMS = ["crown", "dollar", "heart", "meditator"];
+  // exhibit table: shape + behavior flags
+  const EXHIBITS = [
+    { shape: null },                       // 0 hero — pure dust
+    { shape: "crown" },                    // I
+    { shape: "dollar" },                   // II
+    { shape: "heart" },                    // III
+    { shape: "meditator" },                // IV
+    { shape: "mandalaFrac", rot: 0.06 },   // V the program beneath
+    { shape: "mandalaFrac", tear: true },  // VI the return
+    { shape: "mandalaFrac", hold: true },  // VII entrainment
+    { shape: "card", calm: true },         // VIII the chosen signal
+  ];
 
   loadA("crown"); loadB("crown");
   const setPair = (a, b, dur = 1.1) => {
     if (a !== curA) { loadA(a); curA = a; }
     if (b !== curB) { loadB(b); curB = b; }
-    morphFrom = uniforms.uMorph.value = 0; morphTo = 1; morphT = 0; morphDur = dur;
+    uniforms.uMorph.value = 0; morphTo = 1; morphT = 0; morphDur = dur;
   };
-  const holdShape = (name) => { if (curA !== name || curB !== name) { loadA(name); loadB(name); curA = curB = name; uniforms.uMorph.value = 0; morphTo = 0; } };
+  const holdShape = (name) => {
+    if (curA !== name || curB !== name) { loadA(name); loadB(name); curA = curB = name; uniforms.uMorph.value = 0; }
+    morphTo = -1;
+  };
+  function holdOr(a, b) {
+    if (curA !== a) { loadA(a); curA = a; }
+    if (curB !== b) { loadB(b); curB = b; }
+    morphTo = -1;
+  }
 
-  let beatKey = "";
   function applyStory(dt, t) {
-    const { mv, p } = S;
+    const ex = EXHIBITS[S.ex] || EXHIBITS[0];
     uniforms.uGrowMode.value = 0;
-    uniforms.uCalm.value = 0;
-    let rotSpeed = 0.1;
-    if (mv === 0) { targetAssembly = 0.0; }
-    else if (mv === 1) {
-      const seg = p * 5;
-      targetAssembly = 1;
-      const beat = Math.min(4, Math.floor(seg));
-      const key = "m1-" + beat;
-      if (key !== beatKey) {
-        beatKey = key;
-        if (beat < 4) setPair(curB, SYMS[beat], 1.2);
-        else setPair(curB, "mandalaFrac", 1.6);
+    uniforms.uCalm.value = ex.calm ? 1 : 0;
+    let rotSpeed = ex.rot != null ? ex.rot : 0.08;
+    // hinge dims the whole hall and stills the air
+    uniforms.uDim.value += ((S.hinge ? 0.4 : 1) - uniforms.uDim.value) * Math.min(dt * 3, 1);
+
+    if (!ex.shape) { targetAssembly = 0; uniforms.uTear.value = 0; }
+    else if (ex.hold) {
+      // Entrainment: shape assembles with the section, but a hold pins it
+      uniforms.uTear.value = 0;
+      rotSpeed = 0.05 + S.coherence * 0.06;
+      if (!S.locked) {
+        S.coherence = S.holding ? Math.min(1, S.coherence + dt / 6)
+                                : Math.max(0, S.coherence - dt / 3);
+        if (S.coherence >= 1) { S.locked = true; S.onState("locked"); }
       }
+      const c = S.coherence;
+      if (c <= 0.3) { holdOr("mandalaFrac", "mandala"); uniforms.uMorph.value = c / 0.3; }
+      else if (c <= 0.65) { holdOr("mandala", "helix"); uniforms.uMorph.value = (c - 0.3) / 0.35; }
+      else { holdOr("helix", "bloom"); uniforms.uGrowMode.value = 1; uniforms.uMorph.value = (c - 0.65) / 0.35 + 0.08; }
+      uniforms.uBreath.value += ((S.locked ? 1 : 0) - uniforms.uBreath.value) * Math.min(dt * 2, 1);
+      targetAssembly = Math.max(S.centered, S.coherence > 0.02 ? 1 : 0);
     }
-    else if (mv === 2) { targetAssembly = 1; holdShape("mandalaFrac"); rotSpeed = 0.06; }
-    else if (mv === 3) {
-      targetAssembly = 1; rotSpeed = 0.05;
-      if (S.hinge) { uniforms.uDim.value += (0.4 - uniforms.uDim.value) * Math.min(dt * 3, 1); }
-      else uniforms.uDim.value += (1 - uniforms.uDim.value) * Math.min(dt * 3, 1);
-      // tear accumulates from stir; on decay, the program prints the next thought
+    else if (ex.tear) {
+      uniforms.uTear.value = S.hinge ? 0 : 1;
+      rotSpeed = 0.05;
+      targetAssembly = S.centered;
       if (!S.hinge) {
-        uniforms.uTear.value = 1;
         if (swirl > 0.7) tearAcc += dt;
         if (tearAcc > 0.5 && swirl < 0.12) {
           tearAcc = 0;
@@ -290,42 +313,15 @@ export function createFieldGL(canvas, opts = {}) {
           S.onState("recapture");
           setTimeout(() => S.onState("reformed"), 1100);
         }
-      } else uniforms.uTear.value = 0;
-    }
-    else if (mv === 4) {
-      uniforms.uTear.value = 0; rotSpeed = 0.05 + S.coherence * 0.06;
-      targetAssembly = 1;
-      if (!S.locked) {
-        S.coherence = S.holding
-          ? Math.min(1, S.coherence + dt / 6)
-          : Math.max(0, S.coherence - dt / 3);
-        if (S.coherence >= 1) { S.locked = true; S.onState("locked"); }
       }
-      const c = S.coherence;
-      if (c <= 0.3) { holdOr("mandalaFrac", "mandala"); uniforms.uMorph.value = c / 0.3; }
-      else if (c <= 0.65) { holdOr("mandala", "helix"); uniforms.uMorph.value = (c - 0.3) / 0.35; }
-      else { holdOr("helix", "bloom"); uniforms.uGrowMode.value = 1; uniforms.uMorph.value = (c - 0.65) / 0.35 + 0.08; }
-      uniforms.uBreath.value += ((S.locked ? 1 : 0) - uniforms.uBreath.value) * Math.min(dt * 2, 1);
     }
-    else if (mv === 5) {
-      uniforms.uCalm.value = 1; targetAssembly = 1; rotSpeed = 0.04;
-      const seg = p * 6;
-      const beat = Math.min(4, Math.floor(seg));
-      const key = "m5-" + beat;
-      if (key !== beatKey) {
-        beatKey = key;
-        if (beat < 4) setPair(curB, SYMS[beat], 1.0);
-        else setPair(curB, "card", 1.4);
-      }
+    else {
+      uniforms.uTear.value = 0;
+      holdShape(ex.shape);
+      targetAssembly = S.centered;
     }
     rotY += dt * (reduce ? 0 : rotSpeed);
     uniforms.uRotY.value = rotY;
-  }
-  // pin A/B for the hold phases without restarting morphs every frame
-  function holdOr(a, b) {
-    if (curA !== a) { loadA(a); curA = a; }
-    if (curB !== b) { loadB(b); curB = b; }
-    morphTo = -1; // manual uMorph control
   }
 
   // ——— stir projection (EIDOLON) ———
@@ -388,15 +384,15 @@ export function createFieldGL(canvas, opts = {}) {
   }
 
   const api = {
-    setMovement(mv, p) {
-      if (mv !== S.mv) {
-        S.mv = mv; beatKey = "";
-        if (mv === 4) { S.coherence = 0; S.locked = false; }
-        if (mv === 3) { S.cycleIdx = 0; holdShape("mandalaFrac"); }
-        if (mv === 0) targetAssembly = 0;
+    setExhibit(ex, centered) {
+      if (ex !== S.ex) {
+        S.ex = ex;
+        const cfg = EXHIBITS[ex] || {};
+        if (cfg.hold) { S.coherence = 0; S.locked = false; }
+        if (cfg.tear) { S.cycleIdx = 0; holdShape("mandalaFrac"); }
         S.onState("movement");
       }
-      S.p = p;
+      S.centered = centered;
     },
     setHinge(on) { S.hinge = on; },
     pointerMove(x, y, vx, vy) {
@@ -409,7 +405,7 @@ export function createFieldGL(canvas, opts = {}) {
     },
     pointerDown(x, y) { this.pointerMove(x, y, 0, 0); },
     pointerUp() { stirPoint.set(999, 999, 0); mvel = 0; },
-    holdStart() { if (S.mv === 4) { S.holding = true; S.onState("holding"); } },
+    holdStart() { if ((EXHIBITS[S.ex] || {}).hold) { S.holding = true; S.onState("holding"); } },
     holdEnd() { S.holding = false; },
     get state() { return S; },
     start() { if (!running) { running = true; clock.getDelta(); raf = requestAnimationFrame(tick); } },
