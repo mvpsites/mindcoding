@@ -261,7 +261,7 @@ footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;ga
     <div class="mirror__main">
       <h2 class="big" id="mirror-h">The card is not a command.<br /><span class="g">It is a mirror.</span></h2>
       <p class="support">A symbol can help you notice what words sometimes miss.</p>
-      <a class="btn" href="../" data-handoff="go(&#39;reflect&#39;)">DRAW WITH INTENTION →</a>
+      <a class="btn" href="./draw/" data-handoff="go(&#39;reflect&#39;)">DRAW WITH INTENTION →</a>
     </div>
     <div class="mirror__plate">
       <figure class="plate">
@@ -279,9 +279,9 @@ footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;ga
     <span>#</span><span>CHANNEL</span><span class="h-form">FORM</span><span style="text-align:right">PG.</span>
   </div>
   <nav aria-label="Channels">
-    <a class="row" href="../" data-handoff="openCollection(&#39;abundance&#39;)"><span class="row__no">01</span><span class="row__t">Abundance</span><span class="row__m h-form">Music · Affirmations · Life Scripts</span><span class="row__pg">04</span></a>
-    <a class="row" href="../" data-handoff="openCollection(&#39;love&#39;)"><span class="row__no">02</span><span class="row__t">Love</span><span class="row__m h-form">Music · Affirmations · Visualization</span><span class="row__pg">11</span></a>
-    <a class="row" href="../" data-handoff="openCollection(&#39;spirit&#39;)"><span class="row__no">03</span><span class="row__t">Spiritual Growth</span><span class="row__m h-form">Music · Meditation · Life Scripts</span><span class="row__pg">17</span></a>
+    <a class="row" href="./channels/#abundance" data-handoff="openCollection(&#39;abundance&#39;)"><span class="row__no">01</span><span class="row__t">Abundance</span><span class="row__m h-form">Music · Affirmations · Life Scripts</span><span class="row__pg">04</span></a>
+    <a class="row" href="./channels/#love" data-handoff="openCollection(&#39;love&#39;)"><span class="row__no">02</span><span class="row__t">Love</span><span class="row__m h-form">Music · Affirmations · Visualization</span><span class="row__pg">11</span></a>
+    <a class="row" href="./channels/#spirit" data-handoff="openCollection(&#39;spirit&#39;)"><span class="row__no">03</span><span class="row__t">Spiritual Growth</span><span class="row__m h-form">Music · Meditation · Life Scripts</span><span class="row__pg">17</span></a>
   </nav>
   <p class="choice__note">FREE MUSIC, AFFIRMATIONS, VISUALIZATION AND LIFE SCRIPTS.</p>
 </section>
@@ -297,9 +297,9 @@ footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;ga
   <p class="foot__mark">MIND<br />CODING<span>.</span></p>
   <nav class="foot__nav" aria-label="Footer">
     <a href="#choice-h">CHANNELS</a>
-    <a href="../" data-handoff="go(&#39;reflect&#39;)">THE DRAW</a>
+    <a href="./draw/" data-handoff="go(&#39;reflect&#39;)">THE DRAW</a>
   </nav>
-  <p class="colophon"><b>INTEGRATION.</b> This preview is static; its doors open the live app.
+  <p class="colophon"><b>INTEGRATION.</b> This preview is a connected journey: cover &rarr; proof &rarr; draw &rarr; channels, all in one design.
   On integration: Draw With Intention &rarr; go(&#39;reflect&#39;); Abundance &rarr; openCollection(&#39;abundance&#39;);
   Love &rarr; openCollection(&#39;love&#39;); Spiritual Growth &rarr; openCollection(&#39;spirit&#39;).<br /><b>COLOPHON.</b> Two inks on midnight #070B1A: gold #D79A4A for what you
   choose, red #FF2B06 for what chose you. Archivo Black, Space Mono, and the system sans your
@@ -351,12 +351,35 @@ footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;ga
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
     var cx = W / 2, cy = H / 2;
     R = Math.min(W, H) * 0.36;
+    /* THE FINGERPRINT WHORL — 7 nested distorted elliptical ridges.
+       Alternating rings carry two openings (ridge endings); opened grains
+       are reassigned to a subtle inward spiral at the core. Homes are
+       deterministic and permanent: the identity seal always reforms. */
+    var unit = Math.min(W / 1.55, H / 1.16);
+    var RINGS = 7;
     pts.length = 0;
     for (var i = 0; i < N; i++){
-      var t = (i / N) * Math.PI * 2;
-      var hx = cx + R * (Math.cos(3*t) + 0.35*Math.cos(7*t));
-      var hy = cy + R * (0.75*Math.sin(2*t) + 0.25*Math.sin(5*t));
-      hx += (h1(i) - 0.5) * 6; hy += (h1(i+N) - 0.5) * 6;
+      var ring = i % RINGS;
+      var idx = Math.floor(i / RINGS);
+      var perRing = Math.floor(N / RINGS);
+      var frac = (idx % perRing) / perRing;
+      var t = frac * Math.PI * 2 + ring * 0.35;      /* stagger ridge starts */
+      var hx, hy;
+      var gap = (ring % 2 === 1) &&
+        ((frac > 0.10 && frac < 0.165) || (frac > 0.53 && frac < 0.595));
+      if (gap){
+        /* ridge ending -> core spiral grain */
+        var u = h1(i * 5);
+        var ang = u * Math.PI * 4 + 0.6;
+        var rr = unit * (0.035 + 0.145 * u);
+        hx = cx + rr * Math.cos(ang);
+        hy = cy + rr * 0.72 * Math.sin(ang);
+      } else {
+        var baseRadius = 0.22 + ring * 0.075;
+        hx = cx + unit * baseRadius * Math.cos(t) * (1 + 0.08 * Math.sin(3 * t));
+        hy = cy + unit * baseRadius * 0.72 * Math.sin(t) + unit * 0.025 * Math.sin(2 * t);
+      }
+      hx += (h1(i) - 0.5) * 2.4; hy += (h1(i + N) - 0.5) * 2.4;
       pts.push({ hx:hx, hy:hy, x:hx, y:hy, vx:0, vy:0,
                  bone: h1(i*3) < 0.14, ph: h1(i*7) * Math.PI * 2 });
     }
@@ -391,10 +414,13 @@ footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;ga
       ctx.fillStyle = p.bone ? BONE : GOLD;
       ctx.fillRect(p.x + ax - 1.1, p.y + ay - 1.1, 2.2, 2.2);
     }
-    var disp = Math.min(100, Math.round((sum / pts.length) / (R * 0.45) * 100));
+    var disp = Math.min(
+      100,
+      Math.round((sum / pts.length) / (R * 0.12) * 100)
+    );
     if (tDisp) tDisp.textContent = 'DISPLACEMENT ' + disp + '%';
     if (disp > peak) peak = disp;
-    if (!revealed && peak >= 18 && disp < peak * 0.5){
+    if (!revealed && peak >= 8 && disp < peak * 0.55){
       revealed = true;
       if (reveal) reveal.classList.add('on');
     }
