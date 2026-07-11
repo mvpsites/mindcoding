@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0a0c" />
+  <meta name="robots" content="noindex" />
+  <title>Mind Coding — Choose What Shapes You</title>
+  <meta name="description" content="Notice the patterns shaping your mind. Focus your attention. Choose what you will practice." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+  <script type="importmap">
+    { "imports": { "three": "../preview-parity/three.module.js" } }
+  </script>
+</head>
+<body>
+  <canvas id="scene" aria-hidden="true"></canvas>
+
+  <div id="fallback" class="webgl-fallback" hidden>
+    <p>The particle field is resting.<br />The text and pathways remain.</p>
+  </div>
+
+  <div id="focusRing" class="focus-ring" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#hall" aria-label="Mind Coding — return to the beginning">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-word">MINDCOD.ING</span>
+    </a>
+    <span class="topbar-sub">The field of attention</span>
+    <span id="hallIdx" class="topbar-idx">00 / 05</span>
+  </header>
+
+  <div id="scrollCue" class="scroll-cue" aria-hidden="true">
+    <span class="cue-word">enter the field</span>
+    <span class="cue-line"></span>
+  </div>
+
+  <div class="focus-hud" aria-hidden="true">
+    <span class="fh-dot"></span>
+    <span class="fh-label">focusing</span>
+    <span class="fh-sub">hold to give the field direction</span>
+  </div>
+
+  <p id="live" class="live" aria-live="polite"></p>
+
+  <main id="hall">
+    <section class="panel panel-intro" data-movement="0">
+      <div class="intro-inner">
+        <p class="kicker">00 · The field</p>
+        <h1 class="intro-title">
+          <span class="line">Your mind is being</span>
+          <span class="line"><span class="ital">shaped</span> every day.</span>
+        </h1>
+        <p class="intro-lede">Most of it happens without you noticing.</p>
+        <p class="intro-note">Scroll slowly. Move through the dust.</p>
+      </div>
+    </section>
+
+    <section class="panel panel-exhibit" data-movement="1" data-form="mountain">
+      <div class="plaque plaque-left" data-acc="01-A">
+        <p class="plaque-num">Movement I · The longings</p>
+        <h2 class="plaque-title">THE MOUNTAIN</h2>
+        <div class="plaque-meta"><span>Achievement</span><span>Security</span><span>Recognition</span></div>
+        <div class="plaque-rule" aria-hidden="true"></div>
+        <p class="plaque-body">You learned what it means to <em>succeed.</em></p>
+      </div>
+    </section>
+
+    <section class="panel panel-exhibit" data-movement="1" data-form="heart">
+      <div class="plaque plaque-right" data-acc="01-B">
+        <p class="plaque-num">Movement I · The longings</p>
+        <h2 class="plaque-title">THE HEART</h2>
+        <div class="plaque-meta"><span>Belonging</span><span>Desire</span><span>Approval</span></div>
+        <div class="plaque-rule" aria-hidden="true"></div>
+        <p class="plaque-body">You learned what it means to be <em>loved.</em></p>
+      </div>
+    </section>
+
+    <section class="panel panel-exhibit" data-movement="1" data-form="flame">
+      <div class="plaque plaque-left" data-acc="01-C">
+        <p class="plaque-num">Movement I · The longings</p>
+        <h2 class="plaque-title">THE FLAME</h2>
+        <div class="plaque-meta"><span>Meaning</span><span>Transformation</span><span>Awakening</span></div>
+        <div class="plaque-rule" aria-hidden="true"></div>
+        <p class="plaque-body">You learned what it means to <em>awaken.</em></p>
+      </div>
+    </section>
+
+    <section class="panel panel-interlude" data-movement="1">
+      <div class="interlude-inner">
+        <p>The longing may be yours.</p>
+        <p class="interlude-em">The meaning attached to it may have been inherited.</p>
+      </div>
+    </section>
+
+    <section class="panel panel-exhibit panel-proof" data-movement="2" data-form="hidden">
+      <div class="plaque plaque-left" data-acc="02">
+        <p class="plaque-num">Movement II · The hidden pattern</p>
+        <h2 class="plaque-title">WHAT RETURNS</h2>
+        <div class="plaque-rule" aria-hidden="true"></div>
+        <p class="plaque-body">The thought is visible. The pattern beneath it is not.</p>
+        <p class="plaque-instruction">Swipe across the figure. Try to change it.</p>
+        <div id="hiddenTelemetry" class="telemetry" aria-live="polite">
+          <span>Displacement <b id="displacementValue">0%</b></span>
+          <span>Pattern change <b>0%</b></span>
+        </div>
+        <p id="hiddenReveal" class="proof-reveal">You moved the particles.<br /><em>Not what brings them back.</em></p>
+      </div>
+    </section>
+
+    <section class="panel panel-exhibit" data-movement="3" data-form="mirror">
+      <div class="plaque plaque-right" data-acc="03">
+        <p class="plaque-num">Movement III · The mirror</p>
+        <h2 class="plaque-title">THE UNSEEN</h2>
+        <div class="plaque-rule" aria-hidden="true"></div>
+        <p class="plaque-body">The card is not a command. It is a mirror.</p>
+        <p class="plaque-subcopy">A symbol can help you notice what words sometimes miss.</p>
+        <button id="drawIntent" class="field-cta" type="button">Draw with intention</button>
+      </div>
+    </section>
+
+    <section class="panel panel-exhibit panel-choice" data-movement="4" data-form="choice">
+      <div class="plaque plaque-left plaque-wide" data-acc="04">
+        <p class="plaque-num">Movement IV · The choice</p>
+        <h2 class="plaque-title">CHOOSE A DIRECTION</h2>
+        <div class="plaque-rule" aria-hidden="true"></div>
+        <p class="plaque-body">What do you want to practice?</p>
+        <div id="choiceButtons" class="choice-buttons" role="group" aria-label="Choose a direction">
+          <button class="choice-btn" type="button" data-choice="abundance">Abundance</button>
+          <button class="choice-btn" type="button" data-choice="love">Love</button>
+          <button class="choice-btn" type="button" data-choice="spirit">Spiritual growth</button>
+        </div>
+        <div class="focus-meter" aria-live="polite">
+          <span id="choiceInstruction">Choose, then press and hold.</span>
+          <b id="focusValue">0</b>
+        </div>
+        <div class="focus-track" aria-hidden="true"><span id="focusFill"></span></div>
+        <p id="choiceReveal" class="choice-reveal">Awareness reveals the pattern.<br /><em>Attention gives it direction.</em></p>
+      </div>
+    </section>
+
+    <section class="panel panel-exhibit panel-practice" data-movement="5" data-form="practice">
+      <div class="plaque plaque-right plaque-wide" data-acc="05">
+        <p class="plaque-num">Movement V · The practice</p>
+        <h2 class="plaque-title">RETURN DELIBERATELY</h2>
+        <div class="plaque-rule" aria-hidden="true"></div>
+        <p class="plaque-body">What you repeatedly return to becomes easier to believe, notice and act upon.</p>
+        <p class="plaque-subcopy">Free music, affirmations, visualizations and life scripts—made for deliberate practice.</p>
+        <div class="practice-actions">
+          <button class="field-cta collection-cta" type="button" data-collection="abundance">Explore abundance</button>
+          <button class="field-cta collection-cta" type="button" data-collection="love">Explore love</button>
+          <button class="field-cta collection-cta" type="button" data-collection="spirit">Explore spiritual growth</button>
+        </div>
+        <p class="closing-gift">Everything is free. Use what helps.<br />Share what may help another.</p>
+      </div>
+    </section>
+
+    <section class="panel panel-outro">
+      <div class="outro-inner">
+        <p class="kicker">Mind Coding</p>
+        <h2 class="outro-title">Choose what shapes you.</h2>
+        <p class="outro-body">Not by force. By becoming conscious of the pattern—and returning to what you mean to cultivate.</p>
+        <a class="outro-cta" href="#hall">Enter again</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="credit">
+    <span>MindCod.ing</span>
+    <span class="credit-mid">A free field for deliberate attention</span>
+    <span>For reflection and personal practice—not medical or mental-health treatment.</span>
+  </footer>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
