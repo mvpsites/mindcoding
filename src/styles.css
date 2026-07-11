@@ -949,3 +949,25 @@ img{-webkit-user-drag:none;}
 @media (prefers-reduced-motion: reduce){
   .fd-card, .fd-hero .fd-plaque, .fd-hinge{transition:opacity .4s ease; transform:none;}
 }
+
+/* THE FIELD v3.1 — full EIDOLON plaque anatomy */
+.fd-card::after{content:"ACC. " attr(data-acc); position:absolute;
+  top:26px; right:24px; font-family:var(--engrave); font-size:9.5px;
+  letter-spacing:.18em; color:var(--gold); opacity:.4;}
+.fd-num{font-family:var(--display); font-style:italic; font-weight:500;
+  color:var(--gold); font-size:15px; letter-spacing:.06em; margin:0 0 6px;}
+.fd-cardtitle{font-family:var(--display); font-weight:500; color:var(--ivory);
+  font-size:clamp(25px,2.7vw,34px); line-height:1.06; letter-spacing:-.015em; margin:0 0 12px;}
+.fd-meta{display:flex; flex-direction:column; gap:3px; font-family:var(--engrave);
+  font-size:10.5px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--mist); margin:0 0 14px;}
+.fd-inview .fd-meta span{animation:fdMetaIn .8s cubic-bezier(.22,1,.36,1) both;}
+.fd-inview .fd-meta span:nth-child(2){animation-delay:.08s;}
+.fd-inview .fd-meta span:nth-child(3){animation-delay:.16s;}
+@keyframes fdMetaIn{from{opacity:0; transform:translateX(-8px);}to{opacity:1; transform:none;}}
+.fd-rule{height:1px; width:100%; background:linear-gradient(90deg,var(--gold),transparent); margin:0 0 18px;}
+.fd-card .fd-h{font-size:clamp(21px,2.2vw,27px); margin-bottom:14px;}
+.fd-tag{font-family:var(--engrave); font-size:10.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--gold-deep); padding-top:12px; margin-top:22px;
+  border-top:1px dotted var(--gold-dim);}
+@media (prefers-reduced-motion: reduce){ .fd-inview .fd-meta span{animation:none;} }

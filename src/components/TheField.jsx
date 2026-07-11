@@ -167,7 +167,7 @@ export default function TheField({ go, openCollection }) {
             <p className="fd-beat">You inherited even your idea of the sacred.</p>
           </div>
           <h2 className="fd-h">Eventually, the program<br />began speaking in your voice.</h2>
-          <p className="fd-mono fd-inscribe">inherited pattern · attractor established</p>
+          <p className="fd-tag">inherited pattern · attractor established</p>
         </div>
       </section>
 
@@ -176,7 +176,7 @@ export default function TheField({ go, openCollection }) {
           <div className="fd-cardhead"><p className="fd-mono">MOVEMENT II · THE PROGRAM BENEATH</p><span className="fd-acc">ACC. MC·002</span></div>
           <h2 className="fd-h">The thought is visible.<br />The program is not.</h2>
           <p className="fd-body">A thought repeated becomes a belief. A belief repeated becomes a direction. A direction repeated becomes a life.</p>
-          <p className="fd-mono fd-inscribe">4,096 grains · one governing pattern</p>
+          <p className="fd-tag">4,096 grains · one governing pattern</p>
         </div>
       </section>
 
@@ -210,8 +210,11 @@ export default function TheField({ go, openCollection }) {
       </section>
 
       <section ref={sec(5)} className="fd-mv fd-tall">
-        <div className="fd-plaque fd-card">
-          <div className="fd-cardhead"><p className="fd-mono">MOVEMENT V · THE CHOSEN SIGNAL</p><span className="fd-acc">ACC. MC·005</span></div>
+        <div className="fd-plaque fd-card" data-acc="MC·005">
+          <p className="fd-num">Movement V</p>
+          <h2 className="fd-cardtitle">The Chosen Signal</h2>
+          <div className="fd-meta"><span>Same desires · new author</span><span>Five channels, one practice</span><span>Condenses to instrument</span></div>
+          <div className="fd-rule" aria-hidden="true" />
           <h2 className="fd-h">A coherent mind can be pointed anywhere.</h2>
           <p className="fd-body">Code it for abundance, and the field arranges around abundance. Code it for love, and it arranges around love. Code it for awakening, and it arranges around that. The same desires. This time, yours.</p>
           <h2 className="fd-h fd-close">First, see the thought that has been shaping&nbsp;you.<br />Then choose the one that shapes what's&nbsp;next.</h2>
