@@ -50,18 +50,26 @@ transition:background .14s,color .14s;margin-top:1.4rem}
 .btn:hover,.btn:focus-visible{background:var(--paper);color:var(--gold)}
 .btn--ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
 .btn--ghost:hover,.btn--ghost:focus-visible{background:var(--ink);color:var(--paper)}
-/* the uncut sheet — 78 face-down plates, choose your own */
+/* THE WHEEL — the deck as a spinnable arc, ported verbatim from the app
+   (session-locked tunings 2026-07-10). Zine shell only. */
 .sheet{display:none}
 .sheet.on{display:block}
 .sheet__hint{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;
-color:var(--gold);text-transform:uppercase;padding:1.4rem 1.2rem .4rem}
-.sheet__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));
-gap:6px;padding:1rem 1.2rem 1.8rem;max-width:64rem}
-.back{border:2px solid var(--ink);background:none;padding:0;cursor:pointer;
-display:block;transition:transform .12s,border-color .12s}
-.back img{width:100%;height:auto;display:block}
-.back:hover,.back:focus-visible{transform:translateY(-4px);border-color:var(--gold)}
-@media (prefers-reduced-motion:reduce){.back{transition:none}}
+color:var(--gold);text-transform:uppercase;padding:1.4rem 1.2rem 0}
+.wheelhow{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;
+color:var(--ink-faint);text-transform:uppercase;padding:.5rem 1.2rem 0}
+.how-mouse{display:none}
+@media (hover:hover){.how-mouse{display:inline}.how-touch{display:none}}
+.wheelctr{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;
+color:var(--ink-dim);text-transform:uppercase;padding:.3rem 1.2rem 0;min-height:1.2em}
+.wheelstage{position:relative;overflow:hidden;height:360px;margin:0.8rem 0 0;
+border-top:2px solid var(--ink);touch-action:none;cursor:grab;user-select:none;
+-webkit-user-select:none}
+@media (min-width:561px){.wheelstage{height:430px}}
+.wheelcard{position:absolute;left:0;top:0;will-change:transform;
+border:2px solid var(--ink);background:var(--paper)}
+.wheelcard img{width:100%;height:100%;display:block;object-fit:cover;pointer-events:none}
+.wheelring{position:absolute;pointer-events:none;opacity:0}
 /* the plate */
 .reading{display:none}
 .reading.on{display:grid;grid-template-columns:minmax(240px,330px) minmax(0,1fr)}
@@ -138,8 +146,15 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
 
 <section class="sec sheet" id="sheet">
   <div class="kick"><b>PLATE 02</b><span>— CHOOSE YOUR CARD</span></div>
-  <p class="sheet__hint">SEVENTY-EIGHT ADRIFT. ONE IS CALLING YOU. — TRUST THE FIRST CARD THAT CALLS YOU.</p>
-  <div class="sheet__grid" id="sheetGrid" role="listbox" aria-label="Seventy-eight face-down cards. Choose one."></div>
+  <p class="sheet__hint" id="wheelHint">SEVENTY-EIGHT ADRIFT. ONE IS CALLING YOU.</p>
+  <p class="wheelhow" id="washHow">WASH THE DECK — SWIRL THE PILE, THEN RELEASE TO FAN THE SPREAD</p>
+  <p class="wheelhow" id="wheelHow" hidden>
+    <span class="how-touch">SLIDE THE SPREAD · PRESS AND HOLD THE CENTERED CARD TO DRAW</span>
+    <span class="how-mouse">MOVE YOUR CURSOR TO SPIN · CENTER IT TO SETTLE · HOLD TO DRAW</span>
+  </p>
+  <p class="wheelctr" id="wheelCtr" aria-hidden="true"></p>
+  <div class="wheelstage" id="stage" role="application"
+    aria-label="Card spread. Swirl the pile to shuffle, slide to browse, hold the centered card to draw."></div>
 </section>
 
 <section class="sec reading" id="reading" aria-live="polite">
@@ -181,7 +196,7 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
 
 <script>
 (function(){
-  var DECK = null, ORDER = [], current = null;
+  var DECK = null, current = null;
   var $ = function(id){ return document.getElementById(id); };
   var KEY = 'mc-zine-readings';
 
@@ -200,40 +215,21 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
     if (!list.length){ el.innerHTML = '<p class="empty">NOTHING SAVED YET.</p>'; return; }
     el.innerHTML = list.slice().reverse().map(function(r){
       return '<div class="saved-row"><span>'+r.date+'</span><b>'+r.name+
-        (r.intention ? ' — \u201c'+r.intention+'\u201d' : '')+'</b>'+
+        (r.intention ? ' \u2014 \u201c'+r.intention+'\u201d' : '')+'</b>'+
         '<span class="rvcol '+(r.reversed?'rv':'')+'">'+(r.reversed?'REVERSED':'UPRIGHT')+'</span></div>';
     }).join('');
-  }
-
-  /* SHUFFLE THE FIELD — Fisher-Yates over the full deck, then deal the
-     uncut sheet face-down. The visitor chooses; we never choose for them. */
-  function shuffle(){
-    if (!DECK){ setTimeout(shuffle, 120); return; }
-    ORDER = DECK.map(function(_, i){ return i; });
-    for (var i = ORDER.length - 1; i > 0; i--){
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = ORDER[i]; ORDER[i] = ORDER[j]; ORDER[j] = tmp;
-    }
-    var g = $('sheetGrid');
-    g.innerHTML = ORDER.map(function(_, i){
-      return '<button class="back" type="button" data-i="'+i+'" role="option" '+
-        'aria-label="Face-down card '+(i+1)+' of 78">'+
-        '<img src="../cardback.webp" alt="" loading="lazy" width="1024" height="1536" /></button>';
-    }).join('');
-    $('reading').classList.remove('on');
-    $('sheet').classList.add('on');
-    $('sheet').scrollIntoView({ behavior: motionPref(), block: 'start' });
   }
   function motionPref(){
     return matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
   }
 
-  /* authentic draw logic preserved: draw(cardId) — the chosen card, 30% reversal */
-  function pick(i){
-    var card = DECK[ORDER[i]];
+  /* reveal — authentic draw semantics: the CHOSEN card, 30% reversal at pick */
+  function reveal(id){
+    var card = null;
+    for (var i = 0; i < DECK.length; i++) if (DECK[i].id === id){ card = DECK[i]; break; }
+    if (!card) return;
     var rev = Math.random() < 0.3;
     current = { card: card, reversed: rev, intention: ($('intent').value || '').trim() };
-
     $('cardImg').src = '../../' + card.art;
     $('cardImg').alt = card.name + (rev ? ' (reversed)' : '');
     $('cardImg').className = rev ? 'rev' : '';
@@ -250,16 +246,313 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
     var it = current.intention;
     $('intentEcho').hidden = !it;
     if (it) $('intentEcho').textContent = 'INTENTION \u2014 \u201c' + it + '\u201d';
-    $('sheet').classList.remove('on');
     $('reading').classList.add('on');
     $('reading').scrollIntoView({ behavior: motionPref(), block: 'start' });
     $('save').disabled = false; $('save').textContent = 'SAVE THIS READING';
   }
 
-  $('sheetGrid').addEventListener('click', function(e){
-    var b = e.target.closest('.back');
-    if (b) pick(+b.getAttribute('data-i'));
-  });
+  /* ═══ THE WHEEL — ported verbatim from the app's Wheel.jsx ═══
+     · drag/flick momentum (DECAY .955) + magnetic snap (.16)
+     · desktop hover-steer, deadzone 26%, quadratic, max .13 rad/frame
+     · press-and-hold 900ms charge ring; >9px converts hold to drag
+     · wash intro: the swirl gesture's entropy seeds the shuffle */
+  var HOLD_MS = 900, STEP = 0.24, DECAY = 0.955, SNAP = 0.16,
+      DEADZONE = 0.26, MAXSTEER = 0.13, CIRC = 377,
+      WASH_VISIBLE = 14, WASH_DECAY = 0.96, FAN_MS = 750;
+
+  function mulberry32(seed){
+    var t = seed >>> 0;
+    return function(){
+      t += 0x6d2b79f5;
+      var r = Math.imul(t ^ (t >>> 15), 1 | t);
+      r ^= r + Math.imul(r ^ (r >>> 7), 61 | r);
+      return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function seededShuffle(a, seed){
+    var rnd = mulberry32(seed);
+    for (var i = a.length - 1; i > 0; i--){
+      var j = Math.floor(rnd() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+  function plainShuffle(a){
+    for (var i = a.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
+  var st = null, stage = null, ring = null, prog = null, cardEls = {};
+
+  function buildWheel(){
+    stage = $('stage');
+    stage.innerHTML = '';
+    cardEls = {};
+    var order = plainShuffle(DECK.map(function(c){ return c.id; }));
+    st = {
+      order: order, rot: Math.floor(order.length / 2) * STEP, vel: 0,
+      dragging: false, holding: false, chargeStart: 0,
+      lastX: 0, moved: 0, hoverX: null, raf: null,
+      cx: 190, R: 235, W: 96, H: 134, top: 34, done: false,
+      phase: 'wash', washing: false,
+      entropy: (Date.now() & 0xffffffff) >>> 0,
+      pileAngle: 0, pileVel: 0, lastAng: null, lastY: 0, fanUntil: 0,
+      washSet: order.slice(0, WASH_VISIBLE).map(function(id, i){
+        return { id: id, orbitR: 8 + (i * 37) % 40,
+          ph: (i * 2.399) % (Math.PI * 2),
+          spin: 0.6 + ((i * 53) % 80) / 100,
+          tilt: -24 + (i * 29) % 49 };
+      })
+    };
+    for (var i = 0; i < order.length; i++){
+      var d = document.createElement('div');
+      d.className = 'wheelcard';
+      d.style.opacity = 0;
+      d.innerHTML = '<img src="../cardback.webp" alt="" draggable="false" loading="lazy" />';
+      stage.appendChild(d);
+      cardEls[order[i]] = d;
+    }
+    var svgNS = 'http://www.w3.org/2000/svg';
+    ring = document.createElementNS(svgNS, 'svg');
+    ring.setAttribute('class', 'wheelring');
+    ring.setAttribute('width', '152'); ring.setAttribute('height', '152');
+    ring.innerHTML = '<circle cx="76" cy="76" r="60" fill="none" stroke="rgba(215,154,74,.25)" stroke-width="3"/>' +
+      '<circle id="ringProg" cx="76" cy="76" r="60" fill="none" stroke="#D79A4A" stroke-width="4" ' +
+      'stroke-linecap="round" stroke-dasharray="' + CIRC + '" stroke-dashoffset="' + CIRC + '" transform="rotate(-90 76 76)"/>';
+    stage.appendChild(ring);
+    prog = ring.querySelector('#ringProg');
+    $('washHow').hidden = false;
+    $('wheelHow').hidden = true;
+    measure();
+    if (st.raf) cancelAnimationFrame(st.raf);
+    st.raf = requestAnimationFrame(tick);
+  }
+
+  function measure(){
+    var w = stage.clientWidth || 380;
+    st.cx = w / 2;
+    var compact = w < 560;
+    st.W = compact ? 96 : 118;
+    st.H = compact ? 134 : 165;
+    st.R = compact ? 235 : 300;
+    st.top = compact ? 34 : 30;
+    for (var id in cardEls){
+      cardEls[id].style.width = st.W + 'px';
+      cardEls[id].style.height = st.H + 'px';
+    }
+    ring.style.left = st.cx - 76 + 'px';
+    ring.style.top = st.top + st.H / 2 - 76 + 'px';
+  }
+
+  function layout(){
+    var n = st.order.length;
+    var ctr = $('wheelCtr');
+    var cpos = Math.min(Math.max(Math.round(st.rot / STEP), 0), Math.max(n - 1, 0));
+    ctr.textContent = n ? (cpos + 1) + ' / ' + n + ' IN THE SPREAD' : '';
+    for (var pos = 0; pos < n; pos++){
+      var el = cardEls[st.order[pos]];
+      if (!el) continue;
+      var a = pos * STEP - st.rot;
+      var abs = Math.abs(a);
+      if (abs > 1.25){ if (el.style.opacity !== '0'){ el.style.opacity = 0; el.style.pointerEvents = 'none'; } continue; }
+      el.style.opacity = Math.min(1, 1.4 - abs);
+      el.style.pointerEvents = '';
+      var near = Math.max(0, 1 - abs / STEP);
+      var x = st.cx + st.R * Math.sin(a) - st.W / 2;
+      var y = st.top + st.R * (1 - Math.cos(a)) - 16 * near;
+      el.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) rotate(' +
+        (a * 43).toFixed(1) + 'deg) scale(' + (1 + 0.12 * near).toFixed(3) + ')';
+      el.style.zIndex = Math.round(100 - abs * 40);
+    }
+  }
+
+  function pileCy(){ return st.top + st.H / 2 + 18; }
+  function layoutWash(){
+    $('wheelCtr').textContent = '';
+    var cy = pileCy();
+    for (var i = 0; i < st.washSet.length; i++){
+      var w = st.washSet[i];
+      var el = cardEls[w.id];
+      if (!el) continue;
+      var a = st.pileAngle * w.spin + w.ph;
+      var x = st.cx + Math.cos(a) * w.orbitR - st.W / 2;
+      var y = cy + Math.sin(a) * w.orbitR * 0.62 - st.H / 2;
+      el.style.opacity = 0.92;
+      el.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) rotate(' +
+        (w.tilt + a * 18).toFixed(1) + 'deg)';
+      el.style.zIndex = 50 + Math.round(Math.sin(a) * 20);
+    }
+  }
+
+  function fanOut(){
+    if (st.phase !== 'wash') return;
+    st.phase = 'wheel';
+    st.washing = false;
+    st.entropy = (st.entropy ^ (performance.now() * 1000)) >>> 0;
+    seededShuffle(st.order, st.entropy);   /* the swirl IS the shuffle */
+    st.rot = Math.floor(st.order.length / 2) * STEP;
+    st.vel = 0;
+    $('washHow').hidden = true;
+    $('wheelHow').hidden = false;
+    var inPile = {};
+    for (var i = 0; i < st.washSet.length; i++) inPile[st.washSet[i].id] = 1;
+    var cy = pileCy();
+    for (var j = 0; j < st.order.length; j++){
+      var el = cardEls[st.order[j]];
+      if (el && !inPile[st.order[j]]){
+        el.style.transition = '';
+        el.style.transform = 'translate(' + (st.cx - st.W / 2).toFixed(1) + 'px,' + (cy - st.H / 2).toFixed(1) + 'px)';
+      }
+    }
+    void stage.offsetWidth;
+    for (var k = 0; k < st.order.length; k++){
+      var el2 = cardEls[st.order[k]];
+      if (el2) el2.style.transition = 'transform ' + FAN_MS + 'ms cubic-bezier(.22,.9,.3,1), opacity ' + FAN_MS + 'ms ease';
+    }
+    layout();
+    st.fanUntil = performance.now() + FAN_MS;
+    setTimeout(function(){
+      for (var m = 0; m < st.order.length; m++){
+        var el3 = cardEls[st.order[m]];
+        if (el3) el3.style.transition = '';
+      }
+    }, FAN_MS + 40);
+  }
+
+  function drawCentered(){
+    var n = st.order.length;
+    if (!n || st.done) return;
+    var pos = Math.min(Math.max(Math.round(st.rot / STEP), 0), n - 1);
+    var id = st.order[pos];
+    var el = cardEls[id];
+    st.order.splice(pos, 1);
+    st.rot = Math.min(st.rot, Math.max(st.order.length - 1, 0) * STEP);
+    st.done = true;
+    if (el){
+      el.style.transition = 'transform .55s cubic-bezier(.22,.9,.3,1), opacity .45s ease';
+      el.style.transform = 'translate(' + (st.cx - st.W / 2) + 'px,-30px) scale(1.12)';
+      el.style.opacity = 0;
+      el.style.pointerEvents = 'none';
+    }
+    setTimeout(function(){ reveal(id); }, 560);
+  }
+
+  function tick(){
+    st.raf = requestAnimationFrame(tick);
+    try {
+      if (st.phase === 'wash'){
+        if (ring.style.opacity !== '0') ring.style.opacity = 0;
+        st.pileAngle += st.pileVel + 0.0022;
+        st.pileVel *= WASH_DECAY;
+        layoutWash();
+        return;
+      }
+      if (performance.now() < st.fanUntil) return;
+      if (st.done){ if (ring.style.opacity !== '0') ring.style.opacity = 0; layout(); return; }
+      if (st.holding && !st.dragging){
+        var p = Math.min((performance.now() - st.chargeStart) / HOLD_MS, 1);
+        ring.style.opacity = 1;
+        prog.setAttribute('stroke-dashoffset', (CIRC * (1 - p)).toFixed(0));
+        if (p >= 1){ st.holding = false; ring.style.opacity = 0; drawCentered(); }
+      } else if (ring.style.opacity !== '0') ring.style.opacity = 0;
+      if (!st.dragging && !st.holding){
+        var steered = false;
+        if (st.hoverX !== null){
+          var nn = (st.hoverX - st.cx) / st.cx;
+          if (Math.abs(nn) > DEADZONE){
+            st.rot += Math.sign(nn) * Math.pow((Math.abs(nn) - DEADZONE) / (1 - DEADZONE), 2) * MAXSTEER;
+            st.vel = 0; steered = true;
+          }
+        }
+        if (!steered){
+          if (Math.abs(st.vel) > 0.0012){ st.rot += st.vel; st.vel *= DECAY; }
+          else {
+            var t = Math.min(Math.max(Math.round(st.rot / STEP), 0), Math.max(st.order.length - 1, 0)) * STEP;
+            st.rot += (t - st.rot) * SNAP; st.vel = 0;
+          }
+        }
+      }
+      var max = Math.max(st.order.length - 1, 0) * STEP;
+      if (st.rot < 0) st.rot *= 0.85;
+      if (st.rot > max) st.rot = max + (st.rot - max) * 0.85;
+      layout();
+    } catch(e){ /* never let one bad frame kill the wheel */ }
+  }
+
+  function pt(e){
+    var r = stage.getBoundingClientRect();
+    return { x: e.clientX - r.left, y: e.clientY - r.top };
+  }
+  function onDown(e){
+    if (!st || st.done) return;
+    e.preventDefault();
+    try { stage.setPointerCapture(e.pointerId); } catch(err){}
+    var p = pt(e);
+    if (st.phase === 'wash'){
+      st.washing = true;
+      st.lastAng = Math.atan2(p.y - pileCy(), p.x - st.cx);
+      st.lastX = p.x; st.lastY = p.y;
+      return;
+    }
+    st.lastX = p.x; st.moved = 0; st.vel = 0;
+    st.dragging = false; st.holding = true; st.chargeStart = performance.now();
+  }
+  function onMove(e){
+    if (!st || st.done) return;
+    var p = pt(e);
+    if (st.phase === 'wash'){
+      if (!st.washing) return;
+      var ang = Math.atan2(p.y - pileCy(), p.x - st.cx);
+      var dA = ang - st.lastAng;
+      if (dA > Math.PI) dA -= Math.PI * 2;
+      if (dA < -Math.PI) dA += Math.PI * 2;
+      st.pileVel += dA * 0.30;
+      var dx0 = Math.round(p.x - st.lastX), dy0 = Math.round(p.y - st.lastY);
+      st.entropy = (st.entropy ^ (dx0 * 374761393 + dy0 * 668265263 + (performance.now() & 0xffff))) >>> 0;
+      st.entropy = Math.imul(st.entropy ^ (st.entropy >>> 13), 1274126177) >>> 0;
+      st.lastAng = ang; st.lastX = p.x; st.lastY = p.y;
+      return;
+    }
+    if (e.pointerType === 'mouse' && !(e.buttons & 1)){ st.hoverX = p.x; st.holding = false; st.dragging = false; return; }
+    if (!st.holding && !st.dragging && (e.buttons & 1)){ st.dragging = true; st.lastX = p.x; st.moved = 10; }
+    if (st.holding || st.dragging){
+      var dx = p.x - st.lastX;
+      st.moved += Math.abs(dx);
+      if (st.moved > 9 && st.holding){ st.dragging = true; st.holding = false; }
+      if (st.dragging){ st.rot -= dx / st.R; st.vel = st.vel * 0.6 + (-dx / st.R) * 0.4; st.hoverX = null; }
+      st.lastX = p.x;
+    }
+  }
+  function onUp(e){
+    if (!st) return;
+    if (st.phase === 'wash'){ if (st.washing) fanOut(); return; }
+    st.holding = false; st.dragging = false;
+    if (e && e.pointerType !== 'mouse') st.hoverX = null;
+  }
+  function onLeave(e){ if (st && e.pointerType === 'mouse') st.hoverX = null; }
+  function onBlur(){ if (st){ st.holding = false; st.dragging = false; st.washing = false; st.hoverX = null; } }
+
+  function shuffle(){
+    if (!DECK){ setTimeout(shuffle, 120); return; }
+    $('reading').classList.remove('on');
+    $('sheet').classList.add('on');
+    buildWheel();
+    $('sheet').scrollIntoView({ behavior: motionPref(), block: 'start' });
+  }
+
+  var stageEl = $('stage');
+  stageEl.addEventListener('pointerdown', onDown);
+  stageEl.addEventListener('pointermove', onMove);
+  stageEl.addEventListener('pointerup', onUp);
+  stageEl.addEventListener('pointercancel', onUp);
+  stageEl.addEventListener('pointerleave', onLeave);
+  addEventListener('pointerup', onUp);
+  addEventListener('blur', onBlur);
+  addEventListener('resize', function(){ if (st && stage) measure(); });
+
   $('shuffle').addEventListener('click', shuffle);
   $('again').addEventListener('click', shuffle);
   $('save').addEventListener('click', function(){
