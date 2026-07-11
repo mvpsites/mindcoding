@@ -3,6 +3,7 @@
    movement sections; engine in lib/fieldEngine.js. */
 import { useEffect, useRef, useState } from "react";
 import { createField } from "../lib/fieldEngine.js";
+import { createFieldGL } from "../lib/fieldGL.js";
 
 const CHANNELS = [
   ["ABUNDANCE", "Everything is working in your favor.", "abundance"],
@@ -24,7 +25,7 @@ export default function TheField({ go, openCollection }) {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const engine = createField(canvas, {
+    const engineOpts = {
       onTelemetry: (S) => {
         if (dispRef.current) dispRef.current.textContent =
           `DISPLACEMENT ${String(Math.round(S.displacement * 100)).padStart(2, "0")}%`;
@@ -38,9 +39,18 @@ export default function TheField({ go, openCollection }) {
         if (ev === "locked") setLocked(true);
         if (ev === "reformed") setProofSeen(true);
       },
-    });
+    };
+    let engine = null;
+    try { engine = createFieldGL(canvas, engineOpts); } catch (e) { engine = null; }
+    if (!engine) engine = createField(canvas, engineOpts); // canvas-2D fallback
     engineRef.current = engine;
     engine.start();
+
+    // EIDOLON reveal grammar: cards fade up + amber bar draws in on view
+    const io = new IntersectionObserver((es) => {
+      es.forEach((en) => { if (en.isIntersecting) en.target.classList.add("fd-inview"); });
+    }, { threshold: 0.25 });
+    document.querySelectorAll(".fd-card, .fd-hero .fd-plaque, .fd-hinge").forEach((el) => io.observe(el));
 
     const onResize = () => engine.resize();
     window.addEventListener("resize", onResize);
@@ -126,6 +136,8 @@ export default function TheField({ go, openCollection }) {
   return (
     <div className="fd-root">
       <canvas ref={canvasRef} className="fd-canvas" aria-hidden="true" />
+      <div className="fd-vignette" aria-hidden="true" />
+      <div className="fd-grainlayer" aria-hidden="true" />
 
       <header className="fd-head">
         <span className="fd-mark"><span className="fd-dot" aria-hidden="true" /> MINDCOD.ING</span>
