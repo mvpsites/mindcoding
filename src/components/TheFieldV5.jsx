@@ -52,6 +52,7 @@ export default function TheFieldV5({ go, openCollection }) {
     }
     engineRef.current = engine;
     engine.start();
+    let cancelHoldOnScroll = () => {};
 
     const io = new IntersectionObserver((es) => {
       es.forEach((en) => { if (en.isIntersecting) en.target.classList.add("f5-inview"); });
@@ -62,6 +63,7 @@ export default function TheFieldV5({ go, openCollection }) {
     window.addEventListener("resize", onResize);
 
     const onScroll = () => {
+      cancelHoldOnScroll();
       const mid = window.innerHeight * 0.5;
       let active = 0, centered = 0, sub = 0;
       sectionRefs.current.forEach((el, i) => {
@@ -89,17 +91,18 @@ export default function TheFieldV5({ go, openCollection }) {
       const t = e.touches ? e.touches[0] : e;
       return { x: t.clientX, y: t.clientY };
     };
-    let holdTimer = null, holdActive = false, downP = null;
+    let holdTimer = null, holdActive = false, downP = null, stirLock = false;
+    const cancelHold = () => { clearTimeout(holdTimer); holdTimer = null; };
+    cancelHoldOnScroll = cancelHold;
     const onMove = (e) => {
       const p = toLocal(e);
       engine.pointerMove(p.x, p.y);
-      if (downP && !holdActive && Math.hypot(p.x - downP.x, p.y - downP.y) > 12) {
-        clearTimeout(holdTimer); holdTimer = null;
-      }
+      if (downP && !holdActive && Math.hypot(p.x - downP.x, p.y - downP.y) > 12) cancelHold();
     };
     const onDown = (e) => {
       if (e.target.closest("button, a")) return;
-      const p = toLocal(e); downP = p;
+      if (e.touches && e.touches.length > 1) return;   // pinch/zoom: never ours
+      const p = toLocal(e); downP = p; stirLock = false;
       engine.pointerDown(p.x, p.y);
       const S = engine.state || {};
       if (S.mv === 4 && S.choice && !S.locked) {
@@ -108,17 +111,36 @@ export default function TheFieldV5({ go, openCollection }) {
     };
     const onUp = () => {
       engine.pointerUp();
-      clearTimeout(holdTimer); holdTimer = null;
+      cancelHold();
       if (holdActive) { holdActive = false; engine.holdEnd(); }
-      downP = null;
+      downP = null; stirLock = false;
     };
-    const onTouchMove = (e) => { if (holdActive) e.preventDefault(); onMove(e); };
+    // Touch: vertical scrolling stays native (touch-action: pan-y). We only
+    // capture the gesture (a) during an active hold, or (b) in THE HIDDEN
+    // PATTERN once the visitor clearly begins a horizontal swipe.
+    const onTouchMove = (e) => {
+      const p = toLocal(e);
+      if (downP && !stirLock && !holdActive) {
+        const dx = p.x - downP.x, dy = p.y - downP.y;
+        const S = engine.state || {};
+        if (S.mv === 2 && Math.abs(dx) > 24 && Math.abs(dx) > Math.abs(dy) * 1.5) stirLock = true;
+      }
+      if ((holdActive || stirLock) && e.cancelable) e.preventDefault();
+      onMove(e);
+    };
     window.addEventListener("mousemove", onMove, { passive: true });
     window.addEventListener("mousedown", onDown);
     window.addEventListener("mouseup", onUp);
     window.addEventListener("touchstart", onDown, { passive: true });
     window.addEventListener("touchmove", onTouchMove, { passive: false });
     window.addEventListener("touchend", onUp);
+
+    // capture helper: /preview/?movement=3 jumps straight to a movement
+    const mvParam = new URLSearchParams(location.search).get("movement");
+    if (mvParam != null) {
+      const el = sectionRefs.current[Math.max(0, Math.min(5, +mvParam))];
+      if (el) setTimeout(() => el.scrollIntoView({ block: "center", behavior: "instant" }), 60);
+    }
 
     return () => {
       engine.stop();
@@ -145,11 +167,6 @@ export default function TheFieldV5({ go, openCollection }) {
       <canvas ref={canvasRef} className="f5-canvas" aria-hidden="true" />
       <div className="f5-vignette" aria-hidden="true" />
       <div className="f5-grain" aria-hidden="true" />
-      {!webgl && (
-        <p className="f5-fallback">
-          The field needs WebGL to move. The practice below still works.
-        </p>
-      )}
 
       <header className="f5-head">
         <span className="f5-brand"><span className="f5-dot" aria-hidden="true" /> MINDCOD.ING</span>
@@ -159,8 +176,11 @@ export default function TheFieldV5({ go, openCollection }) {
       {/* 00 / 05 — THE FIELD */}
       <section ref={sec(0)} className="f5-mv f5-hero">
         <div className="f5-plaque f5-center">
-          <h1 className="f5-h1">Your mind is being shaped every&nbsp;day.</h1>
+          <h1 className="f5-h1">Your mind is being<br className="f5-deskbr" /> shaped every&nbsp;day.</h1>
           <p className="f5-sub">Most of it happens without you noticing.</p>
+          {!webgl && (
+            <p className="f5-fallback">The field needs WebGL to move. Everything below still works.</p>
+          )}
         </div>
         <div className="f5-cue" aria-hidden="true">
           <span className="f5-cueword">Enter the field</span>
