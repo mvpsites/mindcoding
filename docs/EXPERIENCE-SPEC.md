@@ -103,12 +103,11 @@ Each movement ≈150–170vh of scroll. Interaction zone is the field band only.
 ### Shape sources
 1. **Equations (runtime):** fractured mandala, helix, phyllotaxis — computed.
 2. **Stencils (offline, build-day step 1):** car, dollar sign, heart, card back.
-   Pipeline: draw/obtain flat SVG silhouette → `tools/sample_stencil.py`
-   (new) rasterizes and rejection-samples N points → JSON arrays shipped in
-   bundle. Card back sampled from public/art cardback webp at ~2,400 pts.
-   Stencil style rule: iconic, hieroglyphic line-silhouettes. If the car reads
-   "commercial" in first render, fallback symbol: a laurel/trophy (Jad flagged;
-   decide on sight during build).
+   Pipeline: procedural silhouettes → `tools/sample_stencil.py` (new)
+   rasterizes and rejection-samples N points → JSON arrays shipped in bundle.
+   Card back stencil is procedural (rounded border + rosette), echoing the
+   existing CardBack component. Stencil style rule: iconic, hieroglyphic,
+   archetypal — never consumer objects.
 
 ### The attractor math (locked)
 - **Fractured mandala (Mv I end → III):** 6-fold radial figure, polygonal rings
@@ -155,12 +154,14 @@ wake active from first frame. No instructions.
 
 ### 01 · MOVEMENT I — THE INSTALLED DESIRES
 Label: `MOVEMENT I · THE INSTALLED DESIRES`
-*Particles:* grains converge into three stencils in sequence (~26% scroll each),
-morphing directly form to form, each slightly ragged (inherited, not chosen):
-1. **Car** — body: *You were shown what success looks like.*
-2. **Dollar** — body: *You were taught what safety requires.*
+*Particles:* grains converge into four archetype stencils in sequence (~22%
+scroll each), morphing form to form, each slightly ragged (inherited, not
+chosen). SYMBOLS ARE ARCHETYPES, NEVER CONSUMER OBJECTS (Jad, locked):
+1. **Crown** — body: *You were shown what success looks like.*
+2. **Coin** — body: *You were taught what safety requires.*
 3. **Heart** — body: *You learned what it means to be chosen.*
-Then all three dissolve into the **fractured mandala**.
+4. **Flame** — body: *You inherited even your idea of the sacred.*
+Then all four dissolve into the **fractured mandala**.
 *Headline over the mandala:*
 > **Eventually, the program**
 > **began speaking in your voice.**
@@ -182,7 +183,7 @@ Label: `MOVEMENT III · THE RETURN`
 > **Try to break it.**
 *Particles:* any pointer/touch crossing the field tears it — grains flee in a
 wide wake, momentary void. On settle: **recapture wave**, and the pattern that
-reforms CYCLES — mandala → heart → dollar → car → mandala (destroy the thought,
+reforms CYCLES — mandala → heart → coin → crown → mandala (destroy the thought,
 the program prints another).
 *Telemetry (mono, live, under the field):*
 `DISPLACEMENT 84%` (live value) · `PROGRAM CHANGE 0%` (oxblood)
@@ -221,8 +222,9 @@ mandala. The page demands ~6 held seconds. Ceremony, not friction.
 ### 05 · MOVEMENT V — THE CHOSEN SIGNAL
 Label: `MOVEMENT V · THE CHOSEN SIGNAL`
 *Particles, beat 1 — the symbols return, authored:* the coherent field re-forms
-car → dollar → heart once more, now crisp, whole, bright (chosen, not
-installed). Copy across the three:
+crown → coin → heart → flame once more, now crisp, whole, bright (chosen, not
+installed). Channel mapping: coin=ABUNDANCE, heart=LOVE, crown=CONFIDENCE,
+flame=SPIRIT; PEACE is the coherent field itself (say so in the strip). Copy across the three:
 > **A coherent mind can be pointed anywhere.**
 *Body:* Code it for abundance, and the field arranges around abundance. Code it
 for love, and it arranges around love. Code it for awakening, and it arranges
@@ -280,9 +282,8 @@ except during confirmed hold.
 
 ## 7 · Build plan — 2026-07-11 (one session)
 
-1. Stencil pipeline: `tools/sample_stencil.py`, generate car/dollar/heart/
-   cardback point JSONs. Eyeball render of each; car judgment call (Jad flagged
-   trophy/laurel fallback).
+1. Stencil pipeline: `tools/sample_stencil.py`, generate crown/coin/heart/
+   flame/cardback point JSONs. Eyeball render of each (montage PNG).
 2. Token flip + type trio (Cormorant via fonts, weights 500/600 only).
 3. Field engine: buffer, curl, spring, stir, scroll driver, degrade ladder,
    reduced-motion stills.

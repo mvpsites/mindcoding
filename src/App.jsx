@@ -1,23 +1,22 @@
 import { useState, useEffect } from "react";
 import Ambient from "./components/Ambient.jsx";
-import Discover from "./components/Discover.jsx";
+import TheField from "./components/TheField.jsx";
 import DecodeTab from "./components/DecodeTab.jsx";
 import RecodeTab from "./components/RecodeTab.jsx";
 import Reflect from "./components/Reflect.jsx";
 import MySpace from "./components/MySpace.jsx";
 import BottomNav from "./components/BottomNav.jsx";
-import CheckIn from "./components/CheckIn.jsx";
 import { ContentModal } from "./components/ContentCard.jsx";
-import { loadSaved, persistSaved, hasCheckedInBefore } from "./lib/storage.js";
+import { loadSaved, persistSaved } from "./lib/storage.js";
 
 const TABS = [
-  ["checkin", "Check In"],
+  ["reflect", "The Deck"],
+  ["recode", "Programs"],
   ["decode", "Decode"],
-  ["recode", "Recode"],
 ];
 
 export default function App() {
-  const [view, setView] = useState(() => (typeof window !== "undefined" && hasCheckedInBefore() ? "checkin" : "discover"));
+  const [view, setView] = useState("field"); // THE FIELD is the door, always
   const [scrolled, setScrolled] = useState(false);
   const [focusCollection, setFocusCollection] = useState(null);
   const [openItem, setOpenItem] = useState(null);
@@ -37,21 +36,29 @@ export default function App() {
   const onSave = (r) => { setSaved((s) => [...s, r]); say("Reading saved to My Space"); };
   const onRemove = (id) => setSaved((s) => s.filter((r) => r.id !== id));
 
-  const go = (v) => { setFocusCollection(null); setView(v); };
+  const go = (v) => { setFocusCollection(null); setView(v === "checkin" ? "field" : v); };
   const openCollection = (id) => { setFocusCollection(id); setView("recode"); };
+
+  if (view === "field") {
+    return (
+      <div className="mc-root fd-mode">
+        <TheField go={go} openCollection={openCollection} />
+      </div>
+    );
+  }
 
   return (
     <div className="mc-root">
       <Ambient />
       <header className={`mc-nav ${scrolled ? "mc-nav-scrolled" : ""}`}>
-        <button className="mc-word" onClick={() => go("discover")}>
+        <button className="mc-word" onClick={() => go("field")}>
           <span className="mc-glyph" aria-hidden="true">✳</span> MIND CODING
         </button>
         <div className="mc-toptabs">
           {TABS.map(([k, label]) => (
             <button
               key={k}
-              className={`mc-link ${view === k || (k === "recode" && (view === "reflect")) ? "mc-linkon" : ""}`}
+              className={`mc-link ${view === k ? "mc-linkon" : ""}`}
               onClick={() => go(k)}
             >
               {label}
@@ -65,8 +72,6 @@ export default function App() {
 
       <main className="mc-main">
         <div className="mc-view" key={view + (focusCollection || "")}>
-          {view === "discover" && <Discover go={go} openCollection={openCollection} />}
-          {view === "checkin" && <CheckIn openItem={setOpenItem} go={go} openCollection={openCollection} />}
           {view === "decode" && <DecodeTab openItem={setOpenItem} />}
           {view === "recode" && (
             <RecodeTab openItem={setOpenItem} go={go} focusCollection={focusCollection} onToast={say} />
@@ -84,7 +89,7 @@ export default function App() {
       <footer className="mc-foot">
         <div className="mc-footmark">MIND CODING</div>
         <p>
-          Decode the programming. Recode your mind. · Free, always.
+          Your mind is being programmed every day. Choose what gets installed. · Free, always.
           <br />
           For reflection, journaling, and personal growth. Mind Coding does not predict the future or replace
           medical, mental-health, financial, legal, or professional advice.
