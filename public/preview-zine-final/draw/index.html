@@ -50,6 +50,18 @@ transition:background .14s,color .14s;margin-top:1.4rem}
 .btn:hover,.btn:focus-visible{background:var(--paper);color:var(--gold)}
 .btn--ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
 .btn--ghost:hover,.btn--ghost:focus-visible{background:var(--ink);color:var(--paper)}
+/* the uncut sheet — 78 face-down plates, choose your own */
+.sheet{display:none}
+.sheet.on{display:block}
+.sheet__hint{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;
+color:var(--gold);text-transform:uppercase;padding:1.4rem 1.2rem .4rem}
+.sheet__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));
+gap:6px;padding:1rem 1.2rem 1.8rem;max-width:64rem}
+.back{border:2px solid var(--ink);background:none;padding:0;cursor:pointer;
+display:block;transition:transform .12s,border-color .12s}
+.back img{width:100%;height:auto;display:block}
+.back:hover,.back:focus-visible{transform:translateY(-4px);border-color:var(--gold)}
+@media (prefers-reduced-motion:reduce){.back{transition:none}}
 /* the plate */
 .reading{display:none}
 .reading.on{display:grid;grid-template-columns:minmax(240px,330px) minmax(0,1fr)}
@@ -124,6 +136,12 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
   </div>
 </section>
 
+<section class="sec sheet" id="sheet">
+  <div class="kick"><b>PLATE 02</b><span>— CHOOSE YOUR CARD</span></div>
+  <p class="sheet__hint">SEVENTY-EIGHT ADRIFT. ONE IS CALLING YOU. — TRUST THE FIRST CARD THAT CALLS YOU.</p>
+  <div class="sheet__grid" id="sheetGrid" role="listbox" aria-label="Seventy-eight face-down cards. Choose one."></div>
+</section>
+
 <section class="sec reading" id="reading" aria-live="polite">
   <div class="plateCol">
     <figure class="plate">
@@ -163,7 +181,7 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
 
 <script>
 (function(){
-  var DECK = null, current = null;
+  var DECK = null, ORDER = [], current = null;
   var $ = function(id){ return document.getElementById(id); };
   var KEY = 'mc-zine-readings';
 
@@ -182,48 +200,75 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
     if (!list.length){ el.innerHTML = '<p class="empty">NOTHING SAVED YET.</p>'; return; }
     el.innerHTML = list.slice().reverse().map(function(r){
       return '<div class="saved-row"><span>'+r.date+'</span><b>'+r.name+
-        (r.intention ? ' — “'+r.intention+'”' : '')+'</b>'+
+        (r.intention ? ' — \u201c'+r.intention+'\u201d' : '')+'</b>'+
         '<span class="rvcol '+(r.reversed?'rv':'')+'">'+(r.reversed?'REVERSED':'UPRIGHT')+'</span></div>';
     }).join('');
   }
 
-  function draw(){
-    if (!DECK){ setTimeout(draw, 120); return; }
-    /* authentic draw logic preserved: uniform pick, 30% reversal */
-    var pick = DECK[Math.floor(Math.random() * DECK.length)];
-    var rev = Math.random() < 0.3;
-    current = { card: pick, reversed: rev, intention: ($('intent').value || '').trim() };
+  /* SHUFFLE THE FIELD — Fisher-Yates over the full deck, then deal the
+     uncut sheet face-down. The visitor chooses; we never choose for them. */
+  function shuffle(){
+    if (!DECK){ setTimeout(shuffle, 120); return; }
+    ORDER = DECK.map(function(_, i){ return i; });
+    for (var i = ORDER.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = ORDER[i]; ORDER[i] = ORDER[j]; ORDER[j] = tmp;
+    }
+    var g = $('sheetGrid');
+    g.innerHTML = ORDER.map(function(_, i){
+      return '<button class="back" type="button" data-i="'+i+'" role="option" '+
+        'aria-label="Face-down card '+(i+1)+' of 78">'+
+        '<img src="../cardback.webp" alt="" loading="lazy" width="1024" height="1536" /></button>';
+    }).join('');
+    $('reading').classList.remove('on');
+    $('sheet').classList.add('on');
+    $('sheet').scrollIntoView({ behavior: motionPref(), block: 'start' });
+  }
+  function motionPref(){
+    return matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+  }
 
-    $('cardImg').src = '../../' + pick.art;
-    $('cardImg').alt = pick.name + (rev ? ' (reversed)' : '');
+  /* authentic draw logic preserved: draw(cardId) — the chosen card, 30% reversal */
+  function pick(i){
+    var card = DECK[ORDER[i]];
+    var rev = Math.random() < 0.3;
+    current = { card: card, reversed: rev, intention: ($('intent').value || '').trim() };
+
+    $('cardImg').src = '../../' + card.art;
+    $('cardImg').alt = card.name + (rev ? ' (reversed)' : '');
     $('cardImg').className = rev ? 'rev' : '';
-    var num = pick.numeral ? (pick.numeral + ' · ') : '';
-    $('plateCap').textContent = 'PLATE ' + num + pick.suit.toUpperCase();
+    var num = card.numeral ? (card.numeral + ' \u00b7 ') : '';
+    $('plateCap').textContent = 'PLATE ' + num + card.suit.toUpperCase();
     $('revTag').hidden = !rev;
-    $('cardName').textContent = pick.name;
-    $('cardMeta').textContent = (rev ? pick.reversed : pick.upright);
-    $('pSym').textContent = pick.symbolism;
-    $('pPat').textContent = pick.pattern;
-    $('pQ').textContent = pick.question;
-    $('pRec').textContent = pick.recode;
-    $('pAff').textContent = pick.affirmation;
+    $('cardName').textContent = card.name;
+    $('cardMeta').textContent = (rev ? card.reversed : card.upright);
+    $('pSym').textContent = card.symbolism;
+    $('pPat').textContent = card.pattern;
+    $('pQ').textContent = card.question;
+    $('pRec').textContent = card.recode;
+    $('pAff').textContent = card.affirmation;
     var it = current.intention;
     $('intentEcho').hidden = !it;
-    if (it) $('intentEcho').textContent = 'INTENTION — “' + it + '”';
+    if (it) $('intentEcho').textContent = 'INTENTION \u2014 \u201c' + it + '\u201d';
+    $('sheet').classList.remove('on');
     $('reading').classList.add('on');
-    $('reading').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+    $('reading').scrollIntoView({ behavior: motionPref(), block: 'start' });
     $('save').disabled = false; $('save').textContent = 'SAVE THIS READING';
   }
 
-  $('shuffle').addEventListener('click', draw);
-  $('again').addEventListener('click', draw);
+  $('sheetGrid').addEventListener('click', function(e){
+    var b = e.target.closest('.back');
+    if (b) pick(+b.getAttribute('data-i'));
+  });
+  $('shuffle').addEventListener('click', shuffle);
+  $('again').addEventListener('click', shuffle);
   $('save').addEventListener('click', function(){
     if (!current) return;
     var list = loadSaved();
     list.push({ date: todayKey(), cardId: current.card.id, name: current.card.name,
       reversed: current.reversed, intention: current.intention, saved: true });
     try { localStorage.setItem(KEY, JSON.stringify(list)); } catch(e){}
-    this.disabled = true; this.textContent = 'SAVED ✓';
+    this.disabled = true; this.textContent = 'SAVED \u2713';
     renderSaved();
   });
   renderSaved();
