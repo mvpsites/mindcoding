@@ -5,6 +5,15 @@ Launch: 2026-07-12 (Project Avalon thread).**
 
 ---
 
+> **v4 ADDENDUM (2026-07-11): EXHIBIT ARCHITECTURE.** Implementation adopted
+> EIDOLON's coherence rule — one shape = one scroll section = one plaque —
+> replacing §4's beat-within-movement structure. Nine exhibits (dust, four
+> desires each with their own plaque, the program, the return + hinge,
+> entrainment, the chosen signal). §4's copy largely survives redistributed;
+> TheField.jsx is the copy source of truth. Authored-symbols reprise in the
+> finale was cut for coherence. Engine: fieldGL.js (Three.js) with
+> fieldEngine.js as WebGL fallback.
+
 ## 1 · Concept
 
 One continuous field of ~4,096 gold grains on a midnight ground. The grains are

@@ -1,43 +1,62 @@
 # CONTINUE — Mind Coding session handoff
 
-## ═══ START HERE (updated 2026-07-10 EVENING — THE DIRECTION CHANGED AGAIN) ═══
+## ═══ START HERE (updated 2026-07-11 ~2am — LAUNCH DAY. Avalon post is TOMORROW 07-12) ═══
 
-**Read docs/EXPERIENCE-SPEC.md before anything else. It is the product truth and
-supersedes PIVOT-SPEC.md.** Jad reviewed the deployed pivot and was underwhelmed
-(generic, static, clashed with the deck). Over one long session the concept
-converged through diagnosis → references → three brainstorm rounds (incl. two
-ChatGPT contributions Jad brought in) → approved:
+**Truth docs:** docs/EXPERIENCE-SPEC.md for concept/copy/tokens, PLUS the v4
+addendum at its top — the EXHIBIT architecture (below) supersedes the spec's
+§4 movement structure. TheField.jsx is now the copy source of truth.
 
-**THE FIELD** — a scroll-driven landing chamber: ~4,096 gold grains on midnight,
-one continuous particle field morphing through six states (installed desires:
-car/dollar/heart → fractured mandala → the measurable proof that force can't
-change the pattern → the hinge question → press-and-remain ascent: heal/rise/
-bloom into a phyllotaxis lotus → condensation into the actual card back →
-ENTER THE DECK / MIND RECODING PROGRAMS). Copy is FINAL and verbatim in the
-spec §4. Canvas 2D only, no Three.js. Telemetry readouts are honest math.
+**What is LIVE (commit 9504f20, GH Pages: https://mvpsites.github.io/mindcoding/):**
+THE FIELD v4 — Three.js engine (src/lib/fieldGL.js) on EIDOLON's real
+architecture, with the canvas-2D engine (fieldEngine.js) as automatic WebGL
+fallback. **EIDOLON's coherence rule is now law: one shape = one scroll
+section = one plaque.** Nine exhibits, counter 00/08:
+0 hero dust · I crown · II dollar · III heart · IV meditator (each with its
+own full plaque + one line) · V fractured mandala ("began speaking in your
+voice") · VI the return (tear → recapture, honest DISPLACEMENT/PROGRAM CHANGE
+telemetry, program cycles on reform; hinge question inside) · VII entrainment
+(press-and-remain, 6s to lock: heal → helix → seed-ranked phyllotaxis bloom,
+6/min breath) · VIII the chosen signal (card condensation, ENTER THE DECK /
+MIND RECODING PROGRAMS) · programs strip (5 channels → LIBRARY collections).
+Assembly = section centeredness (assemble on approach, HOLD while reading,
+exhale on leave). 20k points desktop / 12k mobile, additive glow, fog, camera
+parallax, film grain + vignette, full EIDOLON plaque anatomy (num / title /
+staggered meta / gradient rule / dotted tag / ACC stamp).
 
-**Hard deadline: launches 2026-07-12** to the Project Avalon forum (Jad's
-thread — thousands of spiritual-community visits expected). 07-11 is the single
-build day; the spec §7 is the ordered build plan with a pre-agreed cut-line.
+**Hard-won session lessons (do not relearn):**
+- Sandbox egress CANNOT reach *.github.io or netlify upload endpoints
+  (x-deny-reason: host_not_allowed). ALL visual verification so far is
+  numeric/headless. web_fetch reaches netlify.app pages and should reach
+  pages.dev.
+- Repo was private → made PUBLIC (Pages requires it; history secret-scanned).
+- Netlify MCP deploy returned a proxied npx command; upload 403'd on egress.
+  UNBLOCK: Jad adds netlify-mcp.netlify.app + api.netlify.com to the chat's
+  allowed network domains, then rerun the MCP deploy-site call.
+- Cloudflare is the FINAL host. Cloudflare MCP has NO deploy op. Path: Jad
+  connects mvpsites/mindcoding in dashboard (Workers & Pages → Pages →
+  Connect to Git, build `npm run build`, output `dist`) + attaches
+  mindcod.ing. vite base is "./" — already works at root domains. No repo
+  secrets exist for CF.
+- Jad-supplied "code" attachments arrived EMPTY earlier — if he attaches
+  files, confirm content actually arrived before claiming to use it.
+- Two montage-render regressions: verify images via ASCII/numeric checks too.
 
-**Decided this session (do not relitigate):**
-- Daily check-in loop is DEAD (routes redirect to /). "Frictionless daily tool"
-  frame is dead. Decode/recode dichotomy dropped — one practice: Mind Coding.
-- Songs are now "Mind Recoding Programs," presented as five channels
-  (ABUNDANCE·LOVE·PEACE·CONFIDENCE·SPIRIT) mapping to existing LIBRARY
-  collections + founding-batch scripts (content/scripts/ 01–10, all still valid).
-- No sound/tones on the site — thought is the force, not audio (Jad, explicit).
-- Palette: deck-derived midnight/gilt/bone/oxblood (spec §2 tokens; SIGNAL cyan
-  dies). Type trio: Cormorant display / Outfit body / Plex Mono machine voice.
-- Locked hero stays: "Your mind is being programmed every day. / Choose what
-  gets installed." Subline: "Not by accident. By design."
-- References: fable-25.netlify.app /cartomancy (palette, preserve-3d, FLIP) and
-  /eidolon + /eidolon/guide (single-buffer particle grammar, museum restraint).
+**Priorities for 07-11 (in order):**
+1. Jad's visual pass notes on v4 (github.io, hard refresh) — fix everything.
+2. THE VERIFICATION LOOP: as soon as a pages.dev or Netlify URL exists, do
+   EIDOLON-style hostile passes (fetch/inspect served page, per-exhibit
+   critique desktop+mobile framing) — this was the sprint's biggest gap.
+3. Polish list: dollar/meditator readability at particle scale, exhibit dwell
+   pacing (section heights), tear feel on touch, bloom petal definition,
+   brightness curve, programs strip styling.
+4. Launch prep: OG image (bloom still, 1200×630 gilt on ink), meta
+   description, favicon check, first-paint <2s on 4G gate, mindcod.ing domain
+   if CF connected. Update EXPERIENCE-SPEC §4 to exhibit copy if time.
+5. SECURITY: the GitHub PAT used this sprint was pasted in chat repeatedly —
+   Jad should REVOKE it after launch and mint fresh per session.
 
-**Still true from earlier sessions:** the WHEEL and its locked tunings, wash-
-shuffle, mindos spread, share frame (needs gilt re-token during build), Art
-Courier asset pipeline, self-hosting rule, one-session-at-a-time repo rule,
-verify-before-push, dispatch deploy.yml after any push.
+**Launch 07-12:** Jad writes the Project Avalon thread; page must stand cold
+from a forum link on mobile.
 
 **Superseded / parked:** unchanged — 5 SIGNAL door panels sit unused in the
 library (style-ref a979bbbc); doors demoted, not deleted.
