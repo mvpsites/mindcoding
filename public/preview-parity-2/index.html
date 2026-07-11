@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex" />
+  <title>Parity stage 2 — THE MOUNTAIN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+  <script type="importmap">
+    { "imports": { "three": "../preview-parity/three.module.js" } }
+  </script>
+</head>
+<body>
+  <canvas id="scene"></canvas>
+
+  <div id="fallback" class="webgl-fallback" hidden>
+    <p>This hall is rendered in WebGL.<br />Your browser has the lights off.</p>
+  </div>
+
+  <div id="focusRing" class="focus-ring" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <span class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-word">EIDOLON</span>
+    </span>
+    <span class="topbar-sub">Parity stage 2 · first form</span>
+    <span id="hallIdx" class="topbar-idx">01 / 04</span>
+  </header>
+
+  <div id="scrollCue" class="scroll-cue" aria-hidden="true">
+    <span class="cue-word">descend</span>
+    <span class="cue-line"></span>
+  </div>
+
+  <div class="focus-hud" aria-hidden="true">
+    <span class="fh-dot"></span>
+    <span class="fh-label">focusing</span>
+    <span class="fh-sub">hold to steady the dust</span>
+  </div>
+
+  <p id="live" class="live" aria-live="polite"></p>
+
+  <main id="hall">
+    <!-- intro -->
+    <section class="panel panel-intro">
+      <div class="intro-inner">
+        <p class="kicker">Placeholder copy · parity reference</p>
+        <h1 class="intro-title">
+          <span class="line">A hall of</span>
+          <span class="line"><span class="ital">remembered</span> dust.</span>
+        </h1>
+        <p class="intro-lede">
+          Sixty thousand grains hold the shape of something that is gone.
+          Scroll, and the dust remembers. Move, and it forgets a little.
+        </p>
+        <p class="intro-note">
+          Hold anywhere to <em>steady</em> the field.
+        </p>
+      </div>
+    </section>
+
+    <!-- exhibit I — the mountain -->
+    <section class="panel panel-exhibit">
+      <div class="plaque plaque-left" data-acc="0001-M">
+        <p class="plaque-num">Exhibit I</p>
+        <h2 class="plaque-title">THE MOUNTAIN</h2>
+        <div class="plaque-meta">
+          <span>Parametric massif, three summits</span>
+          <span>Layered ridges, sampled crests</span>
+          <span>Temporary copy</span>
+        </div>
+        <div class="plaque-rule" aria-hidden="true"></div>
+        <p class="plaque-body">
+          &ldquo;You learned what it means to succeed.&rdquo;
+        </p>
+        <p class="plaque-tag">Stage 2 · awaiting visual approval</p>
+      </div>
+    </section>
+
+    <!-- outro -->
+    <section class="panel panel-outro">
+      <div class="outro-inner">
+        <h2 class="outro-title">Placeholder outro.</h2>
+        <p class="outro-body">
+          One form only, by design. The heart and the flame wait for the
+          mountain to be approved.
+        </p>
+        <a class="outro-cta" href="#hall">Return to the top</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="credit">
+    <span>Parity stage 2 — THE MOUNTAIN</span>
+    <span class="credit-mid">Engine, shader, camera, CSS: unchanged from approved parity</span>
+    <a class="credit-build" href="../preview-parity/">approved parity reference</a>
+  </footer>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
