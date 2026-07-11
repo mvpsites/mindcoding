@@ -72,7 +72,6 @@ border-top:2px solid var(--ink);touch-action:none;cursor:grab;user-select:none;
 .wheelcard{position:absolute;left:0;top:0;will-change:transform;
 border:2px solid var(--ink);background:var(--paper)}
 .wheelcard img{width:100%;height:100%;display:block;object-fit:cover;pointer-events:none}
-.wheelring{position:absolute;pointer-events:none;opacity:0}
 @media (max-width:560px){
   .sheet__hint{font-size:.62rem;letter-spacing:.14em}
   .wheelhow{font-size:.54rem;letter-spacing:.14em;line-height:1.7}
@@ -157,11 +156,11 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
   <p class="sheet__hint" id="wheelHint">SEVENTY-EIGHT ADRIFT. ONE IS CALLING YOU.</p>
   <p class="wheelhow" id="washHow">WASH THE DECK — SWIRL THE PILE, THEN RELEASE TO FAN THE SPREAD</p>
   <p class="wheelhow" id="wheelHow" hidden>
-    <span class="how-touch">SLIDE THE SPREAD · PRESS AND HOLD THE CENTERED CARD TO DRAW</span>
-    <span class="how-mouse">MOVE YOUR CURSOR TO SPIN · CENTER IT TO SETTLE · HOLD TO DRAW</span>
+    <span class="how-touch">SLIDE THE SPREAD · TAP THE GOLD-EDGED CARD TO DRAW</span>
+    <span class="how-mouse">MOVE YOUR CURSOR TO SPIN · CLICK THE GOLD-EDGED CARD TO DRAW</span>
   </p>
   <div class="wheelstage" id="stage" role="application"
-    aria-label="Card spread. Swirl the pile to shuffle, slide to browse, hold the centered card to draw.">
+    aria-label="Card spread. Swirl the pile to shuffle, slide to browse, tap the centered card to draw.">
     <p class="wheelctr" id="wheelCtr" aria-hidden="true"></p>
   </div>
 </section>
@@ -265,8 +264,8 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
      · desktop hover-steer, deadzone 26%, quadratic, max .13 rad/frame
      · press-and-hold 900ms charge ring; >9px converts hold to drag
      · wash intro: the swirl gesture's entropy seeds the shuffle */
-  var HOLD_MS = 900, STEP = 0.24, DECAY = 0.955, SNAP = 0.16,
-      DEADZONE = 0.26, MAXSTEER = 0.13, CIRC = 377,
+  var STEP = 0.24, DECAY = 0.965, SNAP = 0.16,
+      DEADZONE = 0.26, MAXSTEER = 0.20, SEEK = 0.14, TAP_MS = 350,
       WASH_VISIBLE = 14, WASH_DECAY = 0.96, FAN_MS = 750;
 
   function mulberry32(seed){
@@ -294,7 +293,7 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
     return a;
   }
 
-  var st = null, stage = null, ring = null, prog = null, cardEls = {};
+  var st = null, stage = null, cardEls = {};
 
   function buildWheel(){
     stage = $('stage');
@@ -303,7 +302,7 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
     var order = plainShuffle(DECK.map(function(c){ return c.id; }));
     st = {
       order: order, rot: Math.floor(order.length / 2) * STEP, vel: 0,
-      dragging: false, holding: false, chargeStart: 0,
+      dragging: false, holding: false, downAt: 0, tapId: null, seek: null,
       lastX: 0, moved: 0, hoverX: null, raf: null,
       cx: 190, R: 235, W: 96, H: 134, top: 34, done: false,
       phase: 'wash', washing: false,
@@ -324,15 +323,6 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
       stage.appendChild(d);
       cardEls[order[i]] = d;
     }
-    var svgNS = 'http://www.w3.org/2000/svg';
-    ring = document.createElementNS(svgNS, 'svg');
-    ring.setAttribute('class', 'wheelring');
-    ring.setAttribute('width', '152'); ring.setAttribute('height', '152');
-    ring.innerHTML = '<circle cx="76" cy="76" r="60" fill="none" stroke="rgba(215,154,74,.25)" stroke-width="3"/>' +
-      '<circle id="ringProg" cx="76" cy="76" r="60" fill="none" stroke="#D79A4A" stroke-width="4" ' +
-      'stroke-linecap="round" stroke-dasharray="' + CIRC + '" stroke-dashoffset="' + CIRC + '" transform="rotate(-90 76 76)"/>';
-    stage.appendChild(ring);
-    prog = ring.querySelector('#ringProg');
     $('washHow').hidden = false;
     $('wheelHow').hidden = true;
     stage.classList.remove('pan'); /* wash needs circular gestures — stage owns touch */
@@ -364,8 +354,6 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
       cardEls[id].style.width = st.W + 'px';
       cardEls[id].style.height = st.H + 'px';
     }
-    ring.style.left = st.cx - 76 + 'px';
-    ring.style.top = st.top + st.H / 2 - 76 + 'px';
   }
 
   function layout(){
@@ -386,6 +374,7 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
       var y = st.top + st.R * (1 - Math.cos(a)) - 16 * near;
       el.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) rotate(' +
         (a * 43).toFixed(1) + 'deg) scale(' + (1 + 0.12 * near).toFixed(3) + ')';
+      el.style.borderColor = near > 0.6 ? 'var(--gold)' : 'var(--ink)';
       el.style.zIndex = Math.round(100 - abs * 40);
     }
   }
@@ -468,25 +457,24 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
     st.raf = requestAnimationFrame(tick);
     try {
       if (st.phase === 'wash'){
-        if (ring.style.opacity !== '0') ring.style.opacity = 0;
         st.pileAngle += st.pileVel + 0.0022;
         st.pileVel *= WASH_DECAY;
         layoutWash();
         return;
       }
       if (performance.now() < st.fanUntil) return;
-      if (st.done){ if (ring.style.opacity !== '0') ring.style.opacity = 0; layout(); return; }
-      if (st.holding && !st.dragging){
-        var p = Math.min((performance.now() - st.chargeStart) / HOLD_MS, 1);
-        ring.style.opacity = 1;
-        prog.setAttribute('stroke-dashoffset', (CIRC * (1 - p)).toFixed(0));
-        if (p >= 1){ st.holding = false; ring.style.opacity = 0; drawCentered(); }
-      } else if (ring.style.opacity !== '0') ring.style.opacity = 0;
+      if (st.done){ layout(); return; }
+      if (st.seek !== null && !st.dragging){
+        st.rot += (st.seek - st.rot) * SEEK;
+        if (Math.abs(st.seek - st.rot) < 0.006){ st.rot = st.seek; st.seek = null; }
+        layout(); return;
+      }
       if (!st.dragging && !st.holding){
         var steered = false;
         if (st.hoverX !== null){
           var nn = (st.hoverX - st.cx) / st.cx;
           if (Math.abs(nn) > DEADZONE){
+            st.seek = null;
             st.rot += Math.sign(nn) * Math.pow((Math.abs(nn) - DEADZONE) / (1 - DEADZONE), 2) * MAXSTEER;
             st.vel = 0; steered = true;
           }
@@ -522,7 +510,10 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
       return;
     }
     st.lastX = p.x; st.moved = 0; st.vel = 0;
-    st.dragging = false; st.holding = true; st.chargeStart = performance.now();
+    st.dragging = false; st.holding = true; st.downAt = performance.now();
+    var t = e.target && e.target.closest ? e.target.closest('.wheelcard') : null;
+    st.tapId = null;
+    if (t){ for (var id in cardEls){ if (cardEls[id] === t){ st.tapId = id; break; } } }
   }
   function onMove(e){
     if (!st || st.done) return;
@@ -546,15 +537,25 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
       var dx = p.x - st.lastX;
       st.moved += Math.abs(dx);
       if (st.moved > 9 && st.holding){ st.dragging = true; st.holding = false; }
-      if (st.dragging){ st.rot -= dx / st.R; st.vel = st.vel * 0.6 + (-dx / st.R) * 0.4; st.hoverX = null; }
+      if (st.dragging){ st.seek = null; st.rot -= dx / st.R; st.vel = st.vel * 0.6 + (-dx / st.R) * 0.4; st.hoverX = null; }
       st.lastX = p.x;
     }
   }
   function onUp(e){
     if (!st) return;
     if (st.phase === 'wash'){ if (st.washing) fanOut(); return; }
+    var wasTap = st.holding && !st.dragging && st.moved <= 9 &&
+      (performance.now() - st.downAt) < TAP_MS && st.tapId && !st.done;
     st.holding = false; st.dragging = false;
     if (e && e.pointerType !== 'mouse') st.hoverX = null;
+    if (wasTap){
+      var pos = st.order.indexOf(st.tapId);
+      if (pos < 0) return;
+      var centered = Math.min(Math.max(Math.round(st.rot / STEP), 0), st.order.length - 1);
+      if (pos === centered) drawCentered();        /* tap the centered card: draw it */
+      else { st.seek = pos * STEP; st.vel = 0; }   /* tap a side card: glide it to center */
+    }
+    st.tapId = null;
   }
   function onLeave(e){ if (st && e.pointerType === 'mouse') st.hoverX = null; }
   function onBlur(){ if (st){ st.holding = false; st.dragging = false; st.washing = false; st.hoverX = null; } }
