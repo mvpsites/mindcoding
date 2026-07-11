@@ -41,6 +41,7 @@ let simNow = 0;
 const _now = performance.now.bind(performance);
 performance.now = () => simNow;
 
+eval(fs.readFileSync(__dirname + '/../public/shared/emblem-points.js', 'utf8'));
 eval(fs.readFileSync(__dirname + '/../public/shared/programmed-self.js', 'utf8'));
 
 let latest = null;
@@ -57,8 +58,8 @@ function fire(map, type, ev){ (map[type] || []).forEach(fn => fn(ev)); }
 /* settle */
 for (let i = 0; i < 10; i++) frame();
 
-/* --- one deliberate swipe across the fingerprint region --- */
-const startX = W * 0.30, y = H * 0.42, endX = W * 0.68;
+/* --- one deliberate swipe across the emblem circuit band --- */
+const startX = W * 0.30, y = H * 0.46, endX = W * 0.70;
 const swipeFrames = 22;                      /* ~370ms — a normal deliberate swipe */
 fire(canvasListeners, 'mousedown', { clientX: startX, clientY: y, preventDefault(){} });
 let peakSeen = 0;
