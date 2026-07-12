@@ -25,6 +25,7 @@ jobs:
     steps:
       - name: Run action
         run: |
+          set +e
           api() { curl -s -H "Authorization: Bearer $CF_TOKEN" -H "Content-Type: application/json" "$@"; }
           note() { echo "::notice::$1"; }
 
@@ -46,7 +47,7 @@ jobs:
               # apex CNAME (CF flattens at apex) + www CNAME, both proxied.
               for PAIR in "@:$ZONE_NAME" "www:www.$ZONE_NAME"; do
                 NAME="${PAIR%%:*}"; FQDN="${PAIR##*:}"
-                EXIST=$(api "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?name=$FQDN" | python3 -c 'import json,sys;print(len(json.load(sys.stdin)["result"]))')
+                EXIST=$(api "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?name=$FQDN" | python3 -c 'import json,sys;print(len(json.load(sys.stdin).get("result") or []))')
                 if [ "$EXIST" = "0" ]; then
                   R=$(api -X POST -d "{\"type\":\"CNAME\",\"name\":\"$NAME\",\"content\":\"$PAGES_HOST\",\"proxied\":true}" "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records")
                   note "dns $FQDN CNAME->$PAGES_HOST: $(echo "$R" | python3 -c 'import json,sys;d=json.load(sys.stdin);print("created" if d.get("success") else [e.get("message") for e in d.get("errors",[])])')"
