@@ -1,4 +1,8 @@
 # CONTINUE.md — Mind Coding session handoff
+## ⚖ THE LAW lives in /AGENTS.md (repo root) — stable rules for ANY agent
+## (Claude, ChatGPT, etc.). Read it FIRST. This file is the CURRENT STATE:
+## in-flight work, owed rulings, latest gotchas. Newer dated rulings here
+## override older text; Jad's live instructions override everything.
 ## Written 2026-07-12 (the marathon session) · supersedes ALL prior handoffs
 ## main HEAD at write time: see git log — every ruling below is DEPLOYED unless marked owed
 
