@@ -25,6 +25,10 @@
   /* ---- rise: staggered reveal ---- */
   var toRise = [].filter.call(document.querySelectorAll(RISE_SEL), safe);
   toRise.forEach(function (el) { el.classList.add('sl-rise'); });
+  /* registration sweep: a gold light crosses each section kick as it lands */
+  [].forEach.call(document.querySelectorAll('.sec__kick'), function (el) {
+    if (safe(el)) el.classList.add('sl-sweep');
+  });
 
   /* stagger siblings that arrive together */
   var groups = {};
@@ -48,6 +52,20 @@
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
   toRise.forEach(function (el) { io.observe(el); });
+
+  /* ---- LETTERPRESS STRIKES (ruled 07-12): display type doesn't fade,
+     it PRINTS — one hard impression, the red line slamming last. The strike
+     animates an inner wrapper because the drift rAF owns the heading's own
+     transform. ---- */
+  var toStrike = [].filter.call(
+    document.querySelectorAll('h1.big, h2.big, h1.masthead'), safe);
+  toStrike.forEach(function (el) {
+    var w = document.createElement('span');
+    w.className = 'sl-inner';
+    while (el.firstChild) w.appendChild(el.firstChild);
+    el.appendChild(w);
+    el.classList.add('sl-strike');
+  });
 
   /* ---- drift: display type counter-scrolls, faintly ---- */
   var drifters = [].filter.call(document.querySelectorAll(DRIFT_SEL), safe)
@@ -76,8 +94,54 @@
       d.el.style.transform = 'translate3d(0,' + off.toFixed(1) + 'px,0)';
     }
   }
+  /* ink progress: --scp drives the inkbar + the halftone moire */
+  var docEl = document.documentElement;
+  function progress() {
+    var max = docEl.scrollHeight - innerHeight;
+    docEl.style.setProperty('--scp', max > 0 ? (scrollY / max).toFixed(4) : 0);
+  }
+
   addEventListener('scroll', function () {
-    if (!ticking) { ticking = true; requestAnimationFrame(frame); }
+    if (!ticking) { ticking = true; requestAnimationFrame(function(){ frame(); progress(); }); }
   }, { passive: true });
-  frame();
+  frame(); progress();
+
+  /* ---- TICKER CORRUPTION (landing): every so often one phrase runs red
+     for a blink, then the program corrects itself ---- */
+  var track = document.querySelector('.ticker__track');
+  if (track) {
+    [].forEach.call(track.children, function (span) {
+      [].slice.call(span.childNodes).forEach(function (n) {
+        if (n.nodeType === 3 && n.textContent.trim()) {
+          var i = document.createElement('i');
+          i.className = 'tk'; i.textContent = n.textContent;
+          span.replaceChild(i, n);
+        }
+      });
+    });
+    var tks = track.querySelectorAll('.tk');
+    if (tks.length) setInterval(function () {
+      var t = tks[Math.floor(Math.random() * tks.length)];
+      t.classList.add('tk-hit');
+      setTimeout(function () { t.classList.remove('tk-hit'); }, 160);
+    }, 9000 + Math.random() * 6000);
+  }
+
+  /* ---- the whisper types itself, once (landing footer) ---- */
+  var wh = document.querySelector('.whisper');
+  if (wh) {
+    var full = wh.textContent;
+    wh.textContent = '';
+    wh.style.minHeight = '1em';
+    var wio = new IntersectionObserver(function (es) {
+      if (!es[0].isIntersecting) return;
+      wio.disconnect();
+      var i = 0;
+      var tid = setInterval(function () {
+        wh.textContent = full.slice(0, ++i);
+        if (i >= full.length) clearInterval(tid);
+      }, 26);
+    }, { threshold: 0.6 });
+    wio.observe(wh);
+  }
 })();

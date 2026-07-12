@@ -199,6 +199,30 @@ footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;ga
   color:var(--ink-faint);max-width:64rem;line-height:1.8}
 .colophon b{color:var(--ink-dim);font-weight:400}
 
+/* ---------- STILL RUNNING layer (ruled 07-12) ---------- */
+::selection{background:var(--gold);color:var(--paper)}
+.inkbar{position:fixed;top:0;left:0;right:0;height:2px;z-index:60;pointer-events:none}
+.inkbar i{display:block;height:100%;background:var(--gold);transform-origin:0 50%;
+  transform:scaleX(var(--scp,0))}
+.telemetry--reassert,.telemetry--reassert #tDisp{color:var(--red)}
+.lesson{font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;color:var(--gold);
+  margin-top:1rem;opacity:0;transform:scale(1.05);transform-origin:0 50%}
+.lesson.on{animation:strikeIn .24s cubic-bezier(.2,1.4,.3,1) forwards}
+.lesson a{color:var(--gold);text-decoration:underline;text-underline-offset:3px}
+.lesson a:hover{color:var(--red)}
+/* live moiré: two dot grids counter-drift with scroll (tiny element — the one
+   sanctioned paint-property exception to the transform/opacity rule) */
+.halftone{background:
+  radial-gradient(circle,var(--gold) 1.3px,transparent 1.6px),
+  radial-gradient(circle,var(--gold) 1.1px,transparent 1.4px);
+  background-size:13px 13px,12px 12px;
+  background-position:calc(var(--scp,0)*46px) calc(var(--scp,0)*-64px),
+                      calc(var(--scp,0)*-38px) calc(var(--scp,0)*52px)}
+.tk-hit{color:var(--red)}
+@keyframes strikeIn{0%{opacity:0;transform:scale(1.05) translateY(5px)}
+  55%{opacity:1;transform:scale(.985)}100%{opacity:1;transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.lesson.on{animation:none;opacity:1;transform:none}}
+
 /* ---------- responsive (390 target) ---------- */
 @media (max-width:820px){
   .mast__grid{grid-template-columns:1fr}
@@ -251,6 +275,7 @@ cursor:pointer;text-transform:uppercase;padding:0}
   </div>
 </div>
 
+<div class="inkbar" aria-hidden="true"><i></i></div>
 <header class="mast" id="mast">
   <div class="mast__bar">
     <span><b>MIND CODING</b></span>
@@ -313,6 +338,7 @@ cursor:pointer;text-transform:uppercase;padding:0}
         aria-label="The interactive Mind Coding emblem: two mirrored profiles facing a central keyhole and star, surrounded by circuit pathways and a circular seal. Drag through it; it reforms exactly as it was."></canvas>
     </div>
     <p class="telemetry"><span id="tDisp">DISPLACEMENT 0%</span> · PROGRAM CHANGE 0%</p>
+    <p class="lesson" id="lesson" hidden>FORCE DOESN'T CHANGE IT. <a href="#mcdraw">THE THEATRE DOES →</a></p>
     <div class="reveal" id="reveal" aria-live="polite"><div class="reveal__in">
       <p>You pulled the thought apart.<br />The program still knew<br />where to return.</p>
       <p>You disturbed the mind.<br />Not the instruction<br />that rebuilt it.</p>
@@ -428,9 +454,26 @@ cursor:pointer;text-transform:uppercase;padding:0}
   var reveal = document.getElementById('reveal');
   var revealed = false;
   if (!cv || !window.ProgrammedSelf) return;
+  var lesson = document.getElementById('lesson');
+  var tEl = tDisp ? tDisp.parentElement : null;
+  var reasserting = false, reforms = 0;
   window.ProgrammedSelf.mount(cv, {
+    onReform: function(r){
+      /* THE LESSON: you pushed, it snapped back — say so */
+      reforms++;
+      if (tDisp && tEl){
+        reasserting = true;
+        tEl.classList.add('telemetry--reassert');
+        tDisp.textContent = 'PATTERN REASSERTED \u00b7 ' + (r.ms / 1000).toFixed(2) + 's';
+        setTimeout(function(){ reasserting = false; tEl.classList.remove('telemetry--reassert'); }, 1600);
+      }
+      if (reforms >= 2 && lesson && lesson.hidden){
+        lesson.hidden = false;
+        requestAnimationFrame(function(){ lesson.classList.add('on'); });
+      }
+    },
     onFrame: function(s){
-      if (tDisp) tDisp.textContent = 'DISPLACEMENT ' + s.displacement + '%';
+      if (tDisp && !reasserting) tDisp.textContent = 'DISPLACEMENT ' + s.displacement + '%';
       /* threshold matches the emblem's region-weighted meter (module lock = 4);
          the old 8 was single-profile calibration and never fired on the emblem */
       if (!revealed && s.peak >= 4 && s.displacement < s.peak * 0.55){

@@ -110,3 +110,15 @@ border:1px solid rgba(215,154,74,.35)}
 .veil__t{text-shadow:0 2px 24px rgba(7,11,26,.9)}
 .veil__t .g{text-shadow:0 0 26px rgba(215,154,74,.45)}
 @media (prefers-reduced-motion:reduce){.btn--veil{animation:none}}
+
+/* ---- THE FOIL MOMENT (ruled 07-12): when the card surfaces, one gold
+   sheen crosses the plate — a foil stamp catching light. Plays once per
+   reveal (.reading.on toggles per draw). Never under reduced motion. ---- */
+.reading .plate{position:relative;overflow:hidden}
+.reading .plate::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(115deg,transparent 40%,rgba(244,200,92,.42) 50%,transparent 60%);
+  transform:translateX(-135%)}
+@media (prefers-reduced-motion:no-preference){
+  .reading.on .plate::after{animation:foilSweep 1.15s ease-out .55s 1 forwards}
+}
+@keyframes foilSweep{to{transform:translateX(135%)}}

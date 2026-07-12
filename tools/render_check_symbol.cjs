@@ -43,7 +43,7 @@ global.document = { addEventListener(){}, hidden: false };
 eval(fs.readFileSync(__dirname + '/../public/shared/emblem-points.js', 'utf8'));
 eval(fs.readFileSync(__dirname + '/../public/shared/programmed-self.js', 'utf8'));
 
-const ctl = global.ProgrammedSelf.mount(canvas, {});
+const ctl = global.ProgrammedSelf.mount(canvas, { entrance: false });
 ioCallback([{ isIntersecting: true }]);              /* start the loop */
 let t = 16;
 for (let f = 0; f < 3; f++){                          /* settle a few frames */

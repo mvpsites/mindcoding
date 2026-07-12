@@ -85,12 +85,22 @@
       for (var i = 0; i < source.length; i++){
         var q = source[i];
         var hx = cx + q[0] * fit, hy = cy + q[1] * fit;
+        var sd = h1(i + 1), sd2 = h1(i * 7 + 3);
+        /* ASSEMBLY (07-12): every particle owns a scatter origin — a point
+           flung outward from home — used once by the entrance choreography */
+        var sa = sd2 * Math.PI * 2, sr = fit * (0.55 + sd * 0.85);
         pts.push({ region: q[2], alpha: q[3],
                    homeX: hx, homeY: hy, x: hx, y: hy, vx: 0, vy: 0,
-                   seed: h1(i + 1), brightness: 0 });
+                   sx: hx + Math.cos(sa) * sr, sy: hy + Math.sin(sa) * sr,
+                   ci: -1, seed: sd, brightness: 0 });
         if (q[2] === 'key'){ kx += hx; ky += hy; kn++;
           if (hx < kMinX) kMinX = hx; if (hx > kMaxX) kMaxX = hx; }
       }
+      /* circuit order index — map order traces the paths, so an index walk
+         IS a walk along the circuitry (used by the signal packets) */
+      var ci = 0;
+      for (var c1 = 0; c1 < pts.length; c1++) if (pts[c1].region === 'circuit') pts[c1].ci = ci++;
+      circuitN = ci;
       /* keyhole pulse anchor, derived from the key region itself */
       keyCX = kn ? kx / kn : cx;
       keyCY = kn ? ky / kn : cy;
@@ -100,6 +110,17 @@
 
     /* ---------- state ---------- */
     var state = 'idle';                 /* idle | hover | press | drag | release */
+    /* STILL RUNNING (ruled 07-12): the emblem is never dead.
+       ASSEMBLY — group-staggered entrance on first sight (circuit->seal->star->key).
+       SIGNALS — gold packets travel the circuit paths while idle.
+       GLITCH — a rare one-blink red band that self-corrects.
+       All of it exits under prefers-reduced-motion; opts.entrance:false skips
+       the assembly (harnesses render the resting state). */
+    var ENT_DUR = 650, ENT_GROUP = { circuit: 0, seal: 320, star: 560, key: 720 };
+    var entWanted = opts.entrance !== false && !reduce;
+    var entT = -1, entDone = !entWanted, entMax = ENT_DUR + 720 + 260;
+    var circuitN = 0, packets = [], nextPacket = 0;
+    var glitchT = -1, glitchY = 0, nextGlitch = 0;
     var ptr = { x:-9999, y:-9999, on:false, hover:false, px:-9999, py:-9999, speed:0 };
     var releaseAt = -1, releasedOnce = false;
     var peak = 0, disp = 0, avgErr = 0;
@@ -116,6 +137,47 @@
         if (fpsAcc >= 500){ fps = Math.round(1000 / (fpsAcc / fpsN)); fpsAcc = 0; fpsN = 0; } }
       lastT = now;
       if (dbg.freeze && frozen) { draw(now); return; }
+
+      /* ---------- ASSEMBLY entrance ---------- */
+      if (!entDone){
+        if (entT < 0) entT = now || 1;
+        var entElapsed = now - entT;
+        if (entElapsed >= entMax){
+          entDone = true;
+          for (var e1 = 0; e1 < pts.length; e1++){ pts[e1].x = pts[e1].homeX; pts[e1].y = pts[e1].homeY; pts[e1].vx = 0; pts[e1].vy = 0; }
+          pulseT = now;   /* the seal completes: one gold ring */
+        } else {
+          for (var e2 = 0; e2 < pts.length; e2++){
+            var ep = pts[e2];
+            var et = entElapsed - (ENT_GROUP[ep.region] + ep.seed * 260);
+            if (et <= 0){ ep.x = ep.sx; ep.y = ep.sy; ep.entA = 0; continue; }
+            var pr = Math.min(1, et / ENT_DUR);
+            var ez = 1 - Math.pow(1 - pr, 3);   /* easeOutCubic */
+            ep.x = ep.sx + (ep.homeX - ep.sx) * ez;
+            ep.y = ep.sy + (ep.homeY - ep.sy) * ez;
+            ep.entA = Math.min(1, pr * 2.2);
+          }
+          if (opts.onFrame) opts.onFrame(getStats());
+          draw(now);
+          return;
+        }
+      }
+
+      /* ---------- SIGNAL + GLITCH schedulers (idle life) ---------- */
+      if (!reduce && now){
+        if (!nextPacket) nextPacket = now + 1400;
+        if (now >= nextPacket && packets.length < 2 && circuitN > 40){
+          packets.push({ t0: now, i0: Math.floor(h1(now) * circuitN), len: 90 + h1(now * 3) * 90, sp: 0.11 + h1(now * 7) * 0.05 });
+          nextPacket = now + 2600 + h1(now * 13) * 3200;
+        }
+        for (var pk = packets.length - 1; pk >= 0; pk--)
+          if ((now - packets[pk].t0) * packets[pk].sp > packets[pk].len + 12) packets.splice(pk, 1);
+        if (!nextGlitch) nextGlitch = now + 9000 + h1(now) * 9000;
+        if (now >= nextGlitch && !ptr.on){
+          glitchT = now; glitchY = cy + (h1(now * 5) - 0.5) * fit * 0.7;
+          nextGlitch = now + 16000 + h1(now * 11) * 10000;
+        }
+      }
 
       var inRelease = releaseAt > 0;
       var sinceRel = inRelease ? (now - releaseAt) : -1;
@@ -183,7 +245,7 @@
           try { navigator.vibrate && navigator.vibrate(8); } catch (e) {}
           hapticDone = true;
         }
-        if (opts.onReform) opts.onReform({ peak: peak, disp: disp });
+        if (opts.onReform) opts.onReform({ peak: peak, disp: disp, ms: Math.max(0, Math.round(now - releaseAt)) });
       }
 
       if (opts.onFrame) opts.onFrame(getStats());
@@ -194,15 +256,33 @@
     function draw(now){
       ctx.clearRect(0, 0, W, H);
       var base = phone() ? 2.15 : 2.05;
+      var gOn = glitchT > 0 && now && (now - glitchT) < 90;
+      if (glitchT > 0 && now && (now - glitchT) >= 90) glitchT = -1;
       for (var i = 0; i < pts.length; i++){
         var p = pts[i];
         var core = p.region === 'key' || p.region === 'star';
         var pulse = (core && !reduce && now) ? 0.78 + 0.22 * Math.sin(now * 0.0025 + p.seed * 4) : 1;
         var alpha = Math.min(1, 0.5 + p.alpha * 0.55) * pulse;
-        ctx.globalAlpha = Math.min(1, alpha + p.brightness * 0.25);
-        ctx.fillStyle = core ? BONE : (p.seed > 0.88 ? GOLD_BRIGHT : GOLD);
-        var s2 = base + (p.seed > 0.92 ? 0.7 : 0) + (core ? 0.35 : 0);
-        ctx.fillRect(p.x - s2 / 2, p.y - s2 / 2, s2, s2);
+        var boost = 0;
+        /* SIGNALS: a bright packet travelling the circuit order */
+        if (p.ci >= 0 && packets.length && now){
+          for (var pk2 = 0; pk2 < packets.length; pk2++){
+            var pkt = packets[pk2];
+            var head = pkt.i0 + (now - pkt.t0) * pkt.sp;
+            var dci = head - p.ci;
+            if (dci > 0 && dci < 11) boost = Math.max(boost, 1 - dci / 11);
+          }
+        }
+        ctx.globalAlpha = Math.min(1, (alpha + p.brightness * 0.25 + boost * 0.5) * (entDone ? 1 : (p.entA || 0)));
+        ctx.fillStyle = boost > 0.25 ? GOLD_BRIGHT : (core ? BONE : (p.seed > 0.88 ? GOLD_BRIGHT : GOLD));
+        var s2 = base + (p.seed > 0.92 ? 0.7 : 0) + (core ? 0.35 : 0) + boost * 0.9;
+        /* GLITCH: one-blink red offset band, then the program corrects itself */
+        if (gOn && Math.abs(p.y - glitchY) < 15){
+          ctx.fillStyle = RED;
+          ctx.fillRect(p.x - s2 / 2 + 3, p.y - s2 / 2, s2, s2);
+        } else {
+          ctx.fillRect(p.x - s2 / 2, p.y - s2 / 2, s2, s2);
+        }
       }
       ctx.globalAlpha = 1;
 
