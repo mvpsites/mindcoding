@@ -131,7 +131,11 @@ h2.big .r{color:var(--red)}
   cursor:crosshair;background:var(--paper)}
 .telemetry{font-family:var(--mono);font-size:.68rem;letter-spacing:.18em;color:var(--red);
   border:2px solid var(--red);display:inline-block;padding:.5rem .8rem;margin-top:1.2rem}
-.reveal{margin-top:1.4rem;max-width:38rem;min-height:15.5rem}
+.reveal{max-width:38rem;display:grid;grid-template-rows:0fr;margin-top:0;
+  transition:grid-template-rows .9s ease,margin-top .9s ease}
+.reveal.on{grid-template-rows:1fr;margin-top:1.4rem}
+.reveal__in{overflow:hidden;min-height:0}
+@media (prefers-reduced-motion:reduce){.reveal{transition:none}}
 .reveal p{font-family:var(--mono);font-size:.85rem;letter-spacing:.12em;line-height:1.8;
   text-transform:uppercase;color:var(--ink);
   opacity:0;transform:translateY(8px);transition:opacity .8s,transform .8s;margin-top:1.1rem}
@@ -308,20 +312,16 @@ footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;ga
         aria-label="The interactive Mind Coding emblem: two mirrored profiles facing a central keyhole and star, surrounded by circuit pathways and a circular seal. Drag through it; it reforms exactly as it was."></canvas>
     </div>
     <p class="telemetry"><span id="tDisp">DISPLACEMENT 0%</span> · PROGRAM CHANGE 0%</p>
-    <div class="reveal" id="reveal" aria-live="polite">
+    <div class="reveal" id="reveal" aria-live="polite"><div class="reveal__in">
       <p>You pulled the thought apart.<br />The program still knew<br />where to return.</p>
       <p>You disturbed the mind.<br />Not the instruction<br />that rebuilt it.</p>
       <p>This is why willpower alone<br />keeps losing.</p>
       <p class="dim">You can fight the result for years<br />without confronting what keeps recreating it.</p>
       <p>The loop is not stronger than you.<br />It has simply been running longer<br />than you have been watching.</p>
       <p class="gold">Mind Coding begins<br />where autopilot ends.</p>
-    </div>
+    </div></div>
   </div>
-</section>
-
-<section class="sec" aria-labelledby="mirror-h">
-  <div class="sec__kick"><b>03</b><span>— THE MIRROR</span></div>
-  <div class="mirror">
+<div class="mirror">
     <div class="mirror__main">
       <h2 class="big" id="mirror-h">The deeper mind<br />does not always arrive<br /><span class="g">in words.</span></h2>
       <p class="brandline">Sometimes it appears<br />as a symbol<br />you cannot ignore.</p>
@@ -339,7 +339,7 @@ footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;ga
 </section>
 
 <section class="sec" aria-labelledby="choice-h">
-  <div class="sec__kick"><b>04</b><span id="choice-h">— THE CHOICE</span></div>
+  <div class="sec__kick"><b>03</b><span id="choice-h">— THE CHOICE</span></div>
   <p class="choice__intro">Awareness reveals the pattern. <b>Attention gives it direction.</b><br />Choose what you want to strengthen.</p>
   <div class="tbl__head" aria-hidden="true">
     <span>#</span><span>CHANNEL</span><span class="h-form">FORM</span><span style="text-align:right">PG.</span>
