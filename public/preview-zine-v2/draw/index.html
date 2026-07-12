@@ -38,11 +38,6 @@ font-size:clamp(1.9rem,6.4vw,4.4rem);letter-spacing:-.015em}
 .pad{padding:2.4rem 1.2rem 2.8rem}
 .q{font-family:var(--mono);font-size:.8rem;letter-spacing:.12em;color:var(--ink-dim);
 text-transform:uppercase;margin:1.4rem 0 .9rem}
-.intent{width:100%;max-width:34rem;background:transparent;border:2px solid var(--ink);
-color:var(--ink);font-family:var(--mono);font-size:.9rem;letter-spacing:.06em;
-padding:.9rem 1rem;outline:none}
-.intent:focus{border-color:var(--gold)}
-.intent::placeholder{color:var(--ink-faint)}
 .surfaced{grid-column:1/-1;padding:1.6rem 1.2rem 1.4rem;border-bottom:2px solid var(--ink)}
 .surfaced__t{font-family:var(--disp);text-transform:uppercase;font-size:clamp(1.3rem,3.4vw,2.2rem);line-height:1.05}
 .surfaced__s{margin-top:.7rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;color:var(--ink-dim);line-height:1.9}
@@ -56,8 +51,18 @@ transition:background .14s,color .14s;margin-top:1.4rem}
 .btn--ghost:hover,.btn--ghost:focus-visible{background:var(--ink);color:var(--paper)}
 /* THE WHEEL — the deck as a spinnable arc, ported verbatim from the app
    (session-locked tunings 2026-07-10). Zine shell only. */
-.sheet{display:none}
-.sheet.on{display:block}
+.theatre{border:var(--bd) solid var(--ink);margin:0}
+.theatre > .sec{border:0;border-bottom:var(--bd) solid var(--ink)}
+.theatre > .sec:last-child{border-bottom:0}
+.prosc{position:relative}
+#curtainCv{position:absolute;inset:0;width:100%;height:100%;z-index:5}
+.veil{position:absolute;inset:0;z-index:6;display:grid;place-content:center;gap:1rem;text-align:center;padding:1rem;transition:opacity .6s ease}
+.veil.off{opacity:0;pointer-events:none}
+.veil__k{font-family:var(--mono);font-size:.6rem;letter-spacing:.24em;color:var(--ink-dim)}
+.veil__t{font-family:var(--disp);text-transform:uppercase;font-size:clamp(1.1rem,3vw,1.9rem);line-height:1.1}
+.controls{display:flex;gap:1rem;align-items:center;padding:.5rem 1.2rem 1rem}
+.controls__n{font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;color:var(--ink-faint)}
+@media (prefers-reduced-motion:reduce){.veil{transition:none}}
 .sheet__hint{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;
 color:var(--gold);text-transform:uppercase;padding:1.4rem 1.2rem 0}
 .wheelhow{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;
@@ -119,8 +124,6 @@ color:var(--gold);text-transform:uppercase;margin-bottom:.5rem;font-weight:400}
 .part .aff{margin-top:.6rem;font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;
 color:var(--ink);text-transform:uppercase;border-left:var(--bd) solid var(--gold);
 padding-left:.8rem;line-height:1.7}
-.intentEcho{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;
-color:var(--ink-faint);text-transform:uppercase;margin-bottom:1.2rem}
 .actions{display:flex;flex-wrap:wrap;gap: .8rem}
 /* saved readings */
 .savedList{padding:0}
@@ -156,25 +159,34 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
   <div class="kick"><b>PLATE 01</b><span>— THE QUESTION</span></div>
   <div class="pad">
     <h1 class="big">Ask a question<br />your autopilot<br /><span class="g">cannot answer.</span></h1>
-    <p class="q">Write it down or hold it silently.<br />You are not asking the future. You are interrupting the familiar answer.</p>
-    <input id="intent" class="intent" type="text" maxlength="140"
-      placeholder="What pattern are you ready to notice?" aria-label="The question" autocomplete="off" />
-    <br />
-    <button id="shuffle" class="btn" type="button">SHUFFLE THE FIELD</button>
+    <p class="q">Hold it silently. You will not be asked to type it.<br />You are not asking the future. You are interrupting the familiar answer.</p>
   </div>
 </section>
 
-<section class="sec sheet" id="sheet">
-  <div class="kick"><b>PLATE 02</b><span>— CHOOSE YOUR CARD</span></div>
+<div class="theatre" id="theatre">
+<section class="sec sheet on" id="sheet">
+  <div class="kick"><b>PLATE 02</b><span>— THE THEATRE</span></div>
   <p class="sheet__hint" id="wheelHint">SEVENTY-EIGHT SYMBOLS. ONE UNREHEARSED PERSPECTIVE.</p>
-  <p class="wheelhow" id="washHow">WASH THE FIELD. THEN RELEASE IT.</p>
+  <p class="wheelhow" id="washHow" hidden>THE FIELD WASHES ITSELF. TOUCH IT TO WASH DEEPER.</p>
   <p class="wheelhow" id="wheelHow" hidden>
     <span class="how-touch">MOVE THROUGH THE FIELD · TAP THE GOLD-EDGED CARD WHEN ONE HOLDS YOUR ATTENTION</span>
     <span class="how-mouse">MOVE THROUGH THE FIELD · CLICK THE GOLD-EDGED CARD WHEN ONE HOLDS YOUR ATTENTION</span>
   </p>
-  <div class="wheelstage" id="stage" role="application"
-    aria-label="Card spread. Swirl the pile to shuffle, slide to browse, tap the centered card to draw.">
-    <p class="wheelctr" id="wheelCtr" aria-hidden="true"></p>
+  <div class="prosc" id="prosc">
+    <div class="wheelstage" id="stage" role="application"
+      aria-label="Card spread. The cards shuffle themselves; slide to browse, tap the centered card to draw.">
+      <p class="wheelctr" id="wheelCtr" aria-hidden="true"></p>
+    </div>
+    <canvas id="curtainCv" aria-hidden="true"></canvas>
+    <div class="veil" id="veil">
+      <p class="veil__k">THE HOUSE IS DARK. THE FIELD IS SET.</p>
+      <p class="veil__t">SEVENTY-EIGHT SYMBOLS WAIT<br />ON THE OTHER SIDE.</p>
+      <button id="veilBtn" class="btn" type="button">LOOK BEYOND THE VEIL</button>
+    </div>
+  </div>
+  <div class="controls" id="controls" hidden>
+    <button id="reshuffle" class="btn btn--ghost" type="button">SHUFFLE AGAIN</button>
+    <span class="controls__n">THE ORDER IS NEVER THE SAME TWICE.</span>
   </div>
 </section>
 
@@ -191,7 +203,6 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
     <span class="revtag" id="revTag" hidden>REVERSED</span>
   </div>
   <div class="meaningCol">
-    <p class="intentEcho" id="intentEcho" hidden></p>
     <h2 class="cardname" id="cardName"></h2>
     <p class="cardmeta"><span class="mfield" id="metaField" hidden>UPRIGHT FIELD — </span><span id="cardMeta"></span></p>
     <div class="part"><h3>01 · THE SYMBOL <small>What the image contains</small></h3><p id="pSym"></p></div>
@@ -215,6 +226,7 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
     </div>
   </div>
 </section>
+</div><!-- /theatre -->
 
 <section class="sec">
   <div class="kick"><b>ARCHIVE</b><span>— SAVED READINGS</span></div>
@@ -229,6 +241,7 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
   or professional advice. © 2026 MIND CODING · MINDCOD.ING</p>
 </footer>
 
+<script src="../../shared/velvet-curtain.js"></script>
 <script>
 (function(){
   var DECK = null, current = null;
@@ -264,7 +277,7 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
     for (var i = 0; i < DECK.length; i++) if (DECK[i].id === id){ card = DECK[i]; break; }
     if (!card) return;
     var rev = Math.random() < 0.3;
-    current = { card: card, reversed: rev, intention: ($('intent').value || '').trim() };
+    current = { card: card, reversed: rev, intention: '' };
     $('cardImg').src = '../../' + card.art;
     $('cardImg').alt = card.name + (rev ? ' (reversed)' : '');
     $('cardImg').className = rev ? 'rev' : '';
@@ -286,13 +299,8 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
     var lead = 'Do not scroll past this. Sit with ' + card.name +
       ' for one minute and hold it against your actual life — not the life you describe, the one you live.';
     if (rev) lead += ' It arrived inverted: ask where you are resisting this energy, or turning it on yourself, rather than living it.';
-    if (($('intent').value || '').trim()){
-      lead += ' Hold it against what you asked: “' + ($('intent').value || '').trim() + '”';
-    }
+    lead += ' Hold it against the question you carried in — the one you never typed.';
     $('ponderLead').textContent = lead;
-    var it = current.intention;
-    $('intentEcho').hidden = !it;
-    if (it) $('intentEcho').textContent = 'INTENTION \u2014 \u201c' + it + '\u201d';
     $('reading').classList.add('on');
     $('reading').scrollIntoView({ behavior: motionPref(), block: 'start' });
     $('save').disabled = false; $('save').textContent = 'KEEP THIS MIRROR';
@@ -601,13 +609,41 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
   function onLeave(e){ if (st && e.pointerType === 'mouse') st.hoverX = null; }
   function onBlur(){ if (st){ st.holding = false; st.dragging = false; st.washing = false; st.hoverX = null; } }
 
+  /* ---- THE THEATRE ---- */
+  var velvet = null, houseOpen = false;
+  function cryptoSeed(){
+    try {
+      var a = new Uint32Array(1); crypto.getRandomValues(a); return a[0] >>> 0;
+    } catch(e){ return (Math.random() * 0xffffffff) >>> 0; }
+  }
+  function autoWash(){
+    if (!DECK){ setTimeout(autoWash, 120); return; }
+    buildWheel();
+    $('washHow').hidden = false;
+    st.entropy = (st.entropy ^ cryptoSeed()) >>> 0;
+    st.pileVel += 0.30;                        /* the house shuffles itself */
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches){ fanOut(); return; }
+    setTimeout(function(){ fanOut(); }, 1400); /* fanOut self-guards on phase */
+  }
+  function openTheatre(){
+    if (houseOpen) return;
+    houseOpen = true;
+    $('veil').classList.add('off');
+    autoWash();
+    if (velvet){
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) velvet.setProgress(1);
+      else velvet.open();
+    }
+    $('controls').hidden = false;
+  }
   function shuffle(){
     if (!DECK){ setTimeout(shuffle, 120); return; }
+    if (!houseOpen){ openTheatre(); return; }
+    if (st && st.phase === 'wash') return;     /* already washing */
     var hintEl = $('wheelHint');
     if (hintEl) hintEl.textContent = 'SEVENTY-EIGHT SYMBOLS. ONE UNREHEARSED PERSPECTIVE.';
     $('reading').classList.remove('on');
-    $('sheet').classList.add('on');
-    buildWheel();
+    autoWash();
     $('sheet').scrollIntoView({ behavior: motionPref(), block: 'start' });
   }
 
@@ -621,7 +657,9 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
   addEventListener('blur', onBlur);
   addEventListener('resize', function(){ if (st && stage) measure(); });
 
-  $('shuffle').addEventListener('click', shuffle);
+  velvet = window.Velvet ? Velvet.mount($('curtainCv'), {}) : null;
+  $('veilBtn').addEventListener('click', openTheatre);
+  $('reshuffle').addEventListener('click', shuffle);
   $('again').addEventListener('click', shuffle);
   $('save').addEventListener('click', function(){
     if (!current) return;
