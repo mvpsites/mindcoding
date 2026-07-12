@@ -28,6 +28,19 @@ jobs:
           INDEXABLE: "1"
           BASE_URL: ${{ vars.SITE_URL || 'https://mindcoding.pages.dev' }}
         run: node tools/build_rolls.mjs dist
+      - name: Verify Cloudflare credentials (sanitized)
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          TL=$(printf %s "$CF_TOKEN" | wc -c); AL=$(printf %s "$CF_ACCT" | wc -c)
+          echo "token length: $TL / account id length: $AL (expect 32)"
+          case "$CF_TOKEN" in *" "*|*"\n"*) echo "::error::token contains whitespace";; esac
+          V=$(curl -s -H "Authorization: Bearer $CF_TOKEN" https://api.cloudflare.com/client/v4/user/tokens/verify)
+          echo "token verify: $(echo "$V" | python3 -c 'import json,sys;d=json.load(sys.stdin);print("success" if d.get("success") else d.get("errors"))')"
+          P=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Bearer $CF_TOKEN" "https://api.cloudflare.com/client/v4/accounts/$CF_ACCT/pages/projects")
+          echo "pages projects list on this account: HTTP $P (200=token+account ok, 403=missing Pages perm, 404=wrong account id, 400=malformed account id)"
+          [ "$P" = "200" ] || { echo "::error::Cloudflare credential check failed: HTTP $P on pages/projects"; exit 1; }
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
