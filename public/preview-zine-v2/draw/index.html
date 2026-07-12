@@ -59,9 +59,7 @@ transition:background .14s,color .14s;margin-top:1.4rem}
 .veil{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;justify-content:space-between;align-items:center;text-align:center;padding:1.4rem 1rem 1.6rem;transition:opacity .6s ease}
 .veil__b{display:flex;flex-direction:column;align-items:center;gap:.9rem}
 .veil.off{opacity:0;pointer-events:none}
-.veil__k{font-family:var(--mono);font-size:.6rem;letter-spacing:.24em;color:var(--ink-dim)}
-.veil__t{font-family:var(--disp);text-transform:uppercase;font-size:clamp(1.1rem,3vw,1.9rem);line-height:1.1}
-.veil__s{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;line-height:1.9;color:var(--ink-dim);max-width:30rem;text-transform:uppercase}
+.veil__t{font-family:var(--disp);text-transform:uppercase;font-size:clamp(1.5rem,4.4vw,2.9rem);line-height:1.05}
 .controls{position:absolute;left:50%;transform:translateX(-50%);bottom:.55rem;z-index:4;
   display:flex;flex-wrap:wrap;gap:.4rem .9rem;align-items:center;justify-content:center;
   padding:.35rem .7rem;background:var(--paper);border:2px solid var(--ink)}
@@ -180,7 +178,6 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
 <div class="theatre" id="theatre">
 <section class="sec sheet on" id="sheet">
   <div class="kick"><b>PLATE 02</b><span>— THE THEATRE</span></div>
-  <p class="sheet__hint" id="wheelHint">SEVENTY-EIGHT SYMBOLS. ONE UNREHEARSED PERSPECTIVE.</p>
   <p class="wheelhow" id="washHow" hidden>THE FIELD WASHES ITSELF. TOUCH IT TO WASH DEEPER.</p>
   <p class="wheelhow" id="wheelHow" hidden>
     <span class="how-touch">MOVE THROUGH THE FIELD · TAP THE GOLD-EDGED CARD WHEN ONE HOLDS YOUR ATTENTION</span>
@@ -193,10 +190,8 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
     </div>
     <canvas id="curtainCv" aria-hidden="true"></canvas>
     <div class="veil" id="veil">
-      <p class="veil__k">ASK A QUESTION YOUR AUTOPILOT CANNOT ANSWER.</p>
+      <p class="veil__t">ASK A QUESTION<br />YOUR AUTOPILOT CANNOT ANSWER.<br /><span class="g">HOLD IT SILENTLY.</span></p>
       <div class="veil__b">
-        <p class="veil__t">HOLD IT SILENTLY.<br />YOU WILL NOT BE ASKED TO TYPE IT.</p>
-        <p class="veil__s">SEVENTY-EIGHT SYMBOLS WAIT BEHIND THE KEYHOLE. ONE WILL SURFACE — DRAWN FOR YOUR QUESTION, NOT FOR YOUR HABITS.</p>
         <button id="veilBtn" class="btn" type="button">LOOK BEYOND THE VEIL</button>
       </div>
     </div>
@@ -657,8 +652,6 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
     if (!DECK){ setTimeout(shuffle, 120); return; }
     if (!houseOpen){ openTheatre(); return; }
     if (st && st.phase === 'wash') return;     /* already washing */
-    var hintEl = $('wheelHint');
-    if (hintEl) hintEl.textContent = 'SEVENTY-EIGHT SYMBOLS. ONE UNREHEARSED PERSPECTIVE.';
     $('reading').classList.remove('on');
     autoWash();
     $('sheet').scrollIntoView({ behavior: motionPref(), block: 'start' });
