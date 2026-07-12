@@ -25,6 +25,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+      - name: Generate static roll + entry pages
+        run: node tools/build_rolls.mjs dist
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
