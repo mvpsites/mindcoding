@@ -62,7 +62,9 @@ transition:background .14s,color .14s;margin-top:1.4rem}
 .veil__k{font-family:var(--mono);font-size:.6rem;letter-spacing:.24em;color:var(--ink-dim)}
 .veil__t{font-family:var(--disp);text-transform:uppercase;font-size:clamp(1.1rem,3vw,1.9rem);line-height:1.1}
 .veil__s{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;line-height:1.9;color:var(--ink-dim);max-width:30rem;text-transform:uppercase}
-.controls{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;padding:.5rem 1.2rem 1rem}
+.controls{position:absolute;left:50%;transform:translateX(-50%);bottom:.55rem;z-index:4;
+  display:flex;flex-wrap:wrap;gap:.4rem .9rem;align-items:center;justify-content:center;
+  padding:.35rem .7rem;background:var(--paper);border:2px solid var(--ink)}
 .controls__n{font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;color:var(--ink-faint)}
 @media (prefers-reduced-motion:reduce){.veil{transition:none}}
 .sheet__hint{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;
@@ -165,6 +167,16 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
   <a href="../channels/">CHANNELS →</a>
 </header>
 
+<section class="sec" id="mirror">
+  <div class="kick"><b>PLATE 01</b><span>— THE MIRROR</span></div>
+  <div class="pad">
+    <h1 class="big">The deeper mind<br />does not always arrive<br /><span class="g">in words.</span></h1>
+    <p class="q">Sometimes it appears as a symbol you cannot ignore.<br /><br />
+      The card is not a command. It is not a prediction.<br />
+      It is an interruption — a way to encounter your story from an angle you did not prepare.</p>
+  </div>
+</section>
+
 <div class="theatre" id="theatre">
 <section class="sec sheet on" id="sheet">
   <div class="kick"><b>PLATE 02</b><span>— THE THEATRE</span></div>
@@ -188,10 +200,10 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
         <button id="veilBtn" class="btn" type="button">LOOK BEYOND THE VEIL</button>
       </div>
     </div>
-  </div>
-  <div class="controls" id="controls" hidden>
-    <button id="reshuffle" class="btn btn--ghost" type="button">SHUFFLE AGAIN</button>
-    <span class="controls__n">THE ORDER IS NEVER THE SAME TWICE.</span>
+    <div class="controls" id="controls" hidden>
+      <button id="reshuffle" class="btn btn--ghost" type="button">SHUFFLE AGAIN</button>
+      <span class="controls__n">THE ORDER IS NEVER THE SAME TWICE.</span>
+    </div>
   </div>
 </section>
 
