@@ -1,5 +1,5 @@
 /* MindCod.ing service worker: network-first shell, cache-first assets */
-const CACHE = "mindcoding-v27";
+const CACHE = "mindcoding-v28";
 self.addEventListener("install", () => self.skipWaiting());
 self.addEventListener("activate", (e) => {
   e.waitUntil(
