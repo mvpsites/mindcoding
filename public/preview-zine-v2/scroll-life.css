@@ -1,0 +1,6 @@
+/* SCROLL LIFE — reveal + drift (transform/opacity only; reduced-motion never tags) */
+.sl-rise{opacity:0;transform:translate3d(0,22px,0);
+  transition:opacity .7s cubic-bezier(.22,.9,.3,1),transform .7s cubic-bezier(.22,.9,.3,1)}
+.sl-rise.sl-on{opacity:1;transform:translate3d(0,0,0)}
+.sl-drift{opacity:0;transition:opacity .9s ease;will-change:transform}
+.sl-drift.sl-on{opacity:1}
