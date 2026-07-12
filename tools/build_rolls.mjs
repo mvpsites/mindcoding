@@ -67,12 +67,13 @@ function setCanonical(html, path){
              .replace(/(<meta property="og:image" content=")[^"]*(")/,
                       `$1${BASE}/preview-zine-v2/cardback.webp$2`);
 }
-const NUM = { abundance: '01', love: '02', spirit: '03', wellness: '04' };
+const NUM = { abundance: '01', love: '02', spirit: '03', wellness: '04', books: '05' };
 const LEDE = {
   abundance: 'NOT MORE TO CHASE.<br /><span class="g">A DIFFERENT RELATIONSHIP TO ENOUGH.</span>',
   love: 'NOT ANOTHER PERSON TO PURSUE.<br /><span class="g">A NEW DEFINITION OF WHAT FEELS LIKE HOME.</span>',
   spirit: 'NOT ANOTHER BELIEF TO INSTALL.<br /><span class="g">A RETURN TO WHAT EXISTS BENEATH THE SCRIPT.</span>',
-  wellness: 'NOT ANOTHER REGIMEN TO SURVIVE.<br /><span class="g">A BODY THAT STOPS ARGUING WITH THE RECODE.</span>'
+  wellness: 'NOT ANOTHER REGIMEN TO SURVIVE.<br /><span class="g">A BODY THAT STOPS ARGUING WITH THE RECODE.</span>',
+  books: 'NOT ANOTHER READING LIST.<br /><span class="g">THE INSTRUCTIONS, EXTRACTED.</span>'
 };
 
 let entryPages = 0;

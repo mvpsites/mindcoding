@@ -112,6 +112,7 @@ cursor:pointer;text-transform:uppercase;padding:0}
   <a href="./love/">LOVE</a>
   <a href="./spirit/">SPIRIT</a>
   <a href="./wellness/">WELLNESS</a>
+  <a href="./books/">BOOKS</a>
 </nav>
 
 <section class="sec intro">
@@ -143,18 +144,20 @@ cursor:pointer;text-transform:uppercase;padding:0}
 
 <script>
 (function(){
-  var NUM = { abundance:'01', love:'02', spirit:'03', wellness:'04' };
+  var NUM = { abundance:'01', love:'02', spirit:'03', wellness:'04', books:'05' };
   var LEDE = {
     abundance: 'NOT MORE TO CHASE.<br /><span class="g">A DIFFERENT RELATIONSHIP TO ENOUGH.</span>',
     love: 'NOT ANOTHER PERSON TO PURSUE.<br /><span class="g">A NEW DEFINITION OF WHAT FEELS LIKE HOME.</span>',
     spirit: 'NOT ANOTHER BELIEF TO INSTALL.<br /><span class="g">A RETURN TO WHAT EXISTS BENEATH THE SCRIPT.</span>',
-    wellness: 'NOT ANOTHER REGIMEN TO SURVIVE.<br /><span class="g">A BODY THAT STOPS ARGUING WITH THE RECODE.</span>'
+    wellness: 'NOT ANOTHER REGIMEN TO SURVIVE.<br /><span class="g">A BODY THAT STOPS ARGUING WITH THE RECODE.</span>',
+    books: 'NOT ANOTHER READING LIST.<br /><span class="g">THE INSTRUCTIONS, EXTRACTED.</span>'
   };
   var SUPPORT = {
     abundance: 'Examine the scripts around worth, money, receiving and possibility.',
     love: 'Notice what feels familiar. Practice connection without repeating the old pattern.',
     spirit: 'Practice stillness, awareness, and contact with the part of you that cannot be reduced to one program.',
-    wellness: 'Move, breathe, rest and eat in ways that keep the new instructions running.'
+    wellness: 'Move, breathe, rest and eat in ways that keep the new instructions running.',
+    books: 'Each summary pulls the operating instructions out of one important book — what it says, and what to do with it.'
   };
   fetch('../channels.json').then(function(r){ return r.json(); }).then(function(chans){
     var host = document.getElementById('chans');

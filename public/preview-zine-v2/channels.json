@@ -82,5 +82,33 @@
     "line": ""
    }
   ]
+ },
+ {
+  "id": "books",
+  "name": "Books",
+  "line": "Video summaries of the books that rewrite how you think \u2014 the instructions, extracted.",
+  "items": [
+   {
+    "title": "Psycho-Cybernetics \u2014 The Self-Image Is the Key",
+    "type": "book summary",
+    "status": "soon",
+    "ytId": null,
+    "line": ""
+   },
+   {
+    "title": "The Power of Your Subconscious Mind",
+    "type": "book summary",
+    "status": "soon",
+    "ytId": null,
+    "line": ""
+   },
+   {
+    "title": "Autobiography of a Yogi",
+    "type": "book summary",
+    "status": "soon",
+    "ytId": null,
+    "line": ""
+   }
+  ]
  }
 ]
