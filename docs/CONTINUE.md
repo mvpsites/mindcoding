@@ -135,7 +135,16 @@ the app's storage.js format.
       that means reskinning the React app is the stated intent.
    b. Root swap: when does /preview-zine-final/ (or its production version)
       replace the live root? Requires his explicit approval per standing order.
-   c. New launch date for Project Avalon.
+   c. Launch date — **RULED 07-11 session 3: the July 12 hard launch is
+      CANCELLED.** Jad is spending all of July building the product fully;
+      launch moves to August (specific date TBD — ask when launch prep
+      starts, not before). Nothing is deadline-driven anymore; sequence for
+      quality. Also ruled in principle: TWO NEW CHANNELS are coming —
+      WELLNESS/HEALTH and BOOKS (video summaries of mind-programming reads).
+      They ride the same collections.js/library.js data-model change already
+      spec'd in item 2. A social-video automation pipeline (Reap clipping/
+      captions/scheduling, optionally Activepieces orchestration, approval
+      gate TBD) is wanted for the BOOKS videos — spec after the reskin.
    d. `/preview-codex/` ruling — three commits pushed from HIS account
       (jadf23, 10:36–10:37 on 07-11) with a complete particle experience.
       He never answered whether it's his parallel work. KEEP PARKED until ruled.
