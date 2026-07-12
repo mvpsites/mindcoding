@@ -74,6 +74,14 @@ border:var(--bd) solid var(--gold);padding:.85rem 1.5rem;
 transition:background .14s,color .14s}
 .cta:hover,.cta:focus-visible{background:var(--paper);color:var(--gold)}
 @media (prefers-reduced-motion:reduce){a.item,.cta{transition:none}}
+
+/* THE SHEET — on wide desks the zine becomes a centered 1200px page.
+   The spine stays left; only the container tightens. (Ruled 07-12.) */
+@media (min-width:1240px){
+  body>.bar,body>.sec,body>main,body>footer{max-width:1200px;margin-left:auto;margin-right:auto;
+    border-left:2px solid var(--ink);border-right:2px solid var(--ink)}
+  
+}
 </style>
 </head>
 <body>

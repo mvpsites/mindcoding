@@ -233,6 +233,14 @@ footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;ga
   .ticker__track{animation:none;transform:none}
   a.row,.btn,.row__t::after{transition:none}
 }
+
+/* THE SHEET — on wide desks the zine becomes a centered 1200px page.
+   The spine stays left; only the container tightens. (Ruled 07-12.) */
+@media (min-width:1240px){
+  body>.ticker,body>.mast,body>.sec,body>footer{max-width:1200px;margin-left:auto;margin-right:auto;
+    border-left:2px solid var(--ink);border-right:2px solid var(--ink)}
+  
+}
 </style>
 </head>
 <body>
