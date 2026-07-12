@@ -76,7 +76,7 @@
   function mount(root, cfg){
     root.innerHTML = TEMPLATE
       .replace('__KICK_B__', cfg.kickB || 'PLATE 02')
-      .replace('__KICK_S__', cfg.kickS || '\u2014 THE THEATRE');
+      .replace('__KICK_S__', cfg.kickS || '\u2014 THE DRAW');
 
   var DECK = null, current = null;
   var $ = function(id){ return document.getElementById(id); };
@@ -423,7 +423,7 @@
   function onLeave(e){ if (st && e.pointerType === 'mouse') st.hoverX = null; }
   function onBlur(){ if (st){ st.holding = false; st.dragging = false; st.washing = false; st.hoverX = null; } }
 
-  /* ---- THE THEATRE ---- */
+  /* ---- THE DRAW ---- */
   var velvet = null, houseOpen = false;
   function cryptoSeed(){
     try {

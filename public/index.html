@@ -243,6 +243,19 @@ footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;ga
 .gate__hint small{display:block;margin-top:.7rem;color:var(--ink-faint);
   font-size:.6rem;letter-spacing:.24em}
 @keyframes gatePulse{50%{opacity:.55;filter:drop-shadow(0 0 8px rgba(215,154,74,.25))}}
+.gate__inside{position:absolute;inset:0;overflow:hidden;background:#0a1026}
+.gi{position:absolute;border-radius:50%;filter:blur(46px);opacity:.5;
+  background:radial-gradient(circle,rgba(215,154,74,.75),transparent 70%)}
+.gi1{width:44vmax;height:44vmax;left:-8vmax;top:-6vmax;animation:giDrift1 11s ease-in-out infinite alternate}
+.gi2{width:36vmax;height:36vmax;right:-10vmax;bottom:-8vmax;animation:giDrift2 13s ease-in-out infinite alternate}
+.gi3{width:22vmax;height:22vmax;left:38%;top:46%;opacity:.35;animation:giDrift1 9s 1.2s ease-in-out infinite alternate-reverse}
+@keyframes giDrift1{to{transform:translate3d(7vmax,9vmax,0) scale(1.15)}}
+@keyframes giDrift2{to{transform:translate3d(-8vmax,-7vmax,0) scale(1.12)}}
+.gate__card{position:absolute;left:50%;top:50%;width:min(34vmin,190px);
+  transform:translate(-50%,-50%) rotate(-7deg);opacity:.85;
+  border:3px solid rgba(215,154,74,.55);
+  animation:gateCard 7s ease-in-out infinite alternate}
+@keyframes gateCard{to{transform:translate(-52%,-46%) rotate(6deg)}}
 .mc-in #veilgate{display:none}
 html:not(.mc-in) body{overflow:hidden}
 #cursorlight{position:fixed;top:0;left:0;width:340px;height:340px;border-radius:50%;
@@ -297,12 +310,16 @@ cursor:pointer;text-transform:uppercase;padding:0}
 <a class="skip" href="#mast">Skip to content</a>
 <div id="xhair" aria-hidden="true">X:000 · Y:000</div>
 
-<button id="veilgate" aria-label="Hold to look beyond the veil and enter Mind Coding">
+<button id="veilgate" aria-label="Hold to look inside and enter Mind Coding">
+  <div class="gate__inside" aria-hidden="true">
+    <i class="gi gi1"></i><i class="gi gi2"></i><i class="gi gi3"></i>
+    <img src="./cardback.webp" alt="" class="gate__card" />
+  </div>
   <svg class="gate__glyph" viewBox="0 0 100 130" aria-hidden="true">
     <circle cx="50" cy="42" r="26" fill="none" stroke="#D79A4A" stroke-width="7"/>
     <path d="M39 62 L61 62 L70 118 L30 118 Z" fill="#D79A4A"/>
   </svg>
-  <p class="gate__hint">HOLD THE KEYHOLE<small>LOOK BEYOND THE VEIL</small></p>
+  <p class="gate__hint">SOMETHING IS STILL RUNNING<br />BEHIND THIS PAGE<small>HOLD TO LOOK INSIDE</small></p>
 </button>
 <div id="cursorlight" aria-hidden="true"></div>
 <noscript><style>#veilgate{display:none}</style></noscript>
@@ -323,7 +340,7 @@ cursor:pointer;text-transform:uppercase;padding:0}
   </div>
   <nav class="mast__bar subnav" aria-label="Site">
     <a href="./">HOME</a>
-    <a href="#mcdraw">THE THEATRE</a>
+    <a href="#mcdraw">THE DRAW</a>
     <a href="./channels/abundance/">ABUNDANCE</a>
     <a href="./channels/love/">LOVE</a>
     <a href="./channels/spirit/">SPIRIT</a>
@@ -378,7 +395,7 @@ cursor:pointer;text-transform:uppercase;padding:0}
         aria-label="The interactive Mind Coding emblem: two mirrored profiles facing a central keyhole and star, surrounded by circuit pathways and a circular seal. Drag through it; it reforms exactly as it was."></canvas>
     </div>
     <p class="telemetry"><span id="tDisp">DISPLACEMENT 0%</span> · PROGRAM CHANGE 0%</p>
-    <p class="lesson" id="lesson" hidden>FORCE DOESN'T CHANGE IT. <a href="#mcdraw">THE THEATRE DOES →</a></p>
+    <p class="lesson" id="lesson" hidden>FORCE DOESN'T CHANGE IT. <a href="#mcdraw">THE DRAW DOES →</a></p>
     <div class="reveal" id="reveal" aria-live="polite"><div class="reveal__in">
       <p>You pulled the thought apart.<br />The program still knew<br />where to return.</p>
       <p>You disturbed the mind.<br />Not the instruction<br />that rebuilt it.</p>
@@ -602,7 +619,7 @@ cursor:pointer;text-transform:uppercase;padding:0}
 <script>
 MindDraw.mount(document.getElementById('mcdraw'), {
   deckUrl: './deck.json', artBase: './', cardback: './cardback.webp',
-  kickB: '03', kickS: '— THE THEATRE'
+  kickB: '03', kickS: '— THE DRAW'
 });
 </script>
 </body>
