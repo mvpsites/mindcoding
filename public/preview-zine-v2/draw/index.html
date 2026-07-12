@@ -92,6 +92,15 @@ background-size:13px 13px}
 box-shadow:0 24px 60px -24px rgba(0,0,0,.9);background:var(--paper)}
 .plate img{width:100%}
 .plate img.rev{transform:rotate(180deg)}
+.mfield{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;color:var(--ink-faint)}
+.part--rev{border-left:2px solid var(--red);padding-left:.95rem}
+.part--rev h3{color:var(--red)}
+.revNote{margin-top:.55rem;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;color:var(--ink-dim);text-transform:uppercase}
+.part--ponder{border-top:2px solid var(--gold);padding-top:1.1rem}
+#pPath{margin-top:.6rem}
+.ponder{list-style:none;margin:.75rem 0 0;padding:0}
+.ponder li{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;line-height:1.65;color:var(--ink-dim);padding:.5rem 0;border-top:1px dashed var(--ink-faint)}
+.ponder li:first-child{border-top:0}
 .plate figcaption{font-family:var(--mono);font-size:.56rem;letter-spacing:.18em;
 color:var(--ink-faint);padding:.5rem .6rem;border-top:2px solid var(--gold);
 text-transform:uppercase}
@@ -184,12 +193,22 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
   <div class="meaningCol">
     <p class="intentEcho" id="intentEcho" hidden></p>
     <h2 class="cardname" id="cardName"></h2>
-    <p class="cardmeta" id="cardMeta"></p>
+    <p class="cardmeta"><span class="mfield" id="metaField" hidden>UPRIGHT FIELD — </span><span id="cardMeta"></span></p>
     <div class="part"><h3>01 · THE SYMBOL <small>What the image contains</small></h3><p id="pSym"></p></div>
     <div class="part"><h3>02 · THE PATTERN <small>What it may be reflecting</small></h3><p id="pPat"></p></div>
+    <div class="part part--rev" id="revPart" hidden><h3>⟲ THE REVERSAL <small>How this pattern arrives inverted</small></h3>
+      <p id="pRev"></p>
+      <p class="revNote">The energy is present — but turned inward, delayed, or resisted. Read the pattern above through this inversion.</p></div>
     <div class="part"><h3>03 · THE QUESTION <small>What it asks you to examine</small></h3><p id="pQ"></p></div>
     <div class="part"><h3>04 · THE RECODE <small>What you may choose to practice</small></h3>
-      <p id="pRec"></p><p class="aff" id="pAff"></p></div>
+      <p id="pRec"></p><p id="pPath"></p><p class="aff" id="pAff"></p></div>
+    <div class="part part--ponder"><h3>05 · THE LIFE PATTERN <small>Where this lives in your life</small></h3>
+      <p id="ponderLead"></p>
+      <ul class="ponder">
+        <li>WHERE HAS THIS PATTERN ALREADY BEEN RUNNING — THIS WEEK, THIS YEAR, THIS DECADE?</li>
+        <li>WHO INSTALLED IT — AND WHAT WAS IT PROTECTING THEM FROM?</li>
+        <li>WHAT DOES KEEPING IT COST YOU? WHAT WOULD CHANGING IT COST YOU?</li>
+      </ul></div>
     <div class="actions" style="margin-top:1.6rem">
       <button class="btn" id="save" type="button">KEEP THIS MIRROR</button>
       <button class="btn btn--ghost" id="again" type="button">ASK DEEPER</button>
@@ -253,12 +272,24 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
     $('plateCap').textContent = 'PLATE ' + num + card.suit.toUpperCase();
     $('revTag').hidden = !rev;
     $('cardName').textContent = card.name;
-    $('cardMeta').textContent = (rev ? card.reversed : card.upright);
+    /* the plate's face value always shows; a reversal is read THROUGH it */
+    $('cardMeta').textContent = card.upright;
+    $('metaField').hidden = !rev;
+    $('revPart').hidden = !rev;
+    if (rev) $('pRev').textContent = card.reversed;
     $('pSym').textContent = card.symbolism;
     $('pPat').textContent = card.pattern;
     $('pQ').textContent = card.question;
     $('pRec').textContent = card.recode;
+    $('pPath').textContent = card.recodePath || '';
     $('pAff').textContent = card.affirmation;
+    var lead = 'Do not scroll past this. Sit with ' + card.name +
+      ' for one minute and hold it against your actual life — not the life you describe, the one you live.';
+    if (rev) lead += ' It arrived inverted: ask where you are resisting this energy, or turning it on yourself, rather than living it.';
+    if (($('intent').value || '').trim()){
+      lead += ' Hold it against what you asked: “' + ($('intent').value || '').trim() + '”';
+    }
+    $('ponderLead').textContent = lead;
     var it = current.intention;
     $('intentEcho').hidden = !it;
     if (it) $('intentEcho').textContent = 'INTENTION \u2014 \u201c' + it + '\u201d';
