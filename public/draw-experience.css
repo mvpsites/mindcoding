@@ -124,4 +124,4 @@ border:1px solid rgba(215,154,74,.35)}
 @keyframes foilSweep{to{transform:translateX(135%)}}
 
 /* ruled 07-12: the autopilot line runs red */
-.veil__t .r{color:var(--red)}
+.veil .veil__t .r, .veil__t .r{color:var(--red)}
