@@ -237,6 +237,11 @@ footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;ga
 .gate__glyph{width:min(21vmin,120px);height:auto;opacity:.9;
   filter:drop-shadow(0 0 18px rgba(215,154,74,.5));
   animation:gatePulse 2.6s ease-in-out infinite}
+.gate__ask{position:absolute;left:1.2rem;right:1.2rem;top:11vh;text-align:center;
+  font-family:var(--disp);text-transform:uppercase;color:var(--ink);
+  font-size:clamp(1.15rem,4.6vw,2.3rem);line-height:1.25;letter-spacing:.02em;
+  pointer-events:none}
+.gate__ask .ga-r{color:var(--red)}
 .gate__hint{position:absolute;left:0;right:0;bottom:12vh;text-align:center;
   font-family:var(--mono);font-size:.7rem;letter-spacing:.32em;color:var(--gold);
   transition:opacity .5s ease;pointer-events:none}
@@ -251,11 +256,6 @@ footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;ga
 .gi3{width:22vmax;height:22vmax;left:38%;top:46%;opacity:.35;animation:giDrift1 9s 1.2s ease-in-out infinite alternate-reverse}
 @keyframes giDrift1{to{transform:translate3d(7vmax,9vmax,0) scale(1.15)}}
 @keyframes giDrift2{to{transform:translate3d(-8vmax,-7vmax,0) scale(1.12)}}
-.gate__card{position:absolute;left:50%;top:50%;width:min(34vmin,190px);
-  transform:translate(-50%,-50%) rotate(-7deg);opacity:.85;
-  border:3px solid rgba(215,154,74,.55);
-  animation:gateCard 7s ease-in-out infinite alternate}
-@keyframes gateCard{to{transform:translate(-52%,-46%) rotate(6deg)}}
 .mc-in #veilgate{display:none}
 html:not(.mc-in) body{overflow:hidden}
 #cursorlight{position:fixed;top:0;left:0;width:340px;height:340px;border-radius:50%;
@@ -313,13 +313,13 @@ cursor:pointer;text-transform:uppercase;padding:0}
 <button id="veilgate" aria-label="Hold to look inside and enter Mind Coding">
   <div class="gate__inside" aria-hidden="true">
     <i class="gi gi1"></i><i class="gi gi2"></i><i class="gi gi3"></i>
-    <img src="./cardback.webp" alt="" class="gate__card" />
   </div>
   <svg class="gate__glyph" viewBox="0 0 100 130" aria-hidden="true">
     <circle cx="50" cy="42" r="26" fill="none" stroke="#D79A4A" stroke-width="7"/>
     <path d="M39 62 L61 62 L70 118 L30 118 Z" fill="#D79A4A"/>
   </svg>
-  <p class="gate__hint">SOMETHING IS STILL RUNNING<br />BEHIND THIS PAGE<small>HOLD TO LOOK INSIDE</small></p>
+  <p class="gate__ask">MOST OF WHAT YOU&rsquo;LL THINK TODAY<br />WILL HAPPEN ON <span class="ga-r">AUTOPILOT</span>.</p>
+  <p class="gate__hint">HOLD &mdash; PEEK THROUGH THE KEYHOLE<small>SEE WHAT&rsquo;S BEEN RUNNING YOU</small></p>
 </button>
 <div id="cursorlight" aria-hidden="true"></div>
 <noscript><style>#veilgate{display:none}</style></noscript>
