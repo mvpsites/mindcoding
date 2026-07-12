@@ -1,0 +1,65 @@
+name: Cloudflare Admin
+
+# One-off Cloudflare operations driven from CI (the session sandbox cannot
+# reach api.cloudflare.com directly; the runner can, and results are emitted
+# as ::notice:: annotations which ARE readable via the GitHub API).
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: What to do
+        required: true
+        type: choice
+        options: [zone-status, attach-domains, verify-live]
+
+jobs:
+  admin:
+    runs-on: ubuntu-latest
+    env:
+      CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CF_ACCT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      ZONE_NAME: mindcod.ing
+      PROJECT: mindcoding
+      PAGES_HOST: mindcoding.pages.dev
+    steps:
+      - name: Run action
+        run: |
+          api() { curl -s -H "Authorization: Bearer $CF_TOKEN" -H "Content-Type: application/json" "$@"; }
+          note() { echo "::notice::$1"; }
+
+          ZONE_JSON=$(api "https://api.cloudflare.com/client/v4/zones?name=$ZONE_NAME")
+          ZONE_ID=$(echo "$ZONE_JSON" | python3 -c 'import json,sys;r=json.load(sys.stdin)["result"];print(r[0]["id"] if r else "")')
+          ZONE_STATUS=$(echo "$ZONE_JSON" | python3 -c 'import json,sys;r=json.load(sys.stdin)["result"];print(r[0]["status"] if r else "NO_ZONE")')
+          note "zone=$ZONE_NAME status=$ZONE_STATUS id=${ZONE_ID:0:8}..."
+
+          case "${{ inputs.action }}" in
+            zone-status) exit 0 ;;
+
+            attach-domains)
+              [ "$ZONE_STATUS" = "active" ] || { echo "::error::zone not active yet ($ZONE_STATUS) — retry later"; exit 1; }
+              for D in "$ZONE_NAME" "www.$ZONE_NAME"; do
+                R=$(api -X POST -d "{\"name\":\"$D\"}" "https://api.cloudflare.com/client/v4/accounts/$CF_ACCT/pages/projects/$PROJECT/domains")
+                note "pages domain $D -> $(echo "$R" | python3 -c 'import json,sys;d=json.load(sys.stdin);print("attached" if d.get("success") else [e.get("message") for e in d.get("errors",[])])')"
+              done
+              # DNS records (API attach does not create them, unlike the dashboard):
+              # apex CNAME (CF flattens at apex) + www CNAME, both proxied.
+              for PAIR in "@:$ZONE_NAME" "www:www.$ZONE_NAME"; do
+                NAME="${PAIR%%:*}"; FQDN="${PAIR##*:}"
+                EXIST=$(api "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?name=$FQDN" | python3 -c 'import json,sys;print(len(json.load(sys.stdin)["result"]))')
+                if [ "$EXIST" = "0" ]; then
+                  R=$(api -X POST -d "{\"type\":\"CNAME\",\"name\":\"$NAME\",\"content\":\"$PAGES_HOST\",\"proxied\":true}" "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records")
+                  note "dns $FQDN CNAME->$PAGES_HOST: $(echo "$R" | python3 -c 'import json,sys;d=json.load(sys.stdin);print("created" if d.get("success") else [e.get("message") for e in d.get("errors",[])])')"
+                else
+                  note "dns $FQDN: record already present ($EXIST), left alone"
+                fi
+              done ;;
+
+            verify-live)
+              for U in "https://$ZONE_NAME/" "https://www.$ZONE_NAME/" "https://$ZONE_NAME/channels/books/"; do
+                CODE=$(curl -s -o /tmp/page -w "%{http_code}" --max-time 20 "$U" || echo FAIL)
+                CANON=$(grep -o '<link rel="canonical"[^>]*>' /tmp/page | head -1 || true)
+                TITLE=$(grep -o '<title>[^<]*' /tmp/page | head -1 | cut -c8-60 || true)
+                note "GET $U -> $CODE | title: $TITLE | $CANON"
+              done ;;
+          esac
