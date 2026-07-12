@@ -219,11 +219,12 @@ footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;ga
 /* THE SHEET — on wide desks the zine becomes a centered 1200px page.
    The spine stays left; only the container tightens. (Ruled 07-12.) */
 @media (min-width:1240px){
-  body>.ticker,body>.mast,body>.sec,body>footer{max-width:1200px;margin-left:auto;margin-right:auto;
+  body>.ticker,body>.mast,body>.sec,body>footer,body>#mcdraw{max-width:1200px;margin-left:auto;margin-right:auto;
     border-left:2px solid var(--ink);border-right:2px solid var(--ink)}
   
 }
 </style>
+<link rel="stylesheet" href="./draw-experience.css" />
 </head>
 <body>
 <a class="skip" href="#mast">Skip to content</a>
@@ -301,26 +302,28 @@ footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;ga
   </div>
 </section>
 
-<section class="sec" aria-labelledby="choice-h">
-  <div class="sec__kick"><b>03</b><span id="choice-h">— THE CHOICE</span></div>
-  <p class="choice__intro">Awareness reveals the pattern. <b>Attention gives it direction.</b><br />Choose what you want to strengthen.</p>
-  <div class="tbl__head" aria-hidden="true">
-    <span>#</span><span>CHANNEL</span><span class="h-form">FORM</span><span style="text-align:right">PG.</span>
-  </div>
-  <nav aria-label="Channels">
-    <a class="row" href="./channels/#abundance" data-handoff="openCollection(&#39;abundance&#39;)"><span class="row__no">01</span><span class="row__t">Abundance</span><span class="row__m h-form">Music · Affirmations · Life Scripts</span><span class="row__pg">04</span></a>
-    <a class="row" href="./channels/#love" data-handoff="openCollection(&#39;love&#39;)"><span class="row__no">02</span><span class="row__t">Love</span><span class="row__m h-form">Music · Affirmations · Visualization</span><span class="row__pg">11</span></a>
-    <a class="row" href="./channels/#spirit" data-handoff="openCollection(&#39;spirit&#39;)"><span class="row__no">03</span><span class="row__t">Spiritual Growth</span><span class="row__m h-form">Music · Meditation · Life Scripts</span><span class="row__pg">17</span></a>
-  </nav>
-  <p class="choice__note">FREE MUSIC, AFFIRMATIONS, VISUALIZATION AND LIFE SCRIPTS.</p>
-</section>
+<div id="mcdraw"></div>
 
 <section class="sec" aria-labelledby="closing-h">
   <div class="closing">
     <h2 class="big" id="closing-h">Your mind will keep learning<br />from whatever you rehearse.</h2>
     <p class="turn">Make the next<br />instruction yours.</p>
-    <a class="btn" href="./draw/">BEGIN THE RECODE</a>
   </div>
+</section>
+
+<section class="sec" aria-labelledby="choice-h">
+  <div class="sec__kick"><b>04</b><span id="choice-h">— THE CHOICE</span></div>
+  <p class="choice__intro">Awareness reveals the pattern. <b>Attention gives it direction.</b><br />Choose what you want to strengthen.</p>
+  <div class="tbl__head" aria-hidden="true">
+    <span>#</span><span>CHANNEL</span><span class="h-form">FORM</span><span style="text-align:right">PG.</span>
+  </div>
+  <nav aria-label="Channels">
+    <a class="row" href="./channels/abundance/"><span class="row__no">01</span><span class="row__t">Abundance</span><span class="row__m h-form">Music · Affirmations · Life Scripts</span><span class="row__pg">04</span></a>
+    <a class="row" href="./channels/love/"><span class="row__no">02</span><span class="row__t">Love</span><span class="row__m h-form">Music · Affirmations · Visualization</span><span class="row__pg">11</span></a>
+    <a class="row" href="./channels/spirit/"><span class="row__no">03</span><span class="row__t">Spiritual Growth</span><span class="row__m h-form">Music · Meditation · Life Scripts</span><span class="row__pg">17</span></a>
+    <a class="row" href="./channels/wellness/"><span class="row__no">04</span><span class="row__t">Wellness</span><span class="row__m h-form">Music · Practices · Body Scripts</span><span class="row__pg">23</span></a>
+  </nav>
+  <p class="choice__note">FREE MUSIC, AFFIRMATIONS, VISUALIZATION AND LIFE SCRIPTS.</p>
 </section>
 
 <div class="ticker" aria-hidden="true">
@@ -348,6 +351,8 @@ footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;ga
   guidance. © 2026 MIND CODING · MINDCOD.ING</p>
 </footer>
 
+<script src="../shared/keyhole-iris.js"></script>
+<script src="./draw-experience.js"></script>
 <script src="../shared/emblem-points.js"></script>
 <script src="../shared/programmed-self.js"></script>
 <script>
@@ -388,6 +393,12 @@ footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;ga
     }
   });
 })();
+</script>
+<script>
+MindDraw.mount(document.getElementById('mcdraw'), {
+  deckUrl: './deck.json', artBase: '../', cardback: './cardback.webp',
+  kickB: '03', kickS: '— THE THEATRE'
+});
 </script>
 </body>
 </html>

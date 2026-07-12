@@ -120,16 +120,18 @@ transition:background .14s,color .14s}
 
 <script>
 (function(){
-  var NUM = { abundance:'01', love:'02', spirit:'03' };
+  var NUM = { abundance:'01', love:'02', spirit:'03', wellness:'04' };
   var LEDE = {
     abundance: 'NOT MORE TO CHASE.<br /><span class="g">A DIFFERENT RELATIONSHIP TO ENOUGH.</span>',
     love: 'NOT ANOTHER PERSON TO PURSUE.<br /><span class="g">A NEW DEFINITION OF WHAT FEELS LIKE HOME.</span>',
-    spirit: 'NOT ANOTHER BELIEF TO INSTALL.<br /><span class="g">A RETURN TO WHAT EXISTS BENEATH THE SCRIPT.</span>'
+    spirit: 'NOT ANOTHER BELIEF TO INSTALL.<br /><span class="g">A RETURN TO WHAT EXISTS BENEATH THE SCRIPT.</span>',
+    wellness: 'NOT ANOTHER REGIMEN TO SURVIVE.<br /><span class="g">A BODY THAT STOPS ARGUING WITH THE RECODE.</span>'
   };
   var SUPPORT = {
     abundance: 'Examine the scripts around worth, money, receiving and possibility.',
     love: 'Notice what feels familiar. Practice connection without repeating the old pattern.',
-    spirit: 'Practice stillness, awareness, and contact with the part of you that cannot be reduced to one program.'
+    spirit: 'Practice stillness, awareness, and contact with the part of you that cannot be reduced to one program.',
+    wellness: 'Move, breathe, rest and eat in ways that keep the new instructions running.'
   };
   fetch('../channels.json').then(function(r){ return r.json(); }).then(function(chans){
     var host = document.getElementById('chans');
@@ -144,6 +146,9 @@ transition:background .14s,color .14s}
           ? '<a class="item" href="https://www.youtube.com/watch?v='+it.ytId+'" target="_blank" rel="noopener">'+inner+'</a>'
           : '<div class="item item--press">'+inner+'</div>';
       }).join('');
+      rows += '<a class="item" href="./'+c.id+'/"><span class="item__type">PAGE</span>'+
+        '<span class="item__t">OPEN THE '+c.name.toUpperCase()+' ROLL</span>'+
+        '<span class="item__st">READ \u2192</span></a>';
       return '<section class="sec" id="'+c.id+'">'+
         '<div class="kick"><b>'+NUM[c.id]+'</b><span>— CHANNEL</span></div>'+
         '<div class="chan__head"><h2 class="big">'+c.name.toUpperCase()+
