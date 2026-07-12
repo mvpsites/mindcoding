@@ -4,6 +4,45 @@
 
 ---
 
+## ⚡ 2026-07-12 PM ADDENDUM — THE CLEANSE + ROOT SWAP (Jad's ruling: "forget the rules, clean everything, self-host all assets")
+## This section OVERRIDES stale paths/rulings below. Read it first.
+
+- THE ZINE IS THE SITE ROOT. /preview-zine-v2/ no longer exists — its whole
+  tree was promoted verbatim into public/ (landing = /, /draw/, /channels/,
+  /channels/<id>/, engines + data at root). Internal structure unchanged;
+  only boundary refs were rebased (../shared→shared from landing,
+  ../../shared→../shared from /draw/, artBase '../'→'./' and '../../'→'../').
+- PURGED (recoverable forever at tags archive/pre-cleanse-2026-07-12 and
+  archive/field-v4): public/preview (20M FIELD-era snapshot), preview-parity,
+  preview-parity-2, preview-zine (v1), preview-symbol-lab, directions,
+  preview-codex, preview-zine-final, src/ (FIELD v4 React app), root
+  index.html, vite.config.js. The untouchable designations on zine-final and
+  codex were RESCINDED by Jad in this ruling. Wheel.jsx back-port source
+  lives at tag archive/field-v4.
+- BUILD SYSTEM: vite + React + three REMOVED. npm run build =
+  tools/build_site.mjs (verbatim copy public/→dist). package.json has zero
+  deps. Both workflows unchanged (they call npm run build + build_rolls).
+- build_rolls.mjs: rebased to root (zine=dist, canonicals /channels/...).
+  LATENT BUG FIXED: entry pages are one dir deeper than the roll shell they
+  template from — relative refs now gain one ../ (applied before injections
+  so the generator's own ../ back-to-roll link keeps its depth). Entry-page
+  assets were silently broken before this; a dist-wide link checker
+  (217 refs, 0 missing) now exists as a pattern — rerun it before pushes.
+- FONTS SELF-HOSTED: Google Fonts links stripped from all 8 pages; /fonts/
+  has Archivo Black 400 + Space Mono 400/700 woff2 (via @fontsource) +
+  fonts.css, linked depth-correctly per page. Zero external asset deps
+  remain (share intents are not assets).
+- sw cache v35. Engines byte-identical to the verified c9fc384 state
+  (diffed against the tag). Emblem render harness re-run: 1767 pts, 0 error.
+- CLOUDFLARE IS LIVE: mindcoding.pages.dev, secrets in place. Workflow
+  gained two permanent steps: sanitized credential verify + ensure-project
+  (wrangler CANNOT create a missing Pages project in CI — folklore wrong).
+  STILL PENDING: custom domain mindcod.ing + SITE_URL repo var, and Jad's
+  device verdicts + the copy ruling pile (unchanged below).
+
+---
+
+
 ## START HERE — WHAT THE PRODUCT IS NOW
 
 The V2 zine (/preview-zine-v2/) was restructured on 07-12 into ONE CONTINUOUS

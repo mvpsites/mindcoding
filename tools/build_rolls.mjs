@@ -10,7 +10,7 @@
       (crawler-visible — no client fetch needed; the fetch script
       is removed from dist) and links every entry to its own page.
    2. Emits one standalone page per entry at
-      /preview-zine-v2/channels/<channel>/<slug>/index.html with
+      /channels/<channel>/<slug>/index.html with
       unique <title>, meta description, canonical, and — for live
       entries — VideoObject JSON-LD.
 
@@ -27,7 +27,7 @@ const dist = process.argv[2] || 'dist';
 const BASE = (process.env.BASE_URL || '').replace(/\/$/, '');
 const INDEXABLE = process.env.INDEXABLE === '1';
 
-const zine = join(dist, 'preview-zine-v2');
+const zine = dist; // zine promoted to site root 2026-07-12
 const chans = JSON.parse(readFileSync(join(zine, 'channels.json'), 'utf8'));
 
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
@@ -65,7 +65,7 @@ function setCanonical(html, path){
   const tag = `<link rel="canonical" href="${BASE}${path}" />\n`;
   return html.replace('</head>', tag + '</head>')
              .replace(/(<meta property="og:image" content=")[^"]*(")/,
-                      `$1${BASE}/preview-zine-v2/cardback.webp$2`);
+                      `$1${BASE}/cardback.webp$2`);
 }
 const NUM = { abundance: '01', love: '02', spirit: '03', wellness: '04', books: '05' };
 const LEDE = {
@@ -94,7 +94,7 @@ for (const c of chans){
   roll = roll.replace('<main id="roll"></main>',
     `<main id="roll">${c.items.map((it, i) => entryArticle(it, i, true)).join('\n')}</main>`);
   roll = roll.replace(/<script>\s*\(function\(\)\{\s*var CH = '[\s\S]*?<\/script>/, '');
-  roll = setCanonical(setRobots(roll), `/preview-zine-v2/channels/${c.id}/`);
+  roll = setCanonical(setRobots(roll), `/channels/${c.id}/`);
   writeFileSync(rollPath, roll);
 
   /* ---- 2. one page per entry ---- */
@@ -106,6 +106,11 @@ for (const c of chans){
     const live = it.status === 'live' && it.ytId;
     const desc = it.line || `${it.title} \u2014 from the ${c.name} channel. ${c.line || ''}`.trim();
     let page = shell;
+    /* entry pages live one directory deeper than the roll shell they are
+       templated from — every relative ref gains one ../ (latent bug fixed
+       2026-07-12; applied BEFORE injections so generator-added links like
+       the ../ back-to-roll link keep their intended depth) */
+    page = page.replace(/(href|src)="(\.\.\/[^"]*)"/g, (m, a, u) => `${a}="../${u}"`);
     page = page.replace(/<title>[^<]*<\/title>/,
       `<title>${esc(it.title)} \u2014 MIND CODING ${esc(c.name)}</title>`);
     page = page.replace(/(<meta property="og:title" content=")[^"]*(")/, `$1${esc(it.title)}$2`);
@@ -132,7 +137,7 @@ for (const c of chans){
       };
       page = page.replace('</head>', `<script type="application/ld+json">${JSON.stringify(ld)}</script>\n</head>`);
     }
-    page = setCanonical(setRobots(page), `/preview-zine-v2/channels/${c.id}/${sl}/`);
+    page = setCanonical(setRobots(page), `/channels/${c.id}/${sl}/`);
     writeFileSync(join(dir, 'index.html'), page);
     entryPages++;
   }
