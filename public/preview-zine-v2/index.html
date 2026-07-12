@@ -416,7 +416,9 @@ footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;ga
   window.ProgrammedSelf.mount(cv, {
     onFrame: function(s){
       if (tDisp) tDisp.textContent = 'DISPLACEMENT ' + s.displacement + '%';
-      if (!revealed && s.peak >= 8 && s.displacement < s.peak * 0.55){
+      /* threshold matches the emblem's region-weighted meter (module lock = 4);
+         the old 8 was single-profile calibration and never fired on the emblem */
+      if (!revealed && s.peak >= 4 && s.displacement < s.peak * 0.55){
         revealed = true;
         if (reveal) reveal.classList.add('on');
       }
