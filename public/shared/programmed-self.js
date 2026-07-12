@@ -22,11 +22,14 @@
   /* region behavior — from the approved prototype, verbatim.
      circuits move most; seal + profiles restrained; star and
      keyhole strongest spring, least displacement. */
+  /* FLUID retune (ruled 07-12): hover stirs the field easily, the emblem
+     drifts home slowly. Springs ~x0.33 (lazy return), damping raised
+     (floaty glide), hierarchy preserved: circuits still yield first. */
   var BEHAVIOR = {
-    circuit: { force: 1.00, spring: 0.050, damping: 0.835 },
-    seal:    { force: 0.28, spring: 0.083, damping: 0.82  },
-    star:    { force: 0.16, spring: 0.105, damping: 0.80  },
-    key:     { force: 0.20, spring: 0.098, damping: 0.80  }
+    circuit: { force: 1.00, spring: 0.016, damping: 0.92  },
+    seal:    { force: 0.28, spring: 0.028, damping: 0.905 },
+    star:    { force: 0.16, spring: 0.038, damping: 0.89  },
+    key:     { force: 0.20, spring: 0.034, damping: 0.89  }
   };
 
   function h1(i){ return Math.abs(Math.sin(i * 12.9898) * 43758.5453) % 1; }
@@ -48,13 +51,13 @@
     var dbg = { showHomes:false, showRadius:false, freeze:false, forcePhone:false };
 
     /* interaction constants — prototype values + kept touch contract */
-    var PULL = 1.45, TANG = 0.24, HOVER_PRESS = 0.16;
+    var PULL = 1.2, TANG = 0.24, HOVER_PRESS = 0.6;   /* fluid: hover ~3x stronger net */
     var WAVE_BASE = 70, WAVE_SPAN = 150, WAVE_WINDOW = 900, SPRING_LOCK = 1.12;
     var H_INTENT_PX = 20, H_INTENT_RATIO = 1.4, V_CANCEL = 26;
 
     function phone(){ return dbg.forcePhone || isPhone; }
     /* prototype radius — scales with the emblem, floored for small canvases */
-    function radius(){ return phone() ? Math.max(82, fit * 0.18) : Math.max(118, fit * 0.20); }
+    function radius(){ return phone() ? Math.max(100, fit * 0.24) : Math.max(140, fit * 0.26); }
     function velCap(){ return phone() ? 9 : 12; }
 
     var pts = [];
@@ -124,7 +127,7 @@
           var dx = ptr.x - p.x, dy = ptr.y - p.y;
           var d = Math.hypot(dx, dy) || 1;
           if (d < R){
-            var falloff = Math.pow(1 - d / R, 1.65);
+            var falloff = Math.pow(1 - d / R, 1.35);   /* softer gradient, watery */
             var press = ptr.on ? 1 : HOVER_PRESS;
             var force = b.force * falloff * press;
             p.vx += (dx / d) * force * PULL;
