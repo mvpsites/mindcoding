@@ -305,8 +305,6 @@
     st.order.splice(pos, 1);
     st.rot = Math.min(st.rot, Math.max(st.order.length - 1, 0) * STEP);
     st.done = true;
-    var hintEl = $('wheelHint');
-    if (hintEl) hintEl.textContent = 'LET THE SYMBOL SETTLE';
     try { if (navigator.vibrate) navigator.vibrate(12); } catch(err){}
     if (el){
       el.style.transition = 'transform .55s cubic-bezier(.22,.9,.3,1), opacity .45s ease';
