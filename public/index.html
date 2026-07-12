@@ -233,22 +233,24 @@ footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;ga
 #veilgate{position:fixed;inset:0;z-index:200;background:var(--paper);
   display:flex;align-items:center;justify-content:center;touch-action:none;
   cursor:pointer;border:0;padding:0;width:100%}
-#veilgate canvas{position:absolute;inset:0;width:100%;height:100%}
-.gate__glyph{width:min(21vmin,120px);height:auto;opacity:.9;
+#veilgate canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2}
+/* stacking: interior UNDER the iris (visible only through the punched hole),
+   copy ABOVE it */
+.gate__glyph{width:min(21vmin,120px);height:auto;opacity:.9;position:relative;z-index:3;
   filter:drop-shadow(0 0 18px rgba(215,154,74,.5));
   animation:gatePulse 2.6s ease-in-out infinite}
-.gate__ask{position:absolute;left:1.2rem;right:1.2rem;top:11vh;text-align:center;
+.gate__ask{position:absolute;left:1.2rem;right:1.2rem;top:11vh;text-align:center;z-index:3;
   font-family:var(--disp);text-transform:uppercase;color:var(--ink);
   font-size:clamp(1.15rem,4.6vw,2.3rem);line-height:1.25;letter-spacing:.02em;
   pointer-events:none}
 .gate__ask .ga-r{color:var(--red)}
-.gate__hint{position:absolute;left:0;right:0;bottom:12vh;text-align:center;
+.gate__hint{position:absolute;left:0;right:0;bottom:12vh;text-align:center;z-index:3;
   font-family:var(--mono);font-size:.7rem;letter-spacing:.32em;color:var(--gold);
   transition:opacity .5s ease;pointer-events:none}
 .gate__hint small{display:block;margin-top:.7rem;color:var(--ink-faint);
   font-size:.6rem;letter-spacing:.24em}
 @keyframes gatePulse{50%{opacity:.55;filter:drop-shadow(0 0 8px rgba(215,154,74,.25))}}
-.gate__inside{position:absolute;inset:0;overflow:hidden;background:#0a1026}
+.gate__inside{position:absolute;inset:0;overflow:hidden;background:#0a1026;z-index:1}
 .gi{position:absolute;border-radius:50%;filter:blur(46px);opacity:.5;
   background:radial-gradient(circle,rgba(215,154,74,.75),transparent 70%)}
 .gi1{width:44vmax;height:44vmax;left:-8vmax;top:-6vmax;animation:giDrift1 11s ease-in-out infinite alternate}
