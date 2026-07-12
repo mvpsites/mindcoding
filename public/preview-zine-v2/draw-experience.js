@@ -26,7 +26,7 @@
     <div class="veil" id="veil">
       <p class="veil__t">ASK A QUESTION<br />YOUR AUTOPILOT CANNOT ANSWER.<br /><span class="g">HOLD IT SILENTLY.</span></p>
       <div class="veil__b">
-        <button id="veilBtn" class="btn" type="button">LOOK BEYOND THE VEIL</button>
+        <button id="veilBtn" class="btn btn--veil" type="button">LOOK BEYOND THE VEIL</button>
       </div>
     </div>
     <div class="controls" id="controls" hidden>

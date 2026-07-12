@@ -34,11 +34,11 @@ color:var(--ink-faint);text-transform:uppercase;padding:.5rem 1.2rem 0}
 font-family:var(--mono);font-size:.78rem;letter-spacing:.18em;
 color:var(--gold);text-transform:uppercase;font-variant-numeric:tabular-nums;
 pointer-events:none;text-shadow:0 2px 8px rgba(7,11,26,.9)}
-.wheelstage{position:relative;overflow:hidden;height:360px;margin:0.8rem 0 0;
+.wheelstage{position:relative;overflow:hidden;height:470px;margin:0.8rem 0 0;
 border-top:2px solid var(--ink);touch-action:none;cursor:grab;user-select:none;
 -webkit-user-select:none}
 .wheelstage.pan{touch-action:pan-y}
-@media (min-width:561px){.wheelstage{height:430px}}
+@media (min-width:561px){.wheelstage{height:620px}}
 .wheelcard{position:absolute;left:0;top:0;will-change:transform;
 border:2px solid var(--ink);background:var(--paper)}
 .wheelcard img{width:100%;height:100%;display:block;object-fit:cover;pointer-events:none}
@@ -90,3 +90,23 @@ padding-left:.8rem;line-height:1.7}
   .reading.on{grid-template-columns:1fr}
   .plateCol{border-right:none;border-bottom:var(--bd) solid var(--ink)}
 }
+
+/* ---- CENTERPIECE (ruled 07-12): the theatre is the heart of the site ---- */
+.mcdraw-btn,.theatre .btn{display:inline-block;font-family:var(--disp);text-transform:uppercase;
+font-size:.95rem;letter-spacing:.04em;color:var(--paper);background:var(--gold);
+border:var(--bd) solid var(--gold);padding:.85rem 1.5rem;cursor:pointer;
+transition:background .14s,color .14s;margin-top:0}
+.theatre .btn:hover,.theatre .btn:focus-visible{background:var(--paper);color:var(--gold)}
+.theatre .btn--ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+.theatre .btn--ghost:hover,.theatre .btn--ghost:focus-visible{background:var(--ink);color:var(--paper)}
+.btn--veil{position:relative;font-size:1.05rem;padding:1rem 2rem;
+animation:veilPulse 2.4s ease-out infinite}
+@keyframes veilPulse{
+  0%{box-shadow:0 0 0 0 rgba(215,154,74,.55),0 0 34px rgba(215,154,74,.25)}
+  70%{box-shadow:0 0 0 22px rgba(215,154,74,0),0 0 34px rgba(215,154,74,.25)}
+  100%{box-shadow:0 0 0 0 rgba(215,154,74,0),0 0 34px rgba(215,154,74,.25)}}
+.prosc::after{content:"";position:absolute;inset:10px;z-index:3;pointer-events:none;
+border:1px solid rgba(215,154,74,.35)}
+.veil__t{text-shadow:0 2px 24px rgba(7,11,26,.9)}
+.veil__t .g{text-shadow:0 0 26px rgba(215,154,74,.45)}
+@media (prefers-reduced-motion:reduce){.btn--veil{animation:none}}

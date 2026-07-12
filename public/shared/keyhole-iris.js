@@ -81,7 +81,7 @@
         }
     }
 
-    function markScale(){ return Math.min(W, H) * 0.16; }         /* the resting keyhole */
+    function markScale(){ return Math.min(W, H) * 0.21; }         /* the resting keyhole — centerpiece scale */
     function maxScale(){ return Math.hypot(W, H) * 1.9; }          /* swallows the frame */
     function scaleAt(o){
       var bloom = Math.max(0, (o - FLARE_END) / (1 - FLARE_END));
@@ -108,8 +108,8 @@
       /* light leaking from behind the keyhole (pre-bloom) */
       if (doneness < 0.6){
         var pulse = reduce ? 1 : 0.86 + 0.14 * Math.sin(now * 0.0016);
-        var leak = ctx.createRadialGradient(cx, cy, 0, cx, cy, markScale() * (1.9 + flare * 1.4));
-        leak.addColorStop(0, 'rgba(' + GOLD + ',' + (0.20 * pulse * (1 + flare * 1.6) * (1 - doneness)).toFixed(3) + ')');
+        var leak = ctx.createRadialGradient(cx, cy, 0, cx, cy, markScale() * (2.6 + flare * 1.6));
+        leak.addColorStop(0, 'rgba(' + GOLD + ',' + (0.34 * pulse * (1 + flare * 1.4) * (1 - doneness)).toFixed(3) + ')');
         leak.addColorStop(1, 'rgba(' + GOLD + ',0)');
         ctx.fillStyle = leak;
         ctx.fillRect(0, 0, W, H);
