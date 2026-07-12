@@ -25,12 +25,17 @@
   /* FLUID retune (ruled 07-12): hover stirs the field easily, the emblem
      drifts home slowly. Springs ~x0.33 (lazy return), damping raised
      (floaty glide), hierarchy preserved: circuits still yield first. */
+  /* ELASTIC retune (ruled 07-12): while HELD the springs barely fight
+     (x0.15 authority — the field follows you, you believe you changed it);
+     on RELEASE the full springs whip it home, keyhole outward. Hover keeps
+     the fluid stir; only the drag is given rope. */
   var BEHAVIOR = {
-    circuit: { force: 1.00, spring: 0.016, damping: 0.92  },
-    seal:    { force: 0.28, spring: 0.028, damping: 0.905 },
-    star:    { force: 0.16, spring: 0.038, damping: 0.89  },
-    key:     { force: 0.20, spring: 0.034, damping: 0.89  }
+    circuit: { force: 1.00, spring: 0.030, damping: 0.90  },
+    seal:    { force: 0.28, spring: 0.048, damping: 0.885 },
+    star:    { force: 0.16, spring: 0.060, damping: 0.87  },
+    key:     { force: 0.20, spring: 0.054, damping: 0.87  }
   };
+  var DRAG_AUTHORITY = 0.15;
 
   function h1(i){ return Math.abs(Math.sin(i * 12.9898) * 43758.5453) % 1; }
 
@@ -144,6 +149,7 @@
         /* spring toward home — on release, the reformation travels
            from the keyhole outward (center-out wave) */
         var spring = b.spring;
+        if (ptr.on && active) spring *= DRAG_AUTHORITY;   /* give the hand rope */
         if (inRelease && sinceRel < WAVE_WINDOW){
           var coreDistance = Math.hypot(p.homeX - cx, p.homeY - cy) / (fit * 0.5);
           if (sinceRel < WAVE_BASE + coreDistance * WAVE_SPAN) spring = 0;
