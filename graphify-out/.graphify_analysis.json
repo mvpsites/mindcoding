@@ -1,0 +1,152 @@
+{
+  "communities": {
+    "0": [
+      "tools_sample_stencil",
+      "tools_sample_stencil_canvas",
+      "tools_sample_stencil_cardback",
+      "tools_sample_stencil_coin",
+      "tools_sample_stencil_crown",
+      "tools_sample_stencil_dollar",
+      "tools_sample_stencil_flame",
+      "tools_sample_stencil_heart",
+      "tools_sample_stencil_meditator",
+      "tools_sample_stencil_sample"
+    ],
+    "1": [
+      "tools_build_rolls",
+      "tools_build_rolls_base",
+      "tools_build_rolls_chans",
+      "tools_build_rolls_hand",
+      "tools_build_rolls_lede",
+      "tools_build_rolls_num",
+      "tools_build_rolls_setcanonical",
+      "tools_build_rolls_setrobots"
+    ],
+    "2": [
+      "package",
+      "package_name",
+      "package_private",
+      "package_scripts",
+      "package_scripts_build",
+      "package_type",
+      "package_version"
+    ],
+    "3": [
+      "tools_build_rolls_entryarticle",
+      "tools_build_rolls_entryhow",
+      "tools_build_rolls_entrymedia",
+      "tools_build_rolls_esc",
+      "tools_build_rolls_setdesc",
+      "tools_build_rolls_slug"
+    ],
+    "4": [
+      "public_shared_keyhole_iris",
+      "public_shared_keyhole_iris_keyholepath",
+      "public_shared_keyhole_iris_mount",
+      "public_shared_keyhole_iris_outlinepoints"
+    ],
+    "5": [
+      "public_shared_nav_iris",
+      "public_shared_nav_iris_arrive",
+      "public_shared_nav_iris_fullcanvas"
+    ],
+    "6": [
+      "public_shared_programmed_self",
+      "public_shared_programmed_self_h1",
+      "public_shared_programmed_self_mount"
+    ],
+    "7": [
+      "public_draw_experience",
+      "public_draw_experience_mount"
+    ],
+    "8": [
+      "public_scroll_life",
+      "public_scroll_life_init"
+    ],
+    "9": [
+      "tools_fetch_art",
+      "tools_fetch_art_rationale_1"
+    ],
+    "10": [
+      "public_shared_emblem_points"
+    ],
+    "11": [
+      "public_sw"
+    ],
+    "12": [
+      "tools_build_site"
+    ]
+  },
+  "cohesion": {
+    "0": 0.35555555555555557,
+    "1": 0.25,
+    "2": 0.2857142857142857,
+    "3": 0.4666666666666667,
+    "4": 0.5,
+    "5": 1.0,
+    "6": 0.6666666666666666,
+    "7": 1.0,
+    "8": 1.0,
+    "9": 1.0,
+    "10": 1.0,
+    "11": 1.0,
+    "12": 1.0
+  },
+  "gods": [
+    {
+      "id": "tools_sample_stencil_canvas",
+      "label": "canvas()",
+      "degree": 8
+    },
+    {
+      "id": "tools_build_rolls_esc",
+      "label": "esc()",
+      "degree": 5
+    },
+    {
+      "id": "tools_build_rolls_entryarticle",
+      "label": "entryArticle()",
+      "degree": 5
+    },
+    {
+      "id": "tools_build_rolls_entrymedia",
+      "label": "entryMedia()",
+      "degree": 3
+    },
+    {
+      "id": "tools_build_rolls_entryhow",
+      "label": "entryHow()",
+      "degree": 3
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 2
+    },
+    {
+      "id": "public_shared_nav_iris_fullcanvas",
+      "label": "fullCanvas()",
+      "degree": 2
+    },
+    {
+      "id": "public_shared_nav_iris_arrive",
+      "label": "arrive()",
+      "degree": 2
+    },
+    {
+      "id": "tools_build_rolls_slug",
+      "label": "slug()",
+      "degree": 2
+    },
+    {
+      "id": "tools_build_rolls_setdesc",
+      "label": "setDesc()",
+      "degree": 2
+    }
+  ],
+  "surprises": [],
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}

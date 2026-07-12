@@ -1,0 +1,1061 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "package.json",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "package",
+      "community": 2,
+      "norm_label": "package.json"
+    },
+    {
+      "label": "name",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "package_name",
+      "community": 2,
+      "norm_label": "name"
+    },
+    {
+      "label": "private",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "package_private",
+      "community": 2,
+      "norm_label": "private"
+    },
+    {
+      "label": "version",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "package_version",
+      "community": 2,
+      "norm_label": "version"
+    },
+    {
+      "label": "type",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "package_type",
+      "community": 2,
+      "norm_label": "type"
+    },
+    {
+      "label": "scripts",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "package_scripts",
+      "community": 2,
+      "norm_label": "scripts"
+    },
+    {
+      "label": "build",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "package_scripts_build",
+      "community": 2,
+      "norm_label": "build"
+    },
+    {
+      "label": "draw-experience.js",
+      "file_type": "code",
+      "source_file": "public/draw-experience.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "public_draw_experience",
+      "community": 7,
+      "norm_label": "draw-experience.js"
+    },
+    {
+      "label": "mount()",
+      "file_type": "code",
+      "source_file": "public/draw-experience.js",
+      "source_location": "L76",
+      "_origin": "ast",
+      "id": "public_draw_experience_mount",
+      "community": 7,
+      "norm_label": "mount()"
+    },
+    {
+      "label": "scroll-life.js",
+      "file_type": "code",
+      "source_file": "public/scroll-life.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "public_scroll_life",
+      "community": 8,
+      "norm_label": "scroll-life.js"
+    },
+    {
+      "label": "init()",
+      "file_type": "code",
+      "source_file": "public/scroll-life.js",
+      "source_location": "L20",
+      "_origin": "ast",
+      "id": "public_scroll_life_init",
+      "community": 8,
+      "norm_label": "init()"
+    },
+    {
+      "label": "emblem-points.js",
+      "file_type": "code",
+      "source_file": "public/shared/emblem-points.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "public_shared_emblem_points",
+      "community": 10,
+      "norm_label": "emblem-points.js"
+    },
+    {
+      "label": "keyhole-iris.js",
+      "file_type": "code",
+      "source_file": "public/shared/keyhole-iris.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "public_shared_keyhole_iris",
+      "community": 4,
+      "norm_label": "keyhole-iris.js"
+    },
+    {
+      "label": "keyholePath()",
+      "file_type": "code",
+      "source_file": "public/shared/keyhole-iris.js",
+      "source_location": "L26",
+      "_origin": "ast",
+      "id": "public_shared_keyhole_iris_keyholepath",
+      "community": 4,
+      "norm_label": "keyholepath()"
+    },
+    {
+      "label": "outlinePoints()",
+      "file_type": "code",
+      "source_file": "public/shared/keyhole-iris.js",
+      "source_location": "L40",
+      "_origin": "ast",
+      "id": "public_shared_keyhole_iris_outlinepoints",
+      "community": 4,
+      "norm_label": "outlinepoints()"
+    },
+    {
+      "label": "mount()",
+      "file_type": "code",
+      "source_file": "public/shared/keyhole-iris.js",
+      "source_location": "L57",
+      "_origin": "ast",
+      "id": "public_shared_keyhole_iris_mount",
+      "community": 4,
+      "norm_label": "mount()"
+    },
+    {
+      "label": "nav-iris.js",
+      "file_type": "code",
+      "source_file": "public/shared/nav-iris.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "public_shared_nav_iris",
+      "community": 5,
+      "norm_label": "nav-iris.js"
+    },
+    {
+      "label": "fullCanvas()",
+      "file_type": "code",
+      "source_file": "public/shared/nav-iris.js",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "public_shared_nav_iris_fullcanvas",
+      "community": 5,
+      "norm_label": "fullcanvas()"
+    },
+    {
+      "label": "arrive()",
+      "file_type": "code",
+      "source_file": "public/shared/nav-iris.js",
+      "source_location": "L30",
+      "_origin": "ast",
+      "id": "public_shared_nav_iris_arrive",
+      "community": 5,
+      "norm_label": "arrive()"
+    },
+    {
+      "label": "programmed-self.js",
+      "file_type": "code",
+      "source_file": "public/shared/programmed-self.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "public_shared_programmed_self",
+      "community": 6,
+      "norm_label": "programmed-self.js"
+    },
+    {
+      "label": "h1()",
+      "file_type": "code",
+      "source_file": "public/shared/programmed-self.js",
+      "source_location": "L40",
+      "_origin": "ast",
+      "id": "public_shared_programmed_self_h1",
+      "community": 6,
+      "norm_label": "h1()"
+    },
+    {
+      "label": "mount()",
+      "file_type": "code",
+      "source_file": "public/shared/programmed-self.js",
+      "source_location": "L43",
+      "_origin": "ast",
+      "id": "public_shared_programmed_self_mount",
+      "community": 6,
+      "norm_label": "mount()"
+    },
+    {
+      "label": "sw.js",
+      "file_type": "code",
+      "source_file": "public/sw.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "public_sw",
+      "community": 11,
+      "norm_label": "sw.js"
+    },
+    {
+      "label": "build_rolls.mjs",
+      "file_type": "code",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "tools_build_rolls",
+      "community": 1,
+      "norm_label": "build_rolls.mjs"
+    },
+    {
+      "label": "BASE",
+      "file_type": "code",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L27",
+      "_origin": "ast",
+      "id": "tools_build_rolls_base",
+      "community": 1,
+      "norm_label": "base"
+    },
+    {
+      "label": "chans",
+      "file_type": "code",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L31",
+      "_origin": "ast",
+      "id": "tools_build_rolls_chans",
+      "community": 1,
+      "norm_label": "chans"
+    },
+    {
+      "label": "esc()",
+      "file_type": "code",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L33",
+      "_origin": "ast",
+      "id": "tools_build_rolls_esc",
+      "community": 3,
+      "norm_label": "esc()"
+    },
+    {
+      "label": "slug()",
+      "file_type": "code",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L35",
+      "_origin": "ast",
+      "id": "tools_build_rolls_slug",
+      "community": 3,
+      "norm_label": "slug()"
+    },
+    {
+      "label": "entryMedia()",
+      "file_type": "code",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L37",
+      "_origin": "ast",
+      "id": "tools_build_rolls_entrymedia",
+      "community": 3,
+      "norm_label": "entrymedia()"
+    },
+    {
+      "label": "entryHow()",
+      "file_type": "code",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L42",
+      "_origin": "ast",
+      "id": "tools_build_rolls_entryhow",
+      "community": 3,
+      "norm_label": "entryhow()"
+    },
+    {
+      "label": "entryArticle()",
+      "file_type": "code",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L47",
+      "_origin": "ast",
+      "id": "tools_build_rolls_entryarticle",
+      "community": 3,
+      "norm_label": "entryarticle()"
+    },
+    {
+      "label": "setRobots()",
+      "file_type": "code",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L58",
+      "_origin": "ast",
+      "id": "tools_build_rolls_setrobots",
+      "community": 1,
+      "norm_label": "setrobots()"
+    },
+    {
+      "label": "setCanonical()",
+      "file_type": "code",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L63",
+      "_origin": "ast",
+      "id": "tools_build_rolls_setcanonical",
+      "community": 1,
+      "norm_label": "setcanonical()"
+    },
+    {
+      "label": "setDesc()",
+      "file_type": "code",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L72",
+      "_origin": "ast",
+      "id": "tools_build_rolls_setdesc",
+      "community": 3,
+      "norm_label": "setdesc()"
+    },
+    {
+      "label": "NUM",
+      "file_type": "code",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L78",
+      "_origin": "ast",
+      "id": "tools_build_rolls_num",
+      "community": 1,
+      "norm_label": "num"
+    },
+    {
+      "label": "LEDE",
+      "file_type": "code",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L79",
+      "_origin": "ast",
+      "id": "tools_build_rolls_lede",
+      "community": 1,
+      "norm_label": "lede"
+    },
+    {
+      "label": "HAND",
+      "file_type": "code",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L157",
+      "_origin": "ast",
+      "id": "tools_build_rolls_hand",
+      "community": 1,
+      "norm_label": "hand"
+    },
+    {
+      "label": "build_site.mjs",
+      "file_type": "code",
+      "source_file": "tools/build_site.mjs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "tools_build_site",
+      "community": 12,
+      "norm_label": "build_site.mjs"
+    },
+    {
+      "label": "fetch_art.py",
+      "file_type": "code",
+      "source_file": "tools/fetch_art.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "tools_fetch_art",
+      "community": 9,
+      "norm_label": "fetch_art.py"
+    },
+    {
+      "label": "Art courier: runs on GitHub Actions (full internet), downloads card art from the",
+      "file_type": "rationale",
+      "source_file": "tools/fetch_art.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "tools_fetch_art_rationale_1",
+      "community": 9,
+      "norm_label": "art courier: runs on github actions (full internet), downloads card art from the"
+    },
+    {
+      "label": "sample_stencil.py",
+      "file_type": "code",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "tools_sample_stencil",
+      "community": 0,
+      "norm_label": "sample_stencil.py"
+    },
+    {
+      "label": "canvas()",
+      "file_type": "code",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "tools_sample_stencil_canvas",
+      "community": 0,
+      "norm_label": "canvas()"
+    },
+    {
+      "label": "crown()",
+      "file_type": "code",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L18",
+      "_origin": "ast",
+      "id": "tools_sample_stencil_crown",
+      "community": 0,
+      "norm_label": "crown()"
+    },
+    {
+      "label": "coin()",
+      "file_type": "code",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L33",
+      "_origin": "ast",
+      "id": "tools_sample_stencil_coin",
+      "community": 0,
+      "norm_label": "coin()"
+    },
+    {
+      "label": "heart()",
+      "file_type": "code",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L48",
+      "_origin": "ast",
+      "id": "tools_sample_stencil_heart",
+      "community": 0,
+      "norm_label": "heart()"
+    },
+    {
+      "label": "flame()",
+      "file_type": "code",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L59",
+      "_origin": "ast",
+      "id": "tools_sample_stencil_flame",
+      "community": 0,
+      "norm_label": "flame()"
+    },
+    {
+      "label": "dollar()",
+      "file_type": "code",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L72",
+      "_origin": "ast",
+      "id": "tools_sample_stencil_dollar",
+      "community": 0,
+      "norm_label": "dollar()"
+    },
+    {
+      "label": "meditator()",
+      "file_type": "code",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L83",
+      "_origin": "ast",
+      "id": "tools_sample_stencil_meditator",
+      "community": 0,
+      "norm_label": "meditator()"
+    },
+    {
+      "label": "cardback()",
+      "file_type": "code",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L101",
+      "_origin": "ast",
+      "id": "tools_sample_stencil_cardback",
+      "community": 0,
+      "norm_label": "cardback()"
+    },
+    {
+      "label": "sample()",
+      "file_type": "code",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L125",
+      "_origin": "ast",
+      "id": "tools_sample_stencil_sample",
+      "community": 0,
+      "norm_label": "sample()"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "package",
+      "target": "package_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "package",
+      "target": "package_private",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "package",
+      "target": "package_scripts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "package",
+      "target": "package_type",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "package",
+      "target": "package_version",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "package_scripts",
+      "target": "package_scripts_build",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/draw-experience.js",
+      "source_location": "L76",
+      "weight": 1.0,
+      "source": "public_draw_experience",
+      "target": "public_draw_experience_mount",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/scroll-life.js",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "public_scroll_life",
+      "target": "public_scroll_life_init",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/shared/keyhole-iris.js",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "public_shared_keyhole_iris",
+      "target": "public_shared_keyhole_iris_keyholepath",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/shared/keyhole-iris.js",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "public_shared_keyhole_iris",
+      "target": "public_shared_keyhole_iris_mount",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/shared/keyhole-iris.js",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "public_shared_keyhole_iris",
+      "target": "public_shared_keyhole_iris_outlinepoints",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/shared/nav-iris.js",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "public_shared_nav_iris",
+      "target": "public_shared_nav_iris_arrive",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/shared/nav-iris.js",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "public_shared_nav_iris",
+      "target": "public_shared_nav_iris_fullcanvas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/shared/nav-iris.js",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "public_shared_nav_iris_arrive",
+      "target": "public_shared_nav_iris_fullcanvas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/shared/programmed-self.js",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "public_shared_programmed_self",
+      "target": "public_shared_programmed_self_h1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/shared/programmed-self.js",
+      "source_location": "L43",
+      "weight": 1.0,
+      "source": "public_shared_programmed_self",
+      "target": "public_shared_programmed_self_mount",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "tools_build_rolls",
+      "target": "tools_build_rolls_base",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L31",
+      "weight": 1.0,
+      "source": "tools_build_rolls",
+      "target": "tools_build_rolls_chans",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L47",
+      "weight": 1.0,
+      "source": "tools_build_rolls",
+      "target": "tools_build_rolls_entryarticle",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L42",
+      "weight": 1.0,
+      "source": "tools_build_rolls",
+      "target": "tools_build_rolls_entryhow",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "tools_build_rolls",
+      "target": "tools_build_rolls_entrymedia",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L33",
+      "weight": 1.0,
+      "source": "tools_build_rolls",
+      "target": "tools_build_rolls_esc",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L157",
+      "weight": 1.0,
+      "source": "tools_build_rolls",
+      "target": "tools_build_rolls_hand",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L79",
+      "weight": 1.0,
+      "source": "tools_build_rolls",
+      "target": "tools_build_rolls_lede",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L78",
+      "weight": 1.0,
+      "source": "tools_build_rolls",
+      "target": "tools_build_rolls_num",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L63",
+      "weight": 1.0,
+      "source": "tools_build_rolls",
+      "target": "tools_build_rolls_setcanonical",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L72",
+      "weight": 1.0,
+      "source": "tools_build_rolls",
+      "target": "tools_build_rolls_setdesc",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L58",
+      "weight": 1.0,
+      "source": "tools_build_rolls",
+      "target": "tools_build_rolls_setrobots",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L35",
+      "weight": 1.0,
+      "source": "tools_build_rolls",
+      "target": "tools_build_rolls_slug",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L50",
+      "weight": 1.0,
+      "source": "tools_build_rolls_entryarticle",
+      "target": "tools_build_rolls_esc",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L44",
+      "weight": 1.0,
+      "source": "tools_build_rolls_entryhow",
+      "target": "tools_build_rolls_esc",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "tools_build_rolls_entrymedia",
+      "target": "tools_build_rolls_esc",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L73",
+      "weight": 1.0,
+      "source": "tools_build_rolls_setdesc",
+      "target": "tools_build_rolls_esc",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L50",
+      "weight": 1.0,
+      "source": "tools_build_rolls_entryarticle",
+      "target": "tools_build_rolls_slug",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L56",
+      "weight": 1.0,
+      "source": "tools_build_rolls_entryarticle",
+      "target": "tools_build_rolls_entrymedia",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/build_rolls.mjs",
+      "source_location": "L55",
+      "weight": 1.0,
+      "source": "tools_build_rolls_entryarticle",
+      "target": "tools_build_rolls_entryhow",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/fetch_art.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "tools_fetch_art_rationale_1",
+      "target": "tools_fetch_art",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "tools_sample_stencil",
+      "target": "tools_sample_stencil_canvas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "indirect_call",
+      "confidence": "INFERRED",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L138",
+      "weight": 1.0,
+      "context": "collection",
+      "source": "tools_sample_stencil",
+      "target": "tools_sample_stencil_cardback",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L33",
+      "weight": 1.0,
+      "source": "tools_sample_stencil",
+      "target": "tools_sample_stencil_coin",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "indirect_call",
+      "confidence": "INFERRED",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L137",
+      "weight": 1.0,
+      "context": "collection",
+      "source": "tools_sample_stencil",
+      "target": "tools_sample_stencil_crown",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "indirect_call",
+      "confidence": "INFERRED",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L137",
+      "weight": 1.0,
+      "context": "collection",
+      "source": "tools_sample_stencil",
+      "target": "tools_sample_stencil_dollar",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L59",
+      "weight": 1.0,
+      "source": "tools_sample_stencil",
+      "target": "tools_sample_stencil_flame",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "indirect_call",
+      "confidence": "INFERRED",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L137",
+      "weight": 1.0,
+      "context": "collection",
+      "source": "tools_sample_stencil",
+      "target": "tools_sample_stencil_heart",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "indirect_call",
+      "confidence": "INFERRED",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L138",
+      "weight": 1.0,
+      "context": "collection",
+      "source": "tools_sample_stencil",
+      "target": "tools_sample_stencil_meditator",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L125",
+      "weight": 1.0,
+      "source": "tools_sample_stencil",
+      "target": "tools_sample_stencil_sample",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L102",
+      "weight": 1.0,
+      "source": "tools_sample_stencil_cardback",
+      "target": "tools_sample_stencil_canvas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "tools_sample_stencil_coin",
+      "target": "tools_sample_stencil_canvas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "tools_sample_stencil_crown",
+      "target": "tools_sample_stencil_canvas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L74",
+      "weight": 1.0,
+      "source": "tools_sample_stencil_dollar",
+      "target": "tools_sample_stencil_canvas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "tools_sample_stencil_flame",
+      "target": "tools_sample_stencil_canvas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "tools_sample_stencil_heart",
+      "target": "tools_sample_stencil_canvas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tools/sample_stencil.py",
+      "source_location": "L84",
+      "weight": 1.0,
+      "source": "tools_sample_stencil_meditator",
+      "target": "tools_sample_stencil_canvas",
+      "confidence_score": 1.0
+    }
+  ],
+  "hyperedges": [],
+  "built_at_commit": "dd5e3831ac2c00ba1ccb8ecaf26d60523fdd5c3b"
+}

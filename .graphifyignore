@@ -1,0 +1,10 @@
+# code-only corpus: docs/media need an LLM backend, code parses locally
+dist/
+node_modules/
+art/
+fonts/
+icons/
+*.md
+*.webp
+*.png
+*.lock
