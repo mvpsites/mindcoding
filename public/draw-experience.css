@@ -122,3 +122,6 @@ border:1px solid rgba(215,154,74,.35)}
   .reading.on .plate::after{animation:foilSweep 1.15s ease-out .55s 1 forwards}
 }
 @keyframes foilSweep{to{transform:translateX(135%)}}
+
+/* ruled 07-12: the autopilot line runs red */
+.veil__t .r{color:var(--red)}

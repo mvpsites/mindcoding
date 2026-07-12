@@ -24,7 +24,7 @@
     </div>
     <canvas id="curtainCv" aria-hidden="true"></canvas>
     <div class="veil" id="veil">
-      <p class="veil__t">ASK A QUESTION<br />YOUR AUTOPILOT CANNOT ANSWER.<br /><span class="g">HOLD IT SILENTLY.</span></p>
+      <p class="veil__t">ASK A QUESTION<br /><span class="r">YOUR AUTOPILOT CANNOT ANSWER.</span><br /><span class="g">HOLD IT SILENTLY.</span></p>
       <div class="veil__b">
         <button id="veilBtn" class="btn btn--veil" type="button">LOOK BEYOND THE VEIL</button>
       </div>
