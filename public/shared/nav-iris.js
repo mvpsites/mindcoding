@@ -41,14 +41,22 @@
     var cv = fullCanvas();
     var iris = window.Iris.mount(cv, {});       /* mounts sealed */
     root.classList.remove('mc-nav');            /* drop the paint-block; the iris now seals */
-    iris.open();
-    (function wait(){
-      if (iris.getProgress() > 0.985){
-        iris.destroy(); cv.remove();
-        document.body.dataset.mcGate = 'done';
-        dispatchEvent(new Event('mc:enter'));
-      } else requestAnimationFrame(wait);
-    })();
+    /* let the new page finish its first layout before animating — the bloom
+       competing with initial paint was the visible jank */
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){
+      var t0 = performance.now(), DUR = 640;
+      (function bloom(t){
+        var p = Math.min(1, (t - t0) / DUR);
+        var ez = p < 0.5 ? 4*p*p*p : 1 - Math.pow(-2*p + 2, 3) / 2;   /* easeInOutCubic */
+        iris.setProgress(ez);
+        if (p < 1) requestAnimationFrame(bloom);
+        else {
+          iris.destroy(); cv.remove();
+          document.body.dataset.mcGate = 'done';
+          dispatchEvent(new Event('mc:enter'));
+        }
+      })(t0);
+    }); });
   }
   arrive();
 
@@ -70,12 +78,16 @@
     leaving = true;
     try { sessionStorage.setItem('mc-nav', '1'); } catch (err) {}
     var cv = fullCanvas();
+    cv.style.opacity = '0';
+    cv.style.transition = 'opacity 110ms ease';
     var iris = window.Iris.mount(cv, {});
     iris.setProgress(0.97);                     /* same task as mount: no sealed flash */
-    var t0 = performance.now(), DUR = 420;
+    requestAnimationFrame(function(){ cv.style.opacity = '1'; });   /* fade the rim in — kills the pop */
+    var t0 = performance.now(), DUR = 480;
     (function seal(t){
       var p = Math.min(1, (t - t0) / DUR);
-      iris.setProgress(0.97 * (1 - p * p));     /* ease-in close */
+      var ez = p < 0.5 ? 4*p*p*p : 1 - Math.pow(-2*p + 2, 3) / 2;   /* easeInOutCubic */
+      iris.setProgress(0.97 * (1 - ez));
       if (p < 1) requestAnimationFrame(seal);
       else location.href = url.href;
     })(t0);

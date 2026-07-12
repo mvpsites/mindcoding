@@ -85,6 +85,9 @@ text-transform:uppercase;color:var(--ink-dim)}
 .share a,.share button{background:none;border:0;font:inherit;letter-spacing:inherit;color:inherit;
 cursor:pointer;text-transform:uppercase;padding:0}
 .share a:hover,.share button:hover{color:var(--gold)}
+
+h1.big .g{color:var(--red)}   /* ruled 07-12: the headline dot runs red, like the masthead */
+.subnav a[aria-current="page"]{color:var(--red)}
 </style>
 <link rel="stylesheet" href="../../fonts/fonts.css">
 <link rel="stylesheet" href="../../scroll-life.css" />
@@ -102,7 +105,7 @@ cursor:pointer;text-transform:uppercase;padding:0}
   <a href="../../draw/">THE DRAW</a>
   <a href="../abundance/">ABUNDANCE</a>
   <a href="../love/">LOVE</a>
-  <a href="../spirit/">SPIRIT</a>
+  <a aria-current="page" href="../spirit/">SPIRIT</a>
   <a href="../wellness/">WELLNESS</a>
   <a href="../books/">BOOKS</a>
 </nav>
