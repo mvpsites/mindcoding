@@ -62,10 +62,18 @@ function setRobots(html){
 }
 function setCanonical(html, path){
   if (!BASE) return html;
-  const tag = `<link rel="canonical" href="${BASE}${path}" />\n`;
+  const tag = `<link rel="canonical" href="${BASE}${path}" />\n<meta property="og:url" content="${BASE}${path}" />\n`;
   return html.replace('</head>', tag + '</head>')
              .replace(/(<meta property="og:image" content=")[^"]*(")/,
                       `$1${BASE}/cardback.webp$2`);
+}
+/* every indexable page needs a real <meta name="description"> — og:description
+   alone does nothing for search snippets (audit 07-12) */
+function setDesc(html, desc){
+  const safe = esc(desc);
+  if (/name="description"/.test(html))
+    return html.replace(/(<meta name="description" content=")[^"]*(")/, `$1${safe}$2`);
+  return html.replace('</head>', `<meta name="description" content="${safe}" />\n</head>`);
 }
 const NUM = { abundance: '01', love: '02', spirit: '03', wellness: '04', books: '05' };
 const LEDE = {
@@ -94,6 +102,7 @@ for (const c of chans){
   roll = roll.replace('<main id="roll"></main>',
     `<main id="roll">${c.items.map((it, i) => entryArticle(it, i, true)).join('\n')}</main>`);
   roll = roll.replace(/<script>\s*\(function\(\)\{\s*var CH = '[\s\S]*?<\/script>/, '');
+  roll = setDesc(roll, `${c.name} \u2014 ${c.line || 'a Mind Coding channel.'}`);
   roll = setCanonical(setRobots(roll), `/channels/${c.id}/`);
   writeFileSync(rollPath, roll);
 
@@ -137,10 +146,50 @@ for (const c of chans){
       };
       page = page.replace('</head>', `<script type="application/ld+json">${JSON.stringify(ld)}</script>\n</head>`);
     }
+    page = setDesc(page, desc);
     page = setCanonical(setRobots(page), `/channels/${c.id}/${sl}/`);
     writeFileSync(join(dir, 'index.html'), page);
     entryPages++;
   }
 }
+/* ---- the three hand-authored pages: robots flip, canonical, og fixes,
+        descriptions — the live homepage was shipping noindex (audit 07-12) ---- */
+const HAND = [
+  { file: 'index.html', path: '/',
+    desc: null,   /* landing keeps its own authored description */
+    ld: { '@context': 'https://schema.org', '@type': 'WebSite',
+          name: 'Mind Coding', url: (BASE || 'https://mindcod.ing') + '/',
+          description: 'See the script before you obey it. A symbolic reflection and deliberate-practice experience.' } },
+  { file: 'draw/index.html', path: '/draw/',
+    desc: 'Ask a question your autopilot cannot answer. Draw from the 78-plate deck and read the pattern \u2014 no saved readings, each one unique.' },
+  { file: 'channels/index.html', path: '/channels/',
+    desc: 'Five channels \u2014 Abundance, Love, Spirit, Wellness, Books. Free music, affirmations, visualization and life scripts.' }
+];
+for (const h of HAND){
+  const fp = join(dist, h.file);
+  let page = readFileSync(fp, 'utf8');
+  if (h.desc) page = setDesc(page, h.desc);
+  if (h.ld && INDEXABLE)
+    page = page.replace('</head>', `<script type="application/ld+json">${JSON.stringify(h.ld)}</script>\n</head>`);
+  page = setCanonical(setRobots(page), h.path);
+  writeFileSync(fp, page);
+}
+
+/* ---- sitemap.xml + robots.txt ---- */
+if (BASE){
+  const today = new Date().toISOString().slice(0, 10);
+  const urls = ['/', '/draw/', '/channels/'];
+  for (const c of chans){
+    urls.push(`/channels/${c.id}/`);
+    for (const it of c.items) urls.push(`/channels/${c.id}/${slug(it.title)}/`);
+  }
+  const sm = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+    urls.map(u => `  <url><loc>${BASE}${u}</loc><lastmod>${today}</lastmod></url>`).join('\n') + '\n</urlset>\n';
+  writeFileSync(join(dist, 'sitemap.xml'), sm);
+  writeFileSync(join(dist, 'robots.txt'),
+    INDEXABLE ? `User-agent: *\nAllow: /\n\nSitemap: ${BASE}/sitemap.xml\n`
+              : `User-agent: *\nDisallow: /\n`);
+}
+
 console.log(`build_rolls: ${chans.length} roll pages rendered statically, ${entryPages} entry pages generated` +
   (INDEXABLE ? ' [INDEXABLE]' : ' [noindex kept]') + (BASE ? ` [canonical base ${BASE}]` : ''));

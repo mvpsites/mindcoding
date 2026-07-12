@@ -72,7 +72,7 @@
     var url;
     try { url = new URL(a.href, location.href); } catch (err) { return; }
     if (url.origin !== location.origin) return;
-    if (url.pathname === location.pathname && url.hash) return;   /* same-page anchor */
+    if (url.pathname === location.pathname) return;   /* same page (anchor or self): no transition */
     if (!window.Iris) return;                                     /* engine missing: plain nav */
     e.preventDefault();
     leaving = true;
