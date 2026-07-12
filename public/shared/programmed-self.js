@@ -291,11 +291,16 @@
     addEventListener('mouseup', function(){ if (mouseDown){ mouseDown = false; endInteraction(); } });
 
     /* touch — pan-y preserved; horizontal intent gate (Part 8) */
-    var tStart = null, tLock = false;
+    var tStart = null, tLock = false, tHold = null;
+    var HOLD_MS = 180;   /* press-and-hold engages without horizontal intent (mobile fix 07-12) */
     canvas.style.touchAction = 'pan-y';
     canvas.addEventListener('touchstart', function(e){
-      if (e.touches.length !== 1){ tStart = null; tLock = false; if (ptr.on) endInteraction(); return; }
+      if (e.touches.length !== 1){ tStart = null; tLock = false; clearTimeout(tHold); if (ptr.on) endInteraction(); return; }
       tStart = local(e.touches[0]); tLock = false;
+      clearTimeout(tHold);
+      tHold = setTimeout(function(){
+        if (tStart && !tLock){ tLock = true; beginInteraction(tStart); }
+      }, HOLD_MS);
     }, { passive:true });
     canvas.addEventListener('touchmove', function(e){
       if (!tStart || e.touches.length !== 1) return;
@@ -304,14 +309,14 @@
         var dx = Math.abs(p.x - tStart.x), dy = Math.abs(p.y - tStart.y);
         if (dx >= H_INTENT_PX && dx >= dy * H_INTENT_RATIO){
           tLock = true; beginInteraction(tStart);
-        } else if (dy > V_CANCEL){ tStart = null; return; }   /* native scroll wins */
+        } else if (dy > V_CANCEL){ tStart = null; clearTimeout(tHold); return; }   /* native scroll wins */
       }
       if (tLock){
         if (e.cancelable) e.preventDefault();
         moveInteraction(p);
       }
     }, { passive:false });
-    function tEnd(){ tStart = null; if (tLock){ tLock = false; endInteraction(); } }
+    function tEnd(){ tStart = null; clearTimeout(tHold); if (tLock){ tLock = false; endInteraction(); } }
     canvas.addEventListener('touchend', tEnd);
     canvas.addEventListener('touchcancel', tEnd);
     canvas.addEventListener('pointercancel', tEnd);
