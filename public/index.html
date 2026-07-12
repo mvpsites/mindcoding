@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+<script>/* THE ENTRANCE gate: skip within the same session; honor reduced motion */
+try{if(sessionStorage.getItem('mc-in')||matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('mc-in')}catch(e){document.documentElement.classList.add('mc-in')}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex" />
 <meta property="og:title" content="MIND CODING — Recode the pattern." />
@@ -223,6 +225,29 @@ footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;ga
   55%{opacity:1;transform:scale(.985)}100%{opacity:1;transform:scale(1)}}
 @media (prefers-reduced-motion:reduce){.lesson.on{animation:none;opacity:1;transform:none}}
 
+/* ---------- THE ENTRANCE (ruled 07-12): the site lives behind the veil ---------- */
+#veilgate{position:fixed;inset:0;z-index:200;background:var(--paper);
+  display:flex;align-items:center;justify-content:center;touch-action:none;
+  cursor:pointer;border:0;padding:0;width:100%}
+#veilgate canvas{position:absolute;inset:0;width:100%;height:100%}
+.gate__glyph{width:min(21vmin,120px);height:auto;opacity:.9;
+  filter:drop-shadow(0 0 18px rgba(215,154,74,.5));
+  animation:gatePulse 2.6s ease-in-out infinite}
+.gate__hint{position:absolute;left:0;right:0;bottom:12vh;text-align:center;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.32em;color:var(--gold);
+  transition:opacity .5s ease;pointer-events:none}
+.gate__hint small{display:block;margin-top:.7rem;color:var(--ink-faint);
+  font-size:.6rem;letter-spacing:.24em}
+@keyframes gatePulse{50%{opacity:.55;filter:drop-shadow(0 0 8px rgba(215,154,74,.25))}}
+.mc-in #veilgate{display:none}
+html:not(.mc-in) body{overflow:hidden}
+#cursorlight{position:fixed;top:0;left:0;width:340px;height:340px;border-radius:50%;
+  pointer-events:none;z-index:5;mix-blend-mode:screen;opacity:0;transition:opacity .6s ease;
+  background:radial-gradient(circle,rgba(215,154,74,.16),rgba(215,154,74,.05) 45%,transparent 70%);
+  transform:translate3d(-999px,-999px,0)}
+@media (hover:none){#cursorlight{display:none}}
+@media (prefers-reduced-motion:reduce){.gate__glyph{animation:none}}
+
 /* ---------- responsive (390 target) ---------- */
 @media (max-width:820px){
   .mast__grid{grid-template-columns:1fr}
@@ -267,6 +292,16 @@ cursor:pointer;text-transform:uppercase;padding:0}
 <body>
 <a class="skip" href="#mast">Skip to content</a>
 <div id="xhair" aria-hidden="true">X:000 · Y:000</div>
+
+<button id="veilgate" aria-label="Hold to look beyond the veil and enter Mind Coding">
+  <svg class="gate__glyph" viewBox="0 0 100 130" aria-hidden="true">
+    <circle cx="50" cy="42" r="26" fill="none" stroke="#D79A4A" stroke-width="7"/>
+    <path d="M39 62 L61 62 L70 118 L30 118 Z" fill="#D79A4A"/>
+  </svg>
+  <p class="gate__hint">HOLD THE KEYHOLE<small>LOOK BEYOND THE VEIL</small></p>
+</button>
+<div id="cursorlight" aria-hidden="true"></div>
+<noscript><style>#veilgate{display:none}</style></noscript>
 
 <div class="ticker" aria-hidden="true">
   <div class="ticker__track">
@@ -482,6 +517,81 @@ cursor:pointer;text-transform:uppercase;padding:0}
       }
     }
   });
+})();
+</script>
+<script>
+/* ============ THE ENTRANCE — hold the keyhole, the iris answers ============ */
+(function(){
+  var gate = document.getElementById('veilgate');
+  var root = document.documentElement;
+  if (!gate) return;
+  if (root.classList.contains('mc-in')){ gate.remove(); return; }
+  document.body.dataset.mcGate = 'pending';
+
+  var cv = document.createElement('canvas');
+  gate.insertBefore(cv, gate.firstChild);
+  var iris = window.Iris ? window.Iris.mount(cv, {}) : null;
+  var glyph = gate.querySelector('.gate__glyph');
+  if (iris && glyph) glyph.style.display = 'none';   /* the live keyhole takes over */
+
+  var HOLD_MS = 700, FLARE = 0.14;
+  var holding = false, holdP = 0, lastT = 0, opened = false, raf = 0;
+
+  function finish(){
+    gate.remove();
+    root.classList.add('mc-in');
+    document.body.dataset.mcGate = 'done';
+    dispatchEvent(new Event('mc:enter'));   /* wake scroll-life: the masthead strikes NOW */
+  }
+  function enter(){
+    if (opened) return; opened = true;
+    cancelAnimationFrame(raf);
+    try { sessionStorage.setItem('mc-in','1'); } catch(e){}
+    var hint = gate.querySelector('.gate__hint');
+    if (hint) hint.style.opacity = '0';
+    if (!iris) return finish();
+    iris.open();
+    (function waitOpen(){
+      if (iris.getProgress() > 0.985) finish();
+      else requestAnimationFrame(waitOpen);
+    })();
+  }
+  function loop(t){
+    raf = requestAnimationFrame(loop);
+    var dt = lastT ? Math.min(50, t - lastT) : 16; lastT = t;
+    holdP += (holding ? dt / HOLD_MS : -dt / 260);
+    holdP = Math.max(0, Math.min(1, holdP));
+    if (iris) iris.setProgress(holdP * FLARE);
+    if (holdP >= 1) enter();
+  }
+  raf = requestAnimationFrame(loop);
+
+  gate.addEventListener('pointerdown', function(e){ holding = true; e.preventDefault(); });
+  addEventListener('pointerup', function(){ holding = false; });
+  addEventListener('pointercancel', function(){ holding = false; });
+  gate.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); enter(); }
+  });
+  gate.focus({ preventScroll: true });
+  /* safety hatch: if the canvas ever fails to draw, a plain click still enters */
+  setTimeout(function(){ gate.addEventListener('click', enter); }, 6000);
+})();
+
+/* ============ the keyhole light follows the cursor (desktop) ============ */
+(function(){
+  if (!matchMedia('(hover:hover)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var l = document.getElementById('cursorlight');
+  if (!l) return;
+  var x = -999, y = -999, ticking = false;
+  addEventListener('pointermove', function(e){
+    x = e.clientX; y = e.clientY;
+    if (l.style.opacity !== '1') l.style.opacity = '1';
+    if (!ticking){ ticking = true; requestAnimationFrame(function(){
+      ticking = false;
+      l.style.transform = 'translate3d(' + (x - 170) + 'px,' + (y - 170) + 'px,0)';
+    }); }
+  }, { passive: true });
+  document.addEventListener('pointerleave', function(){ l.style.opacity = '0'; });
 })();
 </script>
 <script>

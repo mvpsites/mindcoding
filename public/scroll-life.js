@@ -11,6 +11,12 @@
 (function () {
   'use strict';
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  /* THE ENTRANCE: on the gated landing the page prints itself only after
+     the visitor comes through the keyhole */
+  if (document.body && document.body.dataset.mcGate === 'pending'){
+    addEventListener('mc:enter', init, { once: true });
+  } else init();
+  function init(){
 
   var RISE_SEL = ['.kick', '.sec__kick', '.q', '.line', '.chanlede', '.goldline',
     '.instruct', '.telemetry', '.brandline', '.support', '.turn', '.choice__intro',
@@ -143,5 +149,6 @@
       }, 26);
     }, { threshold: 0.6 });
     wio.observe(wh);
+  }
   }
 })();
