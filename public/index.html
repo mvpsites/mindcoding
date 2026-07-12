@@ -264,6 +264,7 @@ html:not(.mc-in) body{overflow:hidden}
   pointer-events:none;z-index:5;mix-blend-mode:screen;opacity:0;transition:opacity .6s ease;
   background:radial-gradient(circle,rgba(215,154,74,.16),rgba(215,154,74,.05) 45%,transparent 70%);
   transform:translate3d(-999px,-999px,0)}
+#cursorlight.hot{background:radial-gradient(circle,rgba(215,154,74,.3),rgba(215,154,74,.09) 45%,transparent 70%)}
 @media (hover:none){#cursorlight{display:none}}
 @media (prefers-reduced-motion:reduce){.gate__glyph{animation:none}}
 
@@ -307,6 +308,7 @@ cursor:pointer;text-transform:uppercase;padding:0}
 <link rel="stylesheet" href="./draw-experience.css" />
 <link rel="stylesheet" href="scroll-life.css" />
 <script defer src="scroll-life.js"></script>
+<script>try{if(sessionStorage.getItem('mc-nav')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('mc-nav')}catch(e){}</script><style>html.mc-nav::after{content:"";position:fixed;inset:0;background:#070B1A;z-index:299}</style>
 </head>
 <body>
 <a class="skip" href="#mast">Skip to content</a>
@@ -607,6 +609,9 @@ cursor:pointer;text-transform:uppercase;padding:0}
   var l = document.getElementById('cursorlight');
   if (!l) return;
   var x = -999, y = -999, ticking = false;
+  document.addEventListener('mouseover', function(e){
+    l.classList.toggle('hot', !!(e.target.closest && e.target.closest('a,button')));
+  }, { passive: true });
   addEventListener('pointermove', function(e){
     x = e.clientX; y = e.clientY;
     if (l.style.opacity !== '1') l.style.opacity = '1';
@@ -624,5 +629,6 @@ MindDraw.mount(document.getElementById('mcdraw'), {
   kickB: '03', kickS: '— THE DRAW'
 });
 </script>
+<script src="shared/nav-iris.js"></script>
 </body>
 </html>
