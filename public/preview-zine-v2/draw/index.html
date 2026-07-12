@@ -61,7 +61,7 @@ transition:background .14s,color .14s;margin-top:1.4rem}
 .veil.off{opacity:0;pointer-events:none}
 .veil__k{font-family:var(--mono);font-size:.6rem;letter-spacing:.24em;color:var(--ink-dim)}
 .veil__t{font-family:var(--disp);text-transform:uppercase;font-size:clamp(1.1rem,3vw,1.9rem);line-height:1.1}
-.controls{display:flex;gap:1rem;align-items:center;padding:.5rem 1.2rem 1rem}
+.controls{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;padding:.5rem 1.2rem 1rem}
 .controls__n{font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;color:var(--ink-faint)}
 @media (prefers-reduced-motion:reduce){.veil{transition:none}}
 .sheet__hint{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;
@@ -457,6 +457,7 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
     st.vel = 0;
     $('washHow').hidden = true;
     $('wheelHow').hidden = false;
+    $('controls').hidden = false;   /* SHUFFLE AGAIN only once you are in */
     stage.classList.add('pan');   /* wheel phase: vertical swipes scroll the page */
     var inPile = {};
     for (var i = 0; i < st.washSet.length; i++) inPile[st.washSet[i].id] = 1;
@@ -637,7 +638,6 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
       if (matchMedia('(prefers-reduced-motion: reduce)').matches) velvet.setProgress(1);
       else velvet.open();
     }
-    $('controls').hidden = false;
   }
   function shuffle(){
     if (!DECK){ setTimeout(shuffle, 120); return; }
