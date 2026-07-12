@@ -34,11 +34,21 @@
   remain (share intents are not assets).
 - sw cache v35. Engines byte-identical to the verified c9fc384 state
   (diffed against the tag). Emblem render harness re-run: 1767 pts, 0 error.
-- CLOUDFLARE IS LIVE: mindcoding.pages.dev, secrets in place. Workflow
+- CLOUDFLARE IS LIVE ON THE REAL DOMAIN: https://mindcod.ing (+www), zone
+  active in Jad's account (nameservers moved from Spaceship 07-12), both
+  hostnames CNAME->mindcoding.pages.dev proxied, certs issued, SITE_URL var
+  set -> canonicals/og/JSON-LD regenerate against mindcod.ing. Workflow
   gained two permanent steps: sanitized credential verify + ensure-project
   (wrangler CANNOT create a missing Pages project in CI — folklore wrong).
-  STILL PENDING: custom domain mindcod.ing + SITE_URL repo var, and Jad's
-  device verdicts + the copy ruling pile (unchanged below).
+  NEW: .github/workflows/cf-admin.yml — dispatchable CF ops (zone-status /
+  attach-domains / verify-live) reporting via ::notice:: annotations, the
+  session-readable channel (job logs are NOT readable from the sandbox).
+  Note: curl from CI gets a bot-challenge 403 on the live domain — that is
+  Cloudflare challenging datacenter IPs, not an outage; browsers pass.
+  GOTCHA: Spaceship parking A records re-appeared after zone activation and
+  had to be deleted manually; the account API token attaches Pages domains
+  but gets Authentication error on zone DNS writes.
+  STILL PENDING: Jad's device verdicts + the copy ruling pile (below).
 
 ---
 
