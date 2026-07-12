@@ -263,6 +263,7 @@
     if (st.phase !== 'wash') return;
     st.phase = 'wheel';
     st.washing = false;
+    stageEl.style.touchAction = 'pan-y';   /* vertical scroll is the page's again */
     st.entropy = (st.entropy ^ (performance.now() * 1000)) >>> 0;
     seededShuffle(st.order, st.entropy);   /* the swirl IS the shuffle */
     st.rot = Math.floor(st.order.length / 2) * STEP;
@@ -373,6 +374,7 @@
       return;
     }
     st.lastX = p.x; st.moved = 0; st.vel = 0;
+    st.slop = (e.pointerType === 'touch') ? 16 : 9;   /* finger-sized tap slop on touch; mouse keeps the locked 9 */
     st.dragging = false; st.holding = true; st.downAt = performance.now();
     var t = e.target && e.target.closest ? e.target.closest('.wheelcard') : null;
     st.tapId = null;
@@ -399,7 +401,7 @@
     if (st.holding || st.dragging){
       var dx = p.x - st.lastX;
       st.moved += Math.abs(dx);
-      if (st.moved > 9 && st.holding){ st.dragging = true; st.holding = false; }
+      if (st.moved > (st.slop || 9) && st.holding){ st.dragging = true; st.holding = false; }
       if (st.dragging){ st.seek = null; st.rot -= dx / st.R; st.vel = st.vel * 0.6 + (-dx / st.R) * 0.4; st.hoverX = null; }
       st.lastX = p.x;
     }
@@ -407,7 +409,7 @@
   function onUp(e){
     if (!st) return;
     if (st.phase === 'wash'){ if (st.washing) fanOut(); return; }
-    var wasTap = st.holding && !st.dragging && st.moved <= 9 &&
+    var wasTap = st.holding && !st.dragging && st.moved <= (st.slop || 9) &&
       (performance.now() - st.downAt) < TAP_MS && st.tapId && !st.done;
     st.holding = false; st.dragging = false;
     if (e && e.pointerType !== 'mouse') st.hoverX = null;
@@ -459,9 +461,20 @@
   }
 
   var stageEl = $('stage');
+  /* TOUCH CONTRACT (ruled 07-12, Jad's tablet report): during the wash the
+     stage owns every gesture (the swirl has vertical components); once the
+     wheel fans out, vertical swipes belong to the PAGE (pan-y) and only
+     horizontal drags steer. pointercancel (browser claiming a scroll)
+     resets state cleanly instead of leaving a stuck drag. */
+  stageEl.style.touchAction = 'none';
   stageEl.addEventListener('pointerdown', onDown);
   stageEl.addEventListener('pointermove', onMove);
   stageEl.addEventListener('pointerup', onUp);
+  stageEl.addEventListener('pointercancel', function(){
+    if (!st) return;
+    st.holding = false; st.dragging = false; st.tapId = null;
+    st.washing = false; st.hoverX = null;   /* no fanOut, no tap: a scroll happened */
+  });
   stageEl.addEventListener('pointercancel', onUp);
   stageEl.addEventListener('pointerleave', onLeave);
   addEventListener('pointerup', onUp);
