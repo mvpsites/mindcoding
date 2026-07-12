@@ -116,7 +116,7 @@ border:1px solid rgba(215,154,74,.35)}
    reveal (.reading.on toggles per draw). Never under reduced motion. ---- */
 .reading .plate{position:relative;overflow:hidden}
 .reading .plate::after{content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(115deg,transparent 40%,rgba(244,200,92,.42) 50%,transparent 60%);
+  background:linear-gradient(115deg,transparent 38%,rgba(244,200,92,.62) 50%,transparent 62%);
   transform:translateX(-135%)}
 @media (prefers-reduced-motion:no-preference){
   .reading.on .plate::after{animation:foilSweep 1.15s ease-out .55s 1 forwards}

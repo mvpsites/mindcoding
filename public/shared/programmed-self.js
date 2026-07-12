@@ -88,7 +88,7 @@
         var sd = h1(i + 1), sd2 = h1(i * 7 + 3);
         /* ASSEMBLY (07-12): every particle owns a scatter origin — a point
            flung outward from home — used once by the entrance choreography */
-        var sa = sd2 * Math.PI * 2, sr = fit * (0.55 + sd * 0.85);
+        var sa = sd2 * Math.PI * 2, sr = fit * (0.85 + sd * 1.1);
         pts.push({ region: q[2], alpha: q[3],
                    homeX: hx, homeY: hy, x: hx, y: hy, vx: 0, vy: 0,
                    sx: hx + Math.cos(sa) * sr, sy: hy + Math.sin(sa) * sr,
@@ -116,9 +116,9 @@
        GLITCH — a rare one-blink red band that self-corrects.
        All of it exits under prefers-reduced-motion; opts.entrance:false skips
        the assembly (harnesses render the resting state). */
-    var ENT_DUR = 650, ENT_GROUP = { circuit: 0, seal: 320, star: 560, key: 720 };
+    var ENT_DUR = 950, ENT_GROUP = { circuit: 0, seal: 480, star: 820, key: 1050 };
     var entWanted = opts.entrance !== false && !reduce;
-    var entT = -1, entDone = !entWanted, entMax = ENT_DUR + 720 + 260;
+    var entT = -1, entDone = !entWanted, entMax = ENT_DUR + 1050 + 300;
     var circuitN = 0, packets = [], nextPacket = 0;
     var glitchT = -1, glitchY = 0, nextGlitch = 0;
     var ptr = { x:-9999, y:-9999, on:false, hover:false, px:-9999, py:-9999, speed:0 };
@@ -155,7 +155,7 @@
             var ez = 1 - Math.pow(1 - pr, 3);   /* easeOutCubic */
             ep.x = ep.sx + (ep.homeX - ep.sx) * ez;
             ep.y = ep.sy + (ep.homeY - ep.sy) * ez;
-            ep.entA = Math.min(1, pr * 2.2);
+            ep.entA = Math.min(1, pr * 1.6);
           }
           if (opts.onFrame) opts.onFrame(getStats());
           draw(now);
@@ -167,8 +167,8 @@
       if (!reduce && now){
         if (!nextPacket) nextPacket = now + 1400;
         if (now >= nextPacket && packets.length < 2 && circuitN > 40){
-          packets.push({ t0: now, i0: Math.floor(h1(now) * circuitN), len: 90 + h1(now * 3) * 90, sp: 0.11 + h1(now * 7) * 0.05 });
-          nextPacket = now + 2600 + h1(now * 13) * 3200;
+          packets.push({ t0: now, i0: Math.floor(h1(now) * circuitN), len: 140 + h1(now * 3) * 120, sp: 0.13 + h1(now * 7) * 0.06 });
+          nextPacket = now + 1900 + h1(now * 13) * 2400;
         }
         for (var pk = packets.length - 1; pk >= 0; pk--)
           if ((now - packets[pk].t0) * packets[pk].sp > packets[pk].len + 12) packets.splice(pk, 1);
@@ -256,8 +256,8 @@
     function draw(now){
       ctx.clearRect(0, 0, W, H);
       var base = phone() ? 2.15 : 2.05;
-      var gOn = glitchT > 0 && now && (now - glitchT) < 90;
-      if (glitchT > 0 && now && (now - glitchT) >= 90) glitchT = -1;
+      var gOn = glitchT > 0 && now && (now - glitchT) < 150;
+      if (glitchT > 0 && now && (now - glitchT) >= 150) glitchT = -1;
       for (var i = 0; i < pts.length; i++){
         var p = pts[i];
         var core = p.region === 'key' || p.region === 'star';
@@ -270,16 +270,16 @@
             var pkt = packets[pk2];
             var head = pkt.i0 + (now - pkt.t0) * pkt.sp;
             var dci = head - p.ci;
-            if (dci > 0 && dci < 11) boost = Math.max(boost, 1 - dci / 11);
+            if (dci > 0 && dci < 18) boost = Math.max(boost, 1 - dci / 18);
           }
         }
-        ctx.globalAlpha = Math.min(1, (alpha + p.brightness * 0.25 + boost * 0.5) * (entDone ? 1 : (p.entA || 0)));
+        ctx.globalAlpha = Math.min(1, (alpha + p.brightness * 0.25 + boost * 0.85) * (entDone ? 1 : (p.entA || 0)));
         ctx.fillStyle = boost > 0.25 ? GOLD_BRIGHT : (core ? BONE : (p.seed > 0.88 ? GOLD_BRIGHT : GOLD));
-        var s2 = base + (p.seed > 0.92 ? 0.7 : 0) + (core ? 0.35 : 0) + boost * 0.9;
+        var s2 = base + (p.seed > 0.92 ? 0.7 : 0) + (core ? 0.35 : 0) + boost * 2.1;
         /* GLITCH: one-blink red offset band, then the program corrects itself */
-        if (gOn && Math.abs(p.y - glitchY) < 15){
+        if (gOn && Math.abs(p.y - glitchY) < 24){
           ctx.fillStyle = RED;
-          ctx.fillRect(p.x - s2 / 2 + 3, p.y - s2 / 2, s2, s2);
+          ctx.fillRect(p.x - s2 / 2 + 6, p.y - s2 / 2, s2 + 0.6, s2);
         } else {
           ctx.fillRect(p.x - s2 / 2, p.y - s2 / 2, s2, s2);
         }

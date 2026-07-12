@@ -12,17 +12,18 @@
 .sl-strike .sl-inner{display:inline-block;opacity:0}
 .sl-strike.sl-on .sl-inner{animation:slStrike .22s cubic-bezier(.2,1.4,.3,1) forwards}
 .sl-strike .sl-inner .r{display:inline-block;opacity:0}
-.sl-strike.sl-on .sl-inner .r{animation:slStrike .26s cubic-bezier(.2,1.5,.3,1) .5s forwards}
-@keyframes slStrike{0%{opacity:0;transform:scale(1.06) translateY(7px)}
-  55%{opacity:1;transform:scale(.985)}100%{opacity:1;transform:scale(1)}}
+.sl-strike.sl-on .sl-inner .r{animation:slSlam .3s cubic-bezier(.2,1.6,.3,1) .55s forwards}
+@keyframes slSlam{0%{opacity:0;transform:scale(1.22) translateY(10px)}55%{opacity:1;transform:scale(.965)}100%{opacity:1;transform:scale(1)}}
+@keyframes slStrike{0%{opacity:0;transform:scale(1.12) translateY(14px)}
+  55%{opacity:1;transform:scale(.972)}100%{opacity:1;transform:scale(1)}}
 /* registration sweep across section kicks */
 .sl-sweep{position:relative;overflow:hidden}
 .sl-sweep::after{content:"";position:absolute;top:0;bottom:0;left:0;width:34%;
-  background:linear-gradient(90deg,transparent,rgba(215,154,74,.3),transparent);
+  background:linear-gradient(90deg,transparent,rgba(215,154,74,.5),transparent);
   transform:translateX(-130%);pointer-events:none}
 .sl-sweep.sl-on::after{animation:slSweep 1s ease-out .15s 1 forwards}
 @keyframes slSweep{to{transform:translateX(420%)}}
 /* the choice rows: number flicks on hover, print-error style */
 a.row:hover .row__no{animation:slFlick .16s steps(2) 1;color:var(--red)}
 @keyframes slFlick{50%{transform:translateY(-2px)}}
-.tk-hit{color:#FF2B06}
+.tk-hit{color:#070B1A;background:#FF2B06}
