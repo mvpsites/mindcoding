@@ -150,26 +150,6 @@ h2.big .r{color:var(--red)}
 .reveal.on p:nth-child(6){transition-delay:4.8s}
 @media (prefers-reduced-motion:reduce){.reveal p{transition:none}}
 
-/* 03 — the mirror */
-.mirror{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(230px,1fr)}
-.mirror__main{padding:2.6rem 1.2rem 2.8rem;border-right:var(--bd) solid var(--ink);
-  display:flex;flex-direction:column;justify-content:center;gap:1.4rem}
-.mirror__main .brandline{margin-top:0}
-.btn{display:inline-block;font-family:var(--disp);text-transform:uppercase;
-  font-size:.95rem;letter-spacing:.04em;color:var(--paper);background:var(--gold);
-  border:var(--bd) solid var(--gold);padding:.85rem 1.5rem;
-  transition:background .14s,color .14s;align-self:flex-start}
-.btn:hover,.btn:focus-visible{background:var(--paper);color:var(--gold)}
-.mirror__plate{padding:2rem 1.6rem;display:grid;place-items:center;min-height:0;background:
-  radial-gradient(circle,rgba(215,154,74,.14) 1.3px,transparent 1.6px);
-  background-size:13px 13px}
-.plate{border:var(--bd) solid var(--ink);transform:rotate(2deg);width:260px;max-width:82%;
-  box-shadow:0 24px 60px -24px rgba(0,0,0,.9)}
-.plate img{width:100%;height:auto}
-.plate figcaption{font-family:var(--mono);font-size:.56rem;letter-spacing:.18em;
-  color:var(--ink-faint);padding:.5rem .6rem;border-top:2px solid var(--gold);
-  text-transform:uppercase}
-
 /* 04 — the choice */
 .choice__intro{padding:2.2rem 1.2rem 1.8rem;font-family:var(--mono);max-width:46rem;
   font-size:clamp(.85rem,1.7vw,1rem);letter-spacing:.06em;line-height:1.8;
@@ -223,8 +203,6 @@ footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;ga
   .mast__orn{border-left:none;border-top:var(--bd) solid var(--ink);
     flex-direction:row;align-items:center;gap:1rem}
   .halftone{height:auto;min-height:80px;flex:1}
-  .mirror{grid-template-columns:1fr}
-  .mirror__main{border-right:none;border-bottom:var(--bd) solid var(--ink)}
   .tbl__head{grid-template-columns:2.4rem 1fr 3.4rem}
   .tbl__head .h-form{display:none}
   a.row{grid-template-columns:2.4rem 1fr 3.4rem}
@@ -320,21 +298,6 @@ footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;ga
       <p>The loop is not stronger than you.<br />It has simply been running longer<br />than you have been watching.</p>
       <p class="gold">Mind Coding begins<br />where autopilot ends.</p>
     </div></div>
-  </div>
-<div class="mirror">
-    <div class="mirror__main">
-      <h2 class="big" id="mirror-h">The deeper mind<br />does not always arrive<br /><span class="g">in words.</span></h2>
-      <p class="brandline">Sometimes it appears<br />as a symbol<br />you cannot ignore.</p>
-      <p class="support">The card is not a command. It is not a prediction.<br /><br />
-        It is an interruption &mdash; a way to encounter your story from an angle you did not prepare.</p>
-      <a class="btn" href="./draw/" data-handoff="go(&#39;reflect&#39;)">DRAW WITH INTENTION →</a>
-    </div>
-    <div class="mirror__plate">
-      <figure class="plate">
-        <img src="./cardback.webp" width="1024" height="1536" alt="The Mind Coding card back — two profiles around a keyhole, gold on midnight" />
-        <figcaption>PLATE 00 — THE BACK OF EVERY CARD</figcaption>
-      </figure>
-    </div>
   </div>
 </section>
 
