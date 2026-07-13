@@ -1,7 +1,60 @@
 {
   "directed": false,
   "multigraph": false,
-  "graph": {},
+  "graph": {
+    "hyperedges": [
+      {
+        "id": "channel_roll_rendering_flow",
+        "label": "Channel Roll Rendering Flow (channels.json consumers)",
+        "nodes": [
+          "public_channels_index_channels_page",
+          "public_channels_abundance_index_abundance_roll",
+          "public_channels_love_index_love_roll",
+          "public_channels_spirit_index_spirit_roll",
+          "public_channels_wellness_index_wellness_roll",
+          "public_channels_books_index_books_roll",
+          "public_channels_channels_json"
+        ],
+        "relation": "participate_in",
+        "confidence": "EXTRACTED",
+        "confidence_score": 1.0,
+        "source_file": "public/channels/index.html"
+      },
+      {
+        "id": "site_deployment_pipelines",
+        "label": "Site Deployment and Verification Pipelines",
+        "nodes": [
+          "_github_workflows_deploy_deploy_to_github_pages",
+          "_github_workflows_deploy_cloudflare_deploy_to_cloudflare_pages",
+          "_github_workflows_cf_admin_cloudflare_admin"
+        ],
+        "relation": "participate_in",
+        "confidence": "INFERRED",
+        "confidence_score": 0.85,
+        "source_file": ".github/workflows/deploy-cloudflare.yml"
+      },
+      {
+        "id": "iris_transition_system",
+        "label": "Iris Transition System (keyhole entrance + nav transitions across all pages)",
+        "nodes": [
+          "public_shared_keyhole_iris_iris",
+          "public_shared_nav_iris_nav_iris",
+          "public_index_home_page",
+          "public_draw_index_draw_page",
+          "public_channels_index_channels_page",
+          "public_channels_abundance_index_abundance_roll",
+          "public_channels_love_index_love_roll",
+          "public_channels_spirit_index_spirit_roll",
+          "public_channels_wellness_index_wellness_roll",
+          "public_channels_books_index_books_roll"
+        ],
+        "relation": "participate_in",
+        "confidence": "EXTRACTED",
+        "confidence_score": 1.0,
+        "source_file": "public/index.html"
+      }
+    ]
+  },
   "nodes": [
     {
       "label": "package.json",
@@ -10,7 +63,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "package",
-      "community": 2,
+      "community": 5,
       "norm_label": "package.json"
     },
     {
@@ -20,7 +73,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "package_name",
-      "community": 2,
+      "community": 5,
       "norm_label": "name"
     },
     {
@@ -30,7 +83,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "package_private",
-      "community": 2,
+      "community": 5,
       "norm_label": "private"
     },
     {
@@ -40,7 +93,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "package_version",
-      "community": 2,
+      "community": 5,
       "norm_label": "version"
     },
     {
@@ -50,7 +103,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "package_type",
-      "community": 2,
+      "community": 5,
       "norm_label": "type"
     },
     {
@@ -60,7 +113,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "package_scripts",
-      "community": 2,
+      "community": 5,
       "norm_label": "scripts"
     },
     {
@@ -70,7 +123,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "package_scripts_build",
-      "community": 2,
+      "community": 5,
       "norm_label": "build"
     },
     {
@@ -80,7 +133,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "public_draw_experience",
-      "community": 7,
+      "community": 10,
       "norm_label": "draw-experience.js"
     },
     {
@@ -90,7 +143,7 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "public_draw_experience_mount",
-      "community": 7,
+      "community": 10,
       "norm_label": "mount()"
     },
     {
@@ -100,7 +153,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "public_scroll_life",
-      "community": 8,
+      "community": 11,
       "norm_label": "scroll-life.js"
     },
     {
@@ -110,7 +163,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "public_scroll_life_init",
-      "community": 8,
+      "community": 11,
       "norm_label": "init()"
     },
     {
@@ -120,7 +173,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "public_shared_emblem_points",
-      "community": 10,
+      "community": 13,
       "norm_label": "emblem-points.js"
     },
     {
@@ -130,7 +183,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "public_shared_keyhole_iris",
-      "community": 4,
+      "community": 6,
       "norm_label": "keyhole-iris.js"
     },
     {
@@ -140,7 +193,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "public_shared_keyhole_iris_keyholepath",
-      "community": 4,
+      "community": 6,
       "norm_label": "keyholepath()"
     },
     {
@@ -150,7 +203,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "public_shared_keyhole_iris_outlinepoints",
-      "community": 4,
+      "community": 6,
       "norm_label": "outlinepoints()"
     },
     {
@@ -160,7 +213,7 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "public_shared_keyhole_iris_mount",
-      "community": 4,
+      "community": 6,
       "norm_label": "mount()"
     },
     {
@@ -170,7 +223,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "public_shared_nav_iris",
-      "community": 5,
+      "community": 8,
       "norm_label": "nav-iris.js"
     },
     {
@@ -180,7 +233,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "public_shared_nav_iris_fullcanvas",
-      "community": 5,
+      "community": 8,
       "norm_label": "fullcanvas()"
     },
     {
@@ -190,7 +243,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "public_shared_nav_iris_arrive",
-      "community": 5,
+      "community": 8,
       "norm_label": "arrive()"
     },
     {
@@ -200,7 +253,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "public_shared_programmed_self",
-      "community": 6,
+      "community": 9,
       "norm_label": "programmed-self.js"
     },
     {
@@ -210,7 +263,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "public_shared_programmed_self_h1",
-      "community": 6,
+      "community": 9,
       "norm_label": "h1()"
     },
     {
@@ -220,7 +273,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "public_shared_programmed_self_mount",
-      "community": 6,
+      "community": 9,
       "norm_label": "mount()"
     },
     {
@@ -230,7 +283,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "public_sw",
-      "community": 11,
+      "community": 14,
       "norm_label": "sw.js"
     },
     {
@@ -240,7 +293,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tools_build_rolls",
-      "community": 1,
+      "community": 0,
       "norm_label": "build_rolls.mjs"
     },
     {
@@ -250,7 +303,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "tools_build_rolls_base",
-      "community": 1,
+      "community": 0,
       "norm_label": "base"
     },
     {
@@ -260,7 +313,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "tools_build_rolls_chans",
-      "community": 1,
+      "community": 0,
       "norm_label": "chans"
     },
     {
@@ -270,7 +323,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "tools_build_rolls_esc",
-      "community": 3,
+      "community": 0,
       "norm_label": "esc()"
     },
     {
@@ -280,7 +333,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "tools_build_rolls_slug",
-      "community": 3,
+      "community": 0,
       "norm_label": "slug()"
     },
     {
@@ -290,7 +343,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "tools_build_rolls_entrymedia",
-      "community": 3,
+      "community": 0,
       "norm_label": "entrymedia()"
     },
     {
@@ -300,7 +353,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "tools_build_rolls_entryhow",
-      "community": 3,
+      "community": 0,
       "norm_label": "entryhow()"
     },
     {
@@ -310,7 +363,7 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "tools_build_rolls_entryarticle",
-      "community": 3,
+      "community": 0,
       "norm_label": "entryarticle()"
     },
     {
@@ -320,7 +373,7 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "tools_build_rolls_setrobots",
-      "community": 1,
+      "community": 0,
       "norm_label": "setrobots()"
     },
     {
@@ -330,7 +383,7 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "tools_build_rolls_setcanonical",
-      "community": 1,
+      "community": 0,
       "norm_label": "setcanonical()"
     },
     {
@@ -340,7 +393,7 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "tools_build_rolls_setdesc",
-      "community": 3,
+      "community": 0,
       "norm_label": "setdesc()"
     },
     {
@@ -350,7 +403,7 @@
       "source_location": "L78",
       "_origin": "ast",
       "id": "tools_build_rolls_num",
-      "community": 1,
+      "community": 0,
       "norm_label": "num"
     },
     {
@@ -360,7 +413,7 @@
       "source_location": "L79",
       "_origin": "ast",
       "id": "tools_build_rolls_lede",
-      "community": 1,
+      "community": 0,
       "norm_label": "lede"
     },
     {
@@ -370,7 +423,7 @@
       "source_location": "L157",
       "_origin": "ast",
       "id": "tools_build_rolls_hand",
-      "community": 1,
+      "community": 0,
       "norm_label": "hand"
     },
     {
@@ -380,7 +433,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tools_build_site",
-      "community": 12,
+      "community": 15,
       "norm_label": "build_site.mjs"
     },
     {
@@ -390,7 +443,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tools_fetch_art",
-      "community": 9,
+      "community": 12,
       "norm_label": "fetch_art.py"
     },
     {
@@ -400,7 +453,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tools_fetch_art_rationale_1",
-      "community": 9,
+      "community": 12,
       "norm_label": "art courier: runs on github actions (full internet), downloads card art from the"
     },
     {
@@ -410,7 +463,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tools_sample_stencil",
-      "community": 0,
+      "community": 3,
       "norm_label": "sample_stencil.py"
     },
     {
@@ -420,7 +473,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "tools_sample_stencil_canvas",
-      "community": 0,
+      "community": 3,
       "norm_label": "canvas()"
     },
     {
@@ -430,7 +483,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "tools_sample_stencil_crown",
-      "community": 0,
+      "community": 3,
       "norm_label": "crown()"
     },
     {
@@ -440,7 +493,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "tools_sample_stencil_coin",
-      "community": 0,
+      "community": 3,
       "norm_label": "coin()"
     },
     {
@@ -450,7 +503,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "tools_sample_stencil_heart",
-      "community": 0,
+      "community": 3,
       "norm_label": "heart()"
     },
     {
@@ -460,7 +513,7 @@
       "source_location": "L59",
       "_origin": "ast",
       "id": "tools_sample_stencil_flame",
-      "community": 0,
+      "community": 3,
       "norm_label": "flame()"
     },
     {
@@ -470,7 +523,7 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "tools_sample_stencil_dollar",
-      "community": 0,
+      "community": 3,
       "norm_label": "dollar()"
     },
     {
@@ -480,7 +533,7 @@
       "source_location": "L83",
       "_origin": "ast",
       "id": "tools_sample_stencil_meditator",
-      "community": 0,
+      "community": 3,
       "norm_label": "meditator()"
     },
     {
@@ -490,7 +543,7 @@
       "source_location": "L101",
       "_origin": "ast",
       "id": "tools_sample_stencil_cardback",
-      "community": 0,
+      "community": 3,
       "norm_label": "cardback()"
     },
     {
@@ -500,8 +553,422 @@
       "source_location": "L125",
       "_origin": "ast",
       "id": "tools_sample_stencil_sample",
-      "community": 0,
+      "community": 3,
       "norm_label": "sample()"
+    },
+    {
+      "label": "Cloudflare Admin Workflow",
+      "file_type": "code",
+      "source_file": ".github/workflows/cf-admin.yml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "One-off Cloudflare operations run from CI because the session sandbox cannot reach api.cloudflare.com directly; the GitHub runner can, and results are emitted as ::notice:: annotations which ARE readable via the GitHub API. verify-live uses mindcoding.pages.dev because it bypasses the zone's bot challenge, making it reliable for content-freshness checks.",
+      "id": "_github_workflows_cf_admin_cloudflare_admin",
+      "community": 1,
+      "norm_label": "cloudflare admin workflow"
+    },
+    {
+      "label": "Deploy to Cloudflare Pages Workflow",
+      "file_type": "code",
+      "source_file": ".github/workflows/deploy-cloudflare.yml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Verifies Cloudflare credentials with sanitized output (lengths only, whitespace check) and auto-creates the 'mindcoding' Pages project if missing before deploying dist via wrangler-action.",
+      "id": "_github_workflows_deploy_cloudflare_deploy_to_cloudflare_pages",
+      "community": 7,
+      "norm_label": "deploy to cloudflare pages workflow"
+    },
+    {
+      "label": "Deploy to GitHub Pages Workflow",
+      "file_type": "code",
+      "source_file": ".github/workflows/deploy.yml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "_github_workflows_deploy_deploy_to_github_pages",
+      "community": 7,
+      "norm_label": "deploy to github pages workflow"
+    },
+    {
+      "label": "Art Courier Workflow",
+      "file_type": "code",
+      "source_file": ".github/workflows/fetch-art.yml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Triggered by changes to tools/art-manifest.json; fetches and optimizes card artwork with Python (requests, pillow, ffmpeg) and commits it back to public/art as bot user 'art-courier'.",
+      "id": "_github_workflows_fetch_art_art_courier",
+      "community": 4,
+      "norm_label": "art courier workflow"
+    },
+    {
+      "label": "build_rolls.mjs Static Roll Generator",
+      "file_type": "code",
+      "source_file": ".github/workflows/deploy-cloudflare.yml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Generates static roll + entry pages for SEO at build time (INDEXABLE=1, BASE_URL from SITE_URL var) so the JS-rendered channel rolls also exist as indexable static pages.",
+      "id": "tools_build_rolls_build_rolls",
+      "community": 7,
+      "norm_label": "build_rolls.mjs static roll generator"
+    },
+    {
+      "label": "fetch_art.py Art Fetcher",
+      "file_type": "code",
+      "source_file": ".github/workflows/fetch-art.yml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "tools_fetch_art_fetch_art",
+      "community": 4,
+      "norm_label": "fetch_art.py art fetcher"
+    },
+    {
+      "label": "art-manifest.json Card Art Manifest",
+      "file_type": "document",
+      "source_file": ".github/workflows/fetch-art.yml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "tools_art_manifest_art_manifest",
+      "community": 4,
+      "norm_label": "art-manifest.json card art manifest"
+    },
+    {
+      "label": "channels.json Channel Data",
+      "file_type": "document",
+      "source_file": "public/channels/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "public_channels_channels_json",
+      "community": 2,
+      "norm_label": "channels.json channel data"
+    },
+    {
+      "label": "deck.json Tarot Deck Data",
+      "file_type": "document",
+      "source_file": "public/draw/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "public_deck_deck_json",
+      "community": 4,
+      "norm_label": "deck.json tarot deck data"
+    },
+    {
+      "label": "sw.js Service Worker (mindcoding-v37)",
+      "file_type": "code",
+      "source_file": ".github/workflows/cf-admin.yml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "public_sw_service_worker",
+      "community": 1,
+      "norm_label": "sw.js service worker (mindcoding-v37)"
+    },
+    {
+      "label": "scroll-life.js Scroll Effects",
+      "file_type": "code",
+      "source_file": "public/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "public_scroll_life_scroll_life",
+      "community": 1,
+      "norm_label": "scroll-life.js scroll effects"
+    },
+    {
+      "label": "Iris Keyhole Engine (keyhole-iris.js)",
+      "file_type": "code",
+      "source_file": "public/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "public_shared_keyhole_iris_iris",
+      "community": 1,
+      "norm_label": "iris keyhole engine (keyhole-iris.js)"
+    },
+    {
+      "label": "Nav Iris Transition (nav-iris.js)",
+      "file_type": "code",
+      "source_file": "public/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "public_shared_nav_iris_nav_iris",
+      "community": 1,
+      "norm_label": "nav iris transition (nav-iris.js)"
+    },
+    {
+      "label": "ProgrammedSelf Canvas Engine",
+      "file_type": "code",
+      "source_file": "public/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "public_shared_programmed_self_programmedself",
+      "community": 1,
+      "norm_label": "programmedself canvas engine"
+    },
+    {
+      "label": "Emblem Points Geometry (emblem-points.js)",
+      "file_type": "code",
+      "source_file": "public/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "public_shared_emblem_points_emblem_points",
+      "community": 1,
+      "norm_label": "emblem points geometry (emblem-points.js)"
+    },
+    {
+      "label": "MindDraw Card Draw Engine (draw-experience.js)",
+      "file_type": "code",
+      "source_file": "public/draw/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "public_draw_experience_minddraw",
+      "community": 4,
+      "norm_label": "minddraw card draw engine (draw-experience.js)"
+    },
+    {
+      "label": "MIND CODING Home Page (No. 01)",
+      "file_type": "code",
+      "source_file": "public/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "public_index_home_page",
+      "community": 1,
+      "norm_label": "mind coding home page (no. 01)"
+    },
+    {
+      "label": "Recode Channels Index Page",
+      "file_type": "code",
+      "source_file": "public/channels/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "public_channels_index_channels_page",
+      "community": 2,
+      "norm_label": "recode channels index page"
+    },
+    {
+      "label": "Abundance Channel Roll Page",
+      "file_type": "code",
+      "source_file": "public/channels/abundance/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "public_channels_abundance_index_abundance_roll",
+      "community": 2,
+      "norm_label": "abundance channel roll page"
+    },
+    {
+      "label": "Love Channel Roll Page",
+      "file_type": "code",
+      "source_file": "public/channels/love/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "public_channels_love_index_love_roll",
+      "community": 2,
+      "norm_label": "love channel roll page"
+    },
+    {
+      "label": "Spirit Channel Roll Page",
+      "file_type": "code",
+      "source_file": "public/channels/spirit/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "public_channels_spirit_index_spirit_roll",
+      "community": 2,
+      "norm_label": "spirit channel roll page"
+    },
+    {
+      "label": "Wellness Channel Roll Page",
+      "file_type": "code",
+      "source_file": "public/channels/wellness/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "public_channels_wellness_index_wellness_roll",
+      "community": 2,
+      "norm_label": "wellness channel roll page"
+    },
+    {
+      "label": "Books Channel Roll Page",
+      "file_type": "code",
+      "source_file": "public/channels/books/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "public_channels_books_index_books_roll",
+      "community": 2,
+      "norm_label": "books channel roll page"
+    },
+    {
+      "label": "The Draw Page",
+      "file_type": "code",
+      "source_file": "public/draw/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "public_draw_index_draw_page",
+      "community": 4,
+      "norm_label": "the draw page"
+    },
+    {
+      "label": "THE ENTRANCE Veil Gate",
+      "file_type": "rationale",
+      "source_file": "public/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Hold-to-enter keyhole gate (700ms hold) in front of the whole site. Design intent: skip the gate within the same session via sessionStorage 'mc-in', honor prefers-reduced-motion, hide entirely under noscript, and after 6 seconds allow a plain click as a safety hatch in case the canvas fails to draw. On completion it dispatches 'mc:enter' to wake scroll-life so the masthead animates immediately.",
+      "id": "public_index_the_entrance",
+      "community": 1,
+      "norm_label": "the entrance veil gate"
+    },
+    {
+      "label": "The Programmed Self Interactive Emblem",
+      "file_type": "rationale",
+      "source_file": "public/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Interactive canvas emblem (two mirrored profiles, keyhole, star, circuit pathways) the visitor can drag apart; it always reforms, demonstrating the thesis that willpower alone does not change the underlying program. Telemetry is 'honest' (displacement %, pattern-reasserted time). The reveal threshold was retuned to peak >= 4 to match the emblem's region-weighted meter \u2014 the old value of 8 was single-profile calibration and never fired on the emblem. After 2 reforms a lesson line appears: 'FORCE DOESN'T CHANGE IT. THE DRAW DOES'.",
+      "id": "public_index_programmed_self_concept",
+      "community": 1,
+      "norm_label": "the programmed self interactive emblem"
+    },
+    {
+      "label": "Zine Design System (Two Inks on Midnight)",
+      "file_type": "rationale",
+      "source_file": "public/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Set like a zine with two inks on midnight paper (#070B1A): GOLD (#D79A4A) = the brand, the chosen, the sacred; RED (#FF2B06) = the pattern, the alarm, the thing that turns on you. One border token (--bd:8px), grid under everything, zero frameworks. Ruled 07-12: headline dots run red like the masthead; on wide desks (>=1240px) 'THE SHEET' centers the zine at 1200px keeping the spine left. The moire halftone is the one sanctioned paint-property exception to the transform/opacity animation rule.",
+      "id": "public_index_zine_design_system",
+      "community": 2,
+      "norm_label": "zine design system (two inks on midnight)"
+    },
+    {
+      "label": "The Draw (Card as Mirror)",
+      "file_type": "rationale",
+      "source_file": "public/draw/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "One card, one unrehearsed perspective: the card is framed as an interruption, not a command or prediction \u2014 a way to encounter your story from an unprepared angle. 78 plates, gold on midnight. No saved readings by design \u2014 each reading is unique.",
+      "id": "public_draw_index_the_draw",
+      "community": 4,
+      "norm_label": "the draw (card as mirror)"
+    },
+    {
+      "label": "Insight Reveals, Repetition Recodes",
+      "file_type": "rationale",
+      "source_file": "public/channels/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Core principle of the channels: seeing the program is not the same as rewriting it \u2014 insight reveals, repetition recodes. Each channel supplies new words, images, music and practices to rehearse, because the mind keeps learning from whatever is rehearsed.",
+      "id": "public_channels_index_repetition_recodes",
+      "community": 1,
+      "norm_label": "insight reveals, repetition recodes"
+    },
+    {
+      "label": "The Recode Channels (Abundance, Love, Spirit, Wellness, Books)",
+      "file_type": "concept",
+      "source_file": "public/channels/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Five numbered channels of free music, affirmations and practices. Each channel roll pairs an instruction with its recording: LIVE items open their YouTube recordings; IN PREPARATION items are inked and awaiting release. Everything is free.",
+      "id": "public_channels_index_recode_channels",
+      "community": 2,
+      "norm_label": "the recode channels (abundance, love, spirit, wellness, books)"
+    },
+    {
+      "label": "Share Widget (X / Facebook / WhatsApp / Copy Link)",
+      "file_type": "concept",
+      "source_file": "public/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Identical inline IIFE duplicated across the home page and all five channel roll pages: builds intent URLs for X, Facebook and WhatsApp from location.href/document.title, and falls back from navigator.clipboard to a prompt() for copy-link.",
+      "id": "public_index_share_widget",
+      "community": 2,
+      "norm_label": "share widget (x / facebook / whatsapp / copy link)"
     }
   ],
   "links": [
@@ -1054,8 +1521,709 @@
       "source": "tools_sample_stencil_meditator",
       "target": "tools_sample_stencil_canvas",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "shares_data_with",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": ".github/workflows/cf-admin.yml",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "_github_workflows_cf_admin_cloudflare_admin",
+      "target": "_github_workflows_deploy_cloudflare_deploy_to_cloudflare_pages"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/cf-admin.yml",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "_github_workflows_cf_admin_cloudflare_admin",
+      "target": "public_channels_books_index_books_roll"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/cf-admin.yml",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "_github_workflows_cf_admin_cloudflare_admin",
+      "target": "public_index_home_page"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/cf-admin.yml",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "_github_workflows_cf_admin_cloudflare_admin",
+      "target": "public_scroll_life_scroll_life"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/cf-admin.yml",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "_github_workflows_cf_admin_cloudflare_admin",
+      "target": "public_shared_programmed_self_programmedself"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/cf-admin.yml",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "_github_workflows_cf_admin_cloudflare_admin",
+      "target": "public_sw_service_worker"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/deploy-cloudflare.yml",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "_github_workflows_deploy_cloudflare_deploy_to_cloudflare_pages",
+      "target": "tools_build_rolls_build_rolls"
+    },
+    {
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": ".github/workflows/deploy.yml",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "_github_workflows_deploy_deploy_to_github_pages",
+      "target": "_github_workflows_deploy_cloudflare_deploy_to_cloudflare_pages"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/deploy.yml",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "_github_workflows_deploy_deploy_to_github_pages",
+      "target": "tools_build_rolls_build_rolls"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": ".github/workflows/fetch-art.yml",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "_github_workflows_fetch_art_art_courier",
+      "target": "public_draw_index_draw_page"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/fetch-art.yml",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "_github_workflows_fetch_art_art_courier",
+      "target": "tools_art_manifest_art_manifest"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/fetch-art.yml",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "_github_workflows_fetch_art_art_courier",
+      "target": "tools_fetch_art_fetch_art"
+    },
+    {
+      "relation": "shares_data_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/channels/abundance/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_abundance_index_abundance_roll",
+      "target": "public_channels_channels_json"
+    },
+    {
+      "relation": "shares_data_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/channels/books/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_books_index_books_roll",
+      "target": "public_channels_channels_json"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "public/channels/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_channels_json",
+      "target": "public_channels_index_recode_channels"
+    },
+    {
+      "relation": "shares_data_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/channels/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_index_channels_page",
+      "target": "public_channels_channels_json"
+    },
+    {
+      "relation": "shares_data_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/channels/love/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_love_index_love_roll",
+      "target": "public_channels_channels_json"
+    },
+    {
+      "relation": "shares_data_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/channels/spirit/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_spirit_index_spirit_roll",
+      "target": "public_channels_channels_json"
+    },
+    {
+      "relation": "shares_data_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/channels/wellness/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_wellness_index_wellness_roll",
+      "target": "public_channels_channels_json"
+    },
+    {
+      "relation": "shares_data_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/draw/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_draw_index_draw_page",
+      "target": "public_deck_deck_json"
+    },
+    {
+      "relation": "shares_data_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_index_home_page",
+      "target": "public_deck_deck_json"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_index_home_page",
+      "target": "public_scroll_life_scroll_life"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_index_home_page",
+      "target": "public_shared_keyhole_iris_iris"
+    },
+    {
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "public/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_shared_keyhole_iris_iris",
+      "target": "public_index_the_entrance"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_index_home_page",
+      "target": "public_shared_nav_iris_nav_iris"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_index_home_page",
+      "target": "public_shared_programmed_self_programmedself"
+    },
+    {
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "public/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_shared_programmed_self_programmedself",
+      "target": "public_index_programmed_self_concept"
+    },
+    {
+      "relation": "shares_data_with",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "public/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_shared_programmed_self_programmedself",
+      "target": "public_shared_emblem_points_emblem_points"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_index_home_page",
+      "target": "public_shared_emblem_points_emblem_points"
+    },
+    {
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "public/draw/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_draw_experience_minddraw",
+      "target": "public_draw_index_the_draw"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/draw/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_draw_index_draw_page",
+      "target": "public_draw_experience_minddraw"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_index_home_page",
+      "target": "public_draw_experience_minddraw"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_index_home_page",
+      "target": "public_channels_abundance_index_abundance_roll"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_index_home_page",
+      "target": "public_channels_books_index_books_roll"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_index_home_page",
+      "target": "public_channels_love_index_love_roll"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_index_home_page",
+      "target": "public_channels_spirit_index_spirit_roll"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_index_home_page",
+      "target": "public_channels_wellness_index_wellness_roll"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_index_home_page",
+      "target": "public_draw_index_draw_page"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_index_home_page",
+      "target": "public_index_programmed_self_concept"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_index_home_page",
+      "target": "public_index_share_widget"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_index_home_page",
+      "target": "public_index_the_entrance"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_index_home_page",
+      "target": "public_index_zine_design_system"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/channels/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_index_channels_page",
+      "target": "public_channels_abundance_index_abundance_roll"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/channels/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_index_channels_page",
+      "target": "public_channels_books_index_books_roll"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/channels/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_index_channels_page",
+      "target": "public_channels_index_recode_channels"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/channels/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_index_channels_page",
+      "target": "public_channels_index_repetition_recodes"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/channels/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_index_channels_page",
+      "target": "public_channels_love_index_love_roll"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/channels/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_index_channels_page",
+      "target": "public_channels_spirit_index_spirit_roll"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/channels/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_index_channels_page",
+      "target": "public_channels_wellness_index_wellness_roll"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/channels/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_index_channels_page",
+      "target": "public_draw_index_draw_page"
+    },
+    {
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "public/channels/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_index_channels_page",
+      "target": "public_index_zine_design_system"
+    },
+    {
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "public/channels/abundance/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_abundance_index_abundance_roll",
+      "target": "public_index_share_widget"
+    },
+    {
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "public/channels/abundance/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_abundance_index_abundance_roll",
+      "target": "public_index_zine_design_system"
+    },
+    {
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "public/channels/love/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_love_index_love_roll",
+      "target": "public_index_share_widget"
+    },
+    {
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "public/channels/love/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_love_index_love_roll",
+      "target": "public_index_zine_design_system"
+    },
+    {
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "public/channels/spirit/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_spirit_index_spirit_roll",
+      "target": "public_index_share_widget"
+    },
+    {
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "public/channels/spirit/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_spirit_index_spirit_roll",
+      "target": "public_index_zine_design_system"
+    },
+    {
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "public/channels/wellness/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_wellness_index_wellness_roll",
+      "target": "public_index_share_widget"
+    },
+    {
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "public/channels/wellness/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_wellness_index_wellness_roll",
+      "target": "public_index_zine_design_system"
+    },
+    {
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "public/channels/books/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_books_index_books_roll",
+      "target": "public_index_share_widget"
+    },
+    {
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "public/channels/books/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_books_index_books_roll",
+      "target": "public_index_zine_design_system"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/draw/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_draw_index_draw_page",
+      "target": "public_draw_index_the_draw"
+    },
+    {
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "public/draw/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_draw_index_draw_page",
+      "target": "public_index_zine_design_system"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "public/channels/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_channels_index_repetition_recodes",
+      "target": "public_index_programmed_self_concept"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "public/channels/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "public_draw_index_the_draw",
+      "target": "public_channels_index_recode_channels"
     }
   ],
-  "hyperedges": [],
-  "built_at_commit": "dd5e3831ac2c00ba1ccb8ecaf26d60523fdd5c3b"
+  "hyperedges": [
+    {
+      "id": "channel_roll_rendering_flow",
+      "label": "Channel Roll Rendering Flow (channels.json consumers)",
+      "nodes": [
+        "public_channels_index_channels_page",
+        "public_channels_abundance_index_abundance_roll",
+        "public_channels_love_index_love_roll",
+        "public_channels_spirit_index_spirit_roll",
+        "public_channels_wellness_index_wellness_roll",
+        "public_channels_books_index_books_roll",
+        "public_channels_channels_json"
+      ],
+      "relation": "participate_in",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/channels/index.html"
+    },
+    {
+      "id": "site_deployment_pipelines",
+      "label": "Site Deployment and Verification Pipelines",
+      "nodes": [
+        "_github_workflows_deploy_deploy_to_github_pages",
+        "_github_workflows_deploy_cloudflare_deploy_to_cloudflare_pages",
+        "_github_workflows_cf_admin_cloudflare_admin"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": ".github/workflows/deploy-cloudflare.yml"
+    },
+    {
+      "id": "iris_transition_system",
+      "label": "Iris Transition System (keyhole entrance + nav transitions across all pages)",
+      "nodes": [
+        "public_shared_keyhole_iris_iris",
+        "public_shared_nav_iris_nav_iris",
+        "public_index_home_page",
+        "public_draw_index_draw_page",
+        "public_channels_index_channels_page",
+        "public_channels_abundance_index_abundance_roll",
+        "public_channels_love_index_love_roll",
+        "public_channels_spirit_index_spirit_roll",
+        "public_channels_wellness_index_wellness_roll",
+        "public_channels_books_index_books_roll"
+      ],
+      "relation": "participate_in",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/index.html"
+    }
+  ],
+  "built_at_commit": "9f43d63b21a4612fb503787a61090570aa17e4f7"
 }

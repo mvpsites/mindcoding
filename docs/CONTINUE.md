@@ -8,6 +8,29 @@
 
 ---
 
+## ⚡ 2026-07-12 EVE ADDENDUM — GRAPHIFY FULL GRAPH + AGENT WIRING (Jad's ruling: "full run with the HTML visualization")
+
+- KNOWLEDGE GRAPH EXPANDED code-only → full corpus (Jad's explicit "full
+  run" ruling supersedes the earlier code-only .graphifyignore ruling for
+  graph.json content; the ignore file itself is unchanged and still scopes
+  art/dist/fonts out). graph.json now 81 nodes / 118 edges / 16 communities
+  (was 50/53/13): workflows + all HTML pages semantically extracted via
+  subagent (no API key). New committed outputs: GRAPH_REPORT.md, graph.html
+  (interactive viz), .graphify_labels.json (community names).
+- Graph health caveat: 14 dangling-endpoint edges (semantic refs into
+  channels.json/deck.json — AST emits no nodes for JSON data files) and
+  6 collapsed duplicate edges. Usable; noted per graphify honesty rules.
+- HOOKS INSTALLED: git post-commit + post-checkout auto-rebuild the graph
+  (AST-only, code files, no API cost). Doc/HTML edits need a manual
+  `/graphify . --update`.
+- CLAUDE.md CREATED at root: orders agents to read AGENTS.md FIRST (the
+  law), then routes codebase questions through `graphify query` before
+  grep. .claude/settings.json gained graphify PreToolUse hooks.
+- Gitignored (machine-local): graphify-out/.graphify_python, .graphify_root.
+  graphify-out/.graphify_analysis.json deleted (temp sidecar, was
+  mistakenly committed 9f43d63).
+- No public/ changes — no sw bump. Deploys ship identical content.
+
 ## ⚡ 2026-07-12 PM ADDENDUM — THE CLEANSE + ROOT SWAP (Jad's ruling: "forget the rules, clean everything, self-host all assets")
 ## This section OVERRIDES stale paths/rulings below. Read it first.
 
