@@ -45,8 +45,8 @@
     "semantic_hash": "825095710c135467d71f999b9dd05f29"
   },
   "public/sw.js": {
-    "mtime": 1784003122.6297026,
-    "ast_hash": "f726d1c69b952ce82cdaeda8c41811bd",
+    "mtime": 1784006073.5393474,
+    "ast_hash": "1c6e96feb5dc7236506d17e5f024a494",
     "semantic_hash": ""
   },
   "tools/art-manifest.json": {
@@ -130,8 +130,8 @@
     "semantic_hash": "d6f6474af6be2b924a67b526f410f479"
   },
   "public/index.html": {
-    "mtime": 1784003412.7615502,
-    "ast_hash": "2f372668bdbf38fd9a285ea9a95b9128",
+    "mtime": 1784006033.2714982,
+    "ast_hash": "6f89f9dccc4b326d43c16776ce7416a2",
     "semantic_hash": ""
   },
   ".claude/settings.json": {
@@ -140,8 +140,8 @@
     "semantic_hash": ""
   },
   "public/hero-install.js": {
-    "mtime": 1784002946.4344711,
-    "ast_hash": "5cc468c9ae546943009c5560b18c6347",
+    "mtime": 1784006063.8563223,
+    "ast_hash": "6fce11f58f77f303a59b1129bb9f3fbf",
     "semantic_hash": ""
   },
   ".github/workflows/preview-cloudflare.yml": {

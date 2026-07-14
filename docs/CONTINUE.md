@@ -34,6 +34,18 @@
   index.html/sw.js/hero-install.js only. sw v54→v55. OWED: device pass
   on the drag feel + RM verdict (pane could not exercise real drag).
 
+- DEVICE PASS 2 (ruled later 07-14): splash small line now IT WAS ALWAYS
+  YOURS. (PUT YOUR FINGER ON IT deleted); key scaled ~1.6× (21vmin/134px,
+  seated at +24vmin — still clear of the snap zone at rest, verified
+  desktop + 390 incl. hint/ask clearance). INSTALL TRIGGER v2: viewport
+  entry only ARMS (boot line 1 + blinking cursor); START = first pointer
+  interaction with section 01 (hover-enter or first tap — the starting
+  gesture cannot self-skip, skip binds a macrotask later); armed 4s with
+  no interaction → AUTOPLAY (no inert sections, ruled); interactions
+  after start snap-skip, wheel grace kept; RM/replay/hatch unchanged.
+  All paths re-verified in pane + zero drift incl. armed phase.
+  sw v55→v56.
+
 ## ⚡ 2026-07-13 ADDENDUM — HERO INSTALL SEQUENCE (RULED by Jad; branch feat/hero-install, NOT merged)
 
 - SECTION 01 NOW *INSTALLS* THE BELIEFS instead of displaying them: gold
