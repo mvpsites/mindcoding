@@ -8,6 +8,32 @@
 
 ---
 
+## ⚡ 2026-07-14 ADDENDUM — DEVICE RULINGS: PACING + THE ENTRANCE v2 (branch feat/hero-install, NOT merged; supersedes the 07-13 pacing text below)
+
+- PACING RE-RULED from device review: the accelerating governor and the
+  6.5s ceiling are REMOVED — skip is the bounce protection, not the
+  budget. Flat 40ms/char ±40% jitter, word pauses 140–180ms, gap 350ms,
+  boot 0.8s, BE REAL+420ms verbatim. Harness now REPORTS totals: 500
+  plans → 9669/9974/10321 ms (min/median/max, approved ~9–10s band).
+- THE ENTRANCE v2 (ruled): hold-the-keyhole replaced by TAKE THE KEY —
+  gold key dragged to the iris keyhole (pointer events); on overlap it
+  snaps, turns 90° hard tick, iris blooms, splash dissolves 600ms,
+  mc:enter. Hint fades at 1.5s idle (TAKE THE KEY. / small: the ruled
+  07-12 CTA line — hierarchy inverted, Jad may re-rule). Fallbacks:
+  keyhole click-target + focusable aria-labelled key with Enter/Space.
+  REDUCED MOTION now SEES the splash (click unlock, instant dissolve) —
+  the old RM auto-skip is gone. Once-per-session unchanged (mc-in); the
+  hero install arms on BOTH paths (mc:enter or plain viewport entry).
+  FAILSAFE PARITY: __mcGateHatch 2.5s teardown in the head gate (removes
+  splash, mc-in class, dispatches mc:enter so no waiter hangs; does NOT
+  persist mc-in), disarmed as the entrance script's last init act.
+  Geometry rides gate.getBoundingClientRect(), not window.inner*.
+- Gates re-run green: killed-entrance + killed-module hatch pages, both
+  arming paths, wheel grace, snap skip, replay, zero drift at every beat
+  (fonts-loaded baselines), build+rolls+link check, dist diff vs main =
+  index.html/sw.js/hero-install.js only. sw v54→v55. OWED: device pass
+  on the drag feel + RM verdict (pane could not exercise real drag).
+
 ## ⚡ 2026-07-13 ADDENDUM — HERO INSTALL SEQUENCE (RULED by Jad; branch feat/hero-install, NOT merged)
 
 - SECTION 01 NOW *INSTALLS* THE BELIEFS instead of displaying them: gold

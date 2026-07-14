@@ -130,8 +130,8 @@
     "semantic_hash": "d6f6474af6be2b924a67b526f410f479"
   },
   "public/index.html": {
-    "mtime": 1783999884.5854502,
-    "ast_hash": "11246ffdaca16e6c783c1250d5b0635a",
+    "mtime": 1784001385.3976958,
+    "ast_hash": "9963d282853d97d8df50cc68b6bfbcfc",
     "semantic_hash": ""
   },
   ".claude/settings.json": {
@@ -140,8 +140,13 @@
     "semantic_hash": ""
   },
   "public/hero-install.js": {
-    "mtime": 1784000708.6585605,
-    "ast_hash": "64a729a310ab84b0a2de20367770277c",
+    "mtime": 1784001402.065556,
+    "ast_hash": "2ccc748ff7978142bcf98c652db941be",
+    "semantic_hash": ""
+  },
+  ".github/workflows/preview-cloudflare.yml": {
+    "mtime": 1784002107.0421283,
+    "ast_hash": "09b84b83197e2385f3a8563de38f26eb",
     "semantic_hash": ""
   }
 }
