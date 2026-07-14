@@ -48,10 +48,15 @@
   the schedule manually. Also logs planned total + governor scale.
 - GOTCHAS: machine currently has NO system node/npm/brew — gates ran on
   the ChatGPT.app bundled node v24 ('/Applications/ChatGPT.app/Contents/
-  Resources/cua_node/bin/node', read-only use). Neither deploy workflow
-  triggers on non-main branches and Cloudflare deploys are wrangler
-  direct-upload → NO branch preview exists; Jad to rule: dispatchable
-  wrangler --branch preview workflow, or review locally / merge.
+  Resources/cua_node/bin/node', read-only use). BRANCH PREVIEWS (ruled
+  07-14): .github/workflows/preview-cloudflare.yml deploys any non-main
+  push as a wrangler --branch PREVIEW (noindex, production alias
+  untouched, refuses main). LIVE + VERIFIED:
+  https://feat-hero-install.mindcoding.pages.dev serves the branch;
+  mindcod.ing confirmed unchanged. GOTCHA: its workflow_dispatch is
+  API/UI-invisible until the file reaches main (GitHub indexes
+  dispatchables from the default branch — the dispatch API 404s); the
+  push trigger is what runs until merge.
 - OWED: Jad's device verdict on the feel (jitter, hesitation, cursor,
   grace), the two new annotation strings are RULED (not placeholder),
   boot plate + stamps persist in the settled frame (ruled: reserved
