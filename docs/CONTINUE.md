@@ -8,7 +8,31 @@
 
 ---
 
-## ⚡ 2026-07-14 ADDENDUM — DEVICE RULINGS: PACING + THE ENTRANCE v2 (branch feat/hero-install, NOT merged; supersedes the 07-13 pacing text below)
+## ⚡ 2026-07-14 SHIPPED — HERO INSTALL + ENTRANCE v2 MERGED TO MAIN (RULED: "approved to ship")
+
+- PR #2 (feat/hero-install → main) merged at 66413da. BOTH deploy
+  workflows green ON THAT SHA; https://mindcod.ing VERIFIED serving the
+  new build in-browser (install markup, key splash, TAKE THE KEY. /
+  IT WAS ALWAYS YOURS., sw v56, robots index,follow intact). The
+  "NOT merged" notes in the addenda below are now historical.
+  preview-cloudflare.yml is on main → its workflow_dispatch is now
+  API/UI-visible for future branches.
+- OWED (1): Jad's on-device verdict on install-sequence pacing, the
+  BE REAL hesitation, the cursor, and hover-start feel. ⚠ IMPORTANT:
+  the owner has NOT yet successfully witnessed the animation on-device —
+  before assuming user timing, INVESTIGATE whether the armed/trigger
+  state fails on his hardware (Safari, trackpad): check IO threshold .5
+  on the boot plate actually fires in Safari, pointerenter behavior with
+  trackpads, and whether the 4s autoplay rescued him (if he saw the
+  final state instantly, suspect a skip-path misfire; ?hi-debug logs
+  beat marks). The armed boot-line + blinking cursor should be visible
+  evidence — ask what he saw.
+- OWED (2): install Homebrew + Node LTS on this machine before the next
+  session. Gates currently run on a borrowed app-bundled node
+  ('/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node',
+  v24) — works, but it is not ours and can vanish with an app update.
+
+## ⚡ 2026-07-14 ADDENDUM — DEVICE RULINGS: PACING + THE ENTRANCE v2 (branch feat/hero-install, merged above; supersedes the 07-13 pacing text below)
 
 - PACING RE-RULED from device review: the accelerating governor and the
   6.5s ceiling are REMOVED — skip is the bounce protection, not the
