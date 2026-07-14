@@ -8,8 +8,11 @@
    the HTML — it NEVER injects copy (SEO pipeline untouched).
    - Gate: the <head> snippet sets html.mc-hi PRE-PAINT, skipped
      when sessionStorage.mc_hero_played or reduced motion. No JS
-     = no concealment = plain static hero. A 4s no-load hatch in
-     the snippet un-conceals if this file never arrives.
+     = no concealment = plain static hero. FAILSAFE HANDSHAKE
+     (ruled): the snippet arms a 2.5s hatch that force-reveals
+     the static hero; this module clears it as its FIRST act.
+     Slow connection, blocked script, any JS failure -> static
+     hero, never darkness.
    - Starts when the beliefs enter the viewport, after mc:enter
      on the gated landing (same wait as scroll-life).
    - ACCELERATING INSTALLER (ruled 07-13): lines 1–2 at 34ms/char
@@ -111,8 +114,12 @@
   /* ================= DOM layer ================= */
   var doc = typeof document !== 'undefined' ? document : null;
   if (!doc) return;                                  /* node harness stops here */
+  /* FIRST ACT (ruled failsafe): take ownership of the concealment — clear the
+     head gate's 2.5s force-reveal hatch. If the hatch already fired (we loaded
+     slow), mc-hi is gone and we exit below: static hero, never darkness. */
+  if (global.__mcHiHatch) { clearTimeout(global.__mcHiHatch); global.__mcHiHatch = 0; }
   var root = doc.documentElement;
-  if (!root.classList.contains('mc-hi')) return;     /* played / reduced motion */
+  if (!root.classList.contains('mc-hi')) return;     /* played / reduced motion / hatch fired */
 
   var DBG = /hi-debug/.test((global.location && global.location.search) || '');
   var sec = doc.querySelector('[data-install]');

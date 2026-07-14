@@ -28,7 +28,13 @@
   CSS + pre-paint mc-hi head gate in index.html; sw v53→v54. All copy
   static ALWAYS (SEO gate: dist diff vs main = only the 3 intended files;
   link check 298 refs clean). Concealment only under html.mc-hi; no JS =
-  static hero; 4s no-load hatch in the head gate un-conceals.
+  static hero. FAILSAFE HANDSHAKE (ruled): the head gate arms a 2.5s
+  hatch that force-reveals the static hero; the module clears it as its
+  FIRST act on init. Slow connection / blocked script / any JS failure →
+  static hero, never darkness. ACCEPTANCE GATE (ruled, verified): kill
+  the module script tag → section renders static within 2.5s (measured
+  2.6s page-time incl. head-parse offset); module present → hatch
+  cleared, concealment owned, sequence plays.
 - UX: starts when .beliefs enters viewport (after mc:enter on the gated
   landing); skip = pointerdown/keydown instant, wheel/touchmove after a
   700ms grace (trackpad momentum from the arming scroll must not kill

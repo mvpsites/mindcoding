@@ -6,9 +6,10 @@
 try{if(sessionStorage.getItem('mc-in')||matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('mc-in')}catch(e){document.documentElement.classList.add('mc-in')}</script>
 <script>/* HERO INSTALL gate (ruled 07-13): conceal section 01 pre-paint so hero-install.js
 can type it in. Skipped when already played this session or reduced motion — the hero
-is then simply static. The timeout is the no-load safety hatch: if the module never
-arrives, un-conceal rather than strand hidden copy. */
-try{if(!sessionStorage.getItem('mc_hero_played')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('mc-hi');setTimeout(function(){if(!window.HeroInstall)document.documentElement.classList.remove('mc-hi')},4000)}}catch(e){}</script>
+is then simply static. FAILSAFE (ruled): the 2.5s hatch force-reveals the static hero
+unless the module clears it as its first act — slow connection, blocked script or any
+JS failure must end in the static hero, never darkness. */
+try{if(!sessionStorage.getItem('mc_hero_played')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('mc-hi');window.__mcHiHatch=setTimeout(function(){document.documentElement.classList.remove('mc-hi')},2500)}}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex" />
 <meta property="og:title" content="MIND CODING — Recode the pattern." />
