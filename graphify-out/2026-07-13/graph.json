@@ -42,59 +42,59 @@
       "source_file": "public/hero-install.js",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "public_hero_install",
       "community": 7,
-      "norm_label": "hero-install.js"
+      "norm_label": "hero-install.js",
+      "id": "public_hero_install"
     },
     {
       "label": "plan()",
       "file_type": "code",
       "source_file": "public/hero-install.js",
-      "source_location": "L56",
+      "source_location": "L49",
       "_origin": "ast",
-      "id": "public_hero_install_plan",
       "community": 7,
-      "norm_label": "plan()"
+      "norm_label": "plan()",
+      "id": "public_hero_install_plan"
     },
     {
       "label": "keep()",
       "file_type": "code",
       "source_file": "public/hero-install.js",
-      "source_location": "L135",
+      "source_location": "L134",
       "_origin": "ast",
-      "id": "public_hero_install_keep",
       "community": 7,
-      "norm_label": "keep()"
+      "norm_label": "keep()",
+      "id": "public_hero_install_keep"
     },
     {
       "label": "wrapChars()",
       "file_type": "code",
       "source_file": "public/hero-install.js",
-      "source_location": "L136",
+      "source_location": "L135",
       "_origin": "ast",
-      "id": "public_hero_install_wrapchars",
       "community": 7,
-      "norm_label": "wrapchars()"
+      "norm_label": "wrapchars()",
+      "id": "public_hero_install_wrapchars"
     },
     {
       "label": "moveCursor()",
       "file_type": "code",
       "source_file": "public/hero-install.js",
-      "source_location": "L190",
+      "source_location": "L189",
       "_origin": "ast",
-      "id": "public_hero_install_movecursor",
       "community": 7,
-      "norm_label": "movecursor()"
+      "norm_label": "movecursor()",
+      "id": "public_hero_install_movecursor"
     },
     {
       "label": "show()",
       "file_type": "code",
       "source_file": "public/hero-install.js",
-      "source_location": "L203",
+      "source_location": "L202",
       "_origin": "ast",
-      "id": "public_hero_install_show",
       "community": 7,
-      "norm_label": "show()"
+      "norm_label": "show()",
+      "id": "public_hero_install_show"
     },
     {
       "label": "run()",
@@ -102,9 +102,9 @@
       "source_file": "public/hero-install.js",
       "source_location": "L211",
       "_origin": "ast",
-      "id": "public_hero_install_run",
       "community": 7,
-      "norm_label": "run()"
+      "norm_label": "run()",
+      "id": "public_hero_install_run"
     },
     {
       "label": "finish()",
@@ -112,89 +112,69 @@
       "source_file": "public/hero-install.js",
       "source_location": "L236",
       "_origin": "ast",
-      "id": "public_hero_install_finish",
       "community": 7,
-      "norm_label": "finish()"
+      "norm_label": "finish()",
+      "id": "public_hero_install_finish"
     },
     {
       "label": "snap()",
       "file_type": "code",
       "source_file": "public/hero-install.js",
-      "source_location": "L263",
+      "source_location": "L255",
       "_origin": "ast",
-      "id": "public_hero_install_snap",
       "community": 7,
-      "norm_label": "snap()"
-    },
-    {
-      "label": "snapScroll()",
-      "file_type": "code",
-      "source_file": "public/hero-install.js",
-      "source_location": "L264",
-      "_origin": "ast",
-      "id": "public_hero_install_snapscroll",
-      "community": 7,
-      "norm_label": "snapscroll()"
+      "norm_label": "snap()",
+      "id": "public_hero_install_snap"
     },
     {
       "label": "bind()",
       "file_type": "code",
       "source_file": "public/hero-install.js",
-      "source_location": "L266",
+      "source_location": "L257",
       "_origin": "ast",
-      "id": "public_hero_install_bind",
       "community": 7,
-      "norm_label": "bind()"
+      "norm_label": "bind()",
+      "id": "public_hero_install_bind"
     },
     {
       "label": "unbind()",
       "file_type": "code",
       "source_file": "public/hero-install.js",
-      "source_location": "L274",
+      "source_location": "L265",
       "_origin": "ast",
-      "id": "public_hero_install_unbind",
       "community": 7,
-      "norm_label": "unbind()"
+      "norm_label": "unbind()",
+      "id": "public_hero_install_unbind"
     },
     {
       "label": "tick()",
       "file_type": "code",
       "source_file": "public/hero-install.js",
-      "source_location": "L284",
+      "source_location": "L275",
       "_origin": "ast",
-      "id": "public_hero_install_tick",
       "community": 7,
-      "norm_label": "tick()"
+      "norm_label": "tick()",
+      "id": "public_hero_install_tick"
     },
     {
       "label": "start()",
       "file_type": "code",
       "source_file": "public/hero-install.js",
-      "source_location": "L292",
+      "source_location": "L283",
       "_origin": "ast",
-      "id": "public_hero_install_start",
       "community": 7,
-      "norm_label": "start()"
-    },
-    {
-      "label": "enterArmed()",
-      "file_type": "code",
-      "source_file": "public/hero-install.js",
-      "source_location": "L309",
-      "_origin": "ast",
-      "id": "public_hero_install_enterarmed",
-      "community": 7,
-      "norm_label": "enterarmed()"
+      "norm_label": "start()",
+      "id": "public_hero_install_start"
     },
     {
       "label": "arm()",
       "file_type": "code",
       "source_file": "public/hero-install.js",
-      "source_location": "L321",
+      "source_location": "L292",
       "_origin": "ast",
-      "id": "public_hero_install_arm",
       "community": 7,
-      "norm_label": "arm()"
+      "norm_label": "arm()",
+      "id": "public_hero_install_arm"
     },
     {
       "label": "package.json",
@@ -982,31 +962,21 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "public/hero-install.js",
-      "source_location": "L321",
+      "source_location": "L292",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "public_hero_install",
-      "target": "public_hero_install_arm",
-      "confidence_score": 1.0
+      "target": "public_hero_install_arm"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "public/hero-install.js",
-      "source_location": "L266",
+      "source_location": "L257",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "public_hero_install",
-      "target": "public_hero_install_bind",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "public/hero-install.js",
-      "source_location": "L309",
-      "weight": 1.0,
-      "source": "public_hero_install",
-      "target": "public_hero_install_enterarmed",
-      "confidence_score": 1.0
+      "target": "public_hero_install_bind"
     },
     {
       "relation": "contains",
@@ -1014,39 +984,39 @@
       "source_file": "public/hero-install.js",
       "source_location": "L236",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "public_hero_install",
-      "target": "public_hero_install_finish",
-      "confidence_score": 1.0
+      "target": "public_hero_install_finish"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "public/hero-install.js",
-      "source_location": "L135",
+      "source_location": "L134",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "public_hero_install",
-      "target": "public_hero_install_keep",
-      "confidence_score": 1.0
+      "target": "public_hero_install_keep"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "public/hero-install.js",
-      "source_location": "L190",
+      "source_location": "L189",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "public_hero_install",
-      "target": "public_hero_install_movecursor",
-      "confidence_score": 1.0
+      "target": "public_hero_install_movecursor"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "public/hero-install.js",
-      "source_location": "L56",
+      "source_location": "L49",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "public_hero_install",
-      "target": "public_hero_install_plan",
-      "confidence_score": 1.0
+      "target": "public_hero_install_plan"
     },
     {
       "relation": "contains",
@@ -1054,101 +1024,80 @@
       "source_file": "public/hero-install.js",
       "source_location": "L211",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "public_hero_install",
-      "target": "public_hero_install_run",
-      "confidence_score": 1.0
+      "target": "public_hero_install_run"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "public/hero-install.js",
-      "source_location": "L203",
+      "source_location": "L202",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "public_hero_install",
-      "target": "public_hero_install_show",
-      "confidence_score": 1.0
+      "target": "public_hero_install_show"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "public/hero-install.js",
-      "source_location": "L263",
+      "source_location": "L255",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "public_hero_install",
-      "target": "public_hero_install_snap",
-      "confidence_score": 1.0
+      "target": "public_hero_install_snap"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "public/hero-install.js",
-      "source_location": "L264",
+      "source_location": "L283",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "public_hero_install",
-      "target": "public_hero_install_snapscroll",
-      "confidence_score": 1.0
+      "target": "public_hero_install_start"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "public/hero-install.js",
-      "source_location": "L292",
+      "source_location": "L275",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "public_hero_install",
-      "target": "public_hero_install_start",
-      "confidence_score": 1.0
+      "target": "public_hero_install_tick"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "public/hero-install.js",
-      "source_location": "L284",
+      "source_location": "L265",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "public_hero_install",
-      "target": "public_hero_install_tick",
-      "confidence_score": 1.0
+      "target": "public_hero_install_unbind"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "public/hero-install.js",
-      "source_location": "L274",
+      "source_location": "L135",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "public_hero_install",
-      "target": "public_hero_install_unbind",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "public/hero-install.js",
-      "source_location": "L136",
-      "weight": 1.0,
-      "source": "public_hero_install",
-      "target": "public_hero_install_wrapchars",
-      "confidence_score": 1.0
+      "target": "public_hero_install_wrapchars"
     },
     {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "public/hero-install.js",
-      "source_location": "L313",
+      "source_location": "L202",
       "weight": 1.0,
-      "source": "public_hero_install_enterarmed",
-      "target": "public_hero_install_movecursor",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "public/hero-install.js",
-      "source_location": "L203",
-      "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "public_hero_install_show",
-      "target": "public_hero_install_movecursor",
-      "confidence_score": 1.0
+      "target": "public_hero_install_movecursor"
     },
     {
       "relation": "calls",
@@ -1157,9 +1106,9 @@
       "source_file": "public/hero-install.js",
       "source_location": "L214",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "public_hero_install_run",
-      "target": "public_hero_install_show",
-      "confidence_score": 1.0
+      "target": "public_hero_install_show"
     },
     {
       "relation": "calls",
@@ -1168,152 +1117,97 @@
       "source_file": "public/hero-install.js",
       "source_location": "L228",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "public_hero_install_run",
-      "target": "public_hero_install_finish",
-      "confidence_score": 1.0
+      "target": "public_hero_install_finish"
     },
     {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
-      "source_file": "public/hero-install.js",
-      "source_location": "L287",
-      "weight": 1.0,
-      "source": "public_hero_install_tick",
-      "target": "public_hero_install_run",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "indirect_call",
-      "context": "argument",
-      "confidence": "INFERRED",
-      "source_file": "public/hero-install.js",
-      "source_location": "L241",
-      "weight": 1.0,
-      "source": "public_hero_install_finish",
-      "target": "public_hero_install_start",
-      "confidence_score": 0.5
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "public/hero-install.js",
-      "source_location": "L243",
-      "weight": 1.0,
-      "source": "public_hero_install_finish",
-      "target": "public_hero_install_unbind",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "public/hero-install.js",
-      "source_location": "L263",
-      "weight": 1.0,
-      "source": "public_hero_install_snap",
-      "target": "public_hero_install_finish",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "public/hero-install.js",
-      "source_location": "L264",
-      "weight": 1.0,
-      "source": "public_hero_install_snapscroll",
-      "target": "public_hero_install_finish",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "indirect_call",
-      "context": "argument",
-      "confidence": "INFERRED",
-      "source_file": "public/hero-install.js",
-      "source_location": "L269",
-      "weight": 1.0,
-      "source": "public_hero_install_bind",
-      "target": "public_hero_install_snap",
-      "confidence_score": 0.5
-    },
-    {
-      "relation": "indirect_call",
-      "context": "argument",
-      "confidence": "INFERRED",
-      "source_file": "public/hero-install.js",
-      "source_location": "L277",
-      "weight": 1.0,
-      "source": "public_hero_install_unbind",
-      "target": "public_hero_install_snap",
-      "confidence_score": 0.5
-    },
-    {
-      "relation": "indirect_call",
-      "context": "argument",
-      "confidence": "INFERRED",
-      "source_file": "public/hero-install.js",
-      "source_location": "L270",
-      "weight": 1.0,
-      "source": "public_hero_install_bind",
-      "target": "public_hero_install_snapscroll",
-      "confidence_score": 0.5
-    },
-    {
-      "relation": "indirect_call",
-      "context": "argument",
-      "confidence": "INFERRED",
       "source_file": "public/hero-install.js",
       "source_location": "L278",
       "weight": 1.0,
-      "source": "public_hero_install_unbind",
-      "target": "public_hero_install_snapscroll",
-      "confidence_score": 0.5
-    },
-    {
-      "relation": "indirect_call",
-      "context": "argument",
-      "confidence": "INFERRED",
-      "source_file": "public/hero-install.js",
-      "source_location": "L302",
-      "weight": 1.0,
-      "source": "public_hero_install_start",
-      "target": "public_hero_install_bind",
-      "confidence_score": 0.5
-    },
-    {
-      "relation": "indirect_call",
-      "context": "argument",
-      "confidence": "INFERRED",
-      "source_file": "public/hero-install.js",
-      "source_location": "L304",
-      "weight": 1.0,
-      "source": "public_hero_install_start",
-      "target": "public_hero_install_tick",
-      "confidence_score": 0.5
-    },
-    {
-      "relation": "indirect_call",
-      "context": "argument",
-      "confidence": "INFERRED",
-      "source_file": "public/hero-install.js",
-      "source_location": "L315",
-      "weight": 1.0,
-      "source": "public_hero_install_enterarmed",
-      "target": "public_hero_install_start",
-      "confidence_score": 0.5
+      "confidence_score": 1.0,
+      "source": "public_hero_install_tick",
+      "target": "public_hero_install_run"
     },
     {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "public/hero-install.js",
-      "source_location": "L322",
+      "source_location": "L240",
       "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "public_hero_install_finish",
+      "target": "public_hero_install_unbind"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/hero-install.js",
+      "source_location": "L255",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "public_hero_install_snap",
+      "target": "public_hero_install_finish"
+    },
+    {
+      "relation": "indirect_call",
+      "context": "argument",
+      "confidence": "INFERRED",
+      "source_file": "public/hero-install.js",
+      "source_location": "L260",
+      "weight": 1.0,
+      "confidence_score": 0.5,
+      "source": "public_hero_install_bind",
+      "target": "public_hero_install_snap"
+    },
+    {
+      "relation": "indirect_call",
+      "context": "argument",
+      "confidence": "INFERRED",
+      "source_file": "public/hero-install.js",
+      "source_location": "L268",
+      "weight": 1.0,
+      "confidence_score": 0.5,
+      "source": "public_hero_install_unbind",
+      "target": "public_hero_install_snap"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/hero-install.js",
+      "source_location": "L286",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "public_hero_install_start",
+      "target": "public_hero_install_bind"
+    },
+    {
+      "relation": "indirect_call",
+      "context": "argument",
+      "confidence": "INFERRED",
+      "source_file": "public/hero-install.js",
+      "source_location": "L288",
+      "weight": 1.0,
+      "confidence_score": 0.5,
+      "source": "public_hero_install_start",
+      "target": "public_hero_install_tick"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/hero-install.js",
+      "source_location": "L293",
+      "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "public_hero_install_arm",
-      "target": "public_hero_install_enterarmed",
-      "confidence_score": 1.0
+      "target": "public_hero_install_start"
     },
     {
       "relation": "contains",
@@ -2188,5 +2082,5 @@
       "source_file": ".github/workflows/deploy-cloudflare.yml"
     }
   ],
-  "built_at_commit": "e0e79d68a6874ef8dc74cc30d69befee2ded6a25"
+  "built_at_commit": "79806f86dee19362572cb3346443037e0cedc855"
 }

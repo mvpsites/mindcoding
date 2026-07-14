@@ -8,6 +8,98 @@
 
 ---
 
+## ⚡ 2026-07-14 ADDENDUM — DEVICE RULINGS: PACING + THE ENTRANCE v2 (branch feat/hero-install, NOT merged; supersedes the 07-13 pacing text below)
+
+- PACING RE-RULED from device review: the accelerating governor and the
+  6.5s ceiling are REMOVED — skip is the bounce protection, not the
+  budget. Flat 40ms/char ±40% jitter, word pauses 140–180ms, gap 350ms,
+  boot 0.8s, BE REAL+420ms verbatim. Harness now REPORTS totals: 500
+  plans → 9669/9974/10321 ms (min/median/max, approved ~9–10s band).
+- THE ENTRANCE v2 (ruled): hold-the-keyhole replaced by TAKE THE KEY —
+  gold key dragged to the iris keyhole (pointer events); on overlap it
+  snaps, turns 90° hard tick, iris blooms, splash dissolves 600ms,
+  mc:enter. Hint fades at 1.5s idle (TAKE THE KEY. / small: the ruled
+  07-12 CTA line — hierarchy inverted, Jad may re-rule). Fallbacks:
+  keyhole click-target + focusable aria-labelled key with Enter/Space.
+  REDUCED MOTION now SEES the splash (click unlock, instant dissolve) —
+  the old RM auto-skip is gone. Once-per-session unchanged (mc-in); the
+  hero install arms on BOTH paths (mc:enter or plain viewport entry).
+  FAILSAFE PARITY: __mcGateHatch 2.5s teardown in the head gate (removes
+  splash, mc-in class, dispatches mc:enter so no waiter hangs; does NOT
+  persist mc-in), disarmed as the entrance script's last init act.
+  Geometry rides gate.getBoundingClientRect(), not window.inner*.
+- Gates re-run green: killed-entrance + killed-module hatch pages, both
+  arming paths, wheel grace, snap skip, replay, zero drift at every beat
+  (fonts-loaded baselines), build+rolls+link check, dist diff vs main =
+  index.html/sw.js/hero-install.js only. sw v54→v55. OWED: device pass
+  on the drag feel + RM verdict (pane could not exercise real drag).
+
+- DEVICE PASS 2 (ruled later 07-14): splash small line now IT WAS ALWAYS
+  YOURS. (PUT YOUR FINGER ON IT deleted); key scaled ~1.6× (21vmin/134px,
+  seated at +24vmin — still clear of the snap zone at rest, verified
+  desktop + 390 incl. hint/ask clearance). INSTALL TRIGGER v2: viewport
+  entry only ARMS (boot line 1 + blinking cursor); START = first pointer
+  interaction with section 01 (hover-enter or first tap — the starting
+  gesture cannot self-skip, skip binds a macrotask later); armed 4s with
+  no interaction → AUTOPLAY (no inert sections, ruled); interactions
+  after start snap-skip, wheel grace kept; RM/replay/hatch unchanged.
+  All paths re-verified in pane + zero drift incl. armed phase.
+  sw v55→v56.
+
+## ⚡ 2026-07-13 ADDENDUM — HERO INSTALL SEQUENCE (RULED by Jad; branch feat/hero-install, NOT merged)
+
+- SECTION 01 NOW *INSTALLS* THE BELIEFS instead of displaying them: gold
+  boot plate (MIND CODING — v1.0 / LOADING INSTALLED PATTERNS…), the SIX
+  beliefs type in (copy untouched) with a forensic mono stamp each —
+  RULED annotations: logged by: others / logged by: self (the
+  too-much/not-enough contradiction pair) / origin: inherited /
+  installed: early / source: unknown / last run: today (always final) —
+  then ⚠ 6 PATTERNS ACTIVE — STILL RUNNING (red) with one hard blink,
+  then beliefs-after fades in 600ms. BE REAL + 420ms + ISTIC. hesitation.
+- TIMING (ruled amendment): accelerating installer — lines 1–2 34ms/char
+  ±40% jitter, −15%/line after (floor 20), word pauses 90–110ms (the
+  space char IS the pause), gaps 200→100ms, boot ≤550ms; a BUDGET
+  GOVERNOR squeezes only scalable deltas to pin total at 6450ms (fixed
+  beats never squeezed). Harness: 500 plans, all 6450ms exactly.
+- FILES: public/hero-install.js (engine: pure plan() + DOM layer, one rAF
+  flat schedule, drains due events after throttling — verified); markup +
+  CSS + pre-paint mc-hi head gate in index.html; sw v53→v54. All copy
+  static ALWAYS (SEO gate: dist diff vs main = only the 3 intended files;
+  link check 298 refs clean). Concealment only under html.mc-hi; no JS =
+  static hero. FAILSAFE HANDSHAKE (ruled): the head gate arms a 2.5s
+  hatch that force-reveals the static hero; the module clears it as its
+  FIRST act on init. Slow connection / blocked script / any JS failure →
+  static hero, never darkness. ACCEPTANCE GATE (ruled, verified): kill
+  the module script tag → section renders static within 2.5s (measured
+  2.6s page-time incl. head-parse offset); module present → hatch
+  cleared, concealment owned, sequence plays.
+- UX: starts when .beliefs enters viewport (after mc:enter on the gated
+  landing); skip = pointerdown/keydown instant, wheel/touchmove after a
+  700ms grace (trackpad momentum from the arming scroll must not kill
+  it — found + fixed this session); sessionStorage.mc_hero_played gates
+  replay; reduced motion never conceals; settle restores the source DOM
+  VERBATIM. Zero layout drift verified at desktop + 390-class width
+  against fonts-loaded baselines, across every beat.
+- TEST HOOK: ?hi-debug exposes HeroInstall._test {start/advance/finish/
+  state} (debugExpose pattern) — embedded/headless panes report
+  visibilityState hidden and never run rAF/IntersectionObserver; pump
+  the schedule manually. Also logs planned total + governor scale.
+- GOTCHAS: machine currently has NO system node/npm/brew — gates ran on
+  the ChatGPT.app bundled node v24 ('/Applications/ChatGPT.app/Contents/
+  Resources/cua_node/bin/node', read-only use). BRANCH PREVIEWS (ruled
+  07-14): .github/workflows/preview-cloudflare.yml deploys any non-main
+  push as a wrangler --branch PREVIEW (noindex, production alias
+  untouched, refuses main). LIVE + VERIFIED:
+  https://feat-hero-install.mindcoding.pages.dev serves the branch;
+  mindcod.ing confirmed unchanged. GOTCHA: its workflow_dispatch is
+  API/UI-invisible until the file reaches main (GitHub indexes
+  dispatchables from the default branch — the dispatch API 404s); the
+  push trigger is what runs until merge.
+- OWED: Jad's device verdict on the feel (jitter, hesitation, cursor,
+  grace), the two new annotation strings are RULED (not placeholder),
+  boot plate + stamps persist in the settled frame (ruled: reserved
+  space never collapses).
+
 ## ⚡ 2026-07-12 EVE ADDENDUM — GRAPHIFY FULL GRAPH + AGENT WIRING (Jad's ruling: "full run with the HTML visualization")
 
 - KNOWLEDGE GRAPH EXPANDED code-only → full corpus (Jad's explicit "full

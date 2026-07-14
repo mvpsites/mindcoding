@@ -1,16 +1,16 @@
-# Graph Report - mindcoding  (2026-07-14)
+# Graph Report - mindcoding  (2026-07-13)
 
 ## Corpus Check
-- 17 files · ~48,483 words
+- 17 files · ~47,442 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 87 nodes · 114 edges · 16 communities (14 shown, 2 thin omitted)
-- Extraction: 83% EXTRACTED · 17% INFERRED · 0% AMBIGUOUS · INFERRED: 19 edges (avg confidence: 0.62)
+- 85 nodes · 106 edges · 16 communities (14 shown, 2 thin omitted)
+- Extraction: 87% EXTRACTED · 13% INFERRED · 0% AMBIGUOUS · INFERRED: 14 edges (avg confidence: 0.66)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `e0e79d68`
+- Built from commit: `79806f86`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -29,13 +29,13 @@
 1. `Recode Channels Index Page` - 9 edges
 2. `canvas()` - 8 edges
 3. `channels.json Channel Data` - 7 edges
-4. `finish()` - 6 edges
-5. `start()` - 5 edges
-6. `esc()` - 5 edges
-7. `entryArticle()` - 5 edges
-8. `The Draw Page` - 5 edges
-9. `run()` - 4 edges
-10. `snap()` - 4 edges
+4. `esc()` - 5 edges
+5. `entryArticle()` - 5 edges
+6. `The Draw Page` - 5 edges
+7. `run()` - 4 edges
+8. `finish()` - 4 edges
+9. `snap()` - 4 edges
+10. `start()` - 4 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Cloudflare Admin Workflow` --references--> `Books Channel Roll Page`  [EXTRACTED]
@@ -83,8 +83,8 @@ Cohesion: 0.29
 Nodes (6): name, private, scripts, build, type, version
 
 ### Community 7 - "Deploy Workflows"
-Cohesion: 0.27
-Nodes (12): arm(), bind(), enterArmed(), finish(), moveCursor(), run(), show(), snap() (+4 more)
+Cohesion: 0.26
+Nodes (10): arm(), bind(), finish(), moveCursor(), run(), show(), snap(), start() (+2 more)
 
 ## Knowledge Gaps
 - **14 isolated node(s):** `name`, `private`, `version`, `type`, `build` (+9 more)
@@ -95,12 +95,10 @@ Nodes (12): arm(), bind(), enterArmed(), finish(), moveCursor(), run(), show(), 
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `Recode Channels Index Page` connect `Recode Channel Pages` to `Tarot Draw Pipeline`?**
-  _High betweenness centrality (0.031) - this node is a cross-community bridge._
+  _High betweenness centrality (0.033) - this node is a cross-community bridge._
 - **Why does `The Draw Page` connect `Tarot Draw Pipeline` to `Recode Channel Pages`?**
-  _High betweenness centrality (0.023) - this node is a cross-community bridge._
+  _High betweenness centrality (0.024) - this node is a cross-community bridge._
 - **Why does `Books Channel Roll Page` connect `Recode Channel Pages` to `Home Page Experience Engine`?**
-  _High betweenness centrality (0.021) - this node is a cross-community bridge._
-- **Are the 4 inferred relationships involving `start()` (e.g. with `enterArmed()` and `finish()`) actually correct?**
-  _`start()` has 4 INFERRED edges - model-reasoned connections that need verification._
+  _High betweenness centrality (0.022) - this node is a cross-community bridge._
 - **What connects `name`, `private`, `version` to the rest of the system?**
   _14 weakly-connected nodes found - possible documentation gaps or missing edges._
