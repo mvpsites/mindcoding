@@ -1,0 +1,64 @@
+name: Preview branch on Cloudflare Pages
+
+# RULED by Jad 07-14: dispatchable branch previews. Deploys THE REF IT IS
+# DISPATCHED ON as a Cloudflare Pages *preview* deployment (wrangler --branch),
+# so production (mindcod.ing, the pages.dev production alias) is never touched.
+# Refuses to run on main — main deploys only via deploy-cloudflare.yml.
+# Previews keep noindex (INDEXABLE unset); preview URL is
+# https://<branch-alias>.mindcoding.pages.dev (slashes become dashes).
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: cloudflare-preview-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - name: Refuse main (previews only)
+        if: github.ref_name == 'main'
+        run: |
+          echo "::error::This workflow previews branches; main deploys via deploy-cloudflare.yml"
+          exit 1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Compute preview alias
+        id: alias
+        run: |
+          ALIAS=$(echo "${{ github.ref_name }}" | tr '/._' '---' | tr '[:upper:]' '[:lower:]')
+          echo "alias=$ALIAS" >> "$GITHUB_OUTPUT"
+          echo "url=https://${ALIAS}.mindcoding.pages.dev" >> "$GITHUB_OUTPUT"
+      - name: Generate static roll + entry pages (noindex preview)
+        env:
+          BASE_URL: ${{ steps.alias.outputs.url }}
+        run: node tools/build_rolls.mjs dist
+      - name: Verify Cloudflare credentials (sanitized)
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          TL=$(printf %s "$CF_TOKEN" | wc -c); AL=$(printf %s "$CF_ACCT" | wc -c)
+          echo "token length: $TL / account id length: $AL (expect 32)"
+          V=$(curl -s -H "Authorization: Bearer $CF_TOKEN" https://api.cloudflare.com/client/v4/user/tokens/verify)
+          echo "token verify: $(echo "$V" | python3 -c 'import json,sys;d=json.load(sys.stdin);print("success" if d.get("success") else d.get("errors"))')"
+      - name: Deploy preview (wrangler --branch, never production)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx --yes wrangler@3 pages deploy dist \
+            --project-name=mindcoding \
+            --branch="${{ github.ref_name }}" \
+            --commit-dirty=true
+          echo "::notice title=Preview URL::${{ steps.alias.outputs.url }} (branch ${{ github.ref_name }}, noindex)"
