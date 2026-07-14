@@ -1,13 +1,18 @@
 name: Preview branch on Cloudflare Pages
 
-# RULED by Jad 07-14: dispatchable branch previews. Deploys THE REF IT IS
-# DISPATCHED ON as a Cloudflare Pages *preview* deployment (wrangler --branch),
-# so production (mindcod.ing, the pages.dev production alias) is never touched.
+# RULED by Jad 07-14: branch previews. Deploys THE REF IT RUNS ON as a
+# Cloudflare Pages *preview* deployment (wrangler --branch), so production
+# (mindcod.ing, the pages.dev production alias) is never touched.
 # Refuses to run on main — main deploys only via deploy-cloudflare.yml.
 # Previews keep noindex (INDEXABLE unset); preview URL is
 # https://<branch-alias>.mindcoding.pages.dev (slashes become dashes).
+# GOTCHA: workflow_dispatch is only API/UI-visible once this file reaches
+# main (GitHub indexes dispatchables from the default branch) — until then
+# the push trigger below is what runs branch previews.
 
 on:
+  push:
+    branches-ignore: [main]
   workflow_dispatch:
 
 concurrency:
