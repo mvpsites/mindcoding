@@ -251,23 +251,29 @@
       Math.round(performance.now() - t0) + 'ms');
   }
 
-  /* ---- skip is sacred: any input SNAPS to the final frame ---- */
+  /* ---- skip is sacred: any input SNAPS to the final frame. Scroll inputs
+     get a short grace window — trackpad momentum from the very scroll that
+     brought the section on stage keeps emitting wheel events after start,
+     and must not kill the sequence it just triggered. A fresh gesture after
+     the grace (or any tap/key immediately) skips. ---- */
+  var GRACE = 700;
   function snap() { finish(); }
+  function snapScroll() { if (performance.now() - t0 > GRACE) finish(); }
   var bound = false;
   function bind() {
     if (bound) return;
     bound = true;
     addEventListener('pointerdown', snap, { passive: true });
-    addEventListener('wheel', snap, { passive: true });
-    addEventListener('touchmove', snap, { passive: true });
+    addEventListener('wheel', snapScroll, { passive: true });
+    addEventListener('touchmove', snapScroll, { passive: true });
     addEventListener('keydown', snap);
   }
   function unbind() {
     if (!bound) return;
     bound = false;
     removeEventListener('pointerdown', snap);
-    removeEventListener('wheel', snap);
-    removeEventListener('touchmove', snap);
+    removeEventListener('wheel', snapScroll);
+    removeEventListener('touchmove', snapScroll);
     removeEventListener('keydown', snap);
   }
 
@@ -302,4 +308,20 @@
   if ((doc.body.dataset.mcGate === 'pending') || root.classList.contains('mc-nav'))
     addEventListener('mc:enter', arm, { once: true });
   else arm();
+
+  /* ?hi-debug test hook (the draw's debugExpose pattern): lets a harness
+     start the sequence and pump the schedule without rAF — headless panes
+     report visibilityState hidden and never tick. Absent in normal runs. */
+  if (DBG) global.HeroInstall._test = {
+    start: start,
+    finish: finish,
+    advance: function (ms) {
+      if (!started) start();
+      while (idx < events.length && events[idx].t <= ms && !finished) run(events[idx++]);
+      return { idx: idx, of: events.length, finished: finished };
+    },
+    state: function () {
+      return { started: started, finished: finished, idx: idx, total: plane.total };
+    }
+  };
 })(typeof window !== 'undefined' ? window : this);
