@@ -13,8 +13,15 @@
      the static hero; this module clears it as its FIRST act.
      Slow connection, blocked script, any JS failure -> static
      hero, never darkness.
-   - Starts when the beliefs enter the viewport, after mc:enter
-     on the gated landing (same wait as scroll-life).
+   - TRIGGER (device-ruled 07-14): viewport entry only ARMS —
+     boot line 1 shows with a blinking gold cursor. The FIRST
+     pointer interaction with section 01 (hover-enter on desktop,
+     first tap on touch) starts the install; interactions after
+     start skip (snap), wheel grace still applies. If armed 4s
+     with no interaction, autoplay — no reader ever sees a
+     permanently inert section. All after mc:enter on the gated
+     landing (same wait as scroll-life), or immediately when the
+     splash was already passed this session.
    - PACING (device-ruled 07-14, replaces the accelerating
      governor): flat 40ms/char ±40% jitter, 140–180ms word pauses
      (the space char IS the pause — revealing a space paints
@@ -41,6 +48,7 @@
   var GAP = 350;                          /* inter-line */
   var ANN = 150;                          /* stamp lands after its line */
   var STATUS = 80, BLINK = 80, FADE = 600;
+  var AUTOPLAY = 4000;                    /* armed with no interaction -> play */
 
   /* Pure schedule builder (node-harnessed — no DOM):
        plan(boot2Text, [{text, hesitate}]) -> {events, total}
@@ -197,7 +205,7 @@
   /* ---- the schedule ---- */
   var plane = plan(boot2Text, lineData);
   var events = plane.events, idx = 0, raf = 0, t0 = 0;
-  var started = false, finished = false;
+  var armed = false, started = false, finished = false, autoT = 0;
   if (DBG) console.log('[hero-install] planned', Math.round(plane.total) + 'ms');
 
   function run(e) {
@@ -229,6 +237,9 @@
     if (finished) return;
     finished = true;
     cancelAnimationFrame(raf);
+    clearTimeout(autoT);
+    sec.removeEventListener('pointerenter', start);
+    sec.removeEventListener('pointerdown', start);
     unbind();
     originals.forEach(function (o) { o[0].innerHTML = o[1]; });
     hidden.forEach(function (el) {
@@ -281,21 +292,41 @@
   function start() {
     if (started || finished) return;
     started = true;
-    bind();
+    clearTimeout(autoT);
+    sec.removeEventListener('pointerenter', start);
+    sec.removeEventListener('pointerdown', start);
+    cursor.classList.remove('hi-blink');
+    /* defer skip-binding one macrotask: the starting gesture's own event
+       still bubbles to window synchronously and must not skip the
+       sequence it just started */
+    setTimeout(bind, 0);
     t0 = performance.now();
     raf = requestAnimationFrame(tick);
   }
 
-  /* ---- trigger: after the entrance, when the beliefs are on stage ---- */
+  /* ---- ARMED (device-ruled 07-14): boot line 1 + blinking cursor; the
+     first pointer interaction with the section starts, 4s autoplays ---- */
+  function enterArmed() {
+    if (armed || started || finished) return;
+    armed = true;
+    bootL1.style.visibility = 'visible';
+    moveCursor(bootL1, bootEl);
+    cursor.classList.add('hi-blink');
+    sec.addEventListener('pointerenter', start);   /* desktop hover */
+    sec.addEventListener('pointerdown', start);    /* first tap */
+    autoT = setTimeout(start, AUTOPLAY);           /* no inert sections, ever */
+  }
+
+  /* ---- trigger: after the entrance, when section 01 is on stage ---- */
   function arm() {
-    if (!global.IntersectionObserver) return start();
+    if (!global.IntersectionObserver) return enterArmed();
     var io = new IntersectionObserver(function (es) {
       if (es.some(function (e) { return e.isIntersecting; })) {
         io.disconnect();
-        start();
+        enterArmed();
       }
-    }, { threshold: 0.3 });
-    io.observe(beliefsWrap);
+    }, { threshold: 0.5 });
+    io.observe(bootEl);
   }
   if ((doc.body.dataset.mcGate === 'pending') || root.classList.contains('mc-nav'))
     addEventListener('mc:enter', arm, { once: true });
@@ -305,6 +336,7 @@
      start the sequence and pump the schedule without rAF — headless panes
      report visibilityState hidden and never tick. Absent in normal runs. */
   if (DBG) global.HeroInstall._test = {
+    arm: enterArmed,
     start: start,
     finish: finish,
     advance: function (ms) {
@@ -313,7 +345,7 @@
       return { idx: idx, of: events.length, finished: finished };
     },
     state: function () {
-      return { started: started, finished: finished, idx: idx, total: plane.total };
+      return { armed: armed, started: started, finished: finished, idx: idx, total: plane.total };
     }
   };
 })(typeof window !== 'undefined' ? window : this);
