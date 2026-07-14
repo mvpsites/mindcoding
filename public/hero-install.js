@@ -15,13 +15,12 @@
      hero, never darkness.
    - Starts when the beliefs enter the viewport, after mc:enter
      on the gated landing (same wait as scroll-life).
-   - ACCELERATING INSTALLER (ruled 07-13): lines 1–2 at 34ms/char
-     ±40% jitter, cadence −15% per line after, floor 20ms;
-     90–110ms word-boundary pauses (the space char IS the pause —
-     revealing a space paints nothing); inter-line gaps shrink
-     200→100; a budget governor squeezes only the scalable deltas
-     (never boot, the 420ms BE REAL hesitation, stamps, blink or
-     fade) to pin the total at ≤6.45s.
+   - PACING (device-ruled 07-14, replaces the accelerating
+     governor): flat 40ms/char ±40% jitter, 140–180ms word pauses
+     (the space char IS the pause — revealing a space paints
+     nothing), 350ms inter-line gap, boot beat 0.8s, the 420ms
+     BE REAL hesitation verbatim. NO ceiling — total lands ~10s;
+     skip is the bounce protection, not a budget.
    - Skip is sacred: pointerdown/wheel/touchmove/keydown SNAP to
      final state — armed only once typing starts, so the scroll
      that brings the section into view cannot kill it.
@@ -34,79 +33,66 @@
 (function (global) {
   'use strict';
 
-  /* ---- timing knobs (ruled 07-13; '~' values tuned to the ≤6.5s target) ---- */
-  var BOOT_START = 70, BOOT_MS = 13;      /* boot line 2 types fast, no jitter */
-  var CAD_BASE = 34, CAD_FACTOR = 0.85, CAD_FLOOR = 20;
-  var PAUSE_MIN = 90, PAUSE_MAX = 110;    /* word-boundary micro-pause */
-  var HESITATE = 420;                     /* BE REAL … ISTIC. — never squeezed */
-  var GAPS = [200, 170, 145, 120, 100];   /* inter-line, accelerating */
+  /* ---- timing knobs (device-ruled 07-14: no ceiling, no governor) ---- */
+  var BOOT_START = 70, BOOT_MS = 20;      /* boot line 2 types fast, no jitter */
+  var CAD = 40;                           /* flat base cadence, ±40% jitter */
+  var PAUSE_MIN = 140, PAUSE_MAX = 180;   /* word-boundary micro-pause */
+  var HESITATE = 420;                     /* BE REAL … ISTIC. */
+  var GAP = 350;                          /* inter-line */
   var ANN = 150;                          /* stamp lands after its line */
   var STATUS = 80, BLINK = 80, FADE = 600;
-  var BUDGET = 6450;                      /* hard ceiling, governor-enforced */
 
   /* Pure schedule builder (node-harnessed — no DOM):
-       plan(boot2Text, [{text, hesitate}]) -> {events, total, scale}
-     events = [{t, k, li, ci}] sorted by t. Scalable deltas (cadence,
-     pauses, gaps) shrink together when the raw plan overruns BUDGET;
-     fixed beats keep their ruled durations. */
+       plan(boot2Text, [{text, hesitate}]) -> {events, total}
+     events = [{t, k, li, ci}] sorted by t. */
   function plan(boot2, lines) {
-    /* Beat 0 — boot: line 1 instant, line 2 fast, the ellipsis blinks once */
+    /* Beat 0 — boot (0.8s): line 1 instant, line 2 fast, ellipsis blinks once */
     var events = [{ t: 0, k: 'boot1' }];
     for (var b = 0; b < boot2.length; b++)
       events.push({ t: BOOT_START + b * BOOT_MS, k: 'bchar', ci: b });
     var b2end = BOOT_START + (boot2.length - 1) * BOOT_MS;
-    events.push({ t: b2end + 40, k: 'bhide' });
-    events.push({ t: b2end + 120, k: 'bshow' });
-    var bootDone = Math.max(550, b2end + 130);
+    events.push({ t: b2end + 60, k: 'bhide' });
+    events.push({ t: b2end + 140, k: 'bshow' });
+    var bootDone = Math.max(800, b2end + 210);
 
-    /* Beats 1–3 as deltas: {d, sc(alable), ev:[{k, li, ci, at}]} */
-    var steps = [];
-    function step(d, sc, evs) { steps.push({ d: d, sc: sc, ev: evs || [] }); }
+    var t = bootDone;
+    function at(d, evs) {
+      t += d;
+      (evs || []).forEach(function (e) {
+        events.push({ t: t + (e.at || 0), k: e.k, li: e.li, ci: e.ci });
+      });
+    }
 
+    /* Beat 1 — the six patterns */
     for (var li = 0; li < lines.length; li++) {
       var text = lines[li].text;
-      var cad = li < 2 ? CAD_BASE
-        : Math.max(CAD_FLOOR, CAD_BASE * Math.pow(CAD_FACTOR, li - 1));
       for (var ci = 0; ci < text.length; ci++) {
         var d = text.charAt(ci) === ' '
           ? PAUSE_MIN + Math.random() * (PAUSE_MAX - PAUSE_MIN)
-          : cad * (0.6 + 0.8 * Math.random());
-        step(d, true, [{ k: 'char', li: li, ci: ci }]);
+          : CAD * (0.6 + 0.8 * Math.random());
+        at(d, [{ k: 'char', li: li, ci: ci }]);
         if (lines[li].hesitate === ci + 1) {
-          step(0, false, [{ k: 'blinkon' }]);
-          step(HESITATE, false, [{ k: 'blinkoff' }]);
+          at(0, [{ k: 'blinkon' }]);
+          at(HESITATE, [{ k: 'blinkoff' }]);
         }
       }
       if (li < lines.length - 1) {
-        step(0, false, [{ k: 'ann', li: li, at: ANN }]);  /* stamps mid-gap */
-        step(GAPS[li], true, []);
+        at(0, [{ k: 'ann', li: li, at: ANN }]);   /* stamps mid-gap */
+        at(GAP);
       } else {
-        step(ANN, false, [{ k: 'ann', li: li }]);  /* last stamp gates the flag */
+        at(ANN, [{ k: 'ann', li: li }]);          /* last stamp gates the flag */
       }
     }
     /* Beat 2 — status flag: one HARD blink (visible 80, gone 80, visible) */
-    step(STATUS, false, [{ k: 'status1' }]);
-    step(BLINK, false, [{ k: 'status0' }]);
-    step(BLINK, false, [{ k: 'status2' }]);
+    at(STATUS, [{ k: 'status1' }]);
+    at(BLINK, [{ k: 'status0' }]);
+    at(BLINK, [{ k: 'status2' }]);
     /* Beat 3 — the turn fades in, then we settle */
-    step(60, false, [{ k: 'fade' }]);
-    step(FADE, false, [{ k: 'done' }]);
+    at(60, [{ k: 'fade' }]);
+    at(FADE, [{ k: 'done' }]);
 
-    /* budget governor */
-    var fixed = bootDone, scal = 0;
-    steps.forEach(function (s) { if (s.sc) scal += s.d; else fixed += s.d; });
-    var scale = (fixed + scal > BUDGET && scal > 0)
-      ? Math.max(0.5, (BUDGET - fixed) / scal) : 1;
-
-    var t = bootDone;
-    steps.forEach(function (s) {
-      t += s.sc ? s.d * scale : s.d;
-      s.ev.forEach(function (e) {
-        events.push({ t: t + (e.at || 0), k: e.k, li: e.li, ci: e.ci });
-      });
-    });
     events.sort(function (a, b) { return a.t - b.t; });
-    return { events: events, total: t, scale: scale };
+    return { events: events, total: t };
   }
 
   global.HeroInstall = { plan: plan };   /* the head hatch + the harness check this */
@@ -212,8 +198,7 @@
   var plane = plan(boot2Text, lineData);
   var events = plane.events, idx = 0, raf = 0, t0 = 0;
   var started = false, finished = false;
-  if (DBG) console.log('[hero-install] planned', Math.round(plane.total) + 'ms',
-    'governor ×' + plane.scale.toFixed(3));
+  if (DBG) console.log('[hero-install] planned', Math.round(plane.total) + 'ms');
 
   function run(e) {
     switch (e.k) {
