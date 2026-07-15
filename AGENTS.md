@@ -97,6 +97,15 @@ subnav on every page. Then run the full gate (§7).
 
 ## 7. THE GATE — EVERY CHANGE, BEFORE EVERY PUSH
 
+> **CODE CHECKS ARE NOT DEVICE CHECKS (ruled 07-15).** Static analysis,
+> link checks, and harnesses verify code truth only. Never report them as
+> proof the site works on a device. Device truth comes from the Device
+> Truth workflow (real headless browser, iPhone + desktop, reduced-motion
+> both ways, interaction simulation) — it runs on every push to main and
+> must be green. New interactive features get a check added to
+> `device-truth.spec.mjs` in the same PR. Other repos adopt it via the
+> caller snippet documented inside `.github/workflows/device-truth.yml`.
+
 1. **Bump the service worker cache** (`public/sw.js`, `mindcoding-vNN` →
    vNN+1) whenever ANY deployed file changes under an existing filename.
    Skipping this ships stale content to returning visitors.
