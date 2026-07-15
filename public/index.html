@@ -68,7 +68,7 @@ img{max-width:100%;height:auto;display:block}
 
 /* ---------- masthead ---------- */
 .mast{border-bottom:var(--bd) solid var(--ink)}
-.mast__bar{display:flex;gap:1.4rem;align-items:baseline;justify-content:space-between;
+.mast__bar{display:flex;gap:1.4rem;align-items:center;justify-content:flex-start;
   padding:.7rem 1.2rem;border-bottom:2px solid var(--ink);
   font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;color:var(--ink-dim)}
 .mast__bar b{color:var(--gold);font-weight:700}
@@ -322,7 +322,6 @@ html:not(.mc-in) body{overflow:hidden}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .ticker__track{animation:none;transform:none}
   a.row,.btn,.row__t::after{transition:none}
 }
 
@@ -387,8 +386,7 @@ cursor:pointer;text-transform:uppercase;padding:0}
 <header class="mast" id="mast">
   <div class="mast__bar">
     <a class="bar__mark" href="./" aria-label="Mind Coding — home"><img src="assets/lockup-horizontal-gold-transparent.png" alt="MIND CODING" width="200" height="46" /></a>
-    <span>EST <b>2026</b></span>
-    <span><b>FREE</b></span>
+
   </div>
   <nav class="mast__bar subnav" aria-label="Site">
     <a href="./">HOME</a>

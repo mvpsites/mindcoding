@@ -22,7 +22,7 @@ letter-spacing:.18em;color:var(--ink-dim);text-transform:uppercase}
   display:flex;flex-direction:column;gap:.4rem;align-items:center;text-align:center;
   padding:.5rem .9rem;background:var(--paper);border:2px solid var(--ink)}
 .controls .btn{font-size:.6rem;padding:.5rem 1rem;letter-spacing:.14em}
-.controls__n{font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;color:var(--ink-faint)}
+.controls__n{font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;color:var(--gold)}
 @media (prefers-reduced-motion:reduce){.veil{transition:none}}
 .sheet__hint{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;
 color:var(--gold);text-transform:uppercase;padding:1.4rem 1.2rem 0}
@@ -97,8 +97,8 @@ font-size:.95rem;letter-spacing:.04em;color:var(--paper);background:var(--gold);
 border:var(--bd) solid var(--gold);padding:.85rem 1.5rem;cursor:pointer;
 transition:background .14s,color .14s;margin-top:0}
 .theatre .btn:hover,.theatre .btn:focus-visible{background:var(--paper);color:var(--gold)}
-.theatre .btn--ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
-.theatre .btn--ghost:hover,.theatre .btn--ghost:focus-visible{background:var(--ink);color:var(--paper)}
+.theatre .btn--ghost{background:transparent;color:var(--gold);border-color:var(--gold)}
+.theatre .btn--ghost:hover,.theatre .btn--ghost:focus-visible{background:var(--gold);color:var(--paper)}
 .btn--veil{position:relative;font-size:1.05rem;padding:1rem 2rem;
 animation:veilPulse 2.4s ease-out infinite}
 @keyframes veilPulse{
