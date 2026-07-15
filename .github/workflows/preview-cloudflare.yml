@@ -65,5 +65,9 @@ jobs:
           npx --yes wrangler@3 pages deploy dist \
             --project-name=mindcoding \
             --branch="${{ github.ref_name }}" \
-            --commit-dirty=true
-          echo "::notice title=Preview URL::${{ steps.alias.outputs.url }} (branch ${{ github.ref_name }}, noindex)"
+            --commit-dirty=true | tee /tmp/wrangler-out.txt
+          # the alias computed above is our best guess (bash tr), but Cloudflare
+          # truncates+hashes branch aliases over ~28 chars — wrangler's own
+          # printed URL is ground truth; fall back to the guess if unparsed.
+          REAL_URL=$(grep -oE 'https://[a-z0-9.-]+\.mindcoding\.pages\.dev' /tmp/wrangler-out.txt | tail -1)
+          echo "::notice title=Preview URL::${REAL_URL:-${{ steps.alias.outputs.url }}} (branch ${{ github.ref_name }}, noindex)"
