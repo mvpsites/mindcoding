@@ -308,6 +308,13 @@ footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;ga
 #veilgate.gate--out{opacity:0;pointer-events:none}
 .gate__hint{opacity:0}
 .gate__hint.on{opacity:1}
+/* phone composition (ruled 07-15): ask above, keyhole center, the key waits
+   below it — a straight upward drag into the lock. The desktop side-by-side
+   layout collided on narrow screens. */
+@media (max-width:700px){
+  .gate__key{left:50%;top:calc(50% + 30vmin)}
+  .gate__key svg{width:26vmin}
+}
 @media (prefers-reduced-motion:reduce){.gate__key svg{animation:none}#veilgate{transition:none}}
 .mc-in #veilgate{display:none}
 html:not(.mc-in) body{overflow:hidden}
@@ -707,7 +714,7 @@ cursor:pointer;text-transform:uppercase;padding:0}
     key.addEventListener('keydown', function(e){
       if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); unlock(); }
     });
-    key.focus({ preventScroll: true });
+    if (matchMedia('(hover:hover)').matches) key.focus({ preventScroll: true });   /* no phantom focus ring on touch */
   }
 
   /* ownership handshake (ruled failsafe): init succeeded — disarm the 2.5s hatch */
