@@ -52,6 +52,8 @@ on:
 jobs:
   device-truth:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -157,11 +159,32 @@ jobs:
           }
           await browser.close();
           console.log(`::notice::device truth complete — ${errors.length} error(s)`);
+          const { writeFileSync } = await import('node:fs');
+          writeFileSync('dt-findings.txt', errors.join('\n'));
           process.exit(errors.length ? 1 : 0);
           RUNNER
           DT_PAGES='${{ inputs.pages }}' node dt-runner.mjs
         env:
           DT_PAGES: ${{ inputs.pages || '["/", "/draw/", "/channels/", "/channels/books/"]' }}
+
+      - name: Post findings as commit comment
+        if: failure()
+        run: |
+          [ -s dt-findings.txt ] || exit 0
+          python3 - << 'PY'
+          import json, os, urllib.request
+          body = "## DEVICE TRUTH — findings\n```\n" + open("dt-findings.txt").read()[:60000] + "\n```\n(screenshots: run artifact `device-truth-shots`)"
+          req = urllib.request.Request(
+              f"https://api.github.com/repos/{os.environ['GH_REPO']}/commits/{os.environ['GH_SHA']}/comments",
+              data=json.dumps({"body": body}).encode(),
+              headers={"Authorization": "Bearer " + os.environ["GH_TOKEN"],
+                       "Accept": "application/vnd.github+json"})
+          print("comment:", urllib.request.urlopen(req).status)
+          PY
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          GH_SHA: ${{ github.sha }}
 
       - name: Upload screenshots
         if: always()
