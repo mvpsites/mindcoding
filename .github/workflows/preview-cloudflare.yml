@@ -70,4 +70,19 @@ jobs:
           # truncates+hashes branch aliases over ~28 chars — wrangler's own
           # printed URL is ground truth; fall back to the guess if unparsed.
           REAL_URL=$(grep -oE 'https://[a-z0-9.-]+\.mindcoding\.pages\.dev' /tmp/wrangler-out.txt | tail -1)
-          echo "::notice title=Preview URL::${REAL_URL:-${{ steps.alias.outputs.url }}} (branch ${{ github.ref_name }}, noindex)"
+          REAL_URL="${REAL_URL:-${{ steps.alias.outputs.url }}}"
+          echo "::notice title=Preview URL::${REAL_URL} (branch ${{ github.ref_name }}, noindex)"
+
+          echo "--- gate check (verify-live pattern, runner has network the sandbox lacks) ---"
+          note() { echo "::notice::$1"; }
+          for U in "" "channels/abundance/"; do
+            CODE=$(curl -s -o /tmp/gc.html -w "%{http_code}" --max-time 20 "$REAL_URL/$U" || echo FAIL)
+            TITLE=$(grep -o '<title>[^<]*' /tmp/gc.html | head -1 | cut -c8-70 || true)
+            HASHERO=$(grep -c "hero-install.js" /tmp/gc.html || true)
+            HASOG=$(grep -c "og-image-1200x630" /tmp/gc.html || true)
+            note "GATE page /$U -> $CODE | title: $TITLE | hero-install.js refs: $HASHERO | og-image refs: $HASOG"
+          done
+          for A in icons/favicon-32.png icons/favicon-64.png icons/apple-touch-icon.png icons/icon-192.png icons/icon-512.png assets/og-image-1200x630.png assets/lockup-horizontal-gold-transparent.png hero-install.js; do
+            CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 "$REAL_URL/$A" || echo FAIL)
+            note "GATE asset /$A -> $CODE"
+          done
