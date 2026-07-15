@@ -65,7 +65,9 @@ function setCanonical(html, path){
   const tag = `<link rel="canonical" href="${BASE}${path}" />\n<meta property="og:url" content="${BASE}${path}" />\n`;
   return html.replace('</head>', tag + '</head>')
              .replace(/(<meta property="og:image" content=")[^"]*(")/,
-                      `$1${BASE}/cardback.webp$2`);
+                      `$1${BASE}/assets/og-image-1200x630.png$2`)
+             .replace(/(<meta name="twitter:image" content=")[^"]*(")/,
+                      `$1${BASE}/assets/og-image-1200x630.png$2`);
 }
 /* every indexable page needs a real <meta name="description"> — og:description
    alone does nothing for search snippets (audit 07-12) */
