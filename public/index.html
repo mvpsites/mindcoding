@@ -295,7 +295,7 @@ footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;ga
    click unlocks too; reduced motion = click, instant dissolve */
 .gate__key{position:absolute;left:calc(50% + 24vmin);top:50%;z-index:4;
   transform:translate(-50%,-50%);background:none;border:0;padding:1.1rem;
-  cursor:grab;touch-action:none}
+  cursor:grab;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 .gate__key svg{width:min(21vmin,134px);height:auto;display:block;
   filter:drop-shadow(0 0 12px rgba(215,154,74,.45));
   animation:gatePulse 2.6s ease-in-out infinite}
@@ -663,7 +663,9 @@ cursor:pointer;text-transform:uppercase;padding:0}
   }
 
   /* drag the key (pointer events; the splash is fullscreen — no scroll conflict) */
-  if (key && !reduce && window.PointerEvent){
+  /* ruled 07-15: the drag is user-initiated — it binds under reduced motion too;
+     unlock() already gives reduce users the instant no-theatrics dissolve */
+  if (key && window.PointerEvent){
     key.addEventListener('pointerdown', function(e){
       if (opened) return;
       e.preventDefault();
