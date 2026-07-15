@@ -181,7 +181,7 @@
 
       var inRelease = releaseAt > 0;
       var sinceRel = inRelease ? (now - releaseAt) : -1;
-      var active = (ptr.on || ptr.hover) && !reduce;   /* reduced motion: static emblem */
+      var active = ptr.on || ptr.hover;   /* ruled 07-15: touch is user-initiated — it works under reduced motion; the idle choreography (entrance/signals/glitch) still exits */
       var R = radius();
 
       var sum = 0, i, p;
