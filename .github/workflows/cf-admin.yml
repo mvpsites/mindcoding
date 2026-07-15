@@ -58,7 +58,10 @@ jobs:
 
             verify-live)
               # pages.dev bypasses the zone's bot challenge — use it to verify content freshness
-              for M in "https://mindcoding.pages.dev/::inkbar" "https://mindcoding.pages.dev/scroll-life.js::LETTERPRESS" "https://mindcoding.pages.dev/shared/programmed-self.js::ASSEMBLY" "https://mindcoding.pages.dev/sw.js::mindcoding-v37"; do
+              SW_LIVE=$(curl -s --max-time 20 "https://mindcoding.pages.dev/sw.js" | grep -o 'mindcoding-v[0-9]*' | head -1 || true)
+              SW_REPO=$(curl -s --max-time 20 "https://raw.githubusercontent.com/mvpsites/mindcoding/main/public/sw.js" | grep -o 'mindcoding-v[0-9]*' | head -1 || true)
+              note "SW live=$SW_LIVE repo=$SW_REPO $( [ "$SW_LIVE" = "$SW_REPO" ] && echo MATCH || echo STALE )"
+              for M in "https://mindcoding.pages.dev/::inkbar" "https://mindcoding.pages.dev/scroll-life.js::LETTERPRESS" "https://mindcoding.pages.dev/shared/programmed-self.js::ASSEMBLY"; do
                 U="${M%%::*}"; NEEDLE="${M##*::}"
                 CODE=$(curl -s -o /tmp/f -w "%{http_code}" --max-time 20 "$U" || echo FAIL)
                 HAS=$(grep -c "$NEEDLE" /tmp/f || true)
@@ -67,7 +70,13 @@ jobs:
               for U in "https://$ZONE_NAME/" "https://www.$ZONE_NAME/" "https://$ZONE_NAME/channels/books/"; do
                 CODE=$(curl -s -o /tmp/page -w "%{http_code}" --max-time 20 "$U" || echo FAIL)
                 CANON=$(grep -o '<link rel="canonical"[^>]*>' /tmp/page | head -1 || true)
-                TITLE=$(grep -o '<title>[^<]*' /tmp/page | head -1 | cut -c8-60 || true)
-                note "GET $U -> $CODE | title: $TITLE | $CANON"
+                TITLE=$(grep -o '<title>[^<]*' /tmp/page | head -1 | cut -c8-80 || true)
+                DESC=$(grep -o '<meta name="description" content="[^"]*' /tmp/page | head -1 | cut -c36-120 || true)
+                OG=$(grep -o '<meta property="og:image" content="[^"]*' /tmp/page | head -1 | cut -c36-140 || true)
+                FAV=$(grep -o '<link rel="icon"[^>]*>' /tmp/page | head -1 || true)
+                note "GET $U -> $CODE | title: $TITLE"
+                note "  desc: $DESC"
+                note "  og:image: $OG"
+                note "  favicon: $FAV | $CANON"
               done ;;
           esac
