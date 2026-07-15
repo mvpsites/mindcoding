@@ -110,15 +110,17 @@ jobs:
             for (const rm of MODES) {
               const ctx = await browser.newContext({ ...vp, reducedMotion: rm });
               const consoleErrs = [];
+              let currentPath = '(spec)';
               const newPage = async () => {
                 const p = await ctx.newPage();
-                p.on('pageerror', e => consoleErrs.push(String(e).slice(0, 160)));
-                p.on('console', m => { if (m.type() === 'error') consoleErrs.push(m.text().slice(0, 160)); });
+                p.on('pageerror', e => consoleErrs.push(`${currentPath} — ${String(e).slice(0, 160)}`));
+                p.on('console', m => { if (m.type() === 'error') consoleErrs.push(`${currentPath} — ${m.text().slice(0, 160)}`); });
                 return p;
               };
 
               /* ---- generic per-page checks ---- */
               for (const path of PAGES) {
+                currentPath = path;
                 const page = await newPage();
                 try {
                   await page.goto(BASE + path, { waitUntil: 'load', timeout: 20000 });
@@ -129,11 +131,14 @@ jobs:
                     report('error', `[${vp.name}/${rm}] ${path} horizontal overflow: +${over}px`);
                   if (vp.name === 'iphone') {
                     const tiny = await page.evaluate(() =>
-                      [...document.querySelectorAll('button')].filter(b => {
+                      [...document.querySelectorAll('button')].flatMap(b => {
                         const r = b.getBoundingClientRect();
-                        return r.width > 0 && r.height > 0 && (r.width < 32 || r.height < 32);
-                      }).length);
-                    if (tiny) report('error', `[${vp.name}/${rm}] ${path}: ${tiny} button(s) under 32px tap size`);
+                        if (!(r.width > 0 && r.height > 0 && (r.width < 32 || r.height < 32))) return [];
+                        const id = b.id ? '#' + b.id : (b.className ? '.' + String(b.className).trim().split(/\s+/).join('.') : '');
+                        return [`<button${id}> "${(b.textContent||'').trim().slice(0,30)}" ${Math.round(r.width)}x${Math.round(r.height)}px`];
+                      }));
+                    for (const t of tiny)
+                      report('error', `[${vp.name}/${rm}] ${path}: tap target under 32px — ${t}`);
                   }
                   await shot(page, `page${path.replace(/[\\/]+/g, '_') || '_root'}-${vp.name}-${rm}`);
                 } catch (e) {
