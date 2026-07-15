@@ -8,6 +8,67 @@
 
 ---
 
+## ⚡ 2026-07-15 — HERO INSTALL ANIMATION RETIRED + BRAND ASSETS INTEGRATED (branch
+## feat/static-hero-brand-assets, owner's ruling — see workstream brief)
+
+- INSTALL ANIMATION RETIRED (owner decision): the section 01 type-in sequence
+  (shipped feat/hero-install, merged 66413da, ruled 07-13/07-14) is gone.
+  The 07-14 SHIPPED entry's OWED (1) — investigating whether the armed/
+  trigger state fails on Jad's Safari/trackpad — is now CLOSED, superseded.
+  He never witnessed it working, and rather than keep chasing the device
+  repro the animation is retired outright. Hero returns to fully static —
+  the animation's FINAL FRAME (all six beliefs + stamps, boot lines,
+  6 PATTERNS ACTIVE — STILL RUNNING flag), not the pre-animation design.
+  public/hero-install.js deleted; all mc-hi concealment CSS, the head-gate
+  script, #hi-cursor/.hi-vh scaffolding, and data-boot/data-type/data-
+  status/data-fade/data-hesitate hooks removed from index.html. THE
+  ENTRANCE splash (drag-the-key) and the particle emblem untouched.
+- NEXT: a hero intro video (~35s, muted autoplay) is planned to perform the
+  install sequence as rendered video instead. Production happens OUTSIDE
+  this repo (Jad is producing it separately); integration into the hero
+  will be a future branch once the file exists.
+- BRAND ASSETS INTEGRATED (owner-supplied mindcoding-logo-assets.zip): new
+  keyhole mark replaces the old two-face/brain/key logo — the only logo
+  image files in the repo were public/icons/{apple-touch-icon,icon-192,
+  icon-512}.png, now overwritten with the new mark (icon-192/512 resized
+  from favicon-512.png). favicon-32/64.png added as <link rel="icon"> on
+  all 8 pages (replacing the inline crosshair-SVG data URI); apple-touch-
+  icon newly linked (didn't exist before). Footer lockup
+  (lockup-horizontal-gold-transparent.png, public/assets/) replaces the
+  text wordmark on the LANDING PAGE footer only — the other 7 pages have
+  colophon-only footers with no existing mark/grid to place it in, left
+  untouched (flag for Jad: does he want it added there too?). Nav/header
+  untouched everywhere (type-only, no logo image existed to swap).
+- OG/SOCIAL CARD: og-image-1200x630.png (public/assets/) wired as
+  og:image + twitter:image with og:image:width/height on all 8 hand-
+  authored pages AND in tools/build_rolls.mjs's setCanonical (the one
+  place the generator emits this meta for every roll/entry page).
+  ⚠ PROVENANCE: the owner's actual og-image-1200x630.png never landed as
+  an uploadable file in this session (pasted inline twice, no file
+  bytes reachable) — this is a reconstruction, composited from his own
+  lockup-vertical-gold-transparent.png onto the #070B1A brand background,
+  matched pixel-for-pixel against what he pasted. NOT a new design
+  decision, but flagged: swap in the master file if/when he sends it.
+  BONUS FIX while touching this: the 5 channel pages' og:image was
+  pointing at a stale pre-cleanse URL (mvpsites.github.io/mindcoding/
+  preview-zine-v2/cardback.webp, dead since the 07-12 root-swap) — never
+  actually shipped to production (setCanonical always overwrote it when
+  BASE_URL was set) but was live on GH Pages previews. Fixed to the new
+  og-image alongside everything else.
+- HOMEPAGE SEO META (owner-ruled copy, homepage only): `<title>` → MIND
+  CODING — Recode Your Mind. Change Your Reality.; meta description →
+  Your beliefs were installed. Recode them. Free music, affirmations,
+  visualization and life scripts to rewrite the patterns running your
+  life.; og:title aligned to the new title. og:description, canonical,
+  robots left untouched. Channel pages keep their existing meta.
+- sw v56→v57 (index.html + all 8 pages' head + icons + build_rolls.mjs
+  changed). Verified: dist-wide link check clean (357 refs, 0 missing
+  beyond a known JS-string false positive baked into the checker pattern
+  itself), zero failed requests / console errors on a full page load,
+  hero renders byte-identical with JS on vs off, footer lockup crisp at
+  desktop + 390px with reduced motion, dist diff vs main = exactly the
+  files this brief touched (verified via a comparison worktree build).
+
 ## ⚡ 2026-07-14 SHIPPED — HERO INSTALL + ENTRANCE v2 MERGED TO MAIN (RULED: "approved to ship")
 
 - PR #2 (feat/hero-install → main) merged at 66413da. BOTH deploy

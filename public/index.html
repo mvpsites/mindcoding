@@ -7,22 +7,21 @@ skips the splash (ruled 07-14: RM = click unlock, instant dissolve). FAILSAFE (r
 a 2.5s hatch tears the splash down and wakes the page unless the entrance script takes
 ownership — a broken script must never wall off the site. */
 try{if(sessionStorage.getItem('mc-in'))document.documentElement.classList.add('mc-in');else window.__mcGateHatch=setTimeout(function(){var g=document.getElementById('veilgate');if(g&&g.parentNode)g.parentNode.removeChild(g);document.documentElement.classList.add('mc-in');if(document.body)document.body.dataset.mcGate='done';dispatchEvent(new Event('mc:enter'))},2500)}catch(e){document.documentElement.classList.add('mc-in')}</script>
-<script>/* HERO INSTALL gate (ruled 07-13): conceal section 01 pre-paint so hero-install.js
-can type it in. Skipped when already played this session or reduced motion — the hero
-is then simply static. FAILSAFE (ruled): the 2.5s hatch force-reveals the static hero
-unless the module clears it as its first act — slow connection, blocked script or any
-JS failure must end in the static hero, never darkness. */
-try{if(!sessionStorage.getItem('mc_hero_played')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('mc-hi');window.__mcHiHatch=setTimeout(function(){document.documentElement.classList.remove('mc-hi')},2500)}}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex" />
-<meta property="og:title" content="MIND CODING — Recode the pattern." />
+<meta property="og:title" content="MIND CODING — Recode Your Mind. Change Your Reality." />
 <meta property="og:description" content="Ask a question your autopilot cannot answer. Draw a card, read the pattern, choose what to rehearse." />
-<meta property="og:image" content="https://mindcod.ing/cardback.webp" />
+<meta property="og:image" content="https://mindcod.ing/assets/og-image-1200x630.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:image" content="https://mindcod.ing/assets/og-image-1200x630.png" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
 
-<title>MIND CODING — № 01</title>
-<meta name="description" content="See the script before you obey it." /><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23070B1A'/%3E%3Ccircle cx='16' cy='12' r='6.2' fill='%23D79A4A'/%3E%3Cpath d='M12.6 15.5 L19.4 15.5 L22 27 L10 27 Z' fill='%23D79A4A'/%3E%3C/svg%3E" />
+<title>MIND CODING — Recode Your Mind. Change Your Reality.</title>
+<meta name="description" content="Your beliefs were installed. Recode them. Free music, affirmations, visualization and life scripts to rewrite the patterns running your life." /><link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png" />
+<link rel="icon" href="icons/favicon-64.png" sizes="64x64" type="image/png" />
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
 <style>
 /* ============================================================
    MIND CODING V2 — set like a zine. Two inks on midnight:
@@ -138,11 +137,10 @@ h2.big .r{color:var(--red)}
 .transition{margin-top:2rem;font-family:var(--disp);text-transform:uppercase;
   font-size:clamp(1.05rem,2.6vw,1.6rem);line-height:1.2;max-width:34ch}
 
-/* 01 — the install sequence (ruled 07-13): the beliefs TYPE IN, get stamped,
-   flag as still running. All copy is static; html.mc-hi (set pre-paint by the
-   head gate) conceals it and hero-install.js reveals per character. Without JS
-   nothing ever hides. Layout is reserved at full size — zero shift. */
-.install{position:relative}
+/* 01 — the installation: static final-frame content (install animation
+   retired 2026-07-15, owner's device never witnessed it working — an intro
+   video is the planned replacement). Boot line, six beliefs with their
+   forensic stamps, and the status flag are permanently visible. */
 .install-boot{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;line-height:1.9;
   color:var(--gold);text-transform:uppercase;margin-bottom:1.8rem}
 .belief-note{font-family:var(--mono);font-style:normal;font-size:.68rem;letter-spacing:.14em;
@@ -151,14 +149,6 @@ h2.big .r{color:var(--red)}
 .install-status{margin-top:1.6rem;font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;
   text-transform:uppercase;color:var(--ink-faint);opacity:.75}
 .install-status em{font-style:normal;color:var(--red)}
-html.mc-hi [data-boot],html.mc-hi [data-type],
-html.mc-hi [data-status],html.mc-hi [data-fade]{visibility:hidden}
-html.mc-hi [data-fade]{opacity:0;transition:opacity .6s ease}
-#hi-cursor{position:absolute;color:var(--gold);pointer-events:none;z-index:5}
-#hi-cursor.hi-blink{animation:hiBlink 1.06s steps(1,end) infinite}
-@keyframes hiBlink{50%{opacity:0}}
-.hi-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
-  clip-path:inset(50%);white-space:nowrap}
 
 /* 02 — the pattern */
 .pattern{padding:2.6rem 1.2rem 2.8rem}
@@ -224,8 +214,8 @@ a.row:hover .row__t::after,a.row:focus-visible .row__t::after{opacity:1;transfor
 /* ---------- footer ---------- */
 footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;gap:1.6rem 3rem;
   align-items:start}
-.foot__mark{font-family:var(--disp);text-transform:uppercase;line-height:.9;font-size:1.6rem}
-.foot__mark .fm-dot{color:var(--red)}
+.foot__mark{display:block;line-height:0}
+.foot__mark img{width:clamp(140px,42vw,200px);height:auto;display:block}
 .foot__nav{display:flex;flex-wrap:wrap;gap:.4rem 1.6rem;font-family:var(--mono);
   font-size:.64rem;letter-spacing:.18em;text-transform:uppercase}
 .foot__nav a{border-bottom:2px solid var(--gold);padding-bottom:2px}
@@ -358,7 +348,6 @@ cursor:pointer;text-transform:uppercase;padding:0}
 <link rel="stylesheet" href="./draw-experience.css" />
 <link rel="stylesheet" href="scroll-life.css" />
 <script defer src="scroll-life.js"></script>
-<script defer src="hero-install.js"></script>
 <script>try{if(sessionStorage.getItem('mc-nav')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('mc-nav')}catch(e){}</script><style>html.mc-nav::after{content:"";position:fixed;inset:0;background:#070B1A;z-index:299}</style>
 </head>
 <body>
@@ -427,21 +416,21 @@ cursor:pointer;text-transform:uppercase;padding:0}
   </div>
 </header>
 
-<section class="sec" aria-labelledby="install-h" data-install>
+<section class="sec" aria-labelledby="install-h">
   <div class="sec__kick"><b>01</b><span>— THE INSTALLATION</span></div>
   <div class="install">
-    <p class="install-boot" data-boot>MIND CODING &mdash; v1.0<br />LOADING INSTALLED PATTERNS&hellip;</p>
+    <p class="install-boot">MIND CODING &mdash; v1.0<br />LOADING INSTALLED PATTERNS&hellip;</p>
     <h2 class="big" id="install-h">The most dangerous belief<br />is the one that sounds<br /><span class="r">like your own voice.</span></h2>
     <div class="beliefs" aria-label="Installed beliefs">
-      <span class="belief" data-type>I&rsquo;m too much.<i class="belief-note">logged by: others</i></span>
-      <span class="belief" data-type>I&rsquo;m not enough.<i class="belief-note">logged by: self</i></span>
-      <span class="belief" data-type>People like me don&rsquo;t succeed.<i class="belief-note">origin: inherited</i></span>
-      <span class="belief" data-type>Love always leaves.<i class="belief-note">installed: early</i></span>
-      <span class="belief" data-type>Money changes people.<i class="belief-note">source: unknown</i></span>
-      <span class="belief" data-type data-hesitate="7">Be realistic.<i class="belief-note">last run: today</i></span>
+      <span class="belief">I&rsquo;m too much.<i class="belief-note">logged by: others</i></span>
+      <span class="belief">I&rsquo;m not enough.<i class="belief-note">logged by: self</i></span>
+      <span class="belief">People like me don&rsquo;t succeed.<i class="belief-note">origin: inherited</i></span>
+      <span class="belief">Love always leaves.<i class="belief-note">installed: early</i></span>
+      <span class="belief">Money changes people.<i class="belief-note">source: unknown</i></span>
+      <span class="belief">Be realistic.<i class="belief-note">last run: today</i></span>
     </div>
-    <p class="install-status" data-status>⚠ 6 PATTERNS ACTIVE &mdash; <em>STILL RUNNING</em></p>
-    <p class="beliefs-after" data-fade>None of these thoughts arrived<br />wearing someone else&rsquo;s name.</p>
+    <p class="install-status">⚠ 6 PATTERNS ACTIVE &mdash; <em>STILL RUNNING</em></p>
+    <p class="beliefs-after">None of these thoughts arrived<br />wearing someone else&rsquo;s name.</p>
     <p class="turn">The program doesn&rsquo;t need<br />your permission.<br /><br />Only your repetition.</p>
     <p class="support" style="margin-top:1.6rem">Repeat an instruction long enough and it stops feeling learned.<br />It starts feeling true.</p>
     <p class="transition">You don&rsquo;t have to believe a thought<br />just because it uses your voice.</p>
@@ -527,7 +516,7 @@ cursor:pointer;text-transform:uppercase;padding:0}
 </script>
 
 <footer>
-  <p class="foot__mark">MIND<br />COD<span class="fm-dot">.</span>ING</p>
+  <a class="foot__mark" href="./" aria-label="Mind Coding — home"><img src="assets/lockup-horizontal-gold-transparent.png" alt="Mind Coding" width="200" height="46" /></a>
   <nav class="foot__nav" aria-label="Footer">
     <a href="#choice-h">CHANNELS</a>
     <a href="./draw/">THE DRAW</a>
