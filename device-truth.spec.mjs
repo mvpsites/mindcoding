@@ -146,5 +146,34 @@ export default async function spec({ newPage, base, viewport, rm, report, shot }
     report('error', `[${viewport}/${rm}] theatre check crashed: ${String(e).slice(0, 140)}`);
   }
 
+  /* ---------- PILLAR NAV (MOTION-SPEC Phase 4): the page-flip between
+     sibling rolls must LAND — body at full opacity, identity transform,
+     scroll-life woken. RM = plain instant navigation, same assertions. ---------- */
+  try {
+    await page.goto(base + '/channels/abundance/', { waitUntil: 'load' });
+    await page.waitForTimeout(600);
+    /* LOVE, not WISDOM: the tail of the subnav row is clipped off-screen at
+       390px (pre-existing, flagged 07-17 for its own ruling) — this check
+       tests the FLIP, so it uses a sibling link that is on-screen everywhere */
+    const loveLink = page.locator('nav.subnav a[href*="love"]');
+    if (await loveLink.count()) {
+      await loveLink.click();
+      await page.waitForURL('**/channels/love/**', { timeout: 5000 });
+      await page.waitForTimeout(900);
+      const st = await page.evaluate(() => ({
+        op: parseFloat(getComputedStyle(document.body).opacity),
+        tf: getComputedStyle(document.body).transform,
+        gate: document.body.dataset.mcGate || 'none',
+      }));
+      if (st.op > 0.99 && (st.tf === 'none' || st.tf === 'matrix(1, 0, 0, 1, 0, 0)'))
+        report('notice', `[${viewport}/${rm}] PILLAR NAV LANDS ✓ (opacity ${st.op}, gate ${st.gate})`);
+      else
+        report('error', `[${viewport}/${rm}] pillar nav stranded: opacity ${st.op}, transform ${st.tf}, gate ${st.gate}`);
+      await shot(page, `pillar-nav-${viewport}-${rm}`);
+    } else report('error', `[${viewport}/${rm}] love link missing in abundance subnav`);
+  } catch (e) {
+    report('error', `[${viewport}/${rm}] pillar nav check crashed: ${String(e).slice(0, 140)}`);
+  }
+
   await page.close();
 }
