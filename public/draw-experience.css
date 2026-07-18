@@ -30,10 +30,12 @@ color:var(--gold);text-transform:uppercase;padding:1.4rem 1.2rem 0}
 color:var(--ink-faint);text-transform:uppercase;padding:.5rem 1.2rem 0}
 .how-mouse{display:none}
 @media (hover:hover){.how-mouse{display:inline}.how-touch{display:none}}
-.wheelctr{position:absolute;top:.7rem;right:.9rem;z-index:200;
-font-family:var(--mono);font-size:.78rem;letter-spacing:.18em;
-color:var(--gold);text-transform:uppercase;font-variant-numeric:tabular-nums;
-pointer-events:none;text-shadow:0 2px 8px rgba(7,11,26,.9)}
+/* the spread counter sits in the kick bar, clear of the card fan
+   (mobile fix 07-18 — it used to float inside the stage where the
+   elevated center card overlapped it at 390px) */
+.wheelctr{margin-left:auto;font-family:var(--mono);font-size:.72rem;
+letter-spacing:.18em;color:var(--gold);text-transform:uppercase;
+font-variant-numeric:tabular-nums;pointer-events:none;white-space:nowrap}
 .wheelstage{position:relative;overflow:hidden;height:470px;margin:0.8rem 0 0;
 border-top:2px solid var(--ink);touch-action:none;cursor:grab;user-select:none;
 -webkit-user-select:none}
@@ -45,7 +47,7 @@ border:2px solid var(--ink);background:var(--paper)}
 @media (max-width:560px){
   .sheet__hint{font-size:.62rem;letter-spacing:.14em}
   .wheelhow{font-size:.54rem;letter-spacing:.14em;line-height:1.7}
-  .wheelctr{font-size:.66rem;top:.6rem;right:.7rem}
+  .wheelctr{font-size:.6rem;letter-spacing:.12em}
 }
 /* the plate */
 .reading{display:none}

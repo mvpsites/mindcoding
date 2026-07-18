@@ -29,6 +29,14 @@ masthead → 01 THE INSTALLATION → 02 THE PATTERN (interactive emblem) →
   Plain HTML/CSS/JS. `npm run build` = verbatim copy `public/` → `dist/`
   (`tools/build_site.mjs`). Do NOT introduce React, Vue, bundlers, vite,
   Tailwind, TypeScript, or any dependency without Jad's explicit ruling.
+- **ONE ruled exception (2026-07-17, Motion+ purchased): Motion**
+  (motion.dev) — the vanilla JS UMD build only (`window.Motion`), never the
+  React build. Self-hosted at `public/vendor/motion-<version>.min.js`
+  exactly like the fonts — NEVER a runtime CDN. Canvas 2D remains the only
+  way drawn graphics render (Motion drives values, not pixels). Every use
+  is guarded (`window.Motion &&`) and every animated moment carries a
+  reduced-motion twin per `docs/MOTION-SPEC.md` — the shipped static site
+  IS the reduced-motion experience. No other dependency is approved.
 - **Layout of `public/` (= the deployed site, served relative-path-agnostic):**
   - `index.html` — the landing (the whole journey)
   - `draw/` — deep-link mirror of the draw experience

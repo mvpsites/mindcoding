@@ -19,6 +19,15 @@
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var root = document.documentElement;
 
+  /* MOTION-SPEC Phase 4: between the five pillar roll pages the transition
+     is a zine page-flip (cross-fade + slight slide, midnight persists), not
+     the iris — navigation between siblings should feel continuous. All
+     other internal navigation keeps the keyhole. RM twin: instant nav
+     (this whole module exits under reduce, unchanged). */
+  var PILLAR = /\/channels\/(abundance|love|spirit|wellness|wisdom)\/(?:index\.html)?$/;
+  var ORDER = { abundance: 1, love: 2, spirit: 3, wellness: 4, wisdom: 5 };
+  var FLIP_EASE = [0.22, 0.9, 0.3, 1];
+
   function fullCanvas(){
     var cv = document.createElement('canvas');
     cv.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;z-index:300;pointer-events:none';
@@ -32,6 +41,34 @@
     try { sessionStorage.removeItem('mc-nav'); } catch (e) {}
     /* the landing's first-visit gate owns its own reveal */
     if (document.body.dataset.mcGate === 'pending'){ root.classList.remove('mc-nav'); return; }
+    /* pillar arrival: enter from the side the flip implied (Phase 4) */
+    var pd = null;
+    try { pd = sessionStorage.getItem('mc-pnav'); sessionStorage.removeItem('mc-pnav'); } catch (e) {}
+    if (pd && window.Motion && !reduce && PILLAR.test(location.pathname)){
+      try {
+        document.body.style.opacity = '0';
+        document.body.style.transform = 'translateX(' + (pd === 'f' ? 24 : -24) + 'px)';
+        document.body.dataset.mcGate = 'pending';   /* scroll-life waits for mc:enter */
+        root.classList.remove('mc-nav');
+        requestAnimationFrame(function(){ requestAnimationFrame(function(){
+          var ctrl = window.Motion.animate(document.body,
+            { opacity: 1, transform: 'translateX(0px)' },
+            { duration: 0.32, ease: FLIP_EASE });
+          (ctrl && ctrl.finished ? ctrl.finished : Promise.resolve()).then(function(){
+            document.body.style.opacity = ''; document.body.style.transform = '';
+            document.body.dataset.mcGate = 'done';
+            dispatchEvent(new Event('mc:enter'));
+          });
+        }); });
+        return;
+      } catch (e) {
+        document.body.style.opacity = ''; document.body.style.transform = '';
+        document.body.dataset.mcGate = 'done';
+        root.classList.remove('mc-nav');
+        dispatchEvent(new Event('mc:enter'));
+        return;
+      }
+    }
     if (!window.Iris || reduce){
       root.classList.remove('mc-nav');
       dispatchEvent(new Event('mc:enter'));
@@ -73,6 +110,21 @@
     try { url = new URL(a.href, location.href); } catch (err) { return; }
     if (url.origin !== location.origin) return;
     if (url.pathname === location.pathname) return;   /* same page (anchor or self): no transition */
+    /* pillar exit: the page-flip lane (Phase 4) */
+    var mHere = location.pathname.match(PILLAR), mThere = url.pathname.match(PILLAR);
+    if (mHere && mThere && window.Motion){
+      e.preventDefault();
+      leaving = true;
+      var fwd = ORDER[mThere[1]] > ORDER[mHere[1]];
+      try { sessionStorage.setItem('mc-nav', '1'); sessionStorage.setItem('mc-pnav', fwd ? 'f' : 'b'); } catch (err) {}
+      try {
+        var ctrl = window.Motion.animate(document.body,
+          { opacity: 0, transform: 'translateX(' + (fwd ? -24 : 24) + 'px)' },
+          { duration: 0.24, ease: FLIP_EASE });
+        (ctrl && ctrl.finished ? ctrl.finished : Promise.resolve()).then(function(){ location.href = url.href; });
+      } catch (err) { location.href = url.href; }
+      return;
+    }
     if (!window.Iris) return;                                     /* engine missing: plain nav */
     e.preventDefault();
     leaving = true;

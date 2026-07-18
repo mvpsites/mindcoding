@@ -122,6 +122,27 @@
     var circuitN = 0, packets = [], nextPacket = 0;
     var glitchT = -1, glitchY = 0, nextGlitch = 0;
     var ptr = { x:-9999, y:-9999, on:false, hover:false, px:-9999, py:-9999, speed:0 };
+    /* MOTION-SPEC Phase 5: the pointer position FEEDING THE FIELD is
+       spring-smoothed through Motion motionValues (vd .30, bounce .22) —
+       the stir gains elastic lag and whip. Motion drives values only;
+       Canvas 2D still renders every pixel, and the Jad-tuned BEHAVIOR /
+       DRAG_AUTHORITY constants are untouched. RM twin: direct pointer
+       (springPtr stays null — the shipped path, verbatim). */
+    var springPtr = null;
+    if (!reduce && global.Motion && global.Motion.motionValue){
+      try {
+        var svx = global.Motion.motionValue(-9999), svy = global.Motion.motionValue(-9999);
+        springPtr = {
+          vx: svx, vy: svy, live: false,
+          to: function(x, y, hard){
+            if (hard || !this.live){ svx.jump(x); svy.jump(y); this.live = true; return; }
+            global.Motion.animate(svx, x, { type: 'spring', visualDuration: 0.30, bounce: 0.22 });
+            global.Motion.animate(svy, y, { type: 'spring', visualDuration: 0.30, bounce: 0.22 });
+          },
+          off: function(){ this.live = false; svx.stop(); svy.stop(); }
+        };
+      } catch (e) { springPtr = null; }
+    }
     var releaseAt = -1, releasedOnce = false;
     var peak = 0, disp = 0, avgErr = 0;
     var pulseT = -1, hapticDone = false, reformFired = false;
@@ -184,6 +205,10 @@
       var active = ptr.on || ptr.hover;   /* ruled 07-15: touch is user-initiated — it works under reduced motion; the idle choreography (entrance/signals/glitch) still exits */
       var R = radius();
 
+      /* Phase 5: the force center is the sprung pointer when it's live */
+      var fx = ptr.x, fy = ptr.y;
+      if (springPtr && springPtr.live && active){ fx = springPtr.vx.get(); fy = springPtr.vy.get(); }
+
       var sum = 0, i, p;
       for (i = 0; i < pts.length; i++){
         p = pts[i];
@@ -191,7 +216,7 @@
 
         /* pointer force — prototype model */
         if (active){
-          var dx = ptr.x - p.x, dy = ptr.y - p.y;
+          var dx = fx - p.x, dy = fy - p.y;
           var d = Math.hypot(dx, dy) || 1;
           if (d < R){
             var falloff = Math.pow(1 - d / R, 1.35);   /* softer gradient, watery */
@@ -334,6 +359,7 @@
     }
     function beginInteraction(p){
       ptr.on = true; ptr.x = p.x; ptr.y = p.y; ptr.px = p.x; ptr.py = p.y; ptr.speed = 0;
+      if (springPtr) springPtr.to(p.x, p.y, true);   /* press lands where the hand is */
       releaseAt = -1; reformFired = false; hapticDone = false; frozen = false;
       setState('press');
     }
@@ -342,12 +368,14 @@
       var raw = Math.hypot(dxm, dym) / 16;             /* normalized, capped */
       ptr.speed = Math.min(1, ptr.speed * 0.7 + raw * 0.3);
       ptr.px = ptr.x; ptr.py = ptr.y; ptr.x = p.x; ptr.y = p.y;
+      if (springPtr) springPtr.to(p.x, p.y);
       if (ptr.speed > 0.06) setState('drag');
       if (!reduce) trail.push({ x: p.x, y: p.y, t: performance.now() });
     }
     function endInteraction(){
       if (!ptr.on) return;
       ptr.on = false; ptr.speed = 0; ptr.x = ptr.y = -9999;
+      if (springPtr) springPtr.off();
       releaseAt = performance.now();
       releasedOnce = true;
       setState('release');
@@ -364,8 +392,13 @@
       if (mouseDown){ moveInteraction(p); return; }
       if (hoverable){
         var inside = p.x >= 0 && p.y >= 0 && p.x <= W && p.y <= H;
-        ptr.hover = inside; if (inside){ ptr.x = p.x; ptr.y = p.y; if (state === 'idle') setState('hover'); }
-        else if (state === 'hover') setState('idle');
+        ptr.hover = inside;
+        if (inside){
+          ptr.x = p.x; ptr.y = p.y;
+          if (springPtr) springPtr.to(p.x, p.y);
+          if (state === 'idle') setState('hover');
+        }
+        else { if (springPtr && !ptr.on) springPtr.off(); if (state === 'hover') setState('idle'); }
       }
     }, { passive:true });
     addEventListener('mouseup', function(){ if (mouseDown){ mouseDown = false; endInteraction(); } });

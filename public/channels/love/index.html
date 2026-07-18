@@ -20,7 +20,7 @@
 --gold:#D79A4A;--red:#FF2B06;--bd:8px;--mono:"Space Mono",monospace;
 --disp:"Archivo Black",system-ui,sans-serif}
 *{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;background:var(--paper)}   /* Phase 4: midnight persists under the body flip */
 body{background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
 font-size:17px;line-height:1.55;cursor:crosshair;overflow-x:hidden}
 body::before{content:"";position:fixed;inset:0;z-index:50;pointer-events:none;
@@ -83,6 +83,13 @@ color:var(--ink-faint);max-width:64rem;line-height:1.8}
 .bmark{vertical-align:-2px;margin-right:.45rem}
 .subnav{gap:1.1rem;justify-content:flex-start;border-bottom:2px solid var(--ink)}
 .subnav a:hover{color:var(--gold)}
+/* mobile fix 07-18: at narrow widths the 7-link row ran ~459px wide — WISDOM
+   sat off-screen, untappable. The row now WRAPS like a masthead (editorial,
+   no horizontal scroll) and every link is a 32px-min tap target. */
+@media (max-width:700px){
+  .subnav{flex-wrap:wrap;row-gap:0;padding-top:.15rem;padding-bottom:.15rem}
+  .subnav a{display:inline-flex;align-items:center;min-height:32px;min-width:32px}
+}
 .share{display:flex;flex-wrap:wrap;gap:.2rem 1.2rem;align-items:center;padding:.4rem 1.2rem;
 border-top:2px solid var(--ink);font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;
 text-transform:uppercase;color:var(--ink-dim)}
@@ -98,6 +105,7 @@ h1.big .g{color:var(--red)}   /* ruled 07-12: the headline dot runs red, like th
 </style>
 <link rel="stylesheet" href="../../fonts/fonts.css">
 <link rel="stylesheet" href="../../scroll-life.css" />
+<script defer src="../../vendor/motion-12.42.2.min.js"></script>
 <script defer src="../../scroll-life.js"></script>
 <script>try{if(sessionStorage.getItem('mc-nav')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('mc-nav')}catch(e){}</script><style>html.mc-nav::after{content:"";position:fixed;inset:0;background:#070B1A;z-index:299}</style>
 </head>

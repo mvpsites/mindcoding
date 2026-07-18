@@ -11,7 +11,7 @@
   'use strict';
   var TEMPLATE = `<div class="theatre" id="theatre">
 <section class="sec sheet on" id="sheet">
-  <div class="kick"><b>__KICK_B__</b><span>__KICK_S__</span></div>
+  <div class="kick"><b>__KICK_B__</b><span>__KICK_S__</span><span class="wheelctr" id="wheelCtr" aria-hidden="true"></span></div>
   <p class="wheelhow" id="washHow" hidden>THE FIELD WASHES ITSELF. TOUCH IT TO WASH DEEPER.</p>
   <p class="wheelhow" id="wheelHow" hidden>
     <span class="how-touch">MOVE THROUGH THE FIELD · TAP THE GOLD-EDGED CARD WHEN ONE HOLDS YOUR ATTENTION</span>
@@ -19,9 +19,7 @@
   </p>
   <div class="prosc" id="prosc">
     <div class="wheelstage" id="stage" role="application"
-      aria-label="Card spread. The cards shuffle themselves; slide to browse, tap the centered card to draw.">
-      <p class="wheelctr" id="wheelCtr" aria-hidden="true"></p>
-    </div>
+      aria-label="Card spread. The cards shuffle themselves; slide to browse, tap the centered card to draw."></div>
     <canvas id="curtainCv" aria-hidden="true"></canvas>
     <div class="veil" id="veil">
       <p class="veil__t">ASK A QUESTION<br /><span class="r">YOUR AUTOPILOT CANNOT ANSWER.</span><br /><span class="g">HOLD IT SILENTLY.</span></p>
@@ -159,7 +157,9 @@
 
   function buildWheel(){
     stage = $('stage');
-    stage.innerHTML = '<p class="wheelctr" id="wheelCtr" aria-hidden="true"></p>';
+    /* the counter lives in the kick bar now (mobile fix 07-18: the elevated
+       center card was overlapping it inside the stage) — the stage resets clean */
+    stage.innerHTML = '';
     cardEls = {};
     var order = plainShuffle(DECK.map(function(c){ return c.id; }));
     st = {

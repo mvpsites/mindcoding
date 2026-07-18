@@ -8,6 +8,64 @@
 
 ---
 
+## ⚡ 2026-07-17/18 — THE MOTION+ PASS (feat/motion-pass — APPROVED BY JAD
+## ON-DEVICE 07-18, merged to main and deployed)
+
+- ✅ RULED 07-18: Jad witnessed the pass on his iPhone (RM off) and
+  approved — motion confirmed live. THE HERO INSTALL RESURRECTION IS THE
+  OWNER DECISION now, superseding the 07-15 retirement outright (the
+  intro-video plan is no longer the replacement path; if produced it will
+  be ruled on its own merits).
+- Two mobile fixes rode the merge (his device pass): the spread counter
+  moved from inside the wheel stage into the kick bar (the elevated
+  center card overlapped it at 390px — fixed by POSITION, not z-index),
+  and the subnav wraps at ≤700px with 32px tap targets (WISDOM was fully
+  off-screen at 390 — this also stopped the layout viewport inflating to
+  459px, so the whole site now renders true-width on phones). The 07-17
+  "subnav overflow" finding below is CLOSED by this.
+- device-truth.spec.mjs now carries: KEY DRAG UNLOCKS, EMBLEM RESPONDS,
+  INSTALL COMPLETES, theatre veil, PILLAR NAV LANDS, SPREAD COUNTER
+  CLEAR, SUBNAV REACHABLE — all four viewport × motion combinations.
+- sw at v74 as of the merge.
+
+- Jad purchased Motion+ (motion.dev) and instructed the pass in-conversation:
+  a MOTION LAYER, not a redesign — all content/functions/text/layout intact.
+  `docs/MOTION-SPEC.md` is the ruled artifact (committed before any
+  implementation): every moment with trigger, spring parameters, and its
+  reduced-motion twin. THE LAW: the shipped static site IS the RM
+  experience; twins are complete states. AGENTS.md §2 amended — Motion
+  vanilla UMD is the ONE approved dependency, self-hosted at
+  `public/vendor/motion-12.42.2.min.js` like the fonts; every use guarded
+  (`window.Motion &&`) so a blocked bundle degrades to shipped behavior.
+- SIX COMMITS, one per phase, LOCAL Device Truth green (4 combos, plus the
+  two new spec checks) after every phase: spec/law → P1 unlock (magnet +
+  spring seat + 400ms stillness + iris unveiling) → P2 hero install
+  RESURRECTED (see below) → P3 scroll life (gold rules draw in, stamps
+  scroll-trigger, breathing + ticker exemption kept) → P4 pillar page-flip
+  (Motion, View Transitions rejected: no Firefox) → P5 emblem sprung
+  pointer (BEHAVIOR constants untouched). sw v69→v73 across the phases.
+- HERO INSTALL RESURRECTION supersedes the 07-15 retirement per Jad's
+  07-17 instruction: the freeze cause (RM concealment) is structurally
+  gone — the RM guard is the module's first line, nothing is ever
+  concealed under RM; 6s stall watchdog + 8s gate hatch + try/catch→snap.
+  The 07-14 device-ruled pacing verbatim. The intro-video plan remains
+  Jad's alternative — his call which survives.
+- WHEEL: NO CHANGE, deliberately — flick inertia (DECAY .965) + magnetic
+  snap (SNAP .16) already ARE the shipped session-locked physics the
+  instruction described; a retune needs Jad's explicit word (AGENTS.md §4).
+- FOUND IN PASSING (pre-existing, unfixed, needs its own ruling): at 390px
+  the subnav row on roll pages measures ~459px — WISDOM fully off-screen,
+  WELLNESS clipped (BOOKS had the same fate pre-rename). The generic
+  overflow gate misses it because the mobile layout viewport expands to
+  match. device-truth PILLAR NAV check drives LOVE (on-screen) meanwhile.
+- device-truth.spec.mjs gained: INSTALL COMPLETES (start→skip→full frame,
+  both modes) and PILLAR NAV LANDS (flip must land at opacity 1). First
+  install-check run caught its own click landing above the viewport on the
+  1209px-tall section — clamp your click points on tall sections.
+- ~~OWED: Jad's on-device verdicts~~ → DELIVERED 07-18: approved as-is
+  (magnet .45, seat bounce .3, 400ms beat, 24px flip, emblem spring
+  vd .30 bounce .22). Individual retunes remain open to future rulings.
+
 ## ⚡ 2026-07-15 — HERO INSTALL ANIMATION RETIRED + BRAND ASSETS INTEGRATED (branch
 ## feat/static-hero-brand-assets, owner's ruling — see workstream brief)
 
