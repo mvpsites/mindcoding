@@ -87,6 +87,49 @@ export default async function spec({ newPage, base, viewport, rm, report, shot }
     report('error', `[${viewport}/${rm}] emblem check crashed: ${String(e).slice(0, 140)}`);
   }
 
+  /* ---------- THE INSTALL (MOTION-SPEC Phase 2): section 01 must never
+     strand — start it, skip it, and the full static frame must be there.
+     Under RM the module exits, so the statics must simply be visible. ---------- */
+  try {
+    const install = page.locator('.install');
+    if (await install.count()) {
+      await install.scrollIntoViewIfNeeded();
+      await page.waitForTimeout(600);
+      if (rm !== 'reduce') {
+        const ib = await install.boundingBox();
+        if (ib) {
+          /* the section is taller than the viewport — click a point of it
+             that is actually on screen (box top can be negative) */
+          const vp = page.viewportSize();
+          const px = Math.min(Math.max(ib.x + ib.width / 2, 10), vp.width - 10);
+          const py = Math.min(Math.max(ib.y + 40, 80), vp.height - 80);
+          await page.mouse.move(px, py);
+          await page.mouse.down(); await page.mouse.up();   /* arm -> start */
+          await page.waitForTimeout(500);                    /* let typing begin */
+          await page.keyboard.press('Escape');               /* skip is sacred: snap */
+          await page.waitForTimeout(400);
+        }
+      }
+      const state = await page.evaluate(() => {
+        const beliefs = [...document.querySelectorAll('.beliefs .belief')];
+        const notes = [...document.querySelectorAll('.belief-note')];
+        const status = document.querySelector('.install-status');
+        return {
+          beliefTexts: beliefs.filter(b => (b.childNodes[0].textContent || '').trim().length > 5).length,
+          notesVisible: notes.filter(n => parseFloat(getComputedStyle(n).opacity) > 0.9).length,
+          statusOpacity: status ? parseFloat(getComputedStyle(status).opacity) : 0,
+        };
+      });
+      if (state.beliefTexts === 6 && state.notesVisible === 6 && state.statusOpacity > 0.7)
+        report('notice', `[${viewport}/${rm}] INSTALL COMPLETES ✓ (6 beliefs, 6 stamps, status ${state.statusOpacity})`);
+      else
+        report('error', `[${viewport}/${rm}] install stranded: beliefs ${state.beliefTexts}/6, stamps ${state.notesVisible}/6, status opacity ${state.statusOpacity}`);
+      await shot(page, `install-${viewport}-${rm}`);
+    } else report('error', `[${viewport}/${rm}] install section missing`);
+  } catch (e) {
+    report('error', `[${viewport}/${rm}] install check crashed: ${String(e).slice(0, 140)}`);
+  }
+
   /* ---------- THE THEATRE: veil is present and actionable ---------- */
   try {
     const veil = page.locator('#veilBtn');

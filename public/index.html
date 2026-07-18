@@ -155,8 +155,14 @@ h2.big .r{color:var(--red)}
 .install-boot{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;line-height:1.9;
   color:var(--gold);text-transform:uppercase;margin-bottom:1.8rem}
 .belief-note{font-family:var(--mono);font-style:normal;font-size:.68rem;letter-spacing:.14em;
-  text-transform:lowercase;color:var(--gold);margin-left:.9rem;
+  text-transform:lowercase;color:var(--gold);margin-left:.9rem;display:inline-block;
   vertical-align:middle;white-space:nowrap}
+/* hero install (MOTION-SPEC Phase 2): the one travelling gold cursor.
+   Solid while typing, blinking on holds. RM never sees any of this —
+   hero-install.js exits before touching the DOM. */
+.hi-cursor{color:var(--gold);font-weight:400;margin-left:2px}
+.hi-blink{animation:hiBlink 1.06s steps(1) infinite}
+@keyframes hiBlink{50%{opacity:0}}
 .install-status{margin-top:1.6rem;font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;
   text-transform:uppercase;color:var(--ink-faint);opacity:.75}
 .install-status em{font-style:normal;color:var(--red)}
@@ -369,6 +375,7 @@ justify-content:center;min-height:44px;min-width:32px}
 <link rel="stylesheet" href="scroll-life.css" />
 <script defer src="vendor/motion-12.42.2.min.js"></script>
 <script defer src="scroll-life.js"></script>
+<script defer src="hero-install.js"></script>
 <script>try{if(sessionStorage.getItem('mc-nav')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('mc-nav')}catch(e){}</script><style>html.mc-nav::after{content:"";position:fixed;inset:0;background:#070B1A;z-index:299}</style>
 </head>
 <body>
