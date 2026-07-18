@@ -301,7 +301,7 @@ footer{padding:2rem 1.2rem 2.6rem;display:grid;grid-template-columns:auto 1fr;ga
   animation:gatePulse 2.6s ease-in-out infinite}
 .gate__key:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
 .gate__key--drag{cursor:grabbing}
-.gate__key--drag svg,.gate__key--snap svg{animation:none}
+.gate__key--drag svg,.gate__key--snap svg,.gate__key--seat svg{animation:none}
 .gate__key--snap{transition:transform .13s ease-out}
 .gate__key--turn svg{transform:rotate(90deg);transition:transform .13s cubic-bezier(.3,1.6,.4,1)}
 #veilgate{transition:opacity .6s ease}
@@ -367,6 +367,7 @@ justify-content:center;min-height:44px;min-width:32px}
 <link rel="stylesheet" href="./fonts/fonts.css">
 <link rel="stylesheet" href="./draw-experience.css" />
 <link rel="stylesheet" href="scroll-life.css" />
+<script defer src="vendor/motion-12.42.2.min.js"></script>
 <script defer src="scroll-life.js"></script>
 <script>try{if(sessionStorage.getItem('mc-nav')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('mc-nav')}catch(e){}</script><style>html.mc-nav::after{content:"";position:fixed;inset:0;background:#070B1A;z-index:299}</style>
 </head>
@@ -618,7 +619,9 @@ justify-content:center;min-height:44px;min-width:32px}
 
   var cv = document.createElement('canvas');
   gate.insertBefore(cv, gate.firstChild);
-  var iris = window.Iris ? window.Iris.mount(cv, {}) : null;
+  /* onOpen: the aperture has swallowed the frame — end the unveiling exactly
+     when the last of the veil is gone (Phase 1; no-op for the shipped path) */
+  var iris = window.Iris ? window.Iris.mount(cv, { onOpen: function(){ if (unveiling) finish(); } }) : null;
   var glyph = gate.querySelector('.gate__glyph');
   if (iris && glyph) glyph.style.display = 'none';   /* the live keyhole takes over */
 
@@ -644,7 +647,9 @@ justify-content:center;min-height:44px;min-width:32px}
   var hintT = setTimeout(function(){ if (!opened && hint) hint.classList.add('on'); }, 1500);
   function hideHint(){ clearTimeout(hintT); if (hint) hint.classList.remove('on'); }
 
+  var finished = false, unveiling = false;
   function finish(){
+    if (finished) return; finished = true;
     gate.remove();
     root.classList.add('mc-in');
     document.body.dataset.mcGate = 'done';
@@ -655,9 +660,45 @@ justify-content:center;min-height:44px;min-width:32px}
     try { sessionStorage.setItem('mc-in','1'); } catch(e){}
     hideHint();
     if (reduce || !key) return finish();    /* ruled: reduced motion = instant dissolve */
-    /* snap in, turn 90° with a hard tick, bloom from the keyhole, dissolve ~600ms */
-    var c = keyCenter(), L = lock();
-    off = { x: L.x - (c.x - off.x), y: L.y - (c.y - off.y) };
+    var M = window.Motion;
+    if (M){
+      /* MOTION-SPEC Phase 1: spring-seat (overshoot, settle) → 90° tick →
+         400ms of stillness → the unveiling: gold spills from the keyhole and
+         the aperture blooms until the SITE is what fills it. Any error falls
+         through to the shipped choreography; a hard backstop always finishes. */
+      try {
+        var c = keyCenter(), L = lock();
+        var seat = { x: L.x - (c.x - off.x), y: L.y - (c.y - off.y) };
+        var sx = off.x, sy = off.y;
+        drag = null;
+        key.classList.remove('gate__key--drag', 'gate__key--snap');
+        key.classList.add('gate__key--seat');
+        M.animate(0, 1, { type: 'spring', visualDuration: 0.45, bounce: 0.3,
+          onUpdate: function(p){
+            off.x = sx + (seat.x - sx) * p; off.y = sy + (seat.y - sy) * p;
+            key.style.transform = 'translate(calc(-50% + ' + off.x + 'px), calc(-50% + ' + off.y + 'px))';
+          } });
+        setTimeout(function(){ key.classList.add('gate__key--turn'); }, 480);
+        setTimeout(function(){                       /* 480 + 130 turn + 400 stillness */
+          unveiling = true;
+          gate.style.background = 'transparent';
+          var inside = gate.querySelector('.gate__inside');
+          if (inside) M.animate(inside, { opacity: 0 }, { duration: 0.5, delay: 0.15, ease: 'easeOut' });
+          var ask = gate.querySelector('.gate__ask');
+          [ask, hint, key].forEach(function(el){
+            if (el) M.animate(el, { opacity: 0 }, { duration: 0.3, ease: 'easeOut' });
+          });
+          if (iris) iris.open();                     /* the gold light spills */
+          else gate.classList.add('gate--out');
+        }, 1010);
+        setTimeout(finish, 3400);                    /* backstop — never trap a visitor */
+        return;
+      } catch (err) { /* fall through to the shipped path */ }
+    }
+    /* shipped choreography (Motion missing or errored): snap in, turn 90°
+       with a hard tick, bloom from the keyhole, dissolve ~600ms */
+    var c2 = keyCenter(), L2 = lock();
+    off = { x: L2.x - (c2.x - off.x), y: L2.y - (c2.y - off.y) };
     drag = null;
     key.classList.remove('gate__key--drag');
     key.classList.add('gate__key--snap');
@@ -678,15 +719,31 @@ justify-content:center;min-height:44px;min-width:32px}
       if (opened) return;
       e.preventDefault();
       try { key.setPointerCapture(e.pointerId); } catch(err){}
-      drag = { id: e.pointerId, sx: e.clientX, sy: e.clientY, ox: off.x, oy: off.y };
+      var c0 = keyCenter();
+      drag = { id: e.pointerId, sx: e.clientX, sy: e.clientY, ox: off.x, oy: off.y,
+               hx: c0.x - off.x, hy: c0.y - off.y };   /* transform-free home center — the magnet's reference */
       key.classList.add('gate__key--drag');
       key.classList.remove('gate__key--snap');
       hideHint();
     });
     key.addEventListener('pointermove', function(e){
       if (!drag || e.pointerId !== drag.id || opened) return;
-      off.x = drag.ox + (e.clientX - drag.sx);
-      off.y = drag.oy + (e.clientY - drag.sy);
+      var rx = drag.ox + (e.clientX - drag.sx);
+      var ry = drag.oy + (e.clientY - drag.sy);
+      /* MOTION-SPEC Phase 1 magnet: inside 2.4× the lock radius the key leans
+         toward the keyhole, pull easing quadratically 0 → 0.45 — the hand
+         keeps authority (raw offset stays the base). RM twin: raw 1:1 drag. */
+      if (!reduce && window.Motion){
+        var L = lock();
+        var d = Math.hypot(drag.hx + rx - L.x, drag.hy + ry - L.y);
+        var zone = L.r * 2.4;
+        if (d < zone){
+          var t = 1 - d / zone, pull = 0.45 * t * t;
+          rx += (L.x - drag.hx - rx) * pull;
+          ry += (L.y - drag.hy - ry) * pull;
+        }
+      }
+      off.x = rx; off.y = ry;
       key.style.transform = 'translate(calc(-50% + ' + off.x + 'px), calc(-50% + ' + off.y + 'px))';
       if (overlapping()) unlock();          /* the key snaps in on overlap */
     });
