@@ -77,13 +77,13 @@ function setDesc(html, desc){
     return html.replace(/(<meta name="description" content=")[^"]*(")/, `$1${safe}$2`);
   return html.replace('</head>', `<meta name="description" content="${safe}" />\n</head>`);
 }
-const NUM = { abundance: '01', love: '02', spirit: '03', wellness: '04', books: '05' };
+const NUM = { abundance: '01', love: '02', spirit: '03', wellness: '04', wisdom: '05' };
 const LEDE = {
   abundance: 'NOT MORE TO CHASE.<br /><span class="g">A DIFFERENT RELATIONSHIP TO ENOUGH.</span>',
   love: 'NOT ANOTHER PERSON TO PURSUE.<br /><span class="g">A NEW DEFINITION OF WHAT FEELS LIKE HOME.</span>',
   spirit: 'NOT ANOTHER BELIEF TO INSTALL.<br /><span class="g">A RETURN TO WHAT EXISTS BENEATH THE SCRIPT.</span>',
   wellness: 'NOT ANOTHER RULE TO FOLLOW.<br /><span class="g">THE RIGHT IDEA, HELD DAILY, REWRITES THE BODY.</span>',
-  books: 'NOT ANOTHER READING LIST.<br /><span class="g">THE INSTRUCTIONS, EXTRACTED.</span>'
+  wisdom: 'NOT ANOTHER READING LIST.<br /><span class="g">THE INSTRUCTIONS, EXTRACTED.</span>'
 };
 
 let entryPages = 0;
@@ -165,7 +165,7 @@ const HAND = [
   { file: 'draw/index.html', path: '/draw/',
     desc: 'Ask a question your autopilot cannot answer. Draw from the 78-plate deck and read the pattern \u2014 no saved readings, each one unique.' },
   { file: 'channels/index.html', path: '/channels/',
-    desc: 'Five channels \u2014 Abundance, Love, Spirit, Wellness, Books. Free music, affirmations, visualization and life scripts.' }
+    desc: 'Five channels \u2014 Abundance, Love, Spirit, Wellness, Wisdom. Free music, affirmations, visualization and life scripts.' }
 ];
 for (const h of HAND){
   const fp = join(dist, h.file);

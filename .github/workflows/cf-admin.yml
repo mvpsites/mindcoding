@@ -67,7 +67,7 @@ jobs:
                 HAS=$(grep -c "$NEEDLE" /tmp/f || true)
                 note "FRESH? $U -> $CODE | contains '$NEEDLE': $HAS"
               done
-              for U in "https://$ZONE_NAME/" "https://www.$ZONE_NAME/" "https://$ZONE_NAME/channels/books/"; do
+              for U in "https://$ZONE_NAME/" "https://www.$ZONE_NAME/" "https://$ZONE_NAME/channels/wisdom/"; do
                 CODE=$(curl -s -o /tmp/page -w "%{http_code}" --max-time 20 "$U" || echo FAIL)
                 CANON=$(grep -o '<link rel="canonical"[^>]*>' /tmp/page | head -1 || true)
                 TITLE=$(grep -o '<title>[^<]*' /tmp/page | head -1 | cut -c8-80 || true)

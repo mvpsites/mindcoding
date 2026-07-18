@@ -4,8 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex" />
-<meta property="og:title" content="MIND CODING — Spirit" />
-<meta property="og:description" content="The spirit roll: what to do, and the recording to do it with." />
+<meta property="og:title" content="MIND CODING — Wisdom" />
+<meta property="og:description" content="The wisdom roll: video summaries of the books that rewrite how you think." />
 <meta property="og:image" content="https://mindcod.ing/assets/og-image-1200x630.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -112,9 +112,9 @@ h1.big .g{color:var(--red)}   /* ruled 07-12: the headline dot runs red, like th
   <a href="../../draw/">THE DRAW</a>
   <a href="../abundance/">ABUNDANCE</a>
   <a href="../love/">LOVE</a>
-  <a aria-current="page" href="../spirit/">SPIRIT</a>
+  <a href="../spirit/">SPIRIT</a>
   <a href="../wellness/">WELLNESS</a>
-  <a href="../wisdom/">WISDOM</a>
+  <a aria-current="page" href="../wisdom/">WISDOM</a>
 </nav>
 
 <section class="sec">
@@ -161,13 +161,14 @@ h1.big .g{color:var(--red)}   /* ruled 07-12: the headline dot runs red, like th
 
 <script>
 (function(){
-  var CH = 'spirit';
-  var NUM = { abundance:'01', love:'02', spirit:'03', wellness:'04' };
+  var CH = 'wisdom';
+  var NUM = { abundance:'01', love:'02', spirit:'03', wellness:'04', wisdom:'05' };
   var LEDE = {
     abundance: 'NOT MORE TO CHASE.<br /><span class="g">A DIFFERENT RELATIONSHIP TO ENOUGH.</span>',
     love: 'NOT ANOTHER PERSON TO PURSUE.<br /><span class="g">A NEW DEFINITION OF WHAT FEELS LIKE HOME.</span>',
     spirit: 'NOT ANOTHER BELIEF TO INSTALL.<br /><span class="g">A RETURN TO WHAT EXISTS BENEATH THE SCRIPT.</span>',
-    wellness: 'NOT ANOTHER RULE TO FOLLOW.<br /><span class="g">THE RIGHT IDEA, HELD DAILY, REWRITES THE BODY.</span>'
+    wellness: 'NOT ANOTHER RULE TO FOLLOW.<br /><span class="g">THE RIGHT IDEA, HELD DAILY, REWRITES THE BODY.</span>',
+    wisdom: 'NOT ANOTHER READING LIST.<br /><span class="g">THE INSTRUCTIONS, EXTRACTED.</span>'
   };
   fetch('../../channels.json').then(function(r){ return r.json(); }).then(function(chans){
     var c = null;

@@ -269,8 +269,9 @@ JOURNEY and is the de-facto product:
   FIVE pillars → footer with SHARE strip.
 
 FIVE PILLARS (each with its own roll page /channels/<id>/):
-  01 abundance · 02 love · 03 spirit · 04 wellness · 05 books
-  (wellness + books built 07-12 per the approved July roadmap).
+  01 abundance · 02 love · 03 spirit · 04 wellness · 05 wisdom
+  (wellness + books built 07-12 per the approved July roadmap;
+  books pillar renamed WISDOM 07-17 — /channels/books/ redirects kept).
 /draw/ still exists for deep links: mirror intro + the same component.
 /channels/ is the hub. All 8 pages carry: top subnav (THE THEATRE +
 5 pillars), keyhole-glyph MIND CODING — HOME mark, keyhole favicon
@@ -379,10 +380,10 @@ it was benign, the lesson stands).
    (mobile especially — offer hover-gating the drift), keyhole pulse rate.
 2. COPY RULING PILE (all placeholder lines are Claude’s, Jad’s words
    pending): veil ask arrangement, reversal framing + UPRIGHT FIELD label,
-   ponder block, wash line, chip note, wellness + books ledes/support,
+   ponder block, wash line, chip note, wellness + wisdom ledes/support,
    roll labels (WHAT TO DO / IN PREPARATION / INKED · AWAITING PRINT),
    share strip, og descriptions.
-3. Content: real videos into channels.json (books = strongest SEO play,
+3. Content: real videos into channels.json (wisdom = strongest SEO play,
    people search titles). Reap/Activepieces distribution pipeline is
    queued post-reskin per the 07-11 ruling.
 4. Parked, unchanged: production architecture (the zine has de facto become
