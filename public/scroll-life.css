@@ -16,6 +16,10 @@
 @keyframes slSlam{0%{opacity:0;transform:scale(1.22) translateY(10px)}55%{opacity:1;transform:scale(.965)}100%{opacity:1;transform:scale(1)}}
 @keyframes slStrike{0%{opacity:0;transform:scale(1.12) translateY(14px)}
   55%{opacity:1;transform:scale(.972)}100%{opacity:1;transform:scale(1)}}
+/* MOTION-SPEC Phase 3: the gold rule that draws itself under struck
+   headings. Only ever inserted in motion mode — RM never sees it. */
+.sl-rule{display:block;height:3px;max-width:7.5rem;background:var(--gold);
+  margin-top:.45em;transform:scaleX(0);transform-origin:0 50%}
 /* registration sweep across section kicks */
 .sl-sweep{position:relative;overflow:hidden}
 .sl-sweep::after{content:"";position:absolute;top:0;bottom:0;left:0;width:34%;

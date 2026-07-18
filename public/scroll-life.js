@@ -74,6 +74,28 @@
     el.classList.add('sl-strike');
   });
 
+  /* ---- MOTION-SPEC Phase 3: a gold rule draws itself under each struck
+     section heading (never the masthead) — Motion spring scaleX 0->1,
+     origin left, 120ms after the strike lands. RM never reaches this
+     code, so the static site carries no rule at all. ---- */
+  var M = window.Motion || null;
+  toStrike.forEach(function (el) {
+    if (el.classList.contains('masthead')) return;
+    var rule = document.createElement('i');
+    rule.className = 'sl-rule';
+    el.appendChild(rule);
+    el.__slRule = rule;
+  });
+  function drawRule(el){
+    var r = el.__slRule;
+    if (!r) return;
+    el.__slRule = null;
+    setTimeout(function () {   /* the ~220ms strike + the ruled 120ms beat */
+      if (M) M.animate(r, { transform: 'scaleX(1)' }, { type: 'spring', visualDuration: 0.6, bounce: 0 });
+      else r.style.transform = 'scaleX(1)';
+    }, 340);
+  }
+
   /* ---- drift: display type counter-scrolls, faintly ---- */
   var drifters = [].filter.call(document.querySelectorAll(DRIFT_SEL), safe)
     .map(function (el) {
@@ -84,7 +106,7 @@
     es.forEach(function (en) {
       var d = drifters.find(function (x) { return x.el === en.target; });
       if (d) d.vis = en.isIntersecting;
-      if (en.isIntersecting) en.target.classList.add('sl-on');
+      if (en.isIntersecting) { en.target.classList.add('sl-on'); drawRule(en.target); }
     });
   }, { threshold: 0 });
   drifters.forEach(function (d) { dio.observe(d.el); });
@@ -132,6 +154,28 @@
       t.classList.add('tk-hit');
       setTimeout(function () { t.classList.remove('tk-hit'); }, 160);
     }, 9000 + Math.random() * 6000);
+  }
+
+  /* ---- MOTION-SPEC Phase 3: the six gold stamps become scroll-triggered
+     when the install has ALREADY played (or been skipped) this session —
+     while hero-install owns the section this pass stands down. ---- */
+  var notes = [].slice.call(document.querySelectorAll('.beliefs .belief-note'));
+  var heroDone = false;
+  try { heroDone = sessionStorage.getItem('mc_hero_played') === '1'; } catch (e) {}
+  if (notes.length && heroDone){
+    notes.forEach(function (n) { n.style.opacity = '0'; n.style.transform = 'translateX(18px)'; });
+    var nio = new IntersectionObserver(function (es) {
+      if (!es[0].isIntersecting) return;
+      nio.disconnect();
+      notes.forEach(function (n, i) {
+        setTimeout(function () {
+          if (M) M.animate(n, { opacity: 1, transform: 'translateX(0px)' },
+            { type: 'spring', visualDuration: 0.5, bounce: 0.15 });
+          else { n.style.opacity = ''; n.style.transform = ''; }
+        }, i * 90);
+      });
+    }, { threshold: 0.3 });
+    nio.observe(document.querySelector('.beliefs'));
   }
 
   /* ---- the whisper types itself, once (landing footer) ---- */
