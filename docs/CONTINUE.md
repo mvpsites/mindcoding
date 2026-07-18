@@ -8,8 +8,25 @@
 
 ---
 
-## ⚡ 2026-07-17/18 — THE MOTION+ PASS (branch feat/motion-pass, NOT merged —
-## awaiting Jad's on-device ruling before main)
+## ⚡ 2026-07-17/18 — THE MOTION+ PASS (feat/motion-pass — APPROVED BY JAD
+## ON-DEVICE 07-18, merged to main and deployed)
+
+- ✅ RULED 07-18: Jad witnessed the pass on his iPhone (RM off) and
+  approved — motion confirmed live. THE HERO INSTALL RESURRECTION IS THE
+  OWNER DECISION now, superseding the 07-15 retirement outright (the
+  intro-video plan is no longer the replacement path; if produced it will
+  be ruled on its own merits).
+- Two mobile fixes rode the merge (his device pass): the spread counter
+  moved from inside the wheel stage into the kick bar (the elevated
+  center card overlapped it at 390px — fixed by POSITION, not z-index),
+  and the subnav wraps at ≤700px with 32px tap targets (WISDOM was fully
+  off-screen at 390 — this also stopped the layout viewport inflating to
+  459px, so the whole site now renders true-width on phones). The 07-17
+  "subnav overflow" finding below is CLOSED by this.
+- device-truth.spec.mjs now carries: KEY DRAG UNLOCKS, EMBLEM RESPONDS,
+  INSTALL COMPLETES, theatre veil, PILLAR NAV LANDS, SPREAD COUNTER
+  CLEAR, SUBNAV REACHABLE — all four viewport × motion combinations.
+- sw at v74 as of the merge.
 
 - Jad purchased Motion+ (motion.dev) and instructed the pass in-conversation:
   a MOTION LAYER, not a redesign — all content/functions/text/layout intact.
@@ -45,10 +62,9 @@
   both modes) and PILLAR NAV LANDS (flip must land at opacity 1). First
   install-check run caught its own click landing above the viewport on the
   1209px-tall section — clamp your click points on tall sections.
-- OWED: Jad's on-device verdicts — unlock feel (magnet strength .45, seat
-  bounce .3, the 400ms beat), install pacing on his Safari/trackpad (the
-  original repro debt), rule width/weight taste, pillar flip distance
-  (24px), emblem spring (vd .30 bounce .22). Then merge to main.
+- ~~OWED: Jad's on-device verdicts~~ → DELIVERED 07-18: approved as-is
+  (magnet .45, seat bounce .3, 400ms beat, 24px flip, emblem spring
+  vd .30 bounce .22). Individual retunes remain open to future rulings.
 
 ## ⚡ 2026-07-15 — HERO INSTALL ANIMATION RETIRED + BRAND ASSETS INTEGRATED (branch
 ## feat/static-hero-brand-assets, owner's ruling — see workstream brief)
