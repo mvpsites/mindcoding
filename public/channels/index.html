@@ -122,7 +122,7 @@ h1.big .g{color:var(--red)}   /* ruled 07-12: the headline dot runs red, like th
   <a href="./love/">LOVE</a>
   <a href="./spirit/">SPIRIT</a>
   <a href="./wellness/">WELLNESS</a>
-  <a href="./books/">BOOKS</a>
+  <a href="./wisdom/">WISDOM</a>
 </nav>
 
 <section class="sec intro">
@@ -152,20 +152,20 @@ h1.big .g{color:var(--red)}   /* ruled 07-12: the headline dot runs red, like th
 
 <script>
 (function(){
-  var NUM = { abundance:'01', love:'02', spirit:'03', wellness:'04', books:'05' };
+  var NUM = { abundance:'01', love:'02', spirit:'03', wellness:'04', wisdom:'05' };
   var LEDE = {
     abundance: 'NOT MORE TO CHASE.<br /><span class="g">A DIFFERENT RELATIONSHIP TO ENOUGH.</span>',
     love: 'NOT ANOTHER PERSON TO PURSUE.<br /><span class="g">A NEW DEFINITION OF WHAT FEELS LIKE HOME.</span>',
     spirit: 'NOT ANOTHER BELIEF TO INSTALL.<br /><span class="g">A RETURN TO WHAT EXISTS BENEATH THE SCRIPT.</span>',
     wellness: 'NOT ANOTHER RULE TO FOLLOW.<br /><span class="g">THE RIGHT IDEA, HELD DAILY, REWRITES THE BODY.</span>',
-    books: 'NOT ANOTHER READING LIST.<br /><span class="g">THE INSTRUCTIONS, EXTRACTED.</span>'
+    wisdom: 'NOT ANOTHER READING LIST.<br /><span class="g">THE INSTRUCTIONS, EXTRACTED.</span>'
   };
   var SUPPORT = {
     abundance: 'Examine the scripts around worth, money, receiving and possibility.',
     love: 'Notice what feels familiar. Practice connection without repeating the old pattern.',
     spirit: 'Practice stillness, awareness, and contact with the part of you that cannot be reduced to one program.',
     wellness: 'Move, breathe, rest and eat in ways that keep the new instructions running.',
-    books: 'Each summary pulls the operating instructions out of one important book — what it says, and what to do with it.'
+    wisdom: 'Each summary pulls the operating instructions out of one important book — what it says, and what to do with it.'
   };
   fetch('../channels.json').then(function(r){ return r.json(); }).then(function(chans){
     var host = document.getElementById('chans');

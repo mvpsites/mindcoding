@@ -15,7 +15,7 @@
 Mind Coding (https://mindcod.ing) — a consciousness/personal-growth web
 product: a print-zine-styled editorial site with an interactive particle
 emblem, a 78-card tarot draw experience ("THE THEATRE"), and five content
-pillars (abundance · love · spirit · wellness · books), each a "roll" page
+pillars (abundance · love · spirit · wellness · wisdom), each a "roll" page
 of video entries. Launching August 2026.
 
 **The zine is the site root.** One continuous journey on the landing page:

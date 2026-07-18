@@ -170,7 +170,7 @@ jobs:
           RUNNER
           DT_PAGES='${{ inputs.pages }}' node dt-runner.mjs
         env:
-          DT_PAGES: ${{ inputs.pages || '["/", "/draw/", "/channels/", "/channels/books/"]' }}
+          DT_PAGES: ${{ inputs.pages || '["/", "/draw/", "/channels/", "/channels/wisdom/"]' }}
 
       - name: Post findings as commit comment
         if: failure()
